@@ -33,8 +33,9 @@ tmp/
 *.tmp
 
 # Large source materials · not committed to avoid bloating repo
-# Textbook PDF is 80MB · re-obtain from 杨老师 wechat if needed
+# Textbook PDF is 80MB · re-obtain from teacher wechat if needed
 data/source_pdfs/renjiao_2019_textbook_6books.pdf
 data/source_pdfs/textbook_*.pdf
-# Extracted textbook pages (if we generate them, they'd be many MB)
+# Extracted / rendered textbook pages (many MB, generate on demand)
 data/textbook_pages/
+data/reference/textbook_samples/
