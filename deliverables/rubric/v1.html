@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>物理试题难度预测 · Rubric v1 · sudowork agent for 杨蕾老师</title>
+<script>
+  MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{--ink:#1b1d1c;--muted:#5a5e5b;--border:#d0ccc0;--paper:#fbfaf5;--accent:#2b5a8b;--hilite:#fff5d6;--hilite-border:#d9c07a;--box:#eef4fa;--box-border:#8dabcf;--key:#c8410f;--ok:#1e7d3e;}
+  *{box-sizing:border-box}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;font-size:15px;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;padding:44px 56px 100px;background:var(--paper);}
+  header.doc{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:28px;}
+  .kicker{font-size:11px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;letter-spacing:0.02em;}
+  .meta{font-size:13px;color:var(--muted);}
+  .meta b{color:var(--ink);font-weight:500}
+  h2{font-size:19px;color:var(--accent);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  h3{font-size:15.5px;margin:20px 0 8px;font-weight:600;}
+  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #b18a1e;padding:12px 16px;margin:0 0 20px;font-size:13.5px;color:#5a4a1a;border-radius:2px;}
+  .banner b{color:#3b3013}
+  .banner.ok{background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20}
+  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:#1e3d5f}
+  .ask{background:#fbeaea;border:1px solid #d99c9c;border-left:4px solid #b32a2a;padding:12px 16px;margin:14px 0;border-radius:2px;font-size:14px;}
+  .ask .lbl{font-weight:700;color:#8b1a1a;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;}
+  th,td{border:1px solid var(--border);padding:6px 10px;text-align:left;}
+  th{background:#f4efe2;font-weight:600;font-size:13px;}
+  .n{text-align:right;font-variant-numeric:tabular-nums;}
+  .green{color:var(--ok);font-weight:600}
+  .red{color:var(--key);font-weight:600}
+  em.term{color:var(--accent);font-style:normal;font-weight:600;background:#eef4fa;padding:1px 5px;border-radius:2px;}
+  em.key{color:var(--key);font-style:normal;font-weight:600;background:#fff0e8;padding:1px 5px;border-radius:2px;}
+  .r-under{background:#ffece2}
+  .r-over{background:#e2eeff}
+  .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0;}
+  .metric{background:#fff;border:1px solid var(--border);border-radius:4px;padding:14px;text-align:center;}
+  .metric .val{font-size:26px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+  .metric .lbl{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.1em;text-transform:uppercase}
+  footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="kicker">命题辅助工具 · v1 pilot</div>
+  <h1>物理试题难度预测 · Rubric v1</h1>
+  <div class="meta">
+    <b>杨蕾老师</b> (北京八中物理教研组长) 的问题: 命题时能否预测难度, 让试题有好的难度结构 ·
+    <b>sudowork agent</b> · 2026-08-01 pilot
+  </div>
+</header>
+
+<div class="banner">
+  <b>本页 3 件事:</b> (1) 说清楚我的 rubric v1 是什么 (10 维评分); (2) 用您 2026.4 一模的红字得分率数据做 pilot 拟合, 看方法有没有真 signal; (3) 明确 5 个需要您 confirm 或 provide 的点, 才能 scale 到 5 份全数据。
+</div>
+
+<!-- 结果概览 -->
+<h2>Pilot 结果一览</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="val">0.886</div><div class="lbl">R² (in-sample)</div></div>
+  <div class="metric"><div class="val">0.058</div><div class="lbl">MAE (平均误差)</div></div>
+  <div class="metric"><div class="val">33 / 10</div><div class="lbl">数据点 / 特征</div></div>
+</div>
+
+<div class="banner info">
+  <b>R² = 0.886 的解读:</b> pilot 里 rubric 捕捉了 88.6% 的得分率方差, <b>signal 非常强</b>。<b>但要 caveat</b>: 33 数据点 / 10 特征 = 3.3 obs/feature, 有 overfit 风险 —— 真实 out-of-sample R² 大概会掉到 0.5-0.7。5 套全数据合计 ~150 点后可以 cross-validation 得到更 honest 的估计。<b>结论: 方法论 works, 值得 scale 到 5 套。</b>
+</div>
+
+<!-- Rubric 定义 -->
+<h2>Rubric v1 · 10 维评分</h2>
+
+<p>每题打 10 个数字 (整数 0-5 或 0-1 二分类), 然后 linear regression 拟合到得分率:</p>
+
+<table>
+<tr><th>特征</th><th>说明</th><th>取值</th><th>Fitted 系数</th></tr>
+<tr><td><em class="term">concept</em></td><td>涉及独立物理概念数</td><td>1-5</td><td class="red">-0.196</td></tr>
+<tr><td><em class="term">reasoning</em></td><td>推理/代数步数 (1=套公式, 5=多步推导)</td><td>1-5</td><td class="red">-0.046</td></tr>
+<tr><td><em class="term">novelty</em></td><td>情境陌生度 (0=课本经典, 3=前沿/时事)</td><td>0-3</td><td>+0.012</td></tr>
+<tr><td><em class="term">visual</em></td><td>图像/表格数</td><td>0-3</td><td>+0.035</td></tr>
+<tr><td><em class="term">modeling</em></td><td>建模自主度 (0=题目给全, 3=学生自建)</td><td>0-3</td><td>+0.003</td></tr>
+<tr><td><em class="term">position</em></td><td>卷面位置比例 (0.0-1.0)</td><td>0.0-1.0</td><td class="green">+0.333</td></tr>
+<tr><td><em class="term">open</em></td><td>是否大题分问 (0=选择, 1=解答)</td><td>0/1</td><td class="red">-0.214</td></tr>
+<tr><td><em class="term">mech</em></td><td>是否力学类</td><td>0/1</td><td class="green">+0.208</td></tr>
+<tr><td><em class="term">em</em></td><td>是否电磁类</td><td>0/1</td><td class="green">+0.233</td></tr>
+<tr><td><em class="term">tom</em></td><td>是否 热/光/近代</td><td>0/1</td><td>+0.128</td></tr>
+</table>
+
+<div class="banner info">
+  <b>系数解读 (可能反直觉的地方 · 需要您 confirm):</b>
+  <ul style="margin:6px 0">
+    <li><em class="green">position +0.333</em>: 卷面越靠后得分率反而越高? —— 这是因为本卷 17/18/20 是"运动学/电磁感应基础题",难度不高, 但排在 20 号位。这个 feature 可能不 generalizable, 5 套合起来后再看。</li>
+    <li><em class="green">mech/em/tom 都为正</em>: 说明所有具体学科都比"综合(baseline)"得分率高。但"综合"类只有 Q14 和 Q20 两道, 样本太少, 系数不稳定。</li>
+    <li><em class="red">open -0.214</em>: 大题得分率显著低于选择题, 符合直觉 (大题步骤多, 每步都可能失分)。</li>
+  </ul>
+</div>
+
+<!-- 残差分析 -->
+<h2>关键 residual · rubric 抓不到的 pattern</h2>
+
+<p>10 道 residual 最大的题 (rubric 打分 vs 实际得分差距最大), 是 rubric 需要迭代的方向:</p>
+
+<table>
+<tr><th>题号</th><th>实际得分率</th><th>rubric 预测</th><th>残差</th><th>类型</th><th>可能的 domain-specific 特征</th></tr>
+<tr class="r-under"><td>Q18-2</td><td class="n">0.45</td><td class="n">0.62</td><td class="n red">-0.17</td><td>低估难度</td><td>多力+能量+电磁复合, "总电能"概念抽象</td></tr>
+<tr class="r-over"><td>Q15-1</td><td class="n">0.88</td><td class="n">0.72</td><td class="n green">+0.16</td><td>高估难度</td><td>作图法折射率, 学生练熟了</td></tr>
+<tr class="r-under"><td>Q5</td><td class="n">0.97</td><td class="n">1.10</td><td class="n red">-0.13</td><td>低估 (prediction 越界 &gt;1)</td><td>波形+振动双图, 但设计 obvious</td></tr>
+<tr class="r-under"><td>Q2</td><td class="n">0.80</td><td class="n">0.90</td><td class="n red">-0.10</td><td>低估难度</td><td>光的现象四选一, 相似易混</td></tr>
+<tr class="r-under"><td>Q13</td><td class="n">0.45</td><td class="n">0.55</td><td class="n red">-0.10</td><td>低估难度</td><td>等势线+电场分析, 空间想象要求高</td></tr>
+<tr class="r-under"><td>Q15-2</td><td class="n">0.54</td><td class="n">0.63</td><td class="n red">-0.09</td><td>低估难度</td><td>多用电表操作步骤, 纯记忆但易忘</td></tr>
+<tr class="r-over"><td>Q11</td><td class="n">0.62</td><td class="n">0.53</td><td class="n green">+0.09</td><td>高估难度</td><td>加速度计设计, 教材有相似模型</td></tr>
+<tr class="r-over"><td>Q6</td><td class="n">0.93</td><td class="n">0.84</td><td class="n green">+0.09</td><td>高估难度</td><td>圆周运动参量选择, 熟练题型</td></tr>
+<tr class="r-under"><td>Q16-3</td><td class="n">0.67</td><td class="n">0.75</td><td class="n red">-0.08</td><td>低估难度</td><td>单摆 g 公式推导, 表达式记忆易错</td></tr>
+<tr class="r-over"><td>Q4</td><td class="n">0.90</td><td class="n">0.83</td><td class="n green">+0.07</td><td>高估难度</td><td>交流发电机, 电动势有效值经典</td></tr>
+</table>
+
+<div class="banner">
+  <b>Pattern I see:</b>
+  <ul style="margin:6px 0">
+    <li><b>Rubric 系统性低估难度的题</b>: 光/电场/波动 类, "概念简单但学生易混"型 (Q2/Q5/Q13/Q15-2/Q18-2) —— rubric 需要加一个特征 "<em class="key">易混陷阱数</em>" (相似易错概念数)</li>
+    <li><b>Rubric 系统性高估难度的题</b>: 力学/电磁感应基础模型 (Q4/Q6/Q11/Q15-1) —— rubric 需要加"<em class="key">教材经典模型度</em>" (0=novel, 1=教材出现过原型)</li>
+    <li><b>Q5 predicted 1.10 &gt; 1</b>: linear regression 没约束到 [0,1], 应该改用 logistic regression 或 clip。5 套数据后可以换 GBM 或 logistic。</li>
+  </ul>
+</div>
+
+<!-- 学科 & 类型分布 -->
+<h2>学科 / 题型分布 (2026.4)</h2>
+
+<table>
+<tr><th>学科</th><th>题号</th><th>题数</th><th>均得分率</th></tr>
+<tr><td>力学 (含波动)</td><td>5, 6, 7, 8, 12, 16, 17, 19</td><td>13 (含分问)</td><td class="n">0.782</td></tr>
+<tr><td>电磁</td><td>4, 9, 10, 11, 13, 15-2, 15-3, 18, 20-1, 20-2</td><td>13</td><td class="n">0.678</td></tr>
+<tr><td>热/光/近代</td><td>1, 2, 3, 14, 15-1</td><td>5</td><td class="n">0.858</td></tr>
+</table>
+
+<div class="banner info">
+  电磁类均分率最低 (0.678) · 这就是杨老师说的"难度结构"关键点: 如果一份卷子电磁题占比过大, 全卷难度会显著偏难; 反之偏易。这个信号可以帮您<b>提前预测卷面整体难度</b>。
+</div>
+
+<!-- 明确的 5 个 asks -->
+<h2>需要您 confirm 或 provide 的 5 个点</h2>
+
+<div class="ask">
+  <span class="lbl">1 · rubric 打分校准</span>
+  我给 33 道题打的 10 维分数 (见 <a href="#raw">附录原始数据</a>) 是我 read 题目后的一次估计。您能否 sample 3-5 题看看打分对不对? 特别是 <b>concept / reasoning / modeling</b> 这三维, 您和学生的直觉可能比我准。
+</div>
+
+<div class="ask">
+  <span class="lbl">2 · 关于西城期末那张 delta 图</span>
+  您 17:19 发的 2026.1 西城期末图, 蓝色和橙色双柱各代表什么? (一个班 vs 另一个班? 男生 vs 女生? 预期 vs 实际?) 弄清后我把那份数据也加进 pilot。
+</div>
+
+<div class="ask">
+  <span class="lbl">3 · 其它 4 份 PDF 我可以按同样方法处理吗?</span>
+  2024/2025 高考 + 2024/2025 西城一模 共 4 份, 每份大约 30 数据点, 合计 ~120+ 点 · 加上今天已经做的 2026 一模 33 点 = ~150 点, 就可以做 cross-validation 了。您 OK 我明天全部处理吗? (今天时间可能不够全部读完)
+</div>
+
+<div class="ask">
+  <span class="lbl">4 · 我要不要加"易混陷阱数"和"教材经典模型度"两个特征?</span>
+  从上面 residual 分析看, 这两个特征可能显著改善 rubric。但打分需要您的经验 (哪些概念易混, 哪些是教材原型), 我自己打的会有偏差。您愿意花 30-40 分钟给 33 道题各打这两个特征吗? (或者您 sample 打 10 题, 我看出 pattern 后自己 extrapolate)
+</div>
+
+<div class="ask">
+  <span class="lbl">5 · 关于 Ethan 提的 DGX Spark 本地训练</span>
+  Ethan 说本地有 DGX Spark 可以跑 Qwen 35B post-training。如果 5 套数据 R² 稳定在 0.6+ (out-of-sample), 后续可以让专门的 AI 用这些数据 fine-tune 一个专用难度预测模型。您用起来会比单纯的 rubric 表格更方便 (直接扔一道题的图/文进去, 输出预测难度)。这个不用您现在决定, 但方向可以先在心里过一下。
+</div>
+
+<!-- 附录 -->
+<h2 id="raw">附录 · 原始数据表</h2>
+
+<p>33 道题 (含分问), 10 维特征打分 + 实际得分率 + rubric 预测 + 残差。</p>
+
+<div style="overflow-x:auto">
+<table style="font-size:12.5px">
+<tr>
+<th>题号</th><th>actual</th><th>pred</th><th>resid</th>
+<th>concept</th><th>reasoning</th><th>novelty</th><th>visual</th><th>modeling</th><th>position</th><th>open</th><th>mech</th><th>em</th><th>tom</th>
+</tr>
+<tr><td>1</td><td class="n">0.93</td><td class="n">0.83</td><td class="n">+0.10</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0.05</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>2</td><td class="n">0.80</td><td class="n">0.90</td><td class="n red">-0.10</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0.10</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>3</td><td class="n">0.89</td><td class="n">0.93</td><td class="n">-0.04</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0.15</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>4</td><td class="n">0.90</td><td class="n">0.83</td><td class="n">+0.07</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0.20</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>5</td><td class="n">0.97</td><td class="n">1.10</td><td class="n red">-0.13</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0.25</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>6</td><td class="n">0.93</td><td class="n">0.84</td><td class="n">+0.09</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">1</td><td class="n">1</td><td class="n">0.30</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>7</td><td class="n">0.92</td><td class="n">0.86</td><td class="n">+0.06</td><td class="n">2</td><td class="n">2</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">0.35</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>8</td><td class="n">0.89</td><td class="n">0.86</td><td class="n">+0.03</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0.40</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>9</td><td class="n">0.66</td><td class="n">0.72</td><td class="n">-0.06</td><td class="n">3</td><td class="n">3</td><td class="n">0</td><td class="n">1</td><td class="n">1</td><td class="n">0.45</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>10</td><td class="n">0.72</td><td class="n">0.71</td><td class="n">+0.01</td><td class="n">3</td><td class="n">3</td><td class="n">1</td><td class="n">1</td><td class="n">2</td><td class="n">0.50</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>11</td><td class="n">0.62</td><td class="n">0.53</td><td class="n">+0.09</td><td class="n">4</td><td class="n">4</td><td class="n">2</td><td class="n">2</td><td class="n">2</td><td class="n">0.55</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>12</td><td class="n">0.71</td><td class="n">0.72</td><td class="n">-0.01</td><td class="n">3</td><td class="n">3</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0.60</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>13</td><td class="n">0.45</td><td class="n">0.55</td><td class="n red">-0.10</td><td class="n">4</td><td class="n">4</td><td class="n">1</td><td class="n">2</td><td class="n">2</td><td class="n">0.65</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>14</td><td class="n">0.69</td><td class="n">0.66</td><td class="n">+0.03</td><td class="n">3</td><td class="n">3</td><td class="n">2</td><td class="n">2</td><td class="n">2</td><td class="n">0.70</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>15-1</td><td class="n">0.88</td><td class="n">0.72</td><td class="n green">+0.16</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">2</td><td class="n">1</td><td class="n">0.72</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">1</td></tr>
+<tr><td>15-2</td><td class="n">0.54</td><td class="n">0.63</td><td class="n red">-0.09</td><td class="n">3</td><td class="n">2</td><td class="n">0</td><td class="n">2</td><td class="n">0</td><td class="n">0.73</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>15-3</td><td class="n">0.89</td><td class="n">0.75</td><td class="n">+0.14</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">2</td><td class="n">1</td><td class="n">0.74</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>16-1</td><td class="n">0.86</td><td class="n">0.74</td><td class="n">+0.12</td><td class="n">2</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0.75</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>16-2</td><td class="n">0.80</td><td class="n">0.71</td><td class="n">+0.09</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td><td class="n">0.76</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>16-3</td><td class="n">0.67</td><td class="n">0.75</td><td class="n red">-0.08</td><td class="n">2</td><td class="n">2</td><td class="n">0</td><td class="n">0</td><td class="n">1</td><td class="n">0.77</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>16-4</td><td class="n">0.37</td><td class="n">0.36</td><td class="n">+0.01</td><td class="n">4</td><td class="n">4</td><td class="n">3</td><td class="n">1</td><td class="n">3</td><td class="n">0.78</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>17-1</td><td class="n">0.98</td><td class="n">0.99</td><td class="n">-0.01</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0.80</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>17-2a</td><td class="n">0.97</td><td class="n">0.99</td><td class="n">-0.02</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0.81</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>17-2b</td><td class="n">0.82</td><td class="n">0.80</td><td class="n">+0.02</td><td class="n">2</td><td class="n">2</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0.82</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>18-1a</td><td class="n">0.91</td><td class="n">0.82</td><td class="n">+0.09</td><td class="n">2</td><td class="n">2</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">0.85</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>18-1b</td><td class="n">0.89</td><td class="n">0.82</td><td class="n">+0.07</td><td class="n">2</td><td class="n">2</td><td class="n">1</td><td class="n">1</td><td class="n">1</td><td class="n">0.86</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>18-2</td><td class="n">0.45</td><td class="n">0.62</td><td class="n red">-0.17</td><td class="n">3</td><td class="n">3</td><td class="n">1</td><td class="n">1</td><td class="n">2</td><td class="n">0.87</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>19-1</td><td class="n">0.66</td><td class="n">0.68</td><td class="n">-0.02</td><td class="n">3</td><td class="n">3</td><td class="n">1</td><td class="n">1</td><td class="n">2</td><td class="n">0.90</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>19-2a</td><td class="n">0.59</td><td class="n">0.60</td><td class="n">-0.01</td><td class="n">3</td><td class="n">3</td><td class="n">2</td><td class="n">1</td><td class="n">3</td><td class="n">0.91</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>19-2b</td><td class="n">0.28</td><td class="n">0.31</td><td class="n">-0.03</td><td class="n">4</td><td class="n">5</td><td class="n">2</td><td class="n">1</td><td class="n">3</td><td class="n">0.92</td><td class="n">1</td><td class="n">1</td><td class="n">0</td><td class="n">0</td></tr>
+<tr><td>20-1a</td><td class="n">0.90</td><td class="n">0.85</td><td class="n">+0.05</td><td class="n">2</td><td class="n">2</td><td class="n">1</td><td class="n">0</td><td class="n">0</td><td class="n">0.95</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>20-1b</td><td class="n">0.39</td><td class="n">0.40</td><td class="n">-0.01</td><td class="n">4</td><td class="n">4</td><td class="n">2</td><td class="n">0</td><td class="n">3</td><td class="n">0.96</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">0</td></tr>
+<tr><td>20-2</td><td class="n">0.28</td><td class="n">0.28</td><td class="n">+0.00</td><td class="n">5</td><td class="n">5</td><td class="n">3</td><td class="n">0</td><td class="n">3</td><td class="n">0.99</td><td class="n">1</td><td class="n">0</td><td class="n">1</td><td class="n">1</td></tr>
+</table>
+</div>
+
+<div class="banner ok">
+  <b>下一步 (v2 methodology · 已 commit · 见 <a href="#reply-cv">评论 thread</a>):</b>
+  <ol style="margin:6px 0">
+    <li>处理剩余 4 份 PDF (2024/2025 高考 + 2024/2025 西城一模), 数据点扩到 ~150</li>
+    <li>换成 logistic regression 或 GBM (避免 prediction &gt; 1)</li>
+    <li><b>Leave-One-Paper-Out (LOPO) cross-validation</b> —— 5 折, 每折留一份 paper 当 test, 用其它 4 份 train。这比 random 5-fold 严格 (后者会把同一份 paper 的题混进 train/test 让模型偷学 paper-specific 特征)。这是模拟"新出一份卷子, 用历史数据预测其难度"的真实使用场景。Report LOPO R² 作为 honest 主指标 + random 5-fold 作 upper bound reference。</li>
+    <li><b>Cohort effect handling (年份差异)</b> —— 需先问杨老师"同一学校/同一教材, 3 年一模成绩是否 comparable? 每一届学生水平变化多大?"。Model 选项优先级: (a) 预测 <code>score_rate - paper_mean</code> 而非 raw score_rate → factor out 每份卷子的 cohort baseline (最干净); (b) 加 <code>paper_id</code>/<code>year</code> 作 fixed-effect feature (sanity check); (c) mixed-effects 模型 (样本量足够大时才做)。</li>
+    <li>如果 LOPO R² &gt; 0.6, 就可以生产化 —— 您命新题时输入 10 维打分, 直接得到预测得分率, 帮您 balance 卷面</li>
+  </ol>
+</div>
+
+<div class="banner info" id="reply-cv">
+  <b>Methodology commitments · v2 (来自 Ethan 2026-08-01 comment):</b>
+  <ol style="margin:6px 0">
+    <li><em class="term">"一定要做 cross-validation, 因为我们最终样本不会太大, 西城区几年下来, 而已。特别谨慎过拟合。"</em> → 采用 LOPO CV, 见上第 3 点</li>
+    <li><em class="term">"每一年学生的差异, 是否有, 最好和杨老师确认, 然后考虑怎么 fit-in 模型, 至少要有这样的尝试"</em> → 见上第 4 点 · 优先跑 (a) score_rate - paper_mean</li>
+  </ol>
+</div>
+
+<footer class="doc">
+  sudowork agent · 2026-08-01 pilot · 为杨蕾老师(北京八中物理教研组长)构建 · v1 会随您的反馈迭代
+</footer>
+
+</div>
+</body>
+</html>

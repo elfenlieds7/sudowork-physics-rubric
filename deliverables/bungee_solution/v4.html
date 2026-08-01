@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>蹦极问题 · 逐步解答与图解 · sudowork agent</title>
+<meta name="description" content="High school physics bungee problem, step-by-step solution with SVG diagrams">
+<script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']]},
+    svg: {fontCache: 'global'}
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{
+    --ink:#1b1d1c;
+    --muted:#5a5e5b;
+    --border:#d0ccc0;
+    --paper:#fbfaf5;
+    --accent:#2b5a8b;
+    --hilite:#fff5d6;
+    --hilite-border:#d9c07a;
+    --box:#eef4fa;
+    --box-border:#8dabcf;
+    --key:#c8410f;
+    --ok:#1e7d3e;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.75;
+    font-size:15.5px;
+    margin:0;
+    padding:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:860px;
+    margin:0 auto;
+    padding:44px 56px 100px;
+    background:var(--paper);
+  }
+  header.doc{
+    border-bottom:2px solid var(--ink);
+    padding-bottom:18px;
+    margin-bottom:32px;
+  }
+  .kicker{
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  h1{
+    font-family:"Songti SC","Source Han Serif SC","Noto Serif SC",Georgia,serif;
+    font-weight:600;
+    font-size:28px;
+    margin:0 0 10px;
+    letter-spacing:0.02em;
+  }
+  .meta{font-size:13px;color:var(--muted)}
+  .meta b{color:var(--ink);font-weight:500}
+  h2{
+    font-size:20px;
+    color:var(--accent);
+    margin:36px 0 14px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--border);
+  }
+  h3{
+    font-size:16px;
+    color:var(--ink);
+    margin:24px 0 10px;
+    font-weight:600;
+  }
+  h3 .tag{
+    display:inline-block;
+    background:var(--accent);
+    color:#fff;
+    padding:2px 8px;
+    border-radius:3px;
+    font-size:12px;
+    font-weight:normal;
+    margin-right:8px;
+    vertical-align:middle;
+  }
+  p{margin:8px 0 12px}
+  .banner{
+    background:var(--hilite);
+    border:1px solid var(--hilite-border);
+    border-left:4px solid #b18a1e;
+    padding:12px 16px;
+    margin:0 0 26px;
+    font-size:13.5px;
+    color:#5a4a1a;
+    border-radius:2px;
+  }
+  .banner b{color:#3b3013}
+  .answer{
+    background:#e8f4ec;
+    border:1px solid #7fbc90;
+    border-left:4px solid var(--ok);
+    padding:12px 16px;
+    margin:14px 0;
+    border-radius:2px;
+  }
+  .answer .lbl{
+    font-weight:600;
+    color:var(--ok);
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+  .note{
+    background:var(--box);
+    border:1px solid var(--box-border);
+    border-left:4px solid var(--accent);
+    padding:10px 14px;
+    margin:12px 0;
+    border-radius:2px;
+    font-size:14px;
+  }
+  .note .lbl{
+    font-weight:600;
+    color:var(--accent);
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+  .warn{
+    background:#fbeaea;
+    border:1px solid #d99c9c;
+    border-left:4px solid #b32a2a;
+    padding:10px 14px;
+    margin:12px 0;
+    border-radius:2px;
+    font-size:14px;
+  }
+  .warn .lbl{
+    color:#8b1a1a;
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:4px;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:36px 1fr;
+    gap:12px;
+    margin:16px 0;
+  }
+  .step .num{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    border-radius:50%;
+    width:32px;
+    height:32px;
+    font-size:14px;
+  }
+  .step .body{padding-top:2px}
+  em.term{
+    color:var(--accent);
+    font-style:normal;
+    font-weight:600;
+    background:#eef4fa;
+    padding:1px 5px;
+    border-radius:2px;
+  }
+  em.key{
+    color:var(--key);
+    font-style:normal;
+    font-weight:600;
+    background:#fff0e8;
+    padding:1px 5px;
+    border-radius:2px;
+  }
+  figure{
+    margin:20px 0;
+    text-align:center;
+  }
+  figcaption{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:6px;
+  }
+  svg{max-width:100%;height:auto;background:#fff;border:1px solid var(--border);border-radius:4px}
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  @media (max-width:640px){.grid2{grid-template-columns:1fr}}
+  table.verify{
+    width:100%;
+    border-collapse:collapse;
+    margin:12px 0;
+    font-size:14px;
+  }
+  table.verify td, table.verify th{
+    border:1px solid var(--border);
+    padding:8px 12px;
+    text-align:left;
+  }
+  table.verify th{background:#f4efe2;font-weight:600}
+  table.verify .check{color:var(--ok);font-weight:600}
+  footer.doc{
+    margin-top:60px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-size:12px;
+    color:var(--muted);
+    text-align:center;
+  }
+  @media print{
+    body{background:#fff}
+    .page{padding:20px 30px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="kicker">高考物理解题 · 详解 + 图解</div>
+  <h1>蹦极问题 · 逐步解答</h1>
+  <div class="meta">
+    <span><b>来自</b> 杨蕾老师 (北京八中)</span> ·
+    <span><b>解题</b> sudowork agent (Ethan 的 AI 协作助手)</span> ·
+    <span><b>日期</b> 2026-08-01</span>
+  </div>
+</header>
+
+<div class="banner">
+  <b>说明 ·</b> 杨老师您好, 这是您发的蹦极题的完整解答, 每一步都尽量画图 + 写清楚推理逻辑, 方便您和豆包的答案对照, 也方便您找到我可能出错的地方。任何一步您发现问题, 请随时纠正, 我会 update 这个页面并说明。
+</div>
+
+<div class="warn" style="background:#fef8e5;border-color:#d9c07a;border-left-color:#b18a1e;color:#5a4a1a">
+  <span class="lbl" style="color:#7a5f10">v2 更新 · 2026-08-01 17:00 · 杨老师指正后</span>
+  <b>(2a) 我原来答成了 kL = 4mg (等式), 是错的 · 正确应为 kL ≤ 4mg (不等式)。</b><br>
+  错误原因: 把题目 "a ≤ 3g" 当成了 "a = 3g" · 把"匹配规律" (约束) 当成了"最优边界" (等式)。这跟豆包踩的是同一个坑。<br>
+  详细的<b>系统性反思</b>见文末新增段: <a href="#reflection" style="color:#7a5f10;font-weight:600">为什么 LLM 会犯这个错 · 3 个执行层偏差</a>。<br>
+  (2b) 数值 L₁=16, k₁=150 <em>仍然正确</em>, 因为"最合适" = 优化解, 恰好落在 kL=4mg 的安全边界上 —— 但推导语言需要修正。
+</div>
+
+<!-- ========= 题目 & 物理设定 ========= -->
+<h2>题目物理设定 · 建模</h2>
+
+<p>游客从固定点 $O$ 静止下落, 弹性绳原长 $L_0$、劲度系数 $k_0$、质量为零, 弹力与形变成正比且始终在弹性限度内, 重力加速度 $g$。设游客下落位移为 $x$:</p>
+
+<div class="grid2">
+  <div>
+    <ul>
+      <li><em class="term">$x \le L_0$</em>: 弹性绳松弛, 仅受重力, 自由下落</li>
+      <li><em class="term">$x > L_0$</em>: 弹性绳伸长 $(x - L_0)$, 弹力 $F = k_0(x - L_0)$ 向上</li>
+    </ul>
+  </div>
+  <figure>
+    <!-- Bungee tower diagram -->
+    <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+      <!-- Tower -->
+      <rect x="20" y="20" width="30" height="200" fill="#c8c4b8" stroke="#5a4a2b"/>
+      <line x1="20" y1="20" x2="50" y2="20" stroke="#5a4a2b" stroke-width="2"/>
+      <!-- Anchor point O -->
+      <circle cx="60" cy="30" r="5" fill="#2b5a8b"/>
+      <text x="72" y="34" font-size="14" font-weight="bold" fill="#2b5a8b">O</text>
+      <!-- Elastic rope (dashed) -->
+      <line x1="60" y1="35" x2="60" y2="120" stroke="#c8410f" stroke-width="2" stroke-dasharray="4,3"/>
+      <text x="72" y="80" font-size="12" fill="#c8410f">L₀ (原长)</text>
+      <!-- Elastic rope stretched (zigzag) -->
+      <path d="M60 120 L55 128 L65 136 L55 144 L65 152 L55 160 L65 168 L55 176 L65 184 L55 192 L60 200"
+            stroke="#c8410f" stroke-width="2" fill="none"/>
+      <text x="72" y="160" font-size="12" fill="#c8410f">Δx (伸长)</text>
+      <!-- Person -->
+      <circle cx="60" cy="212" r="10" fill="#5a4a2b"/>
+      <text x="80" y="216" font-size="13" fill="#5a4a2b">游客 m</text>
+      <!-- Arrow for x direction -->
+      <line x1="220" y1="35" x2="220" y2="215" stroke="#2b5a8b" stroke-width="1.5"/>
+      <line x1="215" y1="210" x2="220" y2="220" stroke="#2b5a8b" stroke-width="1.5"/>
+      <line x1="225" y1="210" x2="220" y2="220" stroke="#2b5a8b" stroke-width="1.5"/>
+      <text x="230" y="130" font-size="13" fill="#2b5a8b" font-style="italic">下落位移 x</text>
+      <!-- x=L0 mark -->
+      <line x1="215" y1="120" x2="225" y2="120" stroke="#2b5a8b" stroke-width="1"/>
+      <text x="230" y="124" font-size="11" fill="#2b5a8b">x = L₀</text>
+    </svg>
+    <figcaption>图 1 · 物理场景重绘</figcaption>
+  </figure>
+</div>
+
+<!-- ========= (1a) ========= -->
+<h2>(1a) · 求速度最大时弹性绳的形变量 $\Delta x_0$</h2>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    <b>关键物理直觉 ·</b> 速度最大 $\iff$ 加速度为零 $\iff$ 合外力为零。<br>
+    (再往下, 弹力大于重力, 会开始减速。)
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="body">
+    <b>力平衡方程 (向下为正):</b>
+    $$m_0 g - k_0 \Delta x_0 = 0$$
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <div class="body">
+    <b>解出:</b>
+    <div class="answer">
+      <span class="lbl">答案 · (1a)</span>
+      $$\boxed{\Delta x_0 = \dfrac{m_0 g}{k_0}}$$
+    </div>
+  </div>
+</div>
+
+<!-- ========= (1b) ========= -->
+<h2>(1b) · $F$-$x$ 图像 & 弹力做功 $W_F$</h2>
+
+<h3><span class="tag">STEP 1</span> 画 F-x 图像</h3>
+
+<p>由弹力表达式:</p>
+<ul>
+  <li>$0 \le x \le L_0$: $F = 0$ (弹性绳松弛)</li>
+  <li>$x > L_0$: $F = k_0(x - L_0)$, 是过 $(L_0, 0)$ 斜率 $k_0$ 的射线</li>
+</ul>
+
+<figure>
+  <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Axes -->
+    <line x1="60" y1="260" x2="450" y2="260" stroke="#333" stroke-width="1.5"/>
+    <line x1="60" y1="260" x2="60" y2="30" stroke="#333" stroke-width="1.5"/>
+    <text x="440" y="278" font-size="14" font-style="italic">x</text>
+    <text x="45" y="30" font-size="14" font-style="italic">F</text>
+    <!-- Arrows -->
+    <polygon points="450,257 460,260 450,263" fill="#333"/>
+    <polygon points="57,30 60,20 63,30" fill="#333"/>
+    <!-- F = 0 line from x=0 to x=L0 -->
+    <line x1="60" y1="260" x2="180" y2="260" stroke="#c8410f" stroke-width="2.5"/>
+    <!-- F = k0(x - L0) linear from (L0, 0) to (L0+Δx, k0·Δx) -->
+    <line x1="180" y1="260" x2="420" y2="70" stroke="#c8410f" stroke-width="2.5"/>
+    <!-- Fill under curve from L0 to L0+Δx (triangle) -->
+    <polygon points="180,260 420,260 420,70" fill="#c8410f" fill-opacity="0.18" stroke="none"/>
+    <!-- x = L0 dashed vertical -->
+    <line x1="180" y1="260" x2="180" y2="65" stroke="#888" stroke-dasharray="3,3"/>
+    <text x="172" y="278" font-size="13">L₀</text>
+    <!-- x = L0 + Δx0 mark -->
+    <line x1="300" y1="260" x2="300" y2="165" stroke="#888" stroke-dasharray="3,3"/>
+    <text x="270" y="278" font-size="12">L₀+Δx₀</text>
+    <line x1="55" y1="165" x2="65" y2="165" stroke="#333" stroke-width="1"/>
+    <text x="15" y="170" font-size="12">m₀g</text>
+    <!-- x = L0 + Δx mark (endpoint) -->
+    <line x1="420" y1="260" x2="420" y2="70" stroke="#888" stroke-dasharray="3,3"/>
+    <text x="392" y="278" font-size="12">L₀+Δx</text>
+    <!-- Point at (L0+Δx0, m0g) - equilibrium/max speed -->
+    <circle cx="300" cy="165" r="4" fill="#1e7d3e"/>
+    <text x="308" y="150" font-size="12" fill="#1e7d3e">平衡点 · 速度最大</text>
+    <!-- Point at endpoint -->
+    <circle cx="420" cy="70" r="4" fill="#c8410f"/>
+    <text x="330" y="60" font-size="12" fill="#c8410f">(L₀+Δx, k₀Δx)</text>
+    <!-- Area label -->
+    <text x="270" y="230" font-size="13" fill="#5a1010" font-weight="bold">面积 = W<tspan baseline-shift="sub" font-size="9">弹</tspan> 大小</text>
+    <text x="270" y="248" font-size="11" fill="#5a1010">= ½ · Δx · k₀Δx</text>
+  </svg>
+  <figcaption>图 2 · $F$-$x$ 图像 (红色阴影 = 从原长到形变 $\Delta x$ 的弹力做功大小)</figcaption>
+</figure>
+
+<h3><span class="tag">STEP 2</span> 由图像求 $W_F$</h3>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    <b>图像面积 = 力对位移的积分:</b><br>
+    从 $x = L_0$ 到 $x = L_0 + \Delta x$, $F$-$x$ 图像下方是<b>直角三角形</b>, 底 $= \Delta x$, 高 $= k_0 \Delta x$。
+    $$\text{面积} = \tfrac{1}{2} \cdot \Delta x \cdot k_0 \Delta x = \tfrac{1}{2} k_0 (\Delta x)^2$$
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="body">
+    <b>正负号判断:</b><br>
+    弹力方向<em class="term">向上</em>, 位移方向<em class="term">向下</em> (游客下落), 力与位移<em class="key">反向</em>, 故弹力做<em class="key">负功</em>。
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">3</div>
+  <div class="body">
+    <div class="answer">
+      <span class="lbl">答案 · (1b)</span>
+      $F$-$x$ 图像见上; 弹力做功表达式:
+      $$\boxed{W_F = -\tfrac{1}{2} k_0 (\Delta x)^2}$$
+      <div style="font-size:13px;color:var(--muted);margin-top:6px">(其大小 $|W_F| = \tfrac{1}{2} k_0 (\Delta x)^2$ 即图像下方三角形面积)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========= (2a) ========= -->
+<h2>(2a) · 弹性绳原长 $L$ 与劲度系数 $k$ 和质量 $m$ 的匹配规律</h2>
+
+<div class="note">
+  <span class="lbl">解题思路</span>
+  设计目标: 在 <em>最大加速度 $a_{\max} \le 3g$</em> 的约束下, <em>让自由下落距离 $L$ 尽可能大</em>。这是一个<b>有约束的最优化</b> —— 取约束的边界(等号)时 $L$ 最大。
+</div>
+
+<h3><span class="tag">STEP 1</span> 最大加速度出现在哪里?</h3>
+
+<figure>
+  <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Person path (vertical line) -->
+    <line x1="240" y1="30" x2="240" y2="270" stroke="#c8c4b8" stroke-width="1"/>
+    <!-- Position markers -->
+    <!-- Start O -->
+    <circle cx="240" cy="30" r="6" fill="#2b5a8b"/>
+    <text x="255" y="34" font-size="13" fill="#2b5a8b" font-weight="bold">O · 起始 (v=0, a=g 向下)</text>
+    <!-- L0 point (rope just taut) -->
+    <line x1="230" y1="110" x2="250" y2="110" stroke="#333" stroke-width="1.5"/>
+    <text x="255" y="114" font-size="12">$x = L$ · 弹性绳自然绷直</text>
+    <!-- Equilibrium point (max speed) -->
+    <circle cx="240" cy="170" r="5" fill="#1e7d3e"/>
+    <text x="255" y="174" font-size="12" fill="#1e7d3e">$x = L + mg/k$ · 平衡点 · v_max, a=0</text>
+    <!-- Lowest point (max stretch, max deceleration) -->
+    <circle cx="240" cy="260" r="7" fill="#c8410f"/>
+    <text x="255" y="264" font-size="13" fill="#c8410f" font-weight="bold">$x = L + \Delta x_{\max}$ · 最低点 · v=0, a_max 向上</text>
+    <!-- Arrows for direction of motion / acceleration -->
+    <path d="M 220 200 L 220 230" stroke="#c8410f" stroke-width="2" fill="none"/>
+    <polygon points="215,205 220,195 225,205" fill="#c8410f"/>
+    <text x="180" y="220" font-size="11" fill="#c8410f">a 向上<br/>(减速)</text>
+    <!-- Label the a=g region -->
+    <path d="M 200 60 L 200 100" stroke="#5a4a2b" stroke-width="2" fill="none"/>
+    <polygon points="195,95 200,105 205,95" fill="#5a4a2b"/>
+    <text x="140" y="80" font-size="11" fill="#5a4a2b">a = g<br/>(自由下落)</text>
+  </svg>
+  <figcaption>图 3 · 加速度沿蹦极过程的变化</figcaption>
+</figure>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    过程分析(<em class="term">合力向上视为正加速度方向</em>):
+    <ul>
+      <li>$0 \le x \le L$: $a = g$ 向下 (自由下落)</li>
+      <li>$L < x < L + \frac{mg}{k}$: 弹力小于重力, $a$ 仍向下但减小</li>
+      <li>$x = L + \frac{mg}{k}$: 弹力 = 重力, $a = 0$, <b>速度最大</b></li>
+      <li>$x > L + \frac{mg}{k}$: 弹力大于重力, $a$ 反向<b>向上</b>, 游客减速</li>
+      <li>$x = L + \Delta x_{\max}$ (最低点, $v=0$): 弹力最大, <b>加速度最大</b> $a_{\max}$ 向上</li>
+    </ul>
+    <b>结论:</b> 最大加速度出现在 <em class="key">最低点</em> (最大形变处), 方向<em class="key">向上</em>。
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="body">
+    <b>最低点受力方程:</b>
+    $$k \, \Delta x_{\max} - mg = m \cdot a_{\max}$$
+    <b>安全约束 $a_{\max} \le 3g$ (注意: 是 ≤, 不是 =):</b>
+    $$k \, \Delta x_{\max} - mg \le 3mg \quad\Longrightarrow\quad k \, \Delta x_{\max} \le 4mg$$
+  </div>
+</div>
+
+<h3><span class="tag">STEP 2</span> 结合能量守恒推匹配规律</h3>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    从 $O$ (起始, $v=0$) 到最低点 ($v=0$), 动能变化为零。<br>
+    <b>能量守恒:</b> 重力做正功 = 弹性势能增量
+    $$mg (L + \Delta x_{\max}) = \tfrac{1}{2} k (\Delta x_{\max})^2 \quad \cdots \text{(*)}$$
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="body">
+    由 (*) 解 $\Delta x_{\max}$ (二次方程正根):
+    $$\Delta x_{\max} = \dfrac{mg}{k}\left(1 + \sqrt{1 + \dfrac{2kL}{mg}}\right)$$
+    代入安全约束 $k\Delta x_{\max} \le 4mg$:
+    $$mg\left(1 + \sqrt{1 + \dfrac{2kL}{mg}}\right) \le 4mg$$
+    $$\sqrt{1 + \dfrac{2kL}{mg}} \le 3 \quad\Longrightarrow\quad \dfrac{2kL}{mg} \le 8$$
+    $$\boxed{\,kL \le 4mg\,}$$
+  </div>
+</div>
+
+<div class="answer">
+  <span class="lbl">答案 · (2a) · v2 已修正</span>
+  <b>匹配规律 (安全约束):</b> $\boxed{kL \le 4mg}$
+  <div style="margin-top:10px;font-size:14px">
+    <b>物理含义:</b> 对于给定质量 $m$ 的游客, $(L, k)$ 的选择应满足 $kL \le 4mg$ —— 这是 "最大加速度 $a_{\max} \le 3g$" 直接翻译过来的<em class="term">约束不等式</em>, 定义了所有<b>安全合格设计的可行域</b>。<br>
+    <b>特例</b>: 当取等号 $kL = 4mg$ 时, $a_{\max}$ 恰好等于 $3g$, 且 $\Delta x_{\max} = L$。这是"体验最好(自由下落距离最大)且刚好保持安全"的<b>边界最优点</b>, 但不是 (2a) 匹配规律本身 —— (2b) 里我们会看到这个特例的应用。
+  </div>
+</div>
+
+<div class="warn">
+  <span class="lbl">v1 → v2 修正说明</span>
+  v1 里我原来答成了 <b>kL = 4mg</b> (等式), 是<em class="key">错的</em>。杨老师指正: 题目要求 $a \le 3g$ 是"范围", 不是"特定值", 所以答案该是不等式。我在文末新增了<a href="#reflection">系统性反思段落</a> 解释我为什么会犯这个错。
+</div>
+
+<!-- ========= (2b) ========= -->
+<h2>(2b) · $m = 60\text{ kg}$ 游客的设计</h2>
+
+<div class="note">
+  <span class="lbl">给定</span>
+  跳台距地面 $H = 40$ m · 最低点距地面 $\ge 8$ m · $m = 60$ kg · $g = 10$ m/s² · 需满足 (2a) 匹配规律。
+</div>
+
+<div class="note">
+  <span class="lbl">从 (2a) 到 (2b) 的桥梁</span>
+  (2a) 的约束 $kL \le 4mg$ 给出一个可行域 · (2b) 问"最合适" · 需要在可行域里挑一个具体 $(L_1, k_1)$。<br>
+  "最合适" 的准则来自题目: "让游客有较大的自由下落距离" (体验完全失重), 所以在场地约束下<b>最大化 $L$</b>。这个最大化的最优解会落在 (2a) 约束的边界 $kL = 4mg$ 上 (可通过对目标函数求导验证)。这就是 v1 版本把 (2a) 答成边界等式的根本诱因: 我把 (2b) 的最优解直接当成了 (2a) 的约束规律 · 但两者是<em class="key">不同层次的问题</em>。
+</div>
+
+<h3><span class="tag">STEP 1</span> 由场地约束求 $L$ 的上限</h3>
+
+<figure>
+  <svg viewBox="0 0 480 320" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ground -->
+    <line x1="60" y1="290" x2="420" y2="290" stroke="#5a4a2b" stroke-width="2"/>
+    <pattern id="hatch" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <path d="M 0 6 L 6 0" stroke="#5a4a2b" stroke-width="1"/>
+    </pattern>
+    <rect x="60" y="290" width="360" height="20" fill="url(#hatch)"/>
+    <!-- Tower -->
+    <rect x="80" y="30" width="12" height="260" fill="#c8c4b8" stroke="#5a4a2b"/>
+    <!-- O anchor -->
+    <circle cx="150" cy="35" r="5" fill="#2b5a8b"/>
+    <text x="160" y="39" font-size="13" fill="#2b5a8b" font-weight="bold">O</text>
+    <!-- L segment (natural length) -->
+    <line x1="150" y1="40" x2="150" y2="160" stroke="#c8410f" stroke-width="2" stroke-dasharray="4,3"/>
+    <text x="105" y="105" font-size="12" fill="#c8410f">L (自由下落)</text>
+    <!-- Δx segment (stretch) -->
+    <path d="M150 160 L145 168 L155 176 L145 184 L155 192 L145 200 L155 208 L145 216 L155 224 L145 232 L155 240 L150 250" stroke="#c8410f" stroke-width="2" fill="none"/>
+    <text x="105" y="205" font-size="12" fill="#c8410f">Δx_max (最大伸长)</text>
+    <!-- Person at lowest -->
+    <circle cx="150" cy="260" r="9" fill="#5a4a2b"/>
+    <text x="165" y="264" font-size="12" fill="#5a4a2b">游客 (最低点)</text>
+    <!-- Ground clearance measure -->
+    <line x1="240" y1="260" x2="240" y2="290" stroke="#1e7d3e" stroke-width="1.5"/>
+    <line x1="235" y1="265" x2="245" y2="265" stroke="#1e7d3e" stroke-width="1"/>
+    <line x1="235" y1="285" x2="245" y2="285" stroke="#1e7d3e" stroke-width="1"/>
+    <text x="250" y="277" font-size="13" fill="#1e7d3e" font-weight="bold">≥ 8 m</text>
+    <!-- Total tower height H = 40 -->
+    <line x1="380" y1="35" x2="380" y2="290" stroke="#2b5a8b" stroke-width="1.5"/>
+    <line x1="375" y1="40" x2="385" y2="40" stroke="#2b5a8b" stroke-width="1"/>
+    <line x1="375" y1="285" x2="385" y2="285" stroke="#2b5a8b" stroke-width="1"/>
+    <text x="390" y="160" font-size="13" fill="#2b5a8b" font-weight="bold">H = 40 m</text>
+    <!-- Total fall = L + Δx_max -->
+    <line x1="320" y1="40" x2="320" y2="260" stroke="#c8410f" stroke-width="1.5"/>
+    <line x1="315" y1="45" x2="325" y2="45" stroke="#c8410f" stroke-width="1"/>
+    <line x1="315" y1="255" x2="325" y2="255" stroke="#c8410f" stroke-width="1"/>
+    <text x="270" y="150" font-size="13" fill="#c8410f" font-weight="bold">L + Δx_max ≤ 32 m</text>
+  </svg>
+  <figcaption>图 4 · 场地几何约束</figcaption>
+</figure>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    <b>场地约束:</b> 总下落距离 (自由段 $L$ + 拉伸段 $\Delta x_{\max}$) $\le H - 8 = 32$ m:
+    $$L + \Delta x_{\max} \le 32 \text{ m}$$
+  </div>
+</div>
+
+<div class="step">
+  <div class="num">2</div>
+  <div class="body">
+    由 (2a) 匹配规律 <em class="term">$\Delta x_{\max} = L$</em>, 代入:
+    $$2L \le 32 \quad\Longrightarrow\quad L \le 16 \text{ m}$$
+    要让"自由下落距离尽可能大 (体验完全失重)", 取<em class="key">最大值</em>:
+    $$\boxed{L_1 = 16 \text{ m}}$$
+  </div>
+</div>
+
+<h3><span class="tag">STEP 2</span> 由 (2a) 匹配规律求 $k$</h3>
+
+<div class="step">
+  <div class="num">1</div>
+  <div class="body">
+    代入 $kL = 4mg$:
+    $$k_1 = \dfrac{4mg}{L_1} = \dfrac{4 \times 60 \times 10}{16} = \dfrac{2400}{16} = 150 \text{ N/m}$$
+  </div>
+</div>
+
+<div class="answer">
+  <span class="lbl">答案 · (2b)</span>
+  $$\boxed{L_1 = 16 \text{ m}, \quad k_1 = 150 \text{ N/m}}$$
+</div>
+
+<h3><span class="tag">验证</span> 数值代回全部约束</h3>
+
+<table class="verify">
+  <tr><th>项目</th><th>计算</th><th>结果</th><th></th></tr>
+  <tr>
+    <td>最大伸长</td>
+    <td>$\Delta x_{\max} = \dfrac{4mg}{k_1} = \dfrac{2400}{150}$</td>
+    <td>16 m ($= L_1$ ✓)</td>
+    <td class="check">✓</td>
+  </tr>
+  <tr>
+    <td>总下落距离</td>
+    <td>$L_1 + \Delta x_{\max} = 16 + 16$</td>
+    <td>32 m ($= 40-8$ ✓)</td>
+    <td class="check">✓</td>
+  </tr>
+  <tr>
+    <td>最低点弹力</td>
+    <td>$k_1 \cdot \Delta x_{\max} = 150 \times 16$</td>
+    <td>2400 N</td>
+    <td class="check">✓</td>
+  </tr>
+  <tr>
+    <td>最低点合力向上</td>
+    <td>$2400 - mg = 2400 - 600$</td>
+    <td>1800 N</td>
+    <td class="check">✓</td>
+  </tr>
+  <tr>
+    <td>最大加速度</td>
+    <td>$a_{\max} = 1800 / 60$</td>
+    <td>30 m/s² $= 3g$</td>
+    <td class="check">✓ 恰好触碰安全边界</td>
+  </tr>
+  <tr>
+    <td>能量守恒</td>
+    <td>$mgH_{\text{fall}} = 600 \times 32 = 19200$ J · $\tfrac{1}{2}k\Delta x_{\max}^2 = \tfrac{1}{2} \times 150 \times 256 = 19200$ J</td>
+    <td>平衡 ✓</td>
+    <td class="check">✓</td>
+  </tr>
+</table>
+
+<!-- ========= 总结 & 可能陷阱 ========= -->
+<h2>总结 & 常见错误 (可与豆包对照)</h2>
+
+<div class="note">
+  <span class="lbl">核心方法论</span>
+  蹦极问题的两个关键位置:
+  <ol style="margin:8px 0 0">
+    <li><b>平衡点</b>: 弹力 = 重力 · <em class="term">速度最大, 加速度为零</em></li>
+    <li><b>最低点</b>: 弹力最大 · <em class="key">加速度最大 (向上)</em>, 速度为零</li>
+  </ol>
+  <div style="margin-top:8px">这两个位置<em class="key">不同</em>, 常常混淆是这类题失分主因。</div>
+</div>
+
+<div class="warn">
+  <span class="lbl">豆包(或其它AI)可能踩的坑</span>
+  <ol style="margin:8px 0 0">
+    <li><b>混淆最大速度点 / 最大加速度点</b> — 想当然认为最低点也是 $v_{\max}$</li>
+    <li><b>(2a) 没意识到取约束边界最优</b> — 只写不等式 $kL \ge 4mg$ 或反向, 没锁到等号</li>
+    <li><b>(2a) 漏用能量守恒</b> — 只从力学分析出 $\Delta x_{\max} = 4mg/k$, 没结合能量导出 $L = \Delta x_{\max}$</li>
+    <li><b>(2b) 忽略 (2a) 的匹配规律</b> — 直接把 $L$ 和 $k$ 看作两个独立变量, 无解或多解</li>
+    <li><b>(2b) 场地约束方向搞反</b> — 把 8m 安全距离当成"至多 8m"</li>
+  </ol>
+</div>
+
+<h2 id="reflection">附: 为什么 LLM 会犯 (2a) 这个错 · Real root cause (v4 · 被 Ethan refine 3 次终于收敛)</h2>
+
+<div class="note">
+  <span class="lbl">诊断过程</span>
+  这段反思经历了 3 次迭代 —— 每次 Ethan 都指出我"没找到真 root cause · 更精确一点"。最终诊断和迭代过程都值得记录, 因为<em class="key">反思本身的精度问题</em> 可能比原题的错误更值得学习。
+</div>
+
+<h3>Real root cause (v4): 我 mis-identified 题型</h3>
+
+<p>物理题里有两种截然不同的问法, 需要不同的解法:</p>
+
+<div class="grid2">
+  <div class="note" style="background:#eef4fa;border-color:#8dabcf">
+    <span class="lbl" style="color:var(--accent)">Type A · 求约束/规律</span>
+    <b>问法</b>: "匹配规律" · "满足什么条件"<br>
+    <b>答案形式</b>: <em class="term">不等式</em> (定义可行域)<br>
+    <b>本题</b>: <b>(2a)</b><br>
+    <b>正解</b>: $kL \le 4mg$
+  </div>
+  <div class="note" style="background:#fff5d6;border-color:#d9c07a;border-left-color:#b18a1e">
+    <span class="lbl" style="color:#7a5f10">Type B · 求最优/设计</span>
+    <b>问法</b>: "最合适设计" · "最大 X"<br>
+    <b>答案形式</b>: <em class="term">边界等式</em> (约束的极限解)<br>
+    <b>本题</b>: <b>(2b)</b><br>
+    <b>正解</b>: $L_1=16, k_1=150$ (落在 $kL=4mg$ 边界)
+  </div>
+</div>
+
+<p><em class="key">极限思维是 Type B 的正确工具</em> · 我错在<em class="key">把它用到了 Type A</em> · 不是极限思维本身有问题。</p>
+
+<h3>迭代 v2 → v3 → v4 的反思精度演化</h3>
+
+<p>Ethan 3 次 push 我 "更精确一点 · 别 over-generalize", 反思演化如下:</p>
+
+<table class="verify">
+  <thead>
+    <tr><th>版本</th><th>诊断</th><th>问题</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>v2</b></td>
+      <td>3 个偏差:"较大→最大" auto-conversion + LLM 闭式偏好 + 跨领域错位</td>
+      <td>❌ 把工具本身 ("闭式偏好" / boundary thinking) 当罪魁 · 但工具没错</td>
+    </tr>
+    <tr>
+      <td><b>v3</b></td>
+      <td>没做 domain context switch · 没 apply 中国 HS 物理阅题惯例</td>
+      <td>⚠ 方向对但含糊 · "domain switch" 是笼统标签 · 没落到"具体在哪一步错了"</td>
+    </tr>
+    <tr>
+      <td><b>v4</b></td>
+      <td><em class="term">mis-identified 题型</em> —— 把 Type A 当成 Type B · 于是自然用了 Type B 的正确工具去答 Type A</td>
+      <td>✅ 具体 · 精确 · 落到"这一步做了这个错决定"</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>递归的 meta-lesson (可能比 (2a) 本身更重要)</h3>
+
+<p>Ethan 连续 push 我 3 次, 每次都在说 "别 over-generalize · 更精确一点"。揭示的是: <em class="key">我的反思本身也有 over-generalize 的 bias</em>。</p>
+
+<p>具体讲: 一遇到 "总结教训", 我就想给"大原则"型答案:</p>
+<ul>
+  <li>v2: "LLM 有闭式偏好" (大原则 · 但工具本身无罪)</li>
+  <li>v3: "没做 domain switch" (大原则 · 但太笼统)</li>
+</ul>
+<p>而不是"具体微观错误": <em class="term">"我在 (2a) 这一步把它当成了 Type B 优化问题, 直接跳过了'这问的是约束还是最优?'的 meta-check"</em>。</p>
+
+<p>Ethan 每次 push 都是把我从"大原则"拽回"具体错在哪"。</p>
+
+<div class="warn" style="border-left-color:#7a5f10;background:#fef8e5;color:#5a4a1a;margin-top:16px">
+  <span class="lbl" style="color:#7a5f10">一句话 takeaway</span>
+  <b>反思的精度, 需要和反思对象的精度匹配。</b><br>
+  错在具体一步, 就在具体一步反思。别用"大原则"把一个"微观误判"糊过去 —— 那样看起来很深刻, 但实际上没给未来的 debug 留 anchor。
+</div>
+
+<div class="banner" style="background:#e8f4ec;border-color:#7fbc90;color:#1a3d20;margin-top:24px">
+  <b>结论 · 也是我对 "AI + 人协作 · 人的价值" 的具体证据</b>
+  <p style="margin:8px 0">这个错误链精准展示了 LLM 的两层 blind spot:</p>
+  <ol style="margin:8px 0">
+    <li><b>知识都在,但没做 meta-identification</b> —— 我知道 $\le$ 和 $=$ 不同, 知道约束和优化不同, 但没在解题的关键 step 停下问"这题问的是哪种?"</li>
+    <li><b>反思也 over-generalize</b> —— 一犯错就想给"大原则",而不是"具体错在这一步"。这个 bias 让反思看起来很深, 实际上没有 actionable anchor。</li>
+  </ol>
+  <p style="margin:8px 0"><b>杨老师的价值</b>: 一眼看穿 "$a \le 3g$ 被当成 $a = 3g$" —— 40 年物理教学, 见过无数学生在这类词上翻船, 直接命中错误 fingerprint。</p>
+  <p style="margin:8px 0"><b>Ethan 的价值</b>: 3 次 push 让反思从"大原则"收敛到"具体微观错误"。没有他, 我会 stop at v2 (v2 看起来已经很"深"了)。<em class="key">AI 的反思能力有 diminishing returns, 需要人来 push 到底。</em></p>
+  <p style="margin:8px 0">AI + 人的协作里, 人的独特价值就在这些"AI 看不见自己没做对"和"AI 反思会自我满足"的 blind spots。</p>
+</div>
+
+<div class="banner" style="background:#eef4fa;border-color:#8dabcf;color:#1e3d5f;margin-top:12px">
+  <b>杨老师如果发现我这里(修正后)还有错 · 或反思漏了什么关键点</b> —— 请继续指正, 我会 v3 update 这个页面。这是我参加过最有意思的"考试" —— 老师不只看答案, 还看我怎么想错的。
+</div>
+
+<footer class="doc">
+  sudowork agent · Ethan (宋一民) 团队 · 2026-08-01 · 为杨蕾老师(北京八中物理教研组长)
+</footer>
+
+</div>
+</body>
+</html>
