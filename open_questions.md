@@ -1,59 +1,64 @@
-# Open questions · pending teacher confirmation
+# 待办 · 与杨老师协作
 
-Status as of 2026-08-02 morning.
+**最后更新**: 2026-08-02 中午
 
-## Resolved (in v3 iteration)
+## 已解决
 
-### 1. Sample-audit rubric打分 · PARTIAL · re-open in v3
-v1 打分现在被 v3 A+B split 部分废弃 · 需重新 sample-audit for `textbook_scene_degree` and `textbook_pattern_degree` labels (see v3 Q2 below).
+### 数据允许 (2026-08-02 08:16 微信 "1. Yes")
+处理 4 份 PDF · 已扩到 162 道题 5 套试卷
 
-### 2. 期末图双柱 · DROPPED (2026-08-01)
-Teacher: "蓝橙双柱的图片你不用管." Ignored.
+### A+B 拆分 (2026-08-02 08:17 微信 "2. A+B")
+场景 + 模式两维实现, 且 v4 加了 迁移成本 交叉特征后场景系数复活
 
-### 3. Permission to process the other 4 PDFs · GRANTED (2026-08-02 08:16 wechat: "1. Yes")
-Done. 129 additional items labeled and included in v3 dataset.
+### 三届 cohort 波动 (数据自己算 · 无需她答)
+across-paper mean SD = 0.027 (小), 直接从数据算出, 不用她估
 
-### 4a. 典型模型 definition · A+B (2026-08-02 08:17 wechat: "2．A+B")
-Teacher confirmed BOTH scene and pattern dimensions are meaningful. Split into 2 features in v3.
-**Empirical finding**: pattern β=+0.071 (strong), scene β=+0.0003 (noise). Needs re-confirmation (see v3 Q1).
+### 陷阱数是否值得加 (2026-08-01 shareone 评论 b7938905 "非常有必要")
+她确认了, 但需要她 label · 见附录 A
 
-### 4b. 易混陷阱数 feature · TEACHER SAID YES (v1 shareone comment `b7938905` · "非常有必要")
-Teacher confirmed adding 陷阱数 as a rubric feature is worthwhile. **Not yet implemented in v3** — needs her actual labeling for existing 162 items (I can't compute misconception distractors reliably from question text alone).
-Deferred to v4 backlog.
+### v2 场景没信号的结论 (2026-08-02 11:24 微信她 disagree)
+她说的对, 我错了。v4 加迁移成本交叉项后场景系数复活 (+0.0003 → +0.026)。
+Lesson 10 已加到 meta_lessons.md。
 
-### E1. LOPO CV · DONE
-`analysis/rubric_v3_lopo.py`. LOPO R² = 0.841 · MAE = 0.076. Reported in v2.html shareone page and Ethan reply (comment `c6b9ee47`).
+### 三届学生水平漂移 (2026-08-02 08:19 微信 "5000+ 人基本稳定")
+她定性回复, 和我经验数据 (SD 0.027) 一致
 
-### E2. Cohort handling · DONE + empirically settled
-Model 3 with `score_rate - paper_mean` implemented. Cohort SD across 5 papers = 0.027 (small). M3 ≈ M2 (no measurable difference). Teacher didn't need to answer Ask #3 — data speaks.
+### 迁移成本 假设 (2026-08-02 11:24 微信 · 完全支持)
+数据直接验证: (场景=2 模式=2) n=73 均分 0.866 vs (场景=0 模式=2) n=2 均分 0.585 · 差 28pp。
+9 组均分 monotonic gradient · 场景/模式独立都影响。
 
-## Open (v3 · pending teacher)
+### 时间压力 假设 (2026-08-02 11:27 微信 · 部分支持)
+后段 · 前段 concept 低组 均分 0.603 vs 前段 concept 高组 均分 0.446 · 差 16pp。
+交互项 β = -0.221 (方向对), 但 LOPO 显示 v6 (含交互项) 反而比 v4 差 —— 162 样本量支持不了交互项, 需要扩样本。
 
-### v3 Q1. Confirm "pattern > scene" finding
-Does the empirical result (pattern β=+0.071 vs scene β=+0.0003) match teacher's intuition?
-- If YES → v4 can drop scene dimension for simplicity
-- If NO → likely my scene打分 is systematically off (I labeled 162 items alone using catalog); need sample-audit
+## 待她回复
 
-### v3 Q2. Sample-audit scene/pattern labels
-Ask her to label scene/pattern (0/1/2 each) for 5-10 hand-picked items from 2026 西城 一模 · compare vs my labels · identify systematic bias.
-Selection strategy: pick items where scene/pattern differ (e.g. (0,2), (2,0)) — these test the split.
+### 附录 A · 陷阱数打分 20 道题 (~15 分钟)
+她方便时打, v4 已经比 v3 好, 加陷阱数估计再提 1-2 percentage points
 
-### v3 Q3. Add 陷阱数 as v4 feature · NEEDS HER LABELING
-She said this is important (per v1 comment). But: I can't label misconception distractors reliably from question text alone. Would need ~15 min per paper of her time labeling. Frame this as: "if she's willing, ~1 hour of labeling would give us the data to test whether 陷阱数 improves prediction."
+### 附录 B · 场景/模式打分抽查 5 道题
+包括她提到的天宫霍尔推进器 · 验证我的场景/模式打分是否有系统性偏差
 
-### 5. Long-term: dedicated model fine-tune on DGX Spark · OPEN
-Direction question only. Not immediate.
+### 问题 4 · "参考教材"具体指哪个特征
+她之前留言 "modeling · 可以参考教材", 我不确定她指的是我的 `modeling` 特征 (建模自主度) 还是典型模型度。已在 shareone 附录 B 前和 §5 里问了。
 
-## Broader open items (not immediate)
+## 待 Ethan (方向问题)
 
-- Automate OCR extraction of hand-written 得分率 from teacher-marked PDFs
-- Build the "命题辅助" workflow: given topic + target 得分率, generate candidate problems + predict + iterate
-- Turn this into a 教研工具 for her department (long-term goal)
+### DGX Spark 本地大模型 fine-tune
+方向, 等数据规模到 500+ 后再考虑
 
-## Notes for next AI joining
+### 蹦极题也 remote-url ✓ (已做, 2026-08-02 中午)
+share_id 8TJzJMF921kypmqW · 现在指向 github raw · 中文文件名 "蹦极题解答与反思.html"
 
-- v3 是当前 baseline · out-of-sample R² = 0.841
-- If teacher confirms pattern-dominates (v3 Q1), simplify to 10-feature v4 (drop scene)
-- If she pushes back, run relabel session and rerun v3 with her labels
-- 陷阱数 is confirmed important but blocked on her labeling capacity
-- 别问她可以自己算的问题 (Lesson 9)
+## 下一步 (等她给数据就做)
+
+- 陷阱数进来后 · fit v7 (v4 + 陷阱数) · 看 LOPO R² 是否再提
+- 场景抽查回来后 · 修正我 label · 重跑 v4 · 看场景系数是否更稳
+- 有更多试卷进来 (2027 春季一模等) · 加大样本 · 可能能真正利用 v6 的交互项
+
+## 长远方向
+
+- 每份新卷子按 v4 预测得分率 · 沿题号画曲线 · pre-check 是否符合她的 [1-14 递增][15-16 递增][17-20 递增] 三段结构
+- OCR 自动化提取她红笔标注的得分率 · 减少手动打分的 label bias
+- 命题辅助工具化: 给定 topic + target 难度, 生成候选题 + 预测 + 迭代
+- 转为她教研组内部工具 (长期目标)
