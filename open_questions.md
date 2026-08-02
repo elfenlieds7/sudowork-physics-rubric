@@ -1,75 +1,59 @@
 # Open questions · pending teacher confirmation
 
-Status as of 2026-08-01 · she's cooking dinner, will resume tomorrow.
+Status as of 2026-08-02 morning.
 
-## Pending from her (5 asks in rubric v1 page)
+## Resolved (in v3 iteration)
 
-Referenced in the deliverable at https://s.shareone.vip/s/difficulty-rubric-v1-yang (red-bordered "ASK" boxes).
+### 1. Sample-audit rubric打分 · PARTIAL · re-open in v3
+v1 打分现在被 v3 A+B split 部分废弃 · 需重新 sample-audit for `textbook_scene_degree` and `textbook_pattern_degree` labels (see v3 Q2 below).
 
-### 1. Rubric 打分校准 · OPEN
+### 2. 期末图双柱 · DROPPED (2026-08-01)
+Teacher: "蓝橙双柱的图片你不用管." Ignored.
 
-Are the 10-dimension scores I assigned to the 33 questions in `data/labeled/xicheng_2026_scored.json` reasonable? Especially `concept` / `reasoning` / `modeling` dimensions where teacher intuition matters. Ask her to sample 3-5 questions and eyeball.
+### 3. Permission to process the other 4 PDFs · GRANTED (2026-08-02 08:16 wechat: "1. Yes")
+Done. 129 additional items labeled and included in v3 dataset.
 
-### 2. 期末图双柱含义 · DROPPED (2026-08-01 22:45)
+### 4a. 典型模型 definition · A+B (2026-08-02 08:17 wechat: "2．A+B")
+Teacher confirmed BOTH scene and pattern dimensions are meaningful. Split into 2 features in v3.
+**Empirical finding**: pattern β=+0.071 (strong), scene β=+0.0003 (noise). Needs re-confirmation (see v3 Q1).
 
-Teacher said: "蓝橙双柱的图片你不用管，请忽略这张图片内容。"
-No action needed. Chart data not added to rubric.
+### 4b. 易混陷阱数 feature · TEACHER SAID YES (v1 shareone comment `b7938905` · "非常有必要")
+Teacher confirmed adding 陷阱数 as a rubric feature is worthwhile. **Not yet implemented in v3** — needs her actual labeling for existing 162 items (I can't compute misconception distractors reliably from question text alone).
+Deferred to v4 backlog.
 
-### 3. Permission to process the other 4 PDFs · OPEN
+### E1. LOPO CV · DONE
+`analysis/rubric_v3_lopo.py`. LOPO R² = 0.841 · MAE = 0.076. Reported in v2.html shareone page and Ethan reply (comment `c6b9ee47`).
 
-Currently only 2026.4 一模 (33 datapoints) processed. Other 4:
-- 2024/2025 gaokao physics
-- 2024/2025 西城 一模
+### E2. Cohort handling · DONE + empirically settled
+Model 3 with `score_rate - paper_mean` implemented. Cohort SD across 5 papers = 0.027 (small). M3 ≈ M2 (no measurable difference). Teacher didn't need to answer Ask #3 — data speaks.
 
-Processing gets us to ~150 datapoints — enough for LOPO cross-validation. Should be OK, just want her go-ahead.
+## Open (v3 · pending teacher)
 
-### 4. Add 2 new rubric features · PARTIALLY RESOLVED (2026-08-01 22:40-22:45)
+### v3 Q1. Confirm "pattern > scene" finding
+Does the empirical result (pattern β=+0.071 vs scene β=+0.0003) match teacher's intuition?
+- If YES → v4 can drop scene dimension for simplicity
+- If NO → likely my scene打分 is systematically off (I labeled 162 items alone using catalog); need sample-audit
 
-Rubric residual analysis (in the shareone page) suggests two missing features:
-- **易混陷阱数** (number of confusable-concept traps a question has) — STILL OPEN, needs teacher intuition
-- **教材经典模型度** (how much the question mirrors a textbook prototype) — **Teacher provided 6-book 人教版 2019 教材 (80MB PDF) as reference**. Guidance: "教材中的例题和习题的情景是学生比较熟悉的情景。可以根据教材确定典型模型。"
+### v3 Q2. Sample-audit scene/pattern labels
+Ask her to label scene/pattern (0/1/2 each) for 5-10 hand-picked items from 2026 西城 一模 · compare vs my labels · identify systematic bias.
+Selection strategy: pick items where scene/pattern differ (e.g. (0,2), (2,0)) — these test the split.
 
-Textbook is at `data/source_pdfs/renjiao_2019_textbook_6books.pdf` (git-ignored due to size; re-obtain from teacher wechat if needed).
-
-Next step for me: extract 例题/练习 catalog per chapter, define "典型模型" set, score existing 33 questions on this feature. See task #17.
-
-Still need her to clarify (pending 1 question):
-- "典型模型" = specific 物理场景/装置 (弹簧-滑块 · 单摆 · RL 电路 · 电磁感应导轨), OR 教材训练过的解题模式 (能量守恒解决碰撞 · 图像法解运动)? Different granularity.
+### v3 Q3. Add 陷阱数 as v4 feature · NEEDS HER LABELING
+She said this is important (per v1 comment). But: I can't label misconception distractors reliably from question text alone. Would need ~15 min per paper of her time labeling. Frame this as: "if she's willing, ~1 hour of labeling would give us the data to test whether 陷阱数 improves prediction."
 
 ### 5. Long-term: dedicated model fine-tune on DGX Spark · OPEN
-
-Ethan mentioned they have local DGX Spark that can run Qwen 35B post-training. If rubric methodology stabilizes with R² > 0.6 out-of-sample, we could fine-tune a dedicated difficulty-prediction model. Not for now; direction question only.
-
-## Pending from Ethan (this-session commitments)
-
-Ethan's shareone comment (2026-08-01) on rubric page has 2 methodology asks:
-
-### E1. Leave-One-Paper-Out (LOPO) cross-validation · COMMITTED
-
-Replace random 5-fold with LOPO. Report LOPO R² as honest main metric + random 5-fold as upper bound.
-
-**Blocker**: needs data from all 5 PDFs (currently only 2026 一模 processed). Depends on ask #3 above.
-
-**Deliverable**: `analysis/rubric_v2_lopo.py` + updated shareone page + new comment reply that resolves Ethan's comment.
-
-### E2. Cohort effect (年份 differences) handling · COMMITTED
-
-Two things:
-- **Must ask the teacher**: "同一学校 / 同一教材, 3 年一模成绩是否 comparable? 每一届学生水平变化多大?"
-- **Model change**: predict `score_rate - paper_mean` instead of raw `score_rate` — factor out per-paper cohort baseline (Option (b) from methodology reply).
-
-**Deliverable**: same as E1 + include cohort handling in v2 script + wechat message to the teacher asking the cohort question.
-
-## What I'll do when the teacher comes back tomorrow (proposed sequence)
-
-1. Wait for her to open the shareone rubric link and either comment / wechat back on the 5 asks
-2. Based on her answers, kick off `analysis/rubric_v2_lopo.py` implementation
-3. When v2 is done, deploy new HTML to same shareone URL (URL stable)
-4. Reply to Ethan's shareone comment with v2 results → he can resolve
-5. Send the teacher a "v2 ready" wechat with 1-2 explicit new asks (if any)
+Direction question only. Not immediate.
 
 ## Broader open items (not immediate)
 
-- Automate the "hand-written 得分率 extraction from PDFs" (OCR pipeline) so future papers she sends are auto-parsed
-- Build the "命题辅助" side: given a topic + target difficulty, generate 3-5 problem candidates + predict difficulty + cross-AI test
-- Turn this into a proper教研工具 for her department (long-term)
+- Automate OCR extraction of hand-written 得分率 from teacher-marked PDFs
+- Build the "命题辅助" workflow: given topic + target 得分率, generate candidate problems + predict + iterate
+- Turn this into a 教研工具 for her department (long-term goal)
+
+## Notes for next AI joining
+
+- v3 是当前 baseline · out-of-sample R² = 0.841
+- If teacher confirms pattern-dominates (v3 Q1), simplify to 10-feature v4 (drop scene)
+- If she pushes back, run relabel session and rerun v3 with her labels
+- 陷阱数 is confirmed important but blocked on her labeling capacity
+- 别问她可以自己算的问题 (Lesson 9)
