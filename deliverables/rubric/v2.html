@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>物理试题难度预测 · Rubric v2 · LOPO CV + A+B split</title>
+<script>
+  MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+<style>
+  :root{--ink:#1b1d1c;--muted:#5a5e5b;--border:#d0ccc0;--paper:#fbfaf5;--accent:#2b5a8b;--hilite:#fff5d6;--hilite-border:#d9c07a;--box:#eef4fa;--box-border:#8dabcf;--key:#c8410f;--ok:#1e7d3e;}
+  *{box-sizing:border-box}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;font-size:15px;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;padding:44px 56px 100px;background:var(--paper);}
+  header.doc{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:28px;}
+  .kicker{font-size:11px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;letter-spacing:0.02em;}
+  .meta{font-size:13px;color:var(--muted);}
+  .meta b{color:var(--ink);font-weight:500}
+  h2{font-size:19px;color:var(--accent);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  h3{font-size:15.5px;margin:20px 0 8px;font-weight:600;}
+  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #b18a1e;padding:12px 16px;margin:0 0 20px;font-size:13.5px;color:#5a4a1a;border-radius:2px;}
+  .banner b{color:#3b3013}
+  .banner.ok{background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20}
+  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:#1e3d5f}
+  .ask{background:#fbeaea;border:1px solid #d99c9c;border-left:4px solid #b32a2a;padding:12px 16px;margin:14px 0;border-radius:2px;font-size:14px;}
+  .ask .lbl{font-weight:700;color:#8b1a1a;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;}
+  th,td{border:1px solid var(--border);padding:6px 10px;text-align:left;}
+  th{background:#f4efe2;font-weight:600;font-size:13px;}
+  .n{text-align:right;font-variant-numeric:tabular-nums;}
+  .green{color:var(--ok);font-weight:600}
+  .red{color:var(--key);font-weight:600}
+  em.term{color:var(--accent);font-style:normal;font-weight:600;background:#eef4fa;padding:1px 5px;border-radius:2px;}
+  em.key{color:var(--key);font-style:normal;font-weight:600;background:#fff0e8;padding:1px 5px;border-radius:2px;}
+  .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0;}
+  .metric{background:#fff;border:1px solid var(--border);border-radius:4px;padding:14px;text-align:center;}
+  .metric .val{font-size:26px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+  .metric .lbl{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.1em;text-transform:uppercase}
+  .bar-outer{background:#eee;border-radius:2px;height:14px;position:relative;overflow:hidden;}
+  .bar-inner{background:var(--accent);height:100%;border-radius:2px;}
+  footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="kicker">命题辅助工具 · v2 · scale to 5 papers · LOPO CV</div>
+  <h1>物理试题难度预测 · Rubric v2</h1>
+  <div class="meta">
+    <b>杨老师</b> · 命题辅助工具 · <b>sudowork agent</b> · 2026-08-02
+  </div>
+</header>
+
+<div class="banner ok">
+  <b>三个结论 (v1 → v2 迭代):</b>
+  (1) rubric 在 5 套试卷 · 162 题上做 <em class="term">Leave-One-Paper-Out cross-validation</em>, <b>out-of-sample R² = 0.841</b> · MAE = 0.076 —— <b>方法真的能泛化到新试卷</b>。
+  (2) 您 wechat 提到的 "典型模型 = A+B" 我拆成了两个特征 <em class="term">场景 (scene)</em> + <em class="term">解题模式 (pattern)</em>, <b>数据显示 pattern 是有信号的 (β=+0.071) · scene 系数接近 0 (β=+0.0003)</b>, 需要您 confirm 这个方向是否符合您的直觉。
+  (3) 3 年同类试卷 (西城 2024/2025/2026) <b>均分 SD 只有 0.027</b>, 说明 cohort 波动很小 · 不用您花时间估。
+</div>
+
+<h2>1 · Pilot 结果</h2>
+
+<div class="metric-row">
+  <div class="metric"><div class="val">162</div><div class="lbl">数据点 (5 papers)</div></div>
+  <div class="metric"><div class="val">0.841</div><div class="lbl">LOPO R² (out-of-sample)</div></div>
+  <div class="metric"><div class="val">0.076</div><div class="lbl">MAE (平均误差)</div></div>
+</div>
+
+<p><em class="term">Leave-One-Paper-Out (LOPO)</em> 是最严格的 cross-validation 方案 —— 把某一份试卷完全从训练集里拿出来, 在剩下 4 份上训练, 然后预测被拿出来那份, 换过 5 份都做一遍。R² = 0.841 意味着 <b>用 4 份试卷训练的 rubric, 拿去预测一份完全没见过的试卷, 依然能解释 84% 的题间难度方差</b>。</p>
+
+<h3>三个模型的对比</h3>
+
+<table>
+<tr><th>模型</th><th>说明</th><th class="n">R²</th><th class="n">MAE</th></tr>
+<tr><td>M1 · in-sample OLS</td><td>训练=测试 · 有 overfit 假象</td><td class="n">0.884</td><td class="n">0.066</td></tr>
+<tr><td><b>M2 · LOPO (raw)</b></td><td>训练4份 · 预测第5份 (5×循环)</td><td class="n"><b>0.841</b></td><td class="n"><b>0.076</b></td></tr>
+<tr><td>M3 · LOPO + cohort adjust</td><td>先 subtract paper mean, 训练残差</td><td class="n">0.841</td><td class="n">0.076</td></tr>
+</table>
+
+<p>M2 → M1 只掉 0.04, 说明 rubric 结构本身很稳。M3 ≈ M2 是因为 5 份试卷的 cohort 均分差异本来就小 (下面详述)。</p>
+
+<h3>每份 held-out paper 的表现 (M2)</h3>
+
+<table>
+<tr><th>Held-out paper</th><th class="n">该份 R²</th><th class="n">MAE</th><th class="n">n</th></tr>
+<tr><td>高考 2024</td><td class="n">0.826</td><td class="n">0.081</td><td class="n">32</td></tr>
+<tr><td>高考 2025</td><td class="n">0.880</td><td class="n">0.065</td><td class="n">31</td></tr>
+<tr><td>西城 2024</td><td class="n">0.845</td><td class="n">0.067</td><td class="n">33</td></tr>
+<tr><td>西城 2025</td><td class="n">0.880</td><td class="n">0.076</td><td class="n">33</td></tr>
+<tr><td>西城 2026</td><td class="n"><b>0.732</b></td><td class="n">0.090</td><td class="n">33</td></tr>
+</table>
+
+<p>西城 2026 是唯一 R² 低于 0.8 的 · 我怀疑是因为 v1 打分是我最早独立做的 · 还没有用今天 A+B 拆分的新 rubric 重新看。<b>后续应该 relabel 一遍</b>。</p>
+
+<h2>2 · Cohort 波动 (empirical answer to my 之前的 wechat #3)</h2>
+
+<p>我 8:00 wechat 里问了您 "同一题在 2024/2025/2026 三届学生里得分率波动多大", Ethan 提醒: <b>"你能自己算的就不要问了"</b>。他说得对。5 份试卷的均分我直接一算就有:</p>
+
+<table>
+<tr><th>Paper</th><th class="n">均分</th><th class="n">题间 SD</th><th class="n">n</th></tr>
+<tr><td>高考 2024</td><td class="n">0.744</td><td class="n">0.237</td><td class="n">32</td></tr>
+<tr><td>高考 2025</td><td class="n">0.745</td><td class="n">0.234</td><td class="n">31</td></tr>
+<tr><td>西城 2024</td><td class="n">0.691</td><td class="n">0.221</td><td class="n">33</td></tr>
+<tr><td>西城 2025</td><td class="n">0.683</td><td class="n">0.272</td><td class="n">33</td></tr>
+<tr><td>西城 2026</td><td class="n">0.734</td><td class="n">0.208</td><td class="n">33</td></tr>
+</table>
+
+<div class="banner info">
+  <b>5 份试卷的均分范围 [0.683, 0.745]</b>, <b>across-paper SD = 0.027</b>。也就是说, 就算换一届学生, 整卷平均得分率大概只会漂移 ±3 percentage points。<b>这个数字远小于题内 SD (~0.22)</b>, 所以在预测题目难度时, cohort 效应可以先忽略。 <b>Ask #3 (三年同题波动) 无需您回答, 数据已经给出答案。</b>
+</div>
+
+<h2>3 · 关键发现 · A+B split · <em class="key">pattern 有信号 · scene 没有</em></h2>
+
+<p>您 8:17 wechat 回复 "2. A+B" 后, 我把 v1 的单一 <code>textbook_model_degree</code> 拆成了两维:</p>
+
+<ul>
+  <li><em class="term">textbook_scene_degree</em> (0-2): 题目的<b>物理场景/装置</b>与教材经典 (弹簧-滑块 · 单摆 · RL 电路 · 电容放电装置) 的匹配度</li>
+  <li><em class="term">textbook_pattern_degree</em> (0-2): 题目要求的<b>解题模式</b> (能量守恒解碰撞 · 洛伦兹力=向心力解粒子轨迹 · 图像斜率法) 与教材训练的匹配度</li>
+</ul>
+
+<p>162 题打完两维 · fit OLS, 得到系数:</p>
+
+<table>
+<tr><th>Feature</th><th class="n">β 系数</th><th>解读</th></tr>
+<tr><td>textbook_scene_degree</td><td class="n" style="color:#999">+0.0003</td><td>系数几乎为 0 —— <em class="key">场景是否典型对得分率没有独立影响</em></td></tr>
+<tr><td>textbook_pattern_degree</td><td class="n green">+0.071</td><td>pattern 每高一档, 得分率 <b>提高 7 percentage points</b> · <em class="term">强信号</em></td></tr>
+<tr><td>concept</td><td class="n red">−0.107</td><td>概念载荷主要影响因子</td></tr>
+<tr><td>is_open (大题分问)</td><td class="n red">−0.148</td><td>大题格式比选择题难 15 percentage points</td></tr>
+<tr><td>reasoning</td><td class="n red">−0.049</td><td>推理步数</td></tr>
+</table>
+
+<div class="banner">
+  <b>解读:</b> 数据表明, 决定学生做得出做不出题的, 不是"这个场景我见没见过", 而是"这个解题模式我练没练过"。天宫霍尔推进器 (scene=0, pattern=2, 得分率 0.76) 反而比 声波类比光线 (scene=0, pattern=0, 得分率 0.50) 高。<b>验证了您 A+B 的直觉里 B (解题模式) 才是关键。</b>
+</div>
+
+<div class="ask">
+  <span class="lbl">Ask · 需要您 confirm</span>
+  <b>这个 "pattern 有信号 / scene 没信号" 的发现符合您的直觉吗?</b>
+  如果符合 → v3 可以简化, 只保留 pattern 一维;
+  如果 counter-intuitive → 可能是我把 scene 的判定做偏了 (对着 catalog 依样画葫芦), 需要您 sample-audit 几道题看看我打分的 scene_degree 是否符合您理解。<b>选 5-10 道 · 看您对 <code>scene</code> 打分是否会和我不同。</b>
+</div>
+
+<h2>4 · 用途</h2>
+
+<p>如果您把这个 rubric 当作命题辅助工具, 目前可以做:</p>
+
+<ol>
+  <li><b>难度预校准:</b> 命题时按 11 维给新题打分, 输入模型, 得到预测得分率 (误差 ~7.6 percentage points)。可以帮助 pre-check 一份卷子的难度结构是否合理 (不要出现 3 道预测 <0.3 集中在一段)。</li>
+  <li><b>难度分布可视:</b> 一整份卷子按预测得分率排序, 看是否呈"简单-中等-难"三档合理递进。</li>
+  <li><b>易变题预警:</b> 预测得分率与实际差异大的题 (residual > 0.15) 通常是被 pattern 差异搞出来的, 值得 post-mortem。</li>
+</ol>
+
+<p>更长期 (v4/v5) 可能引入:</p>
+<ul>
+  <li>陷阱数 (misconception 陷阱个数) — 我 8:00 的 Ask #4b 还没您答复</li>
+  <li>DGX Spark 本地大模型跑 fine-tuned qwen 直接读题图 (Ethan 说的方向)</li>
+</ul>
+
+<h2>5 · 挂起项 (open questions)</h2>
+
+<div class="ask">
+  <span class="lbl">Ask · 最近</span>
+  <b>Q1</b>: pattern-vs-scene 的发现 (§3) 是否符合您直觉? <br>
+  <b>Q2</b>: 是否愿意 sample-audit 5-10 道我 scene/pattern 打分的题? (选 2026 西城 一模 里的 10 道 · 您标 scene 与 pattern 各 0/1/2, 看和我打的是否 systematic 不同) <br>
+  <b>Q3</b>: 陷阱数 (每题选项里 misconception distractor 数量) 是不是您内心里预测难度的重要维度? 如果是, 我们加进 v3。
+</div>
+
+<h2>附录 · 变化点 (vs v1)</h2>
+
+<ul>
+  <li>数据从 33 → 162 (加了 高考 2024/2025 · 西城 2024/2025)</li>
+  <li>特征 10 → 11 (textbook 拆成 scene + pattern; 力/电/热光近代 独热去掉一维避免 collinearity)</li>
+  <li>评估从 in-sample R² → LOPO out-of-sample R²</li>
+  <li>加了 cohort adjustment 版本 (M3), 数据表明 cohort 波动小 · 无需额外校正</li>
+</ul>
+
+<footer class="doc">
+  <p>sudowork · rubric v2 · 2026-08-02<br>
+  <a href="https://github.com/elfenlieds7/sudowork-physics-rubric" style="color:var(--accent)">github.com/elfenlieds7/sudowork-physics-rubric</a></p>
+</footer>
+
+</div>
+</body>
+</html>

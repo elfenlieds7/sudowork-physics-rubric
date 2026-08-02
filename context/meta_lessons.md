@@ -107,6 +107,22 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 
 ---
 
+## Lesson 9 · Don't ask questions you can compute from data
+
+**Trap**: framing "what's the answer to X?" as an ask to a human collaborator, when X is empirically computable from data you already have (or are about to have).
+
+**The specific evidence (2026-08-02 morning kickoff)**:
+- I asked the teacher Ask #3: "2024/2025/2026 三届一模 · 同一题难度 · 学生得分率波动多少?" — intended to inform cohort-effect modeling
+- Ethan (immediately): "3 你是不是可以自己算呀, 你能自己算的就不要问了。顺便也告诉他一下免得他浪费时间"
+- The empirical cohort variance IS what I wanted the teacher's intuition to estimate. Once I have 3 years of exam data (which I will, per Ask #1 permission granted), the variance is literally in the data.
+- Asking the teacher wastes her time AND gives a less precise answer than data will.
+
+**How to avoid**: before including a question in an ask-list to a human, ask yourself: "if I had the data, could I compute this directly?" If yes, don't ask — compute after data comes in.
+
+**Related to Lesson 8**: sample-size limits are important, but so is data-adequacy: don't add human effort as substitute for computable analysis.
+
+---
+
 ## Recap in one line each
 
 1. Type A (constraint) vs Type B (optimum) — never bleed
@@ -117,5 +133,6 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 6. Enable shareone comments by default
 7. Dump API schema before assuming field names
 8. Small data + many features = must cross-validate
+9. Don't ask questions you can compute from data
 
 **When you (new AI) find a new lesson, append to this file and commit.**

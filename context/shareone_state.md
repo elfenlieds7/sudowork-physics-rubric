@@ -18,16 +18,16 @@ External URLs currently in use for this project. Credentials NOT in this file (s
   - v3: better reflection but still含糊
   - v4: real root cause (Type A vs Type B problem type confusion), with recursive meta-lesson
 
-### 2. 难度预测 rubric v1 pilot
+### 2. 难度预测 rubric v2 (LOPO scaled up)
 
-- **URL**: https://s.shareone.vip/s/difficulty-rubric-v1-yang
+- **URL**: https://s.shareone.vip/s/difficulty-rubric-v1-yang  (slug retained from v1 for comment continuity)
 - **share_id**: `BzXjsrbu6uQ887Kg`
-- **slug**: `difficulty-rubric-v1-yang`
+- **slug**: `difficulty-rubric-v1-yang`  ← misleading, but changing it would fork the comment thread
 - **Password**: none (公开)
-- **allow_comments**: true (enabled 2026-08-01 after Ethan reminder)
-- **Current source**: `deliverables/rubric/v1.html`
-- **Content**: 33-datapoint OLS fit, R² = 0.886, 10-feature rubric
-- **Active comment thread**: 1 open — from `elfenlieds7` (Ethan, `author_role=owner`), asking for LOPO CV commitment. Replied as agent 2026-08-01; parent kept open until v2 delivers.
+- **allow_comments**: true
+- **Current source**: `deliverables/rubric/v2.html` (deployed 2026-08-02)
+- **v2 content**: 162-item dataset (5 papers), LOPO R² = 0.841, MAE = 0.076, A+B split textbook feature. Key finding: `textbook_pattern_degree` β=+0.071 (strong), `textbook_scene_degree` β=+0.0003 (noise).
+- **Active comment thread**: 1 open — parent id `4ec28439-bb0c-4e19-bbb1-68e70473ea5e` from `elfenlieds7` (Ethan, `author_role=owner`), asked for LOPO CV commitment. **Resolved 2026-08-02** with agent reply linking v2 deployment.
 
 ## Comment automation notes
 

@@ -5,13 +5,22 @@ Collaboration between **A collaborating physics teacher** (北京八中 物理�
 1. **Solving her physics problems** (with proper reflection + diagrams) — proof-of-concept that AI can be a genuine work partner, not just tool
 2. **Building a difficulty-prediction rubric** for exam questions — helping her predict question-level 得分率 at command time, to design better-structured tests
 
-## Current state (2026-08-02 early morning)
+## Current state (2026-08-02)
 
 - **Bungee problem case study (v1→v4)**: 3 reflection iterations after the teacher caught an error; documents the "Type A vs Type B problem type" trap that we later added to `meta_lessons.md`. Deliverable: https://s.shareone.vip/s/bungee-yang-laoshi
-- **Rubric v1 (pilot)**: fit on 2026.4 西城一模 (33 questions with hand-annotated score rates from the teacher), R² = 0.886 in-sample, MAE = 0.058, 10 features. Deliverable: https://s.shareone.vip/s/difficulty-rubric-v1-yang
-- **Rubric v2 (textbook feature)**: adds `textbook_model_degree` (0/1/2) using the teacher-provided 6-book 人教版 2019 textbook as reference. ΔR² = +0.0034 vs v1 — **not statistically distinguishable at n=33**. See `analysis/notebooks/v2_textbook_feature_analysis.md` for honest interpretation. Feature theoretically sound, waits for 5-paper dataset scale-up for real evaluation.
-- **Pending teacher confirmation on**: 4 remaining asks (see `open_questions.md`; #2 dropped by teacher)
-- **Pending Ethan-requested methodology**: LOPO cross-validation + cohort effect handling (see `context/meta_lessons.md` #8, requires 5-paper dataset)
+- **Rubric v1 (pilot · superseded)**: fit on 2026.4 西城一模 (33 questions), R² = 0.886 in-sample, 10 features.
+- **Rubric v2 (textbook feature · intermediate)**: adds `textbook_model_degree` (0/1/2). ΔR² = +0.0034 vs v1 — not distinguishable at n=33.
+- **Rubric v3 · LOPO scale-up · CURRENT** (2026-08-02):
+  - **162 items across 5 papers** (高考 2024/2025 + 西城 2024/2025/2026)
+  - **LOPO out-of-sample R² = 0.841 · MAE = 0.076** — rubric generalizes to unseen papers
+  - **A+B split**: `textbook_scene_degree` and `textbook_pattern_degree` (per teacher's answer). Pattern β=+0.071 (strong signal), scene β=+0.0003 (noise) — solution-pattern familiarity dominates over scene familiarity.
+  - Cohort variance empirically small: across-paper mean SD = 0.027 (resolved Ethan-flagged Ask #3 without teacher time)
+  - Deliverable: https://s.shareone.vip/s/difficulty-rubric-v1-yang (v2.html deployed, slug retained for comment continuity)
+  - Ethan's CV commitment (parent 4ec28439) resolved with reply comment c6b9ee47
+- **Pending teacher confirmation on**:
+  - Whether pattern-dominates-over-scene finding matches her intuition
+  - Sample-audit of 5-10 scene/pattern label choices
+  - Whether 陷阱数 (misconception distractor count) is worth adding as v4 feature (Ask #4b, still open)
 
 ## Project structure
 
@@ -21,30 +30,36 @@ data/
   source_images/       # Charts + problem images from the teacher (currently empty)
   extracted_pages/     # 44 PNG renderings of exam PDF pages (pymupdf ~150dpi)
   reference/
-    textbook_toc.md          # 6-book textbook table of contents (41 chapters, 786 pages)
-    dianxing_moxing_catalog.md  # 典型模型 catalog per chapter (v0.1 draft)
-    textbook_samples/        # Rendered sample pages for spot-check (gitignored)
+    textbook_toc.md              # 6-book textbook table of contents (41 chapters, 786 pages)
+    dianxing_moxing_catalog.md   # 典型模型 catalog · v0.2 with A+B split (scene + pattern)
+    textbook_samples/            # Rendered sample pages for spot-check (gitignored)
   labeled/
-    xicheng_2026_scored.csv     # v1: 33 questions × 10 features + score_rate
-    xicheng_2026_scored_v2.csv  # v2: same 33 questions × 11 features (+textbook_model_degree)
-    rubric_v1_result.json       # OLS fit results v1
-    rubric_v2_result.json       # OLS fit results v2 (includes v1 vs v2 comparison)
+    xicheng_2026_scored.csv       # v1: 33 questions × 10 features
+    xicheng_2026_scored_v2.csv    # v2: same 33 questions × 11 features
+    combined_scored_v3.csv        # v3: 162 items × 12 features across 5 papers · CURRENT
+    rubric_v1_result.json         # v1 OLS fit
+    rubric_v2_result.json         # v2 OLS fit
+    rubric_v3_result.json         # v3 LOPO CV + cohort + coefficients · CURRENT
 deliverables/
   bungee_solution/     # 蹦极题 v4 HTML (currently live on shareone)
-  rubric/              # Rubric v1 HTML (currently live) · v2 draft coming
+  rubric/              # v1.html (superseded) + v2.html (currently live on shareone)
 analysis/
-  rubric_v1_ols.py         # v1 baseline OLS regression
-  rubric_v2_textbook.py    # v2 adds textbook_model_degree feature, compares to v1
+  rubric_v1_ols.py             # v1 baseline OLS regression (33 items)
+  rubric_v2_textbook.py        # v2 adds textbook_model_degree feature (33 items)
+  build_v3_dataset.py          # v3 inline-labeled 162 items, emits combined CSV
+  rubric_v3_lopo.py            # v3 LOPO CV + cohort adjust + M1/M2/M3 comparison
+  reply_ethan_cv_comment.py    # one-shot: resolve Ethan's CV comment thread with v3 results
   notebooks/
-    v2_textbook_feature_analysis.md  # honest analysis of v2 results
+    v2_textbook_feature_analysis.md  # v2 honest analysis (n=33, not distinguishable)
+    v3_lopo_analysis.md              # v3 LOPO + A+B split findings
 scripts/
   pdf_to_png.py                # Batch render source_pdfs → extracted_pages
   render_textbook_sample.py    # On-demand sample textbook page renderer (spot-check)
 context/
   shareone_state.md    # All shareone URLs, share_ids, comment IDs (no credentials)
-  meta_lessons.md      # 8 reasoning traps discovered, methodology commitments
+  meta_lessons.md      # 9 reasoning traps discovered, methodology commitments
   key_moments.md       # Curated collaboration highlights (personal info scrubbed)
-open_questions.md      # Asks pending teacher confirmation (4 open, 1 dropped)
+open_questions.md      # Asks pending teacher confirmation (see also v3 notebook for new asks)
 ```
 
 ## Two collaboration surfaces (paired)

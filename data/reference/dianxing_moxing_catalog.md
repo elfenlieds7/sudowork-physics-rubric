@@ -1,13 +1,23 @@
-# 典型模型 catalog · 人教版高中物理 (2019版) · v0.1 draft
+# 典型模型 catalog · 人教版高中物理 (2019版) · v0.2
 
-**Purpose**: 定义 rubric 特征 `textbook_model_degree` 的判定原型。每题给 0/1/2 分:
-- **0** — 场景/模型不在教材经典范围内 (novel context OR 首次接触的物理现象)
-- **1** — 场景/模型是教材经典模型的**明显变形/组合** (换外壳 · 加约束 · 跨章组合)
-- **2** — 场景/模型是**教材例题/习题直接对应** (学生可秒 pattern-match)
+**v0.2 (2026-08-02) · A+B split per teacher answer**: teacher answered Ask #4 with "A+B" — 典型模型 = 物理场景/装置 **和** 教材训练的解题模式, 两者都算, 分开评。所以 rubric 拆成 **两个特征**:
 
-**Source**: TOC 对齐 `data/reference/textbook_toc.md` + AI 先验知识 + textbook 抽样 spot-check
+- `textbook_scene_degree` (0/1/2): 题目的**物理场景/装置**与教材经典模型 (弹簧-滑块 · 单摆 · RL 电路 · 电容放电装置 · 楞次定律线圈实验 …) 的相似度
+- `textbook_pattern_degree` (0/1/2): 题目要求的**解题模式** (能量守恒解碰撞 · 图像法解运动 · 洛伦兹力=向心力解粒子轨迹 · 动量守恒验证 …) 与教材训练模式的相似度
 
-**v0.1 status**: preliminary · 待 spot-check textbook 页面 · 待 teacher confirm (Ask #4 pending)
+**每档定义 (对两个维度都适用):**
+- **0** — 不在教材经典范围内 (novel context / novel pattern)
+- **1** — 教材经典的**明显变形/组合** (换外壳 · 加约束 · 跨章组合)
+- **2** — 教材例题/习题**直接对应** (学生可秒 pattern-match)
+
+**关键观察 (为什么 A+B 才对)**: 高频出现的 pattern 是"novel 场景 + 教材 pattern"。例:
+- 天宫霍尔推进器 → 场景 novel (0), 但 pattern = 洛伦兹力+能量守恒 (2)。scene=0, pattern=2.
+- 嫦娥六号椭圆变轨 → 场景 novel (1, 是变形), pattern = 开普勒+能量 (2). scene=1, pattern=2.
+- 声波类比光线 → 场景 novel (0), pattern novel (0). scene=0, pattern=0. (真正的难题)
+
+单一 `textbook_model_degree` 特征把两维压成一维 · 丢失 pattern 信号。
+
+**Source**: TOC 对齐 `data/reference/textbook_toc.md` + AI 先验知识 + textbook 抽样 spot-check + teacher A+B confirmation (2026-08-02 08:17 wechat)
 
 ---
 
@@ -70,15 +80,27 @@
 
 ---
 
-## 用于 rubric 的判定 checklist (给每题打 textbook_model_degree 0/1/2)
+## 用于 rubric 的判定 checklist (给每题打 scene_degree + pattern_degree · 各 0/1/2)
 
-**判定步骤:**
-1. 识别题目的物理情境和主要方法
-2. 对照上面 catalog · 是否有直接对应?
-   - 直接对应 (如"电容放电" · "折射率测量") → **2 分**
-   - 明显变形 (如"火箭动压" 但基础是动量定理 · "无人机投弹" 但基础是平抛) → **1 分**
-   - 不在 catalog / novel context → **0 分**
-3. 特别注意: 情境陌生 (novelty 高) 不等于模型陌生。**神舟飞船 = novel 情境 · 但模型是标准椭圆轨道变轨 → 应该 1 分不是 0 分**
+**Two-pass 判定步骤:**
+
+### Pass 1 · scene_degree (物理场景/装置)
+1. 抽出题目的**具体物理装置/情境** (不是解法, 是场景本身)
+2. 对照上面 catalog 的"典型模型"列 · 是否有直接对应?
+   - 直接对应 (弹簧-滑块 · 单摆装置 · 变压器电路 · 电容放电装置) → **2**
+   - 明显变形 (儿童滑梯 = 斜面变形 · 电磁弹射舱 = 电磁弹射变形) → **1**
+   - novel 装置/情境 (电磁流量计 · 阿秒光脉冲装置) → **0**
+
+### Pass 2 · pattern_degree (解题模式)
+1. 抽出题目要求的**主要方法链** (受力分析 → 牛二 → 运动学; 或 洛伦兹力 = 向心力 → 几何; 或 能量守恒 + 动量守恒 联立 …)
+2. 对照教材训练过的模式:
+   - 教材例题模式直接可套 (F=ma · 能量守恒 · 洛伦兹力向心) → **2**
+   - 需要小改造 (跨章联立 · 图像/极限技巧 · 特殊边界) → **1**
+   - novel pattern (建模思维 · 类比推理 · 数学构造) → **0**
+
+### 关键陷阱 (来自 v0.1 教训)
+- **情境 novelty (rubric feature `novelty`) ≠ scene_degree** —— 神舟飞船 novelty=1 (情境陌生), scene_degree=1 (椭圆轨道 = 变形), pattern_degree=2 (开普勒+能量)
+- **不要让 scene_degree 吃掉 pattern 信号** —— 声波类比光线 scene=0 但 pattern=0 才是真难 (0,0)
 
 ## Open questions to teacher (blocking full v2)
 

@@ -1,0 +1,126 @@
+{
+  "n_rows": 162,
+  "n_papers": 5,
+  "features": [
+    "concept",
+    "reasoning",
+    "novelty",
+    "visual",
+    "modeling",
+    "position",
+    "is_open",
+    "topic_mech",
+    "topic_em",
+    "textbook_scene_degree",
+    "textbook_pattern_degree"
+  ],
+  "cohort_variance": {
+    "per_paper_mean": {
+      "gaokao_2024": 0.7440625,
+      "gaokao_2025": 0.7454838709677419,
+      "xicheng_2024": 0.6906060606060606,
+      "xicheng_2025": 0.6827272727272727,
+      "xicheng_2026": 0.7336363636363636
+    },
+    "per_paper_sd_within": {
+      "gaokao_2024": 0.23740602581600578,
+      "gaokao_2025": 0.23410555531677776,
+      "xicheng_2024": 0.2206730667469673,
+      "xicheng_2025": 0.27224401629368,
+      "xicheng_2026": 0.20842581969144222
+    },
+    "across_paper_mean_of_means": 0.7193032135874877,
+    "across_paper_sd_of_means": 0.027074764316211666,
+    "interpretation": "5 试卷均分范围 ~ [0.683, 0.745]. 均分 sd across papers = 0.027 — 这就是 cohort variance 的经验估计"
+  },
+  "m1_in_sample": {
+    "r2": 0.883711281092696,
+    "mae": 0.06602430959415437,
+    "beta": {
+      "intercept": 0.9825372353018187,
+      "concept": -0.1066708324990401,
+      "reasoning": -0.0487114550980528,
+      "novelty": -0.016403031007327123,
+      "visual": 0.024967213924741577,
+      "modeling": -0.019713460823265104,
+      "position": 0.12399009652184168,
+      "is_open": -0.14853800463612066,
+      "topic_mech": 0.04466713754915663,
+      "topic_em": 0.08380343373703625,
+      "textbook_scene_degree": 0.00029113589876997303,
+      "textbook_pattern_degree": 0.07091767498994278
+    }
+  },
+  "m2_lopo_raw": {
+    "r2_pooled": 0.8413101515571095,
+    "mae_pooled": 0.0760471525344662,
+    "per_paper": {
+      "gaokao_2024": {
+        "n_test": 32,
+        "r2": 0.8257198962588861,
+        "mae": 0.0814450036422829
+      },
+      "gaokao_2025": {
+        "n_test": 31,
+        "r2": 0.8797122025142421,
+        "mae": 0.06488069681503619
+      },
+      "xicheng_2024": {
+        "n_test": 33,
+        "r2": 0.8451306289380263,
+        "mae": 0.06745786135341966
+      },
+      "xicheng_2025": {
+        "n_test": 33,
+        "r2": 0.8799034885843717,
+        "mae": 0.07638418104559574
+      },
+      "xicheng_2026": {
+        "n_test": 33,
+        "r2": 0.7321192761126583,
+        "mae": 0.08955483616960123
+      }
+    }
+  },
+  "m3_lopo_cohort": {
+    "r2_pooled": 0.8411068191539077,
+    "mae_pooled": 0.07609009823018162,
+    "per_paper": {
+      "gaokao_2024": {
+        "n_test": 32,
+        "true_paper_mean": 0.7440625,
+        "predicted_paper_mean": 0.7131133919843597,
+        "r2": 0.835400103768489,
+        "mae": 0.07946364501754435
+      },
+      "gaokao_2025": {
+        "n_test": 31,
+        "true_paper_mean": 0.7454838709677419,
+        "predicted_paper_mean": 0.7127580492424243,
+        "r2": 0.8792405763662251,
+        "mae": 0.06501000953953213
+      },
+      "xicheng_2024": {
+        "n_test": 33,
+        "true_paper_mean": 0.6906060606060606,
+        "predicted_paper_mean": 0.7264775018328445,
+        "r2": 0.8426710447682282,
+        "mae": 0.06901989251158874
+      },
+      "xicheng_2025": {
+        "n_test": 33,
+        "true_paper_mean": 0.6827272727272727,
+        "predicted_paper_mean": 0.7284471988025415,
+        "r2": 0.8776187833114282,
+        "mae": 0.07631618511564062
+      },
+      "xicheng_2026": {
+        "n_test": 33,
+        "true_paper_mean": 0.7336363636363636,
+        "predicted_paper_mean": 0.7157199260752688,
+        "r2": 0.7258628254077331,
+        "mae": 0.09007146713042237
+      }
+    }
+  }
+}
