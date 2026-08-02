@@ -541,11 +541,42 @@
 <h3>9.4 · 下一步的建议排序 (按性价比)</h3>
 
 <ol>
-  <li><b>加陷阱数特征 (针对 Pattern B)</b> —— 附录 A 20 道 subsample, 杨老师 15 分钟 label · 预计 MAE 从 0.063 → 0.055-0.058</li>
+  <li><b>加陷阱数特征 (针对 Pattern B)</b> —— 附录 A 30 道 subset, 杨老师 15 分钟 label · 预计 MAE 从 0.063 → 0.055-0.058</li>
   <li><b>非线性特征针对 Pattern A</b> (concept², 极难题 indicator) —— 无需 label, 我这边直接跑, 但样本量限制效果可能有限 · 预计 MAE 减少 0.002-0.005</li>
   <li><b>2026 西城重打分</b> —— 我 v1 早期打分可能偏差, 用 v4 的 A+B 拆分标准重打一遍, 预计只降 2026 那份 MAE, 整体影响 0.001-0.002</li>
   <li><b>扩样本</b> —— 更多试卷 (2027 春季一模 · 或者别的年份) —— 长期方向 · 立竿见影效果不大</li>
 </ol>
+
+<h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
+
+<p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
+
+<p>验证:</p>
+
+<table>
+<tr><th>位置与其他特征的相关系数 (Pearson r)</th><th class="n">r</th></tr>
+<tr><td>是否大题分问 (is_open)</td><td class="n red">+0.853</td></tr>
+<tr><td>情境新颖度</td><td class="n red">+0.522</td></tr>
+<tr><td>建模自主度</td><td class="n red">+0.458</td></tr>
+<tr><td>推理步数</td><td class="n red">+0.428</td></tr>
+<tr><td>概念数</td><td class="n red">+0.426</td></tr>
+<tr><td>场景相似度</td><td class="n red">−0.424</td></tr>
+</table>
+
+<p>用内容特征回归位置 · <b>R² = 0.912</b> · 位置 91% 的方差被内容特征解释了 · 位置几乎是个冗余变量。</p>
+
+<p>3 个处理方案的对比:</p>
+
+<table>
+<tr><th>模型</th><th class="n">交叉验证 R²</th><th class="n">交叉验证 MAE</th></tr>
+<tr><td>C · v4 现状 (保留 position)</td><td class="n">0.8570</td><td class="n">0.0730</td></tr>
+<tr><td><b>A · 去掉 position (保留 is_last_quarter · earlier_load)</b></td><td class="n green"><b>0.8589</b></td><td class="n green"><b>0.0725</b></td></tr>
+<tr><td>B · Residualize position (先回归内容再取残差)</td><td class="n">0.8570</td><td class="n">0.0730</td></tr>
+</table>
+
+<div class="banner ok">
+  <b>结论:</b> 去掉 position 特征略微提升泛化能力 (LOPO R² +0.002, MAE −0.0005). 提升幅度不大, 但方向对 —— <b>v4 revised = 13 特征 (v4 去掉 position) · 采用作为新基线</b>。这里同时印证了 Ethan 的判断: 一旦其他内容特征做齐全, 位置本身没有独立信号, 只是命题者按难度递增排题的自然结果。
+</div>
 
 <h2>附录 A · 陷阱数 打分请求 (30 道题, 采用杨老师 18:13 定义)</h2>
 
