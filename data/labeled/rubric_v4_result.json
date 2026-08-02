@@ -1,0 +1,89 @@
+{
+  "n_rows": 162,
+  "features_v3": [
+    "concept",
+    "reasoning",
+    "novelty",
+    "visual",
+    "modeling",
+    "position",
+    "is_open",
+    "topic_mech",
+    "topic_em",
+    "textbook_scene_degree",
+    "textbook_pattern_degree"
+  ],
+  "features_v4": [
+    "concept",
+    "reasoning",
+    "novelty",
+    "visual",
+    "modeling",
+    "position",
+    "is_open",
+    "topic_mech",
+    "topic_em",
+    "textbook_scene_degree",
+    "textbook_pattern_degree",
+    "transfer_cost",
+    "is_last_quarter",
+    "earlier_load"
+  ],
+  "hypothesis_test": {
+    "scene2_pattern2_mean": 0.866027397260274,
+    "scene0_pattern2_mean": 0.585,
+    "gap": 0.28102739726027404,
+    "n_scene2_pattern2": 73,
+    "n_scene0_pattern2": 2
+  },
+  "v3_in_sample_r2": 0.883711281092696,
+  "v4_in_sample_r2": 0.8956944382345492,
+  "v3_lopo_r2": 0.8413101515571095,
+  "v3_lopo_mae": 0.0760471525344662,
+  "v4_lopo_r2": 0.8570366272703984,
+  "v4_lopo_mae": 0.0729875883128285,
+  "v4_beta": {
+    "intercept": 0.9125960324681928,
+    "concept": -0.1286031879246778,
+    "reasoning": -0.037640779642253056,
+    "novelty": -0.010148518291486785,
+    "visual": 0.010392781199149263,
+    "modeling": -0.014628519448131384,
+    "position": 0.0584338871835266,
+    "is_open": -0.15989370574457673,
+    "topic_mech": 0.029870809672675372,
+    "topic_em": 0.075810292846312,
+    "textbook_scene_degree": 0.026063495255490402,
+    "textbook_pattern_degree": 0.049263490433062954,
+    "transfer_cost": 0.028536526598146553,
+    "is_last_quarter": -0.010766028075537053,
+    "earlier_load": 0.07258571334931582
+  },
+  "v4_per_paper_lopo": {
+    "gaokao_2024": {
+      "n": 32,
+      "r2": 0.8494527455921852,
+      "mae": 0.07595163509811113
+    },
+    "gaokao_2025": {
+      "n": 31,
+      "r2": 0.8919534181225189,
+      "mae": 0.06420159131839744
+    },
+    "xicheng_2024": {
+      "n": 33,
+      "r2": 0.8487283822454987,
+      "mae": 0.06604709776436796
+    },
+    "xicheng_2025": {
+      "n": 33,
+      "r2": 0.8993858122289538,
+      "mae": 0.07111737903891234
+    },
+    "xicheng_2026": {
+      "n": 33,
+      "r2": 0.7503961090970672,
+      "mae": 0.08717757327757848
+    }
+  }
+}
