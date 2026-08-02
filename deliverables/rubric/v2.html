@@ -468,6 +468,85 @@
   <b>对 docx 场景三 (2026 高考成绩出来后实测) 的准备</b>: 我们已经能预测 2026 高考的<b>模型输出</b>, 等 9 月底真实得分率出来后, 一算就能验证。当前预测精度基线 R² 0.83 · MAE 0.08 已知。
 </div>
 
+<h2>九 · 残差诊断 · 拉 MAE 到 0.05 的下一步方向</h2>
+
+<div class="banner">
+  <b>杨老师 17:58 新目标: 单题预测误差 ≤ 0.05。</b>
+  当前 v4 · MAE = 0.063 · 需要削减 20% 误差。
+  我按各种维度切了残差看哪里系统性差, 挑出 3 个明显 pattern, 帮您聚焦下一步该加什么特征。
+</div>
+
+<h3>9.1 · 各类别的预测精度</h3>
+
+<table>
+<tr><th>分组</th><th class="n">MAE</th><th>观察</th></tr>
+<tr><td>选择题 (n=68)</td><td class="n">0.056</td><td>相对准</td></tr>
+<tr><td>大题分问 (n=94)</td><td class="n">0.068</td><td>比选择题差 12 pp</td></tr>
+<tr><td>Q1 前段位置 (n=38)</td><td class="n">0.058</td><td>准</td></tr>
+<tr><td><b>Q4 后段位置 (n=44)</b></td><td class="n"><b>0.076</b></td><td>最差 · 后段压轴题 rubric 抓不全</td></tr>
+<tr><td>概念数 = 1-2 (n=90)</td><td class="n">0.054</td><td>准</td></tr>
+<tr><td>概念数 = 3-5 (n=72)</td><td class="n">0.070</td><td>差 · 概念多的题预测不稳</td></tr>
+<tr><td>场景 = 0 (陌生场景, n=31)</td><td class="n">0.076</td><td>差, 但样本小</td></tr>
+<tr><td>场景 = 2 (熟悉场景, n=81)</td><td class="n">0.057</td><td>准</td></tr>
+<tr><td>2026 西城 (n=33)</td><td class="n">0.073</td><td>唯一 &gt; 0.07 的试卷 · 可能我 v1 时打分偏差</td></tr>
+</table>
+
+<h3>9.2 · 三个明显的 pattern</h3>
+
+<p><b>Pattern A · 大题最后小问 (卷面后 25%) · MAE 0.076</b></p>
+<ul>
+  <li>压轴题 (20-2, 20-3) · concept=4-5, reasoning=4-5</li>
+  <li>模型倾向高估学生表现 · 实际学生做得比预测差</li>
+  <li>可能原因: rubric 没抓到"极难题时学生完全放弃"的现象, 或"最后小问的时间压力/疲劳"</li>
+  <li>缓解方向: 非线性特征 (concept², 或者 threshold-based "极难题" 指示变量); 或者交互项 (但样本量限制)</li>
+</ul>
+
+<p><b>Pattern B · 场景+模式都熟悉但学生仍难的选择题 ← <em class="key">陷阱数最有希望的场景</em></b></p>
+<ul>
+  <li>scene=2 pat=2 组里有 6-8 道题 MAE > 0.10 · 都在附录 A 的 20 道 subsample 里</li>
+  <li>典型例子 (残差 −0.10 到 −0.20, 意思是我 rubric 说"应该容易"但学生做不出):
+    <ul>
+      <li>xicheng 2026 Q2, Q3, Q13, Q16-2, Q16-3</li>
+      <li>xicheng 2024 Q8 (点电荷等势面)</li>
+      <li>gaokao 2024 Q8 (竖直上抛空气阻力)</li>
+    </ul>
+  </li>
+  <li>特征值我打的都是"简单" (场景熟 + 模式熟 + 概念中低), 但学生实际做得比预测差 10-20 percentage points</li>
+  <li><b>假设</b>: 这些题选项/情境里有陷阱, 学生踩坑 · 是陷阱数能直接解释的现象</li>
+  <li><b>预期效果</b>: 如果陷阱数能解释 Pattern B, MAE 应该能从 0.063 拉到 0.055-0.058, 距离目标 0.05 就一步之遥</li>
+</ul>
+
+<p><b>Pattern C · 陌生场景 (scene=0) 整体 MAE 0.076</b></p>
+<ul>
+  <li>但样本很小: scene=0 pat=0 只 14 道 · scene=0 pat=1 15 道 · scene=0 pat=2 只 2 道</li>
+  <li>样本量太小, 单独很难改善</li>
+  <li>缓解方向: 扩样本 (更多试卷) 或者更细的 场景/模式 分档 (0-5 而不是 0-2)</li>
+</ul>
+
+<h3>9.3 · 特征相关系数排序</h3>
+
+<p>|residual| 和各特征值的相关系数, 排前几名:</p>
+
+<table>
+<tr><th>特征</th><th class="n">与 |residual| 相关系数</th><th>解读</th></tr>
+<tr><td>是否卷面末段 (position &gt; 75%)</td><td class="n red">+0.174</td><td>末段题预测最不准 (Pattern A)</td></tr>
+<tr><td>推理步数</td><td class="n red">+0.172</td><td>推理长的题预测不稳</td></tr>
+<tr><td>概念数</td><td class="n red">+0.170</td><td>概念多的题预测不稳</td></tr>
+<tr><td>位置 (线性)</td><td class="n red">+0.168</td><td>与 is_last_quarter 一致</td></tr>
+<tr><td>建模自主度</td><td class="n red">+0.155</td><td>需要自主建模的题不稳</td></tr>
+<tr><td>大题分问</td><td class="n red">+0.136</td><td>Pattern A 的一部分</td></tr>
+<tr><td>场景相似度</td><td class="n green">−0.178</td><td>场景越熟悉预测越准 (符合直觉)</td></tr>
+</table>
+
+<h3>9.4 · 下一步的建议排序 (按性价比)</h3>
+
+<ol>
+  <li><b>加陷阱数特征 (针对 Pattern B)</b> —— 附录 A 20 道 subsample, 杨老师 15 分钟 label · 预计 MAE 从 0.063 → 0.055-0.058</li>
+  <li><b>非线性特征针对 Pattern A</b> (concept², 极难题 indicator) —— 无需 label, 我这边直接跑, 但样本量限制效果可能有限 · 预计 MAE 减少 0.002-0.005</li>
+  <li><b>2026 西城重打分</b> —— 我 v1 早期打分可能偏差, 用 v4 的 A+B 拆分标准重打一遍, 预计只降 2026 那份 MAE, 整体影响 0.001-0.002</li>
+  <li><b>扩样本</b> —— 更多试卷 (2027 春季一模 · 或者别的年份) —— 长期方向 · 立竿见影效果不大</li>
+</ol>
+
 <h2>附录 A · 陷阱数 打分请求 (20 道题)</h2>
 
 <div class="banner">
