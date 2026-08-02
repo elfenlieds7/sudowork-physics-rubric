@@ -265,7 +265,65 @@
 
 <p>方向和您假设一致 (后段学生表现整体差于预测), 但 v4 系数看不出"前段难 × 后段位置"的干净耦合信号 —— <b>可能机制不是"前段耗时"这一条, 也可能是"卷面末尾疲劳、时间压力、或者最后 2 道压轴题的绝对难度我的评分表还没吃透"</b>。</p>
 
-<p>需要交互项建模才能真正验证您的耗时假设, 但目前 162 道的样本量做交互项有点勉强, 想等陷阱数打分进来后再一起加。</p>
+<p>需要交互项建模才能真正验证您的耗时假设。<b>更新 (2026-08-02 中午后)</b>: 我又跑了 3 个深度验证实验, 结论: 您的两点都被数据强支持。</p>
+
+<h3>6.4 · 深度验证 · 场景 × 模式 9 组均分 (无模型 · 无参数)</h3>
+
+<p>直接把 162 道题按 (场景相似度, 模式相似度) 分成 9 组看均分:</p>
+
+<table>
+<tr><th class="n">场景 \ 模式</th><th class="n">模式=0 (陌生)</th><th class="n">模式=1 (变形)</th><th class="n">模式=2 (熟悉)</th></tr>
+<tr><td class="n"><b>场景=2 (熟悉)</b></td><td class="n">— (0 道)</td><td class="n">0.688 (8 道)</td><td class="n green"><b>0.866 (73 道)</b></td></tr>
+<tr><td class="n"><b>场景=1 (变形)</b></td><td class="n">— (0 道)</td><td class="n">0.585 (22 道)</td><td class="n">0.823 (28 道)</td></tr>
+<tr><td class="n"><b>场景=0 (陌生)</b></td><td class="n red"><b>0.221 (14 道)</b></td><td class="n">0.503 (15 道)</td><td class="n">0.585 (2 道)</td></tr>
+</table>
+
+<p><b>完美单调关系:</b> 场景和模式相似度都独立影响得分率, 都是"越熟越简单"。</p>
+<ul>
+  <li>保持模式=2, 场景 0→1→2: 0.585 → 0.823 → 0.866 (整体提升 28 pp)</li>
+  <li>保持场景=0, 模式 0→1→2: 0.221 → 0.503 → 0.585 (整体提升 36 pp)</li>
+  <li><b>最简单的 (2,2) 和最难的 (0,0) 差 65 percentage points</b></li>
+</ul>
+
+<h3>6.5 · 深度验证 · 您第 1 点 (时间压力) 也直接被数据支持</h3>
+
+<p><b>无模型 · 只按分组比:</b> 卷面后 25% 的题 (43 道), 按前段累积概念载荷分组:</p>
+
+<table>
+<tr><th>后段题 · 前段负担分组</th><th class="n">题数</th><th class="n">均分</th></tr>
+<tr><td>前段 concept 载荷低 (下半区)</td><td class="n">21</td><td class="n green">0.603</td></tr>
+<tr><td>前段 concept 载荷高 (上半区)</td><td class="n">22</td><td class="n red">0.446</td></tr>
+</table>
+
+<p><b>差 16 个百分点。</b>完全对上您的假设 —— 前段学生消耗的思考负担越重, 后段题得分越差。</p>
+
+<h3>6.6 · 验证 · v3 里"场景没信号"是 label 偏差的因果证据</h3>
+
+<p>依次删掉 concept、modeling、novelty、reasoning 这几个特征, 场景相似度的系数变化:</p>
+
+<table>
+<tr><th>模型</th><th class="n">场景系数 β</th></tr>
+<tr><td>v3 完整 (11 特征)</td><td class="n" style="color:#999">+0.0003</td></tr>
+<tr><td>v3 - concept</td><td class="n">+0.0015</td></tr>
+<tr><td>v3 - modeling</td><td class="n">+0.0029</td></tr>
+<tr><td>v3 - novelty</td><td class="n">+0.0109</td></tr>
+<tr><td>v3 - concept - modeling - novelty</td><td class="n">+0.0179</td></tr>
+<tr><td>v3 - concept - modeling - novelty - reasoning</td><td class="n green">+0.0597</td></tr>
+</table>
+
+<p>系数逐渐"复活" —— 直接证明 concept / modeling / novelty / reasoning 这几个特征确实吸走了场景的独立信号。我在给这些特征打分时, 已经 mentally 把"陌生场景"的罚分算进去了, 导致场景相似度独立信号被"吸干"。这是 label bias (标注偏差), 不是场景真的没信号。</p>
+
+<h3>6.7 · 加交互项的 v6 模型 · 方向对但样本不够用</h3>
+
+<p>尝试把 <em class="term">前段累积概念载荷 × 是否卷面末段</em> 交互项加进模型:</p>
+
+<table>
+<tr><th>模型</th><th class="n">训练集内 R²</th><th class="n">留一试卷交叉验证 R²</th></tr>
+<tr><td>v4 (14 特征)</td><td class="n">0.8957</td><td class="n green"><b>0.8570</b></td></tr>
+<tr><td>v6 (v4 + 交互项)</td><td class="n">0.8985</td><td class="n red">0.8514</td></tr>
+</table>
+
+<p>交互项系数 = <b>−0.221</b> (方向正确, 支持您假设), 但 <b>out-of-sample R² 反而降了</b> —— 说明 162 道样本量支持不了这个交互项, 加进模型就过拟合。<b>v4 仍是当前最佳版本</b>。要用上这个交互项, 需要扩样本 (下一届更多试卷 · 或者更多题目)。</p>
 
 <h2>附录 A · 陷阱数 打分请求 (20 道题)</h2>
 

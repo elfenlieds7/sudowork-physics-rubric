@@ -123,6 +123,33 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 
 ---
 
+## Lesson 10 · counter-intuitive 结论发布前先留 label-quality-audit 空间
+
+**Trap**: 数据出了一个 counter-intuitive 结论 (e.g. "特征 X 系数为 0 · 没信号"), 直接作为结论发布, 没先自问"这可能是 label bias 吗"。领域专家一戳就穿。
+
+**The specific evidence (2026-08-02)**:
+- v3 数据: `textbook_scene_degree` β = +0.0003 · 我发布结论"场景没独立信号 · 只有模式重要"
+- 杨老师 11:24 wechat 直接反驳: "不太符合我的直觉。同样设问下, 场景熟 → 学生快速理解情境 → 剩时间做分析推理; 场景陌生 → 认知负担高。霍尔推进器方法学过, 但难以迁移到陌生情景"
+- 我 12:00 加了 `transfer_cost = max(0, pattern - scene)` 交叉特征 · **场景系数直接从 +0.0003 → +0.026**
+- 也就是 v3 的"场景没信号"是 label 偏差 (我给 concept / modeling / novelty 打分时已经把陌生场景的罚分吸掉了 · 场景 独立信号被抢走), 不是真实的物理
+
+**Why it happened**:
+- 全 162 道题的 label 都是我一个人打的
+- 打 concept · reasoning · modeling · novelty 时, 我看到"陌生场景"会 mentally 加分 (概念多、建模自主 、情境新颖)
+- 这些特征跟 scene 相关性高 · 造成 scene 独立信号被"吸走"的 collinearity artifact
+- 直接的可观测数据: 场景=0 pattern=2 组 n=2, 均分 0.585 vs 场景=2 pattern=2 组 n=73, 均分 0.866 · 差 28pp · 明明信号强
+- 但线性模型 "on the margin, after all other features" 就检测不到
+
+**How to avoid**:
+1. **发布 counter-intuitive 结论前, 先自问**: "这个特征的 raw group means 直接看有信号吗? 如果 raw 有 · 但系数为 0 · 是不是 collinearity?"
+2. **对于每一个 headline 结论**, 明确一句 "以下前提: 假设我的 label 正确。若 label 有偏, 该结论可能反转。"
+3. **主动准备 audit list**: 让领域专家抽查若干题的 label, 让他反证 label 偏差, 你才好知道结论是否 robust
+4. **优先测简单 group means**, 再看模型系数。系数是有条件的; means 是无条件的。
+
+**Related to**: Lesson 2 (反思精度) — 这次也是反思到最后才找到 label bias · 之前一直在讨论"是不是模型不对 / 是不是特征不够"。反思应该从 label 开始, 不是从模型开始。
+
+---
+
 ## Recap in one line each
 
 1. Type A (constraint) vs Type B (optimum) — never bleed
@@ -134,5 +161,6 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 7. Dump API schema before assuming field names
 8. Small data + many features = must cross-validate
 9. Don't ask questions you can compute from data
+10. Counter-intuitive 结论发布前先做 label-quality-audit · raw group means 先看
 
 **When you (new AI) find a new lesson, append to this file and commit.**
