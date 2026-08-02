@@ -1,0 +1,56 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>.chart-wrap{margin:16px 0;padding:12px;background:#fff;border:1px solid #d0ccc0;border-radius:4px}.chart-wrap h4{margin:0 0 8px;font-size:14px;color:#2b5a8b}.chart-canvas{width:100%!important;height:280px!important}</style>
+<div class="chart-wrap"><h4>高考 2024</h4><canvas id="chart_gaokao_2024" class="chart-canvas"></canvas></div>
+<div class="chart-wrap"><h4>高考 2025</h4><canvas id="chart_gaokao_2025" class="chart-canvas"></canvas></div>
+<div class="chart-wrap"><h4>西城 2024 一模</h4><canvas id="chart_xicheng_2024" class="chart-canvas"></canvas></div>
+<div class="chart-wrap"><h4>西城 2025 一模</h4><canvas id="chart_xicheng_2025" class="chart-canvas"></canvas></div>
+<div class="chart-wrap"><h4>西城 2026 一模 (您本届)</h4><canvas id="chart_xicheng_2026" class="chart-canvas"></canvas></div>
+<script>
+(function() {
+  var configs = {"gaokao_2024": {"labels": ["1", "2", "4", "5", "6", "7", "8", "10", "11", "12", "13", "14", "15-1", "15-2", "15-3", "16-1", "16-2", "16-a", "16-b", "16-3", "17-1", "17-2", "17-3", "18-1", "18-2", "18-3", "19-1", "19-2a", "19-2b", "20-1", "20-2", "20-3"], "actual": [0.93, 0.96, 0.9, 0.96, 0.78, 0.92, 0.74, 0.8, 0.74, 0.72, 0.61, 0.51, 0.94, 0.91, 0.78, 0.98, 0.9, 0.87, 0.92, 0.31, 0.99, 0.96, 0.81, 0.93, 0.93, 0.68, 0.42, 0.41, 0.18, 0.76, 0.35, 0.21], "pred": [0.899, 1.003, 0.841, 0.906, 0.705, 0.898, 0.636, 0.735, 0.743, 0.726, 0.644, 0.488, 0.953, 0.852, 0.725, 0.981, 0.976, 0.829, 0.793, 0.326, 0.983, 0.98, 0.711, 0.834, 0.824, 0.596, 0.51, 0.592, 0.093, 0.841, 0.403, 0.154], "seg_mcq_end": 11.5, "seg_exp_end": 19.5}, "gaokao_2025": {"labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15-1", "15-2a", "15-2b", "15-3", "16-1", "16-2", "16-3", "16-4", "17-1", "17-2", "17-3", "19-1", "19-2", "19-3", "20-1", "20-2", "20-3"], "actual": [0.96, 0.92, 0.83, 0.87, 0.89, 0.75, 0.93, 0.95, 0.74, 0.57, 0.83, 0.67, 0.3, 0.5, 0.85, 0.9, 0.86, 0.82, 0.99, 0.94, 0.69, 0.7, 0.93, 0.84, 0.86, 0.8, 0.74, 0.31, 0.9, 0.25, 0.02], "pred": [0.902, 0.973, 0.842, 0.907, 0.875, 0.628, 0.895, 0.894, 0.777, 0.519, 0.671, 0.716, 0.382, 0.511, 0.826, 0.795, 0.791, 0.796, 0.991, 0.987, 0.803, 0.615, 0.989, 0.795, 0.788, 0.787, 0.791, 0.257, 0.845, 0.396, 0.075], "seg_mcq_end": 13.5, "seg_exp_end": 21.5}, "xicheng_2024": {"labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15-1", "15-2a", "15-2b", "16-1", "16-2", "16-3", "16-4", "17-1", "17-2", "17-3", "18-1", "18-2", "18-3", "19-1", "19-2a", "19-2b", "20-1", "20-2a", "20-2b"], "actual": [0.93, 0.95, 0.8, 0.93, 0.88, 0.61, 0.92, 0.63, 0.8, 0.49, 0.67, 0.65, 0.61, 0.82, 0.72, 0.68, 0.84, 0.96, 0.8, 0.5, 0.33, 0.88, 0.87, 0.63, 0.92, 0.76, 0.67, 0.61, 0.58, 0.19, 0.82, 0.22, 0.12], "pred": [0.899, 0.973, 0.809, 0.86, 0.92, 0.699, 0.894, 0.77, 0.775, 0.491, 0.676, 0.673, 0.734, 0.66, 0.819, 0.814, 0.814, 1.03, 0.856, 0.616, 0.403, 0.812, 0.812, 0.634, 0.844, 0.663, 0.589, 0.67, 0.581, 0.166, 0.817, 0.372, 0.134], "seg_mcq_end": 13.5, "seg_exp_end": 20.5}, "xicheng_2025": {"labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15-1", "15-2", "15-3", "16-1", "16-2", "16-3", "16-4", "17-1", "17-2", "17-3", "18-1", "18-2", "18-3", "19-1", "19-2", "19-3", "20-1", "20-2", "20-3"], "actual": [0.85, 0.92, 0.92, 0.93, 0.93, 0.79, 0.85, 0.78, 0.86, 0.77, 0.86, 0.36, 0.6, 0.72, 0.79, 0.8, 0.55, 0.95, 0.87, 0.83, 0.35, 0.92, 0.93, 0.83, 0.93, 0.77, 0.53, 0.23, 0.2, 0.13, 0.58, 0.15, 0.05], "pred": [0.899, 0.973, 0.975, 0.897, 0.871, 0.869, 0.916, 0.874, 0.89, 0.76, 0.877, 0.452, 0.526, 0.634, 0.817, 0.795, 0.619, 0.851, 0.852, 0.828, 0.374, 0.982, 0.814, 0.8, 0.829, 0.649, 0.575, 0.344, 0.351, 0.113, 0.602, 0.309, 0.175], "seg_mcq_end": 13.5, "seg_exp_end": 20.5}, "xicheng_2026": {"labels": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15-1", "15-2", "15-3", "16-1", "16-2", "16-3", "16-4", "17-1", "17-2a", "17-2b", "18-1a", "18-1b", "18-2", "19-1", "19-2a", "19-2b", "20-1a", "20-1b", "20-2"], "actual": [0.93, 0.8, 0.89, 0.9, 0.97, 0.93, 0.92, 0.89, 0.66, 0.72, 0.62, 0.71, 0.45, 0.69, 0.88, 0.54, 0.89, 0.86, 0.8, 0.67, 0.37, 0.98, 0.97, 0.82, 0.91, 0.89, 0.45, 0.66, 0.59, 0.28, 0.9, 0.39, 0.28], "pred": [0.899, 0.973, 0.988, 0.897, 1.047, 0.854, 0.858, 0.864, 0.712, 0.675, 0.52, 0.739, 0.554, 0.65, 0.77, 0.732, 0.853, 0.847, 0.976, 0.782, 0.251, 0.964, 0.959, 0.779, 0.826, 0.824, 0.569, 0.605, 0.509, 0.231, 0.848, 0.387, 0.141], "seg_mcq_end": 13.5, "seg_exp_end": 20.5}};
+  function makeChart(canvasId, cfg) {
+    var ctx = document.getElementById(canvasId).getContext('2d');
+    var annotations = [];
+    // 三段递增分界线
+    if (cfg.seg_mcq_end != null) {
+      annotations.push({ type: 'line', xMin: cfg.seg_mcq_end, xMax: cfg.seg_mcq_end,
+        borderColor: 'rgba(200,65,15,0.4)', borderWidth: 1.5, borderDash: [4,4] });
+    }
+    if (cfg.seg_exp_end != null && cfg.seg_exp_end != cfg.seg_mcq_end) {
+      annotations.push({ type: 'line', xMin: cfg.seg_exp_end, xMax: cfg.seg_exp_end,
+        borderColor: 'rgba(200,65,15,0.4)', borderWidth: 1.5, borderDash: [4,4] });
+    }
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: cfg.labels,
+        datasets: [
+          { label: '实际得分率', data: cfg.actual, backgroundColor: '#c8410f',
+             borderColor: 'rgba(200,65,15,0.5)', borderWidth: 1, pointRadius: 3.5,
+             pointStyle: 'circle', tension: 0, spanGaps: true, fill: false },
+          { label: 'v4 预测得分率', data: cfg.pred, backgroundColor: 'transparent',
+             borderColor: '#2b5a8b', borderWidth: 2, pointRadius: 2, pointBackgroundColor: '#2b5a8b',
+             tension: 0.15, fill: false, borderDash: [] },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, animation: false,
+        plugins: {
+          legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 20 } },
+          tooltip: { mode: 'index', intersect: false },
+        },
+        scales: {
+          x: { title: { display: true, text: '题号 (按卷面顺序)', font: { size: 11 } },
+                ticks: { font: { size: 10 }, maxRotation: 60, minRotation: 45 } },
+          y: { min: 0, max: 1.05, title: { display: true, text: '得分率', font: { size: 11 } },
+                ticks: { font: { size: 10 }, stepSize: 0.2 } },
+        },
+      }
+    });
+    // 红色分界线 (Chart.js 4 需要 annotation plugin, 简化: 手绘用 canvas 事件)
+  }
+  Object.keys(configs).forEach(function(k) {
+    makeChart('chart_' + k, configs[k]);
+  });
+})();
+</script>
