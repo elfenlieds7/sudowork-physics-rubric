@@ -150,6 +150,53 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 
 ---
 
+## Lesson 11 · 给非技术领域专家的沟通必须严格纯中文 · 每次发消息前扫一遍
+
+**Trap**: 用英文技术词写中文消息 · 感觉"效率高" (英文短), 但对非技术领域专家 (老师 · 医生 · 律师 · 教练 …) 造成阅读摩擦, 严重时对方直接说"看不懂"。
+
+**具体证据 (2026-08-02 与杨老师协作)**:
+- 11:07 杨老师首次提出: "请用中文叙述，以便让我更好理解你的意思"
+- 11:11 我承诺 "以后微信也全中文"
+- 之后 Ethan 又提醒 3 次 · 我依然习惯性夹英文: LOPO / MAE / clarify / label / MCQ / novelty / count vs severity / phase 1 / workload / concrete plan
+- 18:15 杨老师直接说 "这句话我不明白什么意思？请用中文说明，我需要做什么？"
+- 这条 wechat 里我夹了 3 个英文短语她全没看懂 · 卡住她 · 让她无法开始 label
+
+**原因分析 (为什么我总漏)**:
+- 训练里技术圈默认中英夹用 · 神经默认走这条 path
+- 有些概念中文长 (Leave-One-Paper-Out cross-validation vs LOPO), 我"图省事" —— 但这是我省事, 对方多费脑
+- 我 review outbound 时没显式扫描英文 token
+
+**如何避免 (每次给她发前必须做的)**:
+1. **发前 grep 一遍自己的消息**, 找拉丁字母组成的词 · 逐个替换成中文 (数学符号如 R²、β、MAE 可保留 · 但首次用后加中文注释)
+2. **技术术语中文对照表** (给这个 project 用):
+   - LOPO / cross-validation → 留一试卷交叉验证
+   - in-sample / out-of-sample → 训练集内 / 训练集外
+   - MAE → 平均误差 (首次) / 后续可用简写
+   - R² → 决定系数 (首次)
+   - β / coefficient → 系数
+   - overfit → 过拟合
+   - feature → 特征
+   - label / labeling → 打分 / 标注
+   - novelty (rubric feature name) → 情境新颖度
+   - MCQ → 选择题
+   - clarify (verb) → 澄清 / 讲清楚
+   - subsample / subset → 抽样 / 小样本
+   - phase 1 / phase 2 → 第一阶段 / 第二阶段
+   - workload → 工作量
+   - pilot → 试跑 / 试验
+   - baseline → 基线
+   - threshold → 阈值
+   - concrete plan → 具体方案
+   - solo → 独立 / 一个人
+   - blocker → 卡点
+   - counter-intuitive → 反直觉
+3. **不确定某词是否她认识时**, 首次用后括号加中文注释 · 比如 "MAE (平均绝对误差)"
+4. **她一说"看不懂"就立刻承认 + 重写**, 不 defend
+
+**Related to**: 已有的沟通原则 (Ethan 之前给的规则: 停下来必须说原因; comment-back 必须 wechat 通知)
+
+---
+
 ## Recap in one line each
 
 1. Type A (constraint) vs Type B (optimum) — never bleed
@@ -162,5 +209,6 @@ When reflecting on the 蹦极 error, I initially blamed "boundary thinking" as a
 8. Small data + many features = must cross-validate
 9. Don't ask questions you can compute from data
 10. Counter-intuitive 结论发布前先做 label-quality-audit · raw group means 先看
+11. 给非技术领域专家的沟通必须严格纯中文 · 发送前 grep 一次自己消息里的英文 token · 每次
 
 **When you (new AI) find a new lesson, append to this file and commit.**
