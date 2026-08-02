@@ -1,0 +1,142 @@
+[
+  {
+    "paper": "gaokao_2024",
+    "qid": "8",
+    "score_rate": 0.74,
+    "predicted": 0.62,
+    "residual": 0.12
+  },
+  {
+    "paper": "gaokao_2024",
+    "qid": "6",
+    "score_rate": 0.78,
+    "predicted": 0.696,
+    "residual": 0.084
+  },
+  {
+    "paper": "gaokao_2024",
+    "qid": "10",
+    "score_rate": 0.8,
+    "predicted": 0.72,
+    "residual": 0.08
+  },
+  {
+    "paper": "gaokao_2024",
+    "qid": "2",
+    "score_rate": 0.96,
+    "predicted": 1.022,
+    "residual": -0.062
+  },
+  {
+    "paper": "gaokao_2025",
+    "qid": "11",
+    "score_rate": 0.83,
+    "predicted": 0.654,
+    "residual": 0.176
+  },
+  {
+    "paper": "gaokao_2025",
+    "qid": "6",
+    "score_rate": 0.75,
+    "predicted": 0.642,
+    "residual": 0.108
+  },
+  {
+    "paper": "gaokao_2025",
+    "qid": "8",
+    "score_rate": 0.95,
+    "predicted": 0.885,
+    "residual": 0.065
+  },
+  {
+    "paper": "gaokao_2025",
+    "qid": "10",
+    "score_rate": 0.57,
+    "predicted": 0.505,
+    "residual": 0.065
+  },
+  {
+    "paper": "xicheng_2024",
+    "qid": "14",
+    "score_rate": 0.82,
+    "predicted": 0.587,
+    "residual": 0.233
+  },
+  {
+    "paper": "xicheng_2024",
+    "qid": "8",
+    "score_rate": 0.63,
+    "predicted": 0.758,
+    "residual": -0.128
+  },
+  {
+    "paper": "xicheng_2024",
+    "qid": "6",
+    "score_rate": 0.61,
+    "predicted": 0.69,
+    "residual": -0.08
+  },
+  {
+    "paper": "xicheng_2024",
+    "qid": "13",
+    "score_rate": 0.61,
+    "predicted": 0.689,
+    "residual": -0.079
+  },
+  {
+    "paper": "xicheng_2025",
+    "qid": "14",
+    "score_rate": 0.72,
+    "predicted": 0.593,
+    "residual": 0.127
+  },
+  {
+    "paper": "xicheng_2025",
+    "qid": "1",
+    "score_rate": 0.85,
+    "predicted": 0.973,
+    "residual": -0.123
+  },
+  {
+    "paper": "xicheng_2025",
+    "qid": "6",
+    "score_rate": 0.79,
+    "predicted": 0.887,
+    "residual": -0.097
+  },
+  {
+    "paper": "xicheng_2025",
+    "qid": "12",
+    "score_rate": 0.36,
+    "predicted": 0.455,
+    "residual": -0.095
+  },
+  {
+    "paper": "xicheng_2026",
+    "qid": "2",
+    "score_rate": 0.8,
+    "predicted": 0.977,
+    "residual": -0.177
+  },
+  {
+    "paper": "xicheng_2026",
+    "qid": "3",
+    "score_rate": 0.89,
+    "predicted": 1.006,
+    "residual": -0.116
+  },
+  {
+    "paper": "xicheng_2026",
+    "qid": "5",
+    "score_rate": 0.97,
+    "predicted": 1.083,
+    "residual": -0.113
+  },
+  {
+    "paper": "xicheng_2026",
+    "qid": "13",
+    "score_rate": 0.45,
+    "predicted": 0.559,
+    "residual": -0.109
+  }
+]
