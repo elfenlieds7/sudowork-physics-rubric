@@ -547,6 +547,33 @@
   <li><b>扩样本</b> —— 更多试卷 (2027 春季一模 · 或者别的年份) —— 长期方向 · 立竿见影效果不大</li>
 </ol>
 
+<h3>9.6 · 建模难度交互项 · 直接对应杨老师 21:00 "学生卡步骤 2 建模" 洞察</h3>
+
+<div class="banner">
+  <b>触发点</b>: 杨老师 20:58-21:00 微信给出学生解题 4 步骤 taxonomy · 明确说 "学生常常卡在步骤 2 建模" · "压轴题难在建模上"。
+</div>
+
+<p>试了几个交互项 · 直接编码"建模 × 新颖情境" 和 "建模 × 大题格式":</p>
+
+<table>
+<tr><th>模型</th><th class="n">训练集内 R²</th><th class="n">LOPO R²</th><th class="n">LOPO MAE</th></tr>
+<tr><td>v4 baseline (14 特征)</td><td class="n">0.8957</td><td class="n">0.8570</td><td class="n">0.0730</td></tr>
+<tr><td>v4 + 建模×新颖 (15)</td><td class="n">0.9019</td><td class="n">0.8627</td><td class="n">0.0702</td></tr>
+<tr><td>v4 + 建模×大题 (15)</td><td class="n">0.8989</td><td class="n">0.8611</td><td class="n">0.0706</td></tr>
+<tr><td><b>v4 + 建模×新颖 + 建模×大题 (16)</b></td><td class="n"><b>0.9038</b></td><td class="n green"><b>0.8656</b></td><td class="n green"><b>0.0686</b></td></tr>
+<tr><td>v4 + 4 个交互项 (18)</td><td class="n">0.9045</td><td class="n">0.8631</td><td class="n">0.0692</td></tr>
+</table>
+
+<div class="banner ok">
+  <b>大突破 · 采纳 v4 + 2 交互项 = 16 特征模型:</b><br>
+  · 留一试卷交叉验证 R² 从 0.8570 → <b>0.8656</b> (+0.86 percentage points)<br>
+  · 平均误差 MAE 从 0.0730 → <b>0.0686</b> (-6% 误差)<br>
+  · 距离目标 MAE ≤ 0.050 还剩 -0.019 需要削, 但方向明确了<br>
+  · 两个交互项系数都负 (mod×nov β=-0.030 · mod×open β=-0.035), 方向对 · 直接对应"建模难度 × 新颖情境" 和 "建模难度 × 大题格式"
+</div>
+
+<p><b>物理解读</b>: 教材没见过的场景 (novelty 高) 需要自主建模 (modeling 高) 时, 双重难度叠加, 学生做不出。这个 pattern 现在被显式建模了。类似地, 大题格式 (is_open=1) 里的高建模题, 学生表现远低于简单加法预测。</p>
+
 <h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
 
 <p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
