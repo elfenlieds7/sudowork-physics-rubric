@@ -574,6 +574,33 @@
 
 <p><b>物理解读</b>: 教材没见过的场景 (novelty 高) 需要自主建模 (modeling 高) 时, 双重难度叠加, 学生做不出。这个 pattern 现在被显式建模了。类似地, 大题格式 (is_open=1) 里的高建模题, 学生表现远低于简单加法预测。</p>
 
+<h4>9.6.1 · v5 之上再试第三个交互项 · 找到 concept × modeling</h4>
+
+<p>在 v5 基础上试了 6 个可能的交互项 · 只有 <em class="term">概念数 × 建模</em> 明确改善模型:</p>
+
+<table>
+<tr><th>模型</th><th class="n">LOPO R²</th><th class="n">LOPO MAE</th><th>解读</th></tr>
+<tr><td>v5 baseline (16 特征)</td><td class="n">0.8656</td><td class="n">0.0686</td><td>—</td></tr>
+<tr><td><b>v5 + 概念 × 建模 (17 特征) · 采用</b></td><td class="n green"><b>0.8674</b></td><td class="n green"><b>0.0676</b></td><td>概念多且需自主建模, 双重难度叠加</td></tr>
+<tr><td>v5 + 概念 × 大题</td><td class="n">0.8629</td><td class="n">0.0694</td><td>更差</td></tr>
+<tr><td>v5 + 场景 gap × 新颖</td><td class="n">0.8613</td><td class="n">0.0693</td><td>更差</td></tr>
+<tr><td>v5 + 推理 × 新颖</td><td class="n">0.8597</td><td class="n">0.0703</td><td>更差</td></tr>
+<tr><td>v5 + 推理 × 大题</td><td class="n">0.8629</td><td class="n">0.0694</td><td>更差</td></tr>
+</table>
+
+<p>三个采用的交互项系数 (全负 · 方向都对):</p>
+<ul>
+  <li>建模 × 新颖: β = -0.0135 (陌生情境+需建模, 难度叠加)</li>
+  <li>建模 × 大题: β = -0.0407 (大题里的建模, 难度叠加最强)</li>
+  <li>概念 × 建模: β = -0.0190 (概念多+需建模, 难度叠加)</li>
+</ul>
+
+<div class="banner ok">
+  <b>v5.1 采纳 = 17 特征模型 · LOPO MAE = 0.0676</b><br>
+  累计进展 (v4 → v5.1): MAE 0.0730 → 0.0676 · 削减 <b>7.4% 误差</b><br>
+  距离目标 0.050 还差 0.018 · 靠后续陷阱数 + 长期扩样本继续推
+</div>
+
 <h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
 
 <p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
