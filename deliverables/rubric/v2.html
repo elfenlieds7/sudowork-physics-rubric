@@ -669,6 +669,36 @@
 
 <p>17 特征里 6 个被 zero · 说明其中很多特征跟保留的特征共线 · 或者信号弱到 Lasso 认为不值得付出复杂度代价. 这提示未来 rubric 简化的方向.</p>
 
+<h4>9.6.4 · GBM 在 BASE 11 原始特征上 · 单模型突破到 0.0620</h4>
+
+<p>继续深挖 · 试了几种特征子集组合:</p>
+
+<table>
+<tr><th>特征子集</th><th>模型</th><th class="n">LOPO MAE</th></tr>
+<tr><td>V5.1 (17)</td><td>Lasso + GBM 集成</td><td class="n">0.0642</td></tr>
+<tr><td>Lasso-selected only (11)</td><td>集成 (Ridge + Lasso + GBM)</td><td class="n">0.0633</td></tr>
+<tr><td>BASE only (11 原始特征)</td><td>Ridge</td><td class="n" style="color:#999">0.0759 (差)</td></tr>
+<tr><td>BASE only (11 原始特征)</td><td>Lasso</td><td class="n" style="color:#999">0.0764 (差)</td></tr>
+<tr><td><b>BASE only (11 原始特征)</b></td><td><b>GBM 500 树/深 2/lr 0.01</b></td><td class="n green"><b>0.0620</b></td></tr>
+</table>
+
+<div class="banner ok">
+  <b>新 champion · GBM on BASE 11 原始特征 · LOPO MAE = 0.0620</b><br>
+  R² = 0.8863. 网格搜索 216 configs 确认 (无 config 低于 0.062).<br>
+  累计 v4 → 现在: MAE 0.0730 → 0.0620 · 削减 <b>15% 误差</b><br>
+  距目标 0.050 还差 <b>0.012</b>
+</div>
+
+<p><b>为什么 GBM 在原始特征上就够, 反而不需要人工交互项?</b></p>
+<ul>
+  <li>GBM (梯度提升树) 天然可以学非线性组合 —— 决策树的 split 自动实现交互项</li>
+  <li>我人工设计的交互项 (建模×新颖 · 建模×大题 · 概念×建模) 相当于给 GBM 提供了冗余信息</li>
+  <li>GBM 在这些冗余上过拟合的风险高于线性模型</li>
+  <li>反过来: 线性模型 (Ridge/Lasso) 需要我人工加交互项才能到 0.066, 否则只有 0.076</li>
+</ul>
+
+<p><b>Ceiling reassessment</b>: 我之前 3 次说"触底"都被打脸 (0.066 → 0.064 → 0.062). 现在 0.062 也不能保证是真上限. 剩下还可试: 更多集成变体 · Stacking · 换 XGBoost/LightGBM. 但下一步最有希望的 · 还是等杨老师陷阱数 label + 历史 PDF 扩样本.</p>
+
 <h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
 
 <p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
