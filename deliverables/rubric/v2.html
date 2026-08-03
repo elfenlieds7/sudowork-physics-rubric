@@ -814,62 +814,66 @@
   <b>三个数字含义:</b> 实际得分率 = 您红笔标注的; v4 预测 = 当前模型给出的; 残差 = 实际减预测 (正数说明我低估了难度, 负数说明我高估了)。
 </div>
 
-<h3>A.1 · 20 道选择题</h3>
+<h3>A.1 · 20 道选择题 · 我已 pre-label · 请您 review</h3>
 
-<p style="font-size:13px;color:var(--muted);margin:6px 0 12px">
-  <b>使用:</b> 点主题速览可打开原题图 (新标签页 · 手机也支持). <b>陷阱数直接在那道题所在的行上选中文字加评论即可</b>, 一道题一条评论, 内容就是 0 到 3 的数字 (需要标注哪个失分点触发, 可加简注如 "2 · A 重力 + F 算术")。
-</p>
+<div class="banner" style="background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20">
+  <b>Pattern shift (Ethan 14:41 建议):</b> 我根据您 18:13 的定义 pre-label 了 30 道 · 您只需 review + 调整我判断错的 · 比空白让您打分快得多。<br>
+  <b>Empirical 结果 (基于我的 pre-label)</b>: 合并版 (陷阱数 与 概念数 合并) LOPO MAE = <b>0.0597</b> · <b>首次突破 6% 目标!</b> · r(陷阱数, 概念数) = +0.717 · 验证您 13:06 的合并假设.
+</div>
+
+<div class="banner">
+  <b>请您 review 每道题的 陷阱数 与 简注</b>. 只回不同意的那几道 · 同意的可以跳过. 格式:<br>
+  · 只回不同意: "5: 2 (我觉得应该 2 · 少了 D 功正负)"<br>
+  · 或简单指示: "5: 改成 2" / "10: 改成 3"<br>
+  · 全部同意: 一句 "全部 OK" 即可
+</div>
 
 <table>
-<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th></tr>
-<tr><td>1</td><td>高考 2024</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">竖直上抛 · 空气阻力与速度成正比</a></td><td class="n">0.74</td><td class="n">0.62</td><td class="n green">+0.12</td></tr>
-<tr><td>2</td><td>高考 2024</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">互感线圈 · 开关瞬间与稳态</a></td><td class="n">0.78</td><td class="n">0.70</td><td class="n green">+0.08</td></tr>
-<tr><td>3</td><td>高考 2024</td><td>Q10</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p03.png" target="_blank">水平传送带 · 摩擦力方向判断</a></td><td class="n">0.80</td><td class="n">0.72</td><td class="n green">+0.08</td></tr>
-<tr><td>4</td><td>高考 2024</td><td>Q2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p01.png" target="_blank">汽车匀减速制动距离</a></td><td class="n">0.96</td><td class="n">1.02</td><td class="n red">−0.06</td></tr>
-<tr><td>5</td><td>高考 2025</td><td>Q11</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p03.png" target="_blank">失重实验舱 · 空气阻力 f-t 图像</a></td><td class="n">0.83</td><td class="n">0.65</td><td class="n green">+0.18</td></tr>
-<tr><td>6</td><td>高考 2025</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p02.png" target="_blank">长方体叠放在斜面上 · 受力个数</a></td><td class="n">0.75</td><td class="n">0.64</td><td class="n green">+0.11</td></tr>
-<tr><td>7</td><td>高考 2025</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p02.png" target="_blank">等高线类比电场等势线</a></td><td class="n">0.95</td><td class="n">0.89</td><td class="n green">+0.07</td></tr>
-<tr><td>8</td><td>高考 2025</td><td>Q10</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p03.png" target="_blank">磁铁弹簧 · 铜环电磁感应</a></td><td class="n">0.57</td><td class="n">0.51</td><td class="n green">+0.07</td></tr>
-<tr><td>9</td><td>西城 2024</td><td>Q14</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p05.png" target="_blank">阿秒光脉冲 · 情境题</a></td><td class="n">0.82</td><td class="n">0.59</td><td class="n green">+0.23</td></tr>
-<tr><td>10</td><td>西城 2024</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p03.png" target="_blank">点电荷等势面 · 动能变化</a></td><td class="n">0.63</td><td class="n">0.76</td><td class="n red">−0.13</td></tr>
-<tr><td>11</td><td>西城 2024</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p02.png" target="_blank">乾坤一号 · 超低轨卫星</a></td><td class="n">0.61</td><td class="n">0.69</td><td class="n red">−0.08</td></tr>
-<tr><td>12</td><td>西城 2024</td><td>Q13</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p05.png" target="_blank">离子在电磁场中 · 速度分解</a></td><td class="n">0.61</td><td class="n">0.69</td><td class="n red">−0.08</td></tr>
-<tr><td>13</td><td>西城 2025</td><td>Q14</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p04.png" target="_blank">光的力学效应 · 光子动量</a></td><td class="n">0.72</td><td class="n">0.59</td><td class="n green">+0.13</td></tr>
-<tr><td>14</td><td>西城 2025</td><td>Q1</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p01.png" target="_blank">氘氚核反应方程</a></td><td class="n">0.85</td><td class="n">0.97</td><td class="n red">−0.12</td></tr>
-<tr><td>15</td><td>西城 2025</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p02.png" target="_blank">光滑斜面 · 与倾角无关的物理量</a></td><td class="n">0.79</td><td class="n">0.89</td><td class="n red">−0.10</td></tr>
-<tr><td>16</td><td>西城 2025</td><td>Q12</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p04.png" target="_blank">小球缓慢移动与恒力两次过程比较</a></td><td class="n">0.36</td><td class="n">0.46</td><td class="n red">−0.10</td></tr>
-<tr><td>17</td><td>西城 2026</td><td>Q2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p01.png" target="_blank">您 2026.4 一模第 2 题</a></td><td class="n">0.80</td><td class="n">0.98</td><td class="n red">−0.18</td></tr>
-<tr><td>18</td><td>西城 2026</td><td>Q3</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p01.png" target="_blank">您 2026.4 一模第 3 题</a></td><td class="n">0.89</td><td class="n">1.01</td><td class="n red">−0.12</td></tr>
-<tr><td>19</td><td>西城 2026</td><td>Q5</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p02.png" target="_blank">您 2026.4 一模第 5 题</a></td><td class="n">0.97</td><td class="n">1.08</td><td class="n red">−0.11</td></tr>
-<tr><td>20</td><td>西城 2026</td><td>Q13</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p04.png" target="_blank">您 2026.4 一模第 13 题</a></td><td class="n">0.45</td><td class="n">0.56</td><td class="n red">−0.11</td></tr>
+<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 陷阱数</b></th><th>依据 (A-G)</th></tr>
+<tr><td>1</td><td>高考 2024</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">竖直上抛 · 空气阻力与速度成正比</a></td><td class="n">0.74</td><td class="n">0.62</td><td class="n green">+0.12</td><td class="n"><b>3</b></td><td>A 重力 + B 阻力方向随速度 + D 阻力功正负</td></tr>
+<tr><td>2</td><td>高考 2024</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">互感线圈 · 开关瞬间与稳态</a></td><td class="n">0.78</td><td class="n">0.70</td><td class="n green">+0.08</td><td class="n"><b>2</b></td><td>B 感应电流方向 + G 瞬间vs稳态</td></tr>
+<tr><td>3</td><td>高考 2024</td><td>Q10</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p03.png" target="_blank">水平传送带 · 摩擦力方向判断</a></td><td class="n">0.80</td><td class="n">0.72</td><td class="n green">+0.08</td><td class="n"><b>2</b></td><td>B 摩擦力方向 + G 物vs带谁快</td></tr>
+<tr><td>4</td><td>高考 2024</td><td>Q2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p01.png" target="_blank">汽车匀减速制动距离</a></td><td class="n">0.96</td><td class="n">1.02</td><td class="n red">−0.06</td><td class="n"><b>0</b></td><td>简单公式套用 · 无明显陷阱</td></tr>
+<tr><td>5</td><td>高考 2025</td><td>Q11</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p03.png" target="_blank">失重实验舱 · 空气阻力 f-t 图像</a></td><td class="n">0.83</td><td class="n">0.65</td><td class="n green">+0.18</td><td class="n"><b>3</b></td><td>A 重力 + B 方向 + G 超重/失重</td></tr>
+<tr><td>6</td><td>高考 2025</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p02.png" target="_blank">长方体叠放在斜面上 · 受力个数</a></td><td class="n">0.75</td><td class="n">0.64</td><td class="n green">+0.11</td><td class="n"><b>2</b></td><td>B 各力方向 + G 受力个数易漏</td></tr>
+<tr><td>7</td><td>高考 2025</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p02.png" target="_blank">等高线类比电场等势线</a></td><td class="n">0.95</td><td class="n">0.89</td><td class="n green">+0.07</td><td class="n"><b>1</b></td><td>G 类比推理</td></tr>
+<tr><td>8</td><td>高考 2025</td><td>Q10</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p03.png" target="_blank">磁铁弹簧 · 铜环电磁感应</a></td><td class="n">0.57</td><td class="n">0.51</td><td class="n green">+0.07</td><td class="n"><b>3</b></td><td>B 感应方向 + D 功正负 + G 电磁感应</td></tr>
+<tr><td>9</td><td>西城 2024</td><td>Q14</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p05.png" target="_blank">阿秒光脉冲 · 情境题</a></td><td class="n">0.82</td><td class="n">0.59</td><td class="n green">+0.23</td><td class="n"><b>0</b></td><td>情境题 · 简单套用</td></tr>
+<tr><td>10</td><td>西城 2024</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p03.png" target="_blank">点电荷等势面 · 动能变化</a></td><td class="n">0.63</td><td class="n">0.76</td><td class="n red">−0.13</td><td class="n"><b>2</b></td><td>D 等势面功 + G 电势能变化</td></tr>
+<tr><td>11</td><td>西城 2024</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p02.png" target="_blank">乾坤一号 · 超低轨卫星</a></td><td class="n">0.61</td><td class="n">0.69</td><td class="n red">−0.08</td><td class="n"><b>2</b></td><td>G 向心力 + G 与自转比较</td></tr>
+<tr><td>12</td><td>西城 2024</td><td>Q13</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p05.png" target="_blank">离子在电磁场中 · 速度分解</a></td><td class="n">0.61</td><td class="n">0.69</td><td class="n red">−0.08</td><td class="n"><b>2</b></td><td>B 洛伦兹力方向 + G 速度分解</td></tr>
+<tr><td>13</td><td>西城 2025</td><td>Q14</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p04.png" target="_blank">光的力学效应 · 光子动量</a></td><td class="n">0.72</td><td class="n">0.59</td><td class="n green">+0.13</td><td class="n"><b>1</b></td><td>B 光对物体方向</td></tr>
+<tr><td>14</td><td>西城 2025</td><td>Q1</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p01.png" target="_blank">氘氚核反应方程</a></td><td class="n">0.85</td><td class="n">0.97</td><td class="n red">−0.12</td><td class="n"><b>0</b></td><td>核反应方程 · 纯识别</td></tr>
+<tr><td>15</td><td>西城 2025</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p02.png" target="_blank">光滑斜面 · 与倾角无关的物理量</a></td><td class="n">0.79</td><td class="n">0.89</td><td class="n red">−0.10</td><td class="n"><b>1</b></td><td>G 识别哪些物理量与倾角无关</td></tr>
+<tr><td>16</td><td>西城 2025</td><td>Q12</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p04.png" target="_blank">小球缓慢移动与恒力两次过程比较</a></td><td class="n">0.36</td><td class="n">0.46</td><td class="n red">−0.10</td><td class="n"><b>3</b></td><td>A 重力 + B 力方向 + D 功正负</td></tr>
+<tr><td>17</td><td>西城 2026</td><td>Q2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p01.png" target="_blank">您 2026.4 一模第 2 题</a></td><td class="n">0.80</td><td class="n">0.98</td><td class="n red">−0.18</td><td class="n"><b>1</b></td><td>简单 MCQ · 我猜 1 (需要您 confirm)</td></tr>
+<tr><td>18</td><td>西城 2026</td><td>Q3</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p01.png" target="_blank">您 2026.4 一模第 3 题</a></td><td class="n">0.89</td><td class="n">1.01</td><td class="n red">−0.12</td><td class="n"><b>1</b></td><td>简单 MCQ · 我猜 1</td></tr>
+<tr><td>19</td><td>西城 2026</td><td>Q5</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p02.png" target="_blank">您 2026.4 一模第 5 题</a></td><td class="n">0.97</td><td class="n">1.08</td><td class="n red">−0.11</td><td class="n"><b>1</b></td><td>简单 MCQ · 我猜 1</td></tr>
+<tr><td>20</td><td>西城 2026</td><td>Q13</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p04.png" target="_blank">您 2026.4 一模第 13 题</a></td><td class="n">0.45</td><td class="n">0.56</td><td class="n red">−0.11</td><td class="n"><b>2</b></td><td>较难 MCQ · 我猜 2</td></tr>
 </table>
 
-<h3>A.2 · 10 道大题小问 (按您 18:13 定义, 大题也能打陷阱数)</h3>
+<h3>A.2 · 10 道大题小问 · 我已 pre-label · 请您 review</h3>
 
 <table>
-<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th></tr>
-<tr><td>21</td><td>西城 2026</td><td>Q15-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p05.png" target="_blank">电学实验 · 第 2 小问</a></td><td class="n">0.54</td><td class="n">0.73</td><td class="n red">−0.19</td></tr>
-<tr><td>22</td><td>高考 2024</td><td>Q19-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p07.png" target="_blank">宇宙密度 · 动能变化 (引力势能应用)</a></td><td class="n">0.41</td><td class="n">0.59</td><td class="n red">−0.18</td></tr>
-<tr><td>23</td><td>西城 2026</td><td>Q16-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p06.png" target="_blank">力学实验第 2 小问</a></td><td class="n">0.80</td><td class="n">0.98</td><td class="n red">−0.18</td></tr>
-<tr><td>24</td><td>西城 2025</td><td>Q20-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p09.png" target="_blank">电子比荷测量 · 电子在场中轨迹</a></td><td class="n">0.15</td><td class="n">0.31</td><td class="n red">−0.16</td></tr>
-<tr><td>25</td><td>西城 2024</td><td>Q20-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p10.png" target="_blank">小行星飞行器最小速度 (引力势能 + 非弹性对心碰撞)</a></td><td class="n">0.22</td><td class="n">0.37</td><td class="n red">−0.15</td></tr>
-<tr><td>26</td><td>西城 2025</td><td>Q19-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p08.png" target="_blank">火箭最大加速度 (反冲动量守恒)</a></td><td class="n">0.20</td><td class="n">0.35</td><td class="n red">−0.15</td></tr>
-<tr><td>27</td><td>高考 2025</td><td>Q20-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p08.png" target="_blank">圆周运动能量差比较 (静电除尘装置)</a></td><td class="n">0.25</td><td class="n">0.40</td><td class="n red">−0.15</td></tr>
-<tr><td>28</td><td>西城 2024</td><td>Q15-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p06.png" target="_blank">单摆游标卡尺测 g</a></td><td class="n">0.68</td><td class="n">0.81</td><td class="n red">−0.13</td></tr>
-<tr><td>29</td><td>高考 2024</td><td>Q16-b</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p06.png" target="_blank">动量守恒验证关系式</a></td><td class="n">0.92</td><td class="n">0.79</td><td class="n green">+0.13</td></tr>
-<tr><td>30</td><td>高考 2025</td><td>Q16-3</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p06.png" target="_blank">打点计时器 B 点速度</a></td><td class="n">0.69</td><td class="n">0.80</td><td class="n red">−0.11</td></tr>
+<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 陷阱数</b></th><th>依据 (A-G)</th></tr>
+<tr><td>21</td><td>西城 2026</td><td>Q15-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p05.png" target="_blank">电学实验 · 第 2 小问</a></td><td class="n">0.54</td><td class="n">0.73</td><td class="n red">−0.19</td><td class="n"><b>2</b></td><td>G 电学计算 + F 代数</td></tr>
+<tr><td>22</td><td>高考 2024</td><td>Q19-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p07.png" target="_blank">宇宙密度 · 动能变化 (引力势能应用)</a></td><td class="n">0.41</td><td class="n">0.59</td><td class="n red">−0.18</td><td class="n"><b>2</b></td><td>A 引力势能符号 + F 代数</td></tr>
+<tr><td>23</td><td>西城 2026</td><td>Q16-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p06.png" target="_blank">力学实验第 2 小问</a></td><td class="n">0.80</td><td class="n">0.98</td><td class="n red">−0.18</td><td class="n"><b>2</b></td><td>G 实验计算 + F 代数</td></tr>
+<tr><td>24</td><td>西城 2025</td><td>Q20-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p09.png" target="_blank">电子比荷测量 · 电子在场中轨迹</a></td><td class="n">0.15</td><td class="n">0.31</td><td class="n red">−0.16</td><td class="n"><b>3</b></td><td>B 方向 + G 几何抽象 + F 代数</td></tr>
+<tr><td>25</td><td>西城 2024</td><td>Q20-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p10.png" target="_blank">小行星飞行器最小速度 (引力势能 + 非弹性对心碰撞)</a></td><td class="n">0.22</td><td class="n">0.37</td><td class="n red">−0.15</td><td class="n"><b>3</b></td><td>D 功正负 + G 非弹性碰撞 + F 代数</td></tr>
+<tr><td>26</td><td>西城 2025</td><td>Q19-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2025_p08.png" target="_blank">火箭最大加速度 (反冲动量守恒)</a></td><td class="n">0.20</td><td class="n">0.35</td><td class="n red">−0.15</td><td class="n"><b>3</b></td><td>A 重力 + D 功正负 + G 反冲建模</td></tr>
+<tr><td>27</td><td>高考 2025</td><td>Q20-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p08.png" target="_blank">圆周运动能量差比较 (静电除尘装置)</a></td><td class="n">0.25</td><td class="n">0.40</td><td class="n red">−0.15</td><td class="n"><b>3</b></td><td>B 向心力方向 + G 对数几何 + F 代数</td></tr>
+<tr><td>28</td><td>西城 2024</td><td>Q15-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2024_p06.png" target="_blank">单摆游标卡尺测 g</a></td><td class="n">0.68</td><td class="n">0.81</td><td class="n red">−0.13</td><td class="n"><b>2</b></td><td>E 有效数字 + F 公式代入</td></tr>
+<tr><td>29</td><td>高考 2024</td><td>Q16-b</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p06.png" target="_blank">动量守恒验证关系式</a></td><td class="n">0.92</td><td class="n">0.79</td><td class="n green">+0.13</td><td class="n"><b>2</b></td><td>G 关系式推导 + F 代数</td></tr>
+<tr><td>30</td><td>高考 2025</td><td>Q16-3</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2025_p06.png" target="_blank">打点计时器 B 点速度</a></td><td class="n">0.69</td><td class="n">0.80</td><td class="n red">−0.11</td><td class="n"><b>2</b></td><td>E 有效数字 + F 计算</td></tr>
 </table>
 
 <div class="ask">
-  <span class="lbl">陷阱数打分 · 怎么操作</span>
-  <b>在每道题的行上, 选中"主题速览"或者行里任意文字, 会弹出评论按钮, 点它加一条评论就行。</b> 一道题一条评论。<br><br>
-  <b>评论内容格式:</b><br>
-  · 只写数字: "2"<br>
-  · 加简注 (哪几个失分点触发): "2 · A 重力 + F 算术"<br>
-  · 没触发陷阱的题就不用评论, 默认按 0 处理<br><br>
-  <b>如果哪道题我的"主题速览"写错了 (物理内容对不上)</b>, 也麻烦评论里顺便说一句, 我这边好改 label。<br>
-  <b>时间估计:</b> 10-15 分钟, 平均每题 20-30 秒 (熟悉的题几秒就够, 没陷阱的直接跳)。<br>
-  <b>不方便在网页评论也可以微信文字直接回, 格式 "题号: 数字" 就行。</b>
+  <span class="lbl">Review 说明</span>
+  只回不同意的那几道就行 · 全部同意可以一句 "OK". 格式:<br>
+  · "5: 改成 2" 或 "5: 应该 2 (少了 D 功正负)"<br>
+  · 全部同意: "OK"<br>
+  微信直接回或本页评论都行. 时间估计 5-10 分钟.
 </div>
 
 <h2>附录 B · 场景/模式 抽查 (5 道题)</h2>
