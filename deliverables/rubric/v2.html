@@ -8,40 +8,77 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
-  :root{--ink:#1b1d1c;--muted:#5a5e5b;--border:#d0ccc0;--paper:#fbfaf5;--accent:#2b5a8b;--hilite:#fff5d6;--hilite-border:#d9c07a;--box:#eef4fa;--box-border:#8dabcf;--key:#c8410f;--ok:#1e7d3e;--gloss:#f5f0e0;--gloss-border:#d0c090;}
+  :root{
+    --paper:#16181c;
+    --paper-elev:#1e2126;
+    --ink:#e5e3dd;
+    --ink-strong:#f4f2ec;
+    --muted:#8a8d87;
+    --border:#2f3339;
+    --border-strong:#3d434a;
+    --accent:#78b0e0;
+    --accent-soft:#3a5a7a;
+    --hilite:#3a3220;
+    --hilite-border:#7a6830;
+    --hilite-ink:#e9d799;
+    --box:#1c2a3a;
+    --box-border:#3e587a;
+    --box-ink:#a8caeb;
+    --key:#f0895a;
+    --key-soft:#3c281f;
+    --ok:#6ecc8f;
+    --ok-soft:#1e3524;
+    --ok-border:#3a6a48;
+    --ok-ink:#b8e4c4;
+    --gloss:#2a2820;
+    --gloss-border:#5e5432;
+    --gloss-ink:#dccb95;
+    --ask:#3a1e1e;
+    --ask-border:#7a3838;
+    --ask-ink:#f3b0b0;
+  }
   *{box-sizing:border-box}
+  html{background:var(--paper);}
   body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.75;font-size:15.5px;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
   .page{max-width:920px;margin:0 auto;padding:44px 56px 100px;background:var(--paper);}
-  header.doc{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:28px;}
+  header.doc{border-bottom:2px solid var(--border-strong);padding-bottom:18px;margin-bottom:28px;}
   .kicker{font-size:11px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
-  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;letter-spacing:0.02em;}
+  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;letter-spacing:0.02em;color:var(--ink-strong);}
   .meta{font-size:13px;color:var(--muted);}
   .meta b{color:var(--ink);font-weight:500}
   h2{font-size:19px;color:var(--accent);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
-  h3{font-size:15.5px;margin:20px 0 8px;font-weight:600;}
-  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #b18a1e;padding:12px 16px;margin:0 0 20px;font-size:14px;color:#5a4a1a;border-radius:2px;}
-  .banner b{color:#3b3013}
-  .banner.ok{background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20}
-  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:#1e3d5f}
-  .gloss{background:var(--gloss);border:1px solid var(--gloss-border);border-left:4px solid #a0894a;padding:12px 16px;margin:10px 0 22px;font-size:14px;color:#4a3e1a;border-radius:2px;}
-  .gloss b{color:#3b3013}
-  .gloss dt{font-weight:600;color:#3b3013;margin-top:8px;}
-  .gloss dd{margin:2px 0 6px 0;}
-  .ask{background:#fbeaea;border:1px solid #d99c9c;border-left:4px solid #b32a2a;padding:12px 16px;margin:14px 0;border-radius:2px;font-size:14px;}
-  .ask .lbl{font-weight:700;color:#8b1a1a;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:6px;}
-  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
-  th,td{border:1px solid var(--border);padding:6px 10px;text-align:left;}
-  th{background:#f4efe2;font-weight:600;font-size:13px;}
+  h3{font-size:15.5px;margin:20px 0 8px;font-weight:600;color:var(--ink-strong);}
+  p{color:var(--ink);}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent-soft);}
+  a:hover{border-bottom-style:solid;}
+  ul,ol{color:var(--ink);}
+  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #c89e30;padding:12px 16px;margin:0 0 20px;font-size:14px;color:var(--hilite-ink);border-radius:2px;}
+  .banner b{color:#f4dfa0}
+  .banner.ok{background:var(--ok-soft);border-color:var(--ok-border);border-left-color:var(--ok);color:var(--ok-ink)}
+  .banner.ok b{color:#daf1e0}
+  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:var(--box-ink)}
+  .banner.info b{color:#d8ecff}
+  .gloss{background:var(--gloss);border:1px solid var(--gloss-border);border-left:4px solid #b09040;padding:12px 16px;margin:10px 0 22px;font-size:14px;color:var(--gloss-ink);border-radius:2px;}
+  .gloss b{color:#f4dfa0}
+  .gloss dt{font-weight:600;color:#f4dfa0;margin-top:8px;}
+  .gloss dd{margin:2px 0 6px 0;color:var(--gloss-ink);}
+  .ask{background:var(--ask);border:1px solid var(--ask-border);border-left:4px solid #d64545;padding:12px 16px;margin:14px 0;border-radius:2px;font-size:14px;color:var(--ask-ink);}
+  .ask .lbl{font-weight:700;color:#f8c8c8;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:6px;}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--paper-elev);}
+  th,td{border:1px solid var(--border);padding:6px 10px;text-align:left;color:var(--ink);}
+  th{background:#242830;font-weight:600;font-size:13px;color:var(--ink-strong);}
+  tr:nth-child(even) td{background:#191c21;}
   .n{text-align:right;font-variant-numeric:tabular-nums;}
   .green{color:var(--ok);font-weight:600}
   .red{color:var(--key);font-weight:600}
-  em.term{color:var(--accent);font-style:normal;font-weight:600;background:#eef4fa;padding:1px 5px;border-radius:2px;}
-  em.key{color:var(--key);font-style:normal;font-weight:600;background:#fff0e8;padding:1px 5px;border-radius:2px;}
+  em.term{color:var(--accent);font-style:normal;font-weight:600;background:var(--box);padding:1px 5px;border-radius:2px;}
+  em.key{color:var(--key);font-style:normal;font-weight:600;background:var(--key-soft);padding:1px 5px;border-radius:2px;}
   .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0;}
-  .metric{background:#fff;border:1px solid var(--border);border-radius:4px;padding:14px;text-align:center;}
+  .metric{background:var(--paper-elev);border:1px solid var(--border-strong);border-radius:4px;padding:14px;text-align:center;}
   .metric .val{font-size:26px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
   .metric .lbl{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:0.05em;}
   footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+  footer.doc a{color:var(--accent);border-bottom:none;}
 </style>
 </head>
 <body>
@@ -187,7 +224,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<style>.chart-wrap{margin:16px 0;padding:12px;background:#fff;border:1px solid var(--border);border-radius:4px}.chart-wrap h4{margin:0 0 8px;font-size:14px;color:var(--accent);font-weight:600}.chart-canvas{width:100%!important;height:280px!important}</style>
+<style>.chart-wrap{margin:16px 0;padding:12px;background:var(--paper-elev);border:1px solid var(--border-strong);border-radius:4px}.chart-wrap h4{margin:0 0 8px;font-size:14px;color:var(--accent);font-weight:600}.chart-canvas{width:100%!important;height:280px!important}</style>
 
 <div class="chart-wrap"><h4>西城 2026 一模 (您本届)</h4><canvas id="chart_xicheng_2026" class="chart-canvas"></canvas></div>
 <div class="chart-wrap"><h4>西城 2025 一模</h4><canvas id="chart_xicheng_2025" class="chart-canvas"></canvas></div>
@@ -199,6 +236,13 @@
 
 <script>
 const CHART_DATA = {"xicheng_2024": [{"qid":"1","pos":0.03,"actual":0.93,"pred":0.9057},{"qid":"2","pos":0.061,"actual":0.95,"pred":0.9081},{"qid":"3","pos":0.091,"actual":0.8,"pred":0.8758},{"qid":"4","pos":0.121,"actual":0.93,"pred":0.8862},{"qid":"5","pos":0.152,"actual":0.88,"pred":0.9008},{"qid":"6","pos":0.182,"actual":0.61,"pred":0.6953},{"qid":"7","pos":0.212,"actual":0.92,"pred":0.8804},{"qid":"8","pos":0.242,"actual":0.63,"pred":0.7249},{"qid":"9","pos":0.273,"actual":0.8,"pred":0.7432},{"qid":"10","pos":0.303,"actual":0.49,"pred":0.5237},{"qid":"11","pos":0.333,"actual":0.67,"pred":0.7098},{"qid":"12","pos":0.364,"actual":0.65,"pred":0.6864},{"qid":"13","pos":0.394,"actual":0.61,"pred":0.6396},{"qid":"14","pos":0.424,"actual":0.82,"pred":0.6782},{"qid":"15-1","pos":0.455,"actual":0.72,"pred":0.881},{"qid":"15-2a","pos":0.485,"actual":0.68,"pred":0.7613},{"qid":"15-2b","pos":0.515,"actual":0.84,"pred":0.8459},{"qid":"16-1","pos":0.545,"actual":0.96,"pred":0.9272},{"qid":"16-2","pos":0.576,"actual":0.8,"pred":0.86},{"qid":"16-3","pos":0.606,"actual":0.5,"pred":0.6043},{"qid":"16-4","pos":0.636,"actual":0.33,"pred":0.3853},{"qid":"17-1","pos":0.667,"actual":0.88,"pred":0.8439},{"qid":"17-2","pos":0.697,"actual":0.87,"pred":0.8438},{"qid":"17-3","pos":0.727,"actual":0.63,"pred":0.6414},{"qid":"18-1","pos":0.758,"actual":0.92,"pred":0.8563},{"qid":"18-2","pos":0.788,"actual":0.76,"pred":0.647},{"qid":"18-3","pos":0.818,"actual":0.67,"pred":0.6114},{"qid":"19-1","pos":0.848,"actual":0.61,"pred":0.5836},{"qid":"19-2a","pos":0.879,"actual":0.58,"pred":0.5221},{"qid":"19-2b","pos":0.909,"actual":0.19,"pred":0.1464},{"qid":"20-1","pos":0.939,"actual":0.82,"pred":0.8297},{"qid":"20-2a","pos":0.97,"actual":0.22,"pred":0.2196},{"qid":"20-2b","pos":1.0,"actual":0.12,"pred":0.1763}],"xicheng_2025":[{"qid":"1","pos":0.03,"actual":0.85,"pred":0.8935},{"qid":"2","pos":0.061,"actual":0.92,"pred":0.9133},{"qid":"3","pos":0.091,"actual":0.92,"pred":0.9133},{"qid":"4","pos":0.121,"actual":0.93,"pred":0.8865},{"qid":"5","pos":0.152,"actual":0.93,"pred":0.8771},{"qid":"6","pos":0.182,"actual":0.79,"pred":0.8718},{"qid":"7","pos":0.212,"actual":0.85,"pred":0.8953},{"qid":"8","pos":0.242,"actual":0.78,"pred":0.8868},{"qid":"9","pos":0.273,"actual":0.86,"pred":0.8914},{"qid":"10","pos":0.303,"actual":0.77,"pred":0.7373},{"qid":"11","pos":0.333,"actual":0.86,"pred":0.8917},{"qid":"12","pos":0.364,"actual":0.36,"pred":0.5113},{"qid":"13","pos":0.394,"actual":0.6,"pred":0.5306},{"qid":"14","pos":0.424,"actual":0.72,"pred":0.6686},{"qid":"15-1","pos":0.455,"actual":0.79,"pred":0.8784},{"qid":"15-2","pos":0.485,"actual":0.8,"pred":0.8573},{"qid":"15-3","pos":0.515,"actual":0.55,"pred":0.6716},{"qid":"16-1","pos":0.545,"actual":0.95,"pred":0.8791},{"qid":"16-2","pos":0.576,"actual":0.87,"pred":0.8791},{"qid":"16-3","pos":0.606,"actual":0.83,"pred":0.8469},{"qid":"16-4","pos":0.636,"actual":0.35,"pred":0.3445},{"qid":"17-1","pos":0.667,"actual":0.92,"pred":0.924},{"qid":"17-2","pos":0.697,"actual":0.93,"pred":0.8698},{"qid":"17-3","pos":0.727,"actual":0.83,"pred":0.842},{"qid":"18-1","pos":0.758,"actual":0.93,"pred":0.8567},{"qid":"18-2","pos":0.788,"actual":0.77,"pred":0.6614},{"qid":"18-3","pos":0.818,"actual":0.53,"pred":0.632},{"qid":"19-1","pos":0.848,"actual":0.23,"pred":0.3262},{"qid":"19-2","pos":0.879,"actual":0.2,"pred":0.268},{"qid":"19-3","pos":0.909,"actual":0.13,"pred":0.2004},{"qid":"20-1","pos":0.939,"actual":0.58,"pred":0.5729},{"qid":"20-2","pos":0.97,"actual":0.15,"pred":0.2696},{"qid":"20-3","pos":1.0,"actual":0.05,"pred":0.1851}],"xicheng_2026":[{"qid":"1","pos":0.03,"actual":0.93,"pred":0.9102},{"qid":"2","pos":0.061,"actual":0.8,"pred":0.9137},{"qid":"3","pos":0.091,"actual":0.89,"pred":0.8999},{"qid":"4","pos":0.121,"actual":0.9,"pred":0.8951},{"qid":"5","pos":0.152,"actual":0.97,"pred":0.9009},{"qid":"6","pos":0.182,"actual":0.93,"pred":0.8754},{"qid":"7","pos":0.212,"actual":0.92,"pred":0.8677},{"qid":"8","pos":0.242,"actual":0.89,"pred":0.8721},{"qid":"9","pos":0.273,"actual":0.66,"pred":0.7303},{"qid":"10","pos":0.303,"actual":0.72,"pred":0.7362},{"qid":"11","pos":0.333,"actual":0.62,"pred":0.5346},{"qid":"12","pos":0.364,"actual":0.71,"pred":0.7163},{"qid":"13","pos":0.394,"actual":0.45,"pred":0.5026},{"qid":"14","pos":0.424,"actual":0.69,"pred":0.675},{"qid":"15-1","pos":0.455,"actual":0.88,"pred":0.8387},{"qid":"15-2","pos":0.485,"actual":0.54,"pred":0.7359},{"qid":"15-3","pos":0.515,"actual":0.89,"pred":0.86},{"qid":"16-1","pos":0.545,"actual":0.86,"pred":0.8884},{"qid":"16-2","pos":0.576,"actual":0.8,"pred":0.9245},{"qid":"16-3","pos":0.606,"actual":0.67,"pred":0.8331},{"qid":"16-4","pos":0.636,"actual":0.37,"pred":0.2508},{"qid":"17-1","pos":0.667,"actual":0.98,"pred":0.9154},{"qid":"17-2a","pos":0.697,"actual":0.97,"pred":0.9137},{"qid":"17-2b","pos":0.727,"actual":0.82,"pred":0.8275},{"qid":"18-1a","pos":0.758,"actual":0.91,"pred":0.8651},{"qid":"18-1b","pos":0.788,"actual":0.89,"pred":0.8621},{"qid":"18-2","pos":0.818,"actual":0.45,"pred":0.6529},{"qid":"19-1","pos":0.848,"actual":0.66,"pred":0.6414},{"qid":"19-2a","pos":0.879,"actual":0.59,"pred":0.4981},{"qid":"19-2b","pos":0.909,"actual":0.28,"pred":0.2313},{"qid":"20-1a","pos":0.939,"actual":0.9,"pred":0.8858},{"qid":"20-1b","pos":0.97,"actual":0.39,"pred":0.3202},{"qid":"20-2","pos":1.0,"actual":0.28,"pred":0.1517}],"gaokao_2022":[{"qid":"1","pos":0.033,"actual":0.87,"pred":0.9146},{"qid":"2","pos":0.067,"actual":0.87,"pred":0.916},{"qid":"3","pos":0.1,"actual":0.89,"pred":0.8691},{"qid":"4","pos":0.133,"actual":0.86,"pred":0.8863},{"qid":"5","pos":0.167,"actual":0.9,"pred":0.8837},{"qid":"6","pos":0.2,"actual":0.9,"pred":0.87},{"qid":"7","pos":0.233,"actual":0.86,"pred":0.8982},{"qid":"8","pos":0.267,"actual":0.89,"pred":0.8837},{"qid":"9","pos":0.3,"actual":0.72,"pred":0.7105},{"qid":"10","pos":0.333,"actual":0.9,"pred":0.8753},{"qid":"11","pos":0.367,"actual":0.63,"pred":0.5425},{"qid":"12","pos":0.4,"actual":0.76,"pred":0.7117},{"qid":"13","pos":0.433,"actual":0.7,"pred":0.7167},{"qid":"14","pos":0.467,"actual":0.51,"pred":0.6856},{"qid":"15-1","pos":0.5,"actual":0.92,"pred":0.8853},{"qid":"15-2","pos":0.533,"actual":0.63,"pred":0.6717},{"qid":"15-3","pos":0.567,"actual":0.87,"pred":0.8594},{"qid":"16-4","pos":0.6,"actual":0.34,"pred":0.6024},{"qid":"17-1","pos":0.633,"actual":0.95,"pred":0.925},{"qid":"17-2","pos":0.667,"actual":0.84,"pred":0.8476},{"qid":"17-3","pos":0.7,"actual":0.75,"pred":0.8476},{"qid":"18-1","pos":0.733,"actual":0.94,"pred":0.9386},{"qid":"18-2","pos":0.767,"actual":0.94,"pred":0.8637},{"qid":"18-3","pos":0.8,"actual":0.7,"pred":0.6569},{"qid":"19-1","pos":0.833,"actual":0.78,"pred":0.8291},{"qid":"19-2","pos":0.867,"actual":0.78,"pred":0.6609},{"qid":"19-3","pos":0.9,"actual":0.4,"pred":0.3123},{"qid":"20-1","pos":0.933,"actual":0.6,"pred":0.5988},{"qid":"20-2","pos":0.967,"actual":0.52,"pred":0.3484},{"qid":"20-3","pos":1.0,"actual":0.19,"pred":0.1675}],"gaokao_2023":[{"qid":"1","pos":0.032,"actual":0.9,"pred":0.912},{"qid":"2","pos":0.065,"actual":0.9,"pred":0.912},{"qid":"3","pos":0.097,"actual":0.87,"pred":0.912},{"qid":"4","pos":0.129,"actual":0.58,"pred":0.7221},{"qid":"5","pos":0.161,"actual":0.97,"pred":0.8868},{"qid":"6","pos":0.194,"actual":0.75,"pred":0.7069},{"qid":"7","pos":0.226,"actual":0.9,"pred":0.8989},{"qid":"8","pos":0.258,"actual":0.77,"pred":0.7104},{"qid":"11","pos":0.29,"actual":0.44,"pred":0.5655},{"qid":"12","pos":0.323,"actual":0.65,"pred":0.7211},{"qid":"13","pos":0.355,"actual":0.5,"pred":0.5452},{"qid":"14","pos":0.387,"actual":0.63,"pred":0.4514},{"qid":"15-1","pos":0.419,"actual":0.87,"pred":0.7864},{"qid":"15-2a","pos":0.452,"actual":0.88,"pred":0.8891},{"qid":"15-2b","pos":0.484,"actual":0.83,"pred":0.8617},{"qid":"16-1","pos":0.516,"actual":0.88,"pred":0.9243},{"qid":"16-2","pos":0.548,"actual":0.92,"pred":0.8773},{"qid":"16-3","pos":0.581,"actual":0.88,"pred":0.87},{"qid":"16-4","pos":0.613,"actual":0.07,"pred":0.3078},{"qid":"17-1","pos":0.645,"actual":0.92,"pred":0.9341},{"qid":"17-2","pos":0.677,"actual":0.84,"pred":0.8377},{"qid":"17-3","pos":0.71,"actual":0.9,"pred":0.8377},{"qid":"18-1","pos":0.742,"actual":0.94,"pred":0.9461},{"qid":"18-2","pos":0.774,"actual":0.91,"pred":0.8617},{"qid":"18-3","pos":0.806,"actual":0.76,"pred":0.7061},{"qid":"19-1","pos":0.839,"actual":0.68,"pred":0.857},{"qid":"19-2a","pos":0.871,"actual":0.26,"pred":0.4469},{"qid":"19-2b","pos":0.903,"actual":0.2,"pred":0.1901},{"qid":"20-1","pos":0.935,"actual":0.81,"pred":0.8381},{"qid":"20-2","pos":0.968,"actual":0.34,"pred":0.3324},{"qid":"20-3","pos":1.0,"actual":0.19,"pred":0.1415}],"gaokao_2024":[{"qid":"1","pos":0.031,"actual":0.93,"pred":0.9021},{"qid":"2","pos":0.062,"actual":0.96,"pred":0.903},{"qid":"4","pos":0.094,"actual":0.9,"pred":0.8787},{"qid":"5","pos":0.125,"actual":0.96,"pred":0.8919},{"qid":"6","pos":0.156,"actual":0.78,"pred":0.6895},{"qid":"7","pos":0.188,"actual":0.92,"pred":0.8785},{"qid":"8","pos":0.219,"actual":0.74,"pred":0.6979},{"qid":"10","pos":0.25,"actual":0.8,"pred":0.6807},{"qid":"11","pos":0.281,"actual":0.74,"pred":0.7051},{"qid":"12","pos":0.312,"actual":0.72,"pred":0.7187},{"qid":"13","pos":0.344,"actual":0.61,"pred":0.7021},{"qid":"14","pos":0.375,"actual":0.51,"pred":0.4806},{"qid":"15-1","pos":0.406,"actual":0.94,"pred":0.9065},{"qid":"15-2","pos":0.438,"actual":0.91,"pred":0.8407},{"qid":"15-3","pos":0.469,"actual":0.78,"pred":0.6824},{"qid":"16-1","pos":0.5,"actual":0.98,"pred":0.9063},{"qid":"16-2","pos":0.531,"actual":0.9,"pred":0.9062},{"qid":"16-a","pos":0.562,"actual":0.87,"pred":0.8231},{"qid":"16-b","pos":0.594,"actual":0.92,"pred":0.8002},{"qid":"16-3","pos":0.625,"actual":0.31,"pred":0.2795},{"qid":"17-1","pos":0.656,"actual":0.99,"pred":0.9135},{"qid":"17-2","pos":0.688,"actual":0.96,"pred":0.9109},{"qid":"17-3","pos":0.719,"actual":0.81,"pred":0.8196},{"qid":"18-1","pos":0.75,"actual":0.93,"pred":0.8444},{"qid":"18-2","pos":0.781,"actual":0.93,"pred":0.8593},{"qid":"18-3","pos":0.812,"actual":0.68,"pred":0.6075},{"qid":"19-1","pos":0.844,"actual":0.42,"pred":0.5773},{"qid":"19-2a","pos":0.875,"actual":0.41,"pred":0.5216},{"qid":"19-2b","pos":0.906,"actual":0.18,"pred":0.162},{"qid":"20-1","pos":0.938,"actual":0.76,"pred":0.8541},{"qid":"20-2","pos":0.969,"actual":0.35,"pred":0.322},{"qid":"20-3","pos":1.0,"actual":0.21,"pred":0.1633}],"gaokao_2025":[{"qid":"1","pos":0.032,"actual":0.96,"pred":0.91},{"qid":"2","pos":0.065,"actual":0.92,"pred":0.91},{"qid":"3","pos":0.097,"actual":0.83,"pred":0.8943},{"qid":"4","pos":0.129,"actual":0.87,"pred":0.9012},{"qid":"5","pos":0.161,"actual":0.89,"pred":0.8797},{"qid":"6","pos":0.194,"actual":0.75,"pred":0.6943},{"qid":"7","pos":0.226,"actual":0.93,"pred":0.8758},{"qid":"8","pos":0.258,"actual":0.95,"pred":0.8484},{"qid":"9","pos":0.29,"actual":0.74,"pred":0.7505},{"qid":"10","pos":0.323,"actual":0.57,"pred":0.5135},{"qid":"11","pos":0.355,"actual":0.83,"pred":0.6456},{"qid":"12","pos":0.387,"actual":0.67,"pred":0.6956},{"qid":"13","pos":0.419,"actual":0.3,"pred":0.4741},{"qid":"14","pos":0.452,"actual":0.5,"pred":0.4667},{"qid":"15-1","pos":0.484,"actual":0.85,"pred":0.8684},{"qid":"15-2a","pos":0.516,"actual":0.9,"pred":0.8683},{"qid":"15-2b","pos":0.548,"actual":0.86,"pred":0.8352},{"qid":"15-3","pos":0.581,"actual":0.82,"pred":0.8431},{"qid":"16-1","pos":0.613,"actual":0.99,"pred":0.9177},{"qid":"16-2","pos":0.645,"actual":0.94,"pred":0.917},{"qid":"16-3","pos":0.677,"actual":0.69,"pred":0.7382},{"qid":"16-4","pos":0.71,"actual":0.7,"pred":0.6111},{"qid":"17-1","pos":0.742,"actual":0.93,"pred":0.9217},{"qid":"17-2","pos":0.774,"actual":0.84,"pred":0.8515},{"qid":"17-3","pos":0.806,"actual":0.86,"pred":0.8473},{"qid":"19-1","pos":0.839,"actual":0.8,"pred":0.8238},{"qid":"19-2","pos":0.871,"actual":0.74,"pred":0.8308},{"qid":"19-3","pos":0.903,"actual":0.31,"pred":0.2754},{"qid":"20-1","pos":0.935,"actual":0.9,"pred":0.848},{"qid":"20-2","pos":0.968,"actual":0.25,"pred":0.2729},{"qid":"20-3","pos":1.0,"actual":0.02,"pred":0.1685}]};
+
+const CHART_INK = '#e5e3dd';
+const CHART_MUTED = '#8a8d87';
+const CHART_GRID = 'rgba(140,145,150,0.18)';
+Chart.defaults.color = CHART_INK;
+Chart.defaults.borderColor = CHART_GRID;
+Chart.defaults.font.family = '"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif';
 
 function renderChart(paperKey) {
   const rows = CHART_DATA[paperKey];
@@ -213,20 +257,26 @@ function renderChart(paperKey) {
     data: {
       labels: labels,
       datasets: [
-        {label: '模型预测得分率', data: pred, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.10)',
-         tension: 0.25, borderWidth: 2, pointRadius: 2, fill: true},
-        {label: '学生实际得分率', data: actual, borderColor: '#ef4444', backgroundColor: '#ef4444',
+        {label: '模型预测得分率', data: pred, borderColor: '#78b0e0', backgroundColor: 'rgba(120,176,224,.14)',
+         tension: 0.25, borderWidth: 2, pointRadius: 2, pointBackgroundColor: '#78b0e0', fill: true},
+        {label: '学生实际得分率', data: actual, borderColor: '#f0895a', backgroundColor: '#f0895a',
          showLine: false, pointRadius: 4, pointHoverRadius: 6},
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: {
-        y: {min: 0, max: 1, title: {display: true, text: '得分率'}, ticks: {stepSize: 0.2}},
-        x: {title: {display: true, text: '题号 (按卷面顺序)'}, ticks: {autoSkip: false, maxRotation: 60, minRotation: 45, font: {size: 10}}}
+        y: {min: 0, max: 1,
+            title: {display: true, text: '得分率', color: CHART_MUTED},
+            ticks: {stepSize: 0.2, color: CHART_MUTED},
+            grid: {color: CHART_GRID}, border: {color: CHART_GRID}},
+        x: {title: {display: true, text: '题号 (按卷面顺序)', color: CHART_MUTED},
+            ticks: {autoSkip: false, maxRotation: 60, minRotation: 45, color: CHART_MUTED, font: {size: 10}},
+            grid: {color: CHART_GRID}, border: {color: CHART_GRID}}
       },
-      plugins: {legend: {position: 'top', labels: {boxWidth: 14, font: {size: 12}}},
-                tooltip: {callbacks: {label: (ctx) => ctx.dataset.label + ': ' + (ctx.parsed.y * 100).toFixed(1) + '%'}}}
+      plugins: {legend: {position: 'top', labels: {boxWidth: 14, color: CHART_INK, font: {size: 12}}},
+                tooltip: {backgroundColor: '#0f1114', titleColor: '#f4f2ec', bodyColor: '#e5e3dd', borderColor: '#3d434a', borderWidth: 1,
+                          callbacks: {label: (ctx) => ctx.dataset.label + ': ' + (ctx.parsed.y * 100).toFixed(1) + '%'}}}
     }
   });
 }
@@ -315,12 +365,12 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <h3>A.1 · 20 道选择题 · 我已 pre-label · 请您 review</h3>
 
-<div class="banner" style="background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20">
+<div class="banner ok">
   <b>Pattern shift (Ethan 14:41 建议):</b> 我根据您 18:13 的定义 pre-label 了 30 道 · 您只需 review + 调整我判断错的 · 比空白让您打分快得多。<br>
   <b>Empirical 结果 (基于我的 pre-label)</b>: 合并版 (陷阱数 与 概念数 合并) LOPO MAE = <b>0.0597</b> · <b>首次突破 6% 目标!</b> · r(陷阱数, 概念数) = +0.717 · 验证您 13:06 的合并假设.
 </div>
 
-<div class="banner" style="background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20">
+<div class="banner ok">
   <b>✅ 杨老师 2026-08-03 上午已 review 完全部 30 道</b> · 用她真实 label refit:
   <ul style="margin:6px 0 0 18px">
     <li>合并版 MAE = <b>0.0583</b> · 独立版 MAE = <b>0.0583</b> · concept 非线性 + trap = <b>0.0578</b> (最佳)</li>
