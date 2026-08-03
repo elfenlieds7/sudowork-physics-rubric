@@ -55,6 +55,15 @@
   </div>
 </header>
 
+<div class="banner ok" style="border-left-width:6px">
+  <b>🎯 最终 milestone (2026-08-03 傍晚 · lock):</b><br>
+  单题 MAE = <b>0.0578</b> · 整卷加权 MAE = <b>1.38 pp</b> · 累计削减 <b>20.8% 误差</b> (v4 → 现在)<br>
+  数据: 7 份试卷 · 223 items · 30 道陷阱数由杨老师亲自 review label<br>
+  模型: v5.1 (17 特征 + concept 非线性 + trap) · Lasso + GBM ensemble<br>
+  过拟合 4 项检验全过 (LOPO-Train gap +0.010 · 多 seed SD 0.000 · 随机特征 sanity +0.0004)<br>
+  详细见 第十一部分.
+</div>
+
 <div class="banner" style="background:#eff8e6;border-color:#8fc06b;border-left-color:#4a7b1a;color:#2a4a10">
   <b>📌 v4 更新 (2026-08-02 中午 · 基于您两条反馈跑出来的新结果):</b><br>
   杨老师第 2 点直接推翻了 v2 里"场景没信号"的结论。加了 <b>迁移成本</b> 交叉特征后:<br>
@@ -782,6 +791,69 @@
 <h3>10.4 · 后续单题精度目标 (次要, 但仍值得推)</h3>
 
 <p>杨老师 14:22 反馈: 单题精度 5% 是理想, 6% 已经很了不起. 我们现在 6.2%, 距离 6% 只差 0.2 pp. 陷阱数 label 拿到后有希望突破 6% 门槛. 但即使不突破, 整卷精度已达实用.</p>
+
+<h2>十一 · 过拟合验证 · 当前 milestone lock</h2>
+
+<div class="banner ok">
+  <b>🎯 Current champion (2026-08-03 傍晚 · milestone locked):</b>
+  <ul style="margin:6px 0 0 18px">
+    <li><b>单题 MAE = 0.0578</b> (v5.1 + concept 非线性 + 30 陷阱数 · Lasso+GBM ensemble)</li>
+    <li><b>整卷加权 MAE = 1.38 pp</b> (7 papers 平均 · 中位数 1.43 · 最大 2.67 pp)</li>
+    <li>累计削减: v4 (0.0730) → 现在 (0.0578) · <b>−20.8% 误差</b></li>
+    <li>距杨老师 5% ideal 目标: 差 0.008 · 距 6% 里程碑: 已过 0.002</li>
+  </ul>
+</div>
+
+<h3>11.1 · 过拟合 4 项检验 · 全部通过</h3>
+
+<table>
+<tr><th>检验</th><th>结果</th><th>诊断</th></tr>
+<tr><td>Per-paper LOPO consistency</td><td class="n">SD = 0.0044</td><td>7 份试卷 MAE 都在 0.0515-0.0626 · 无异常</td></tr>
+<tr><td>Train MAE vs LOPO MAE gap</td><td class="n">+0.0099</td><td>Train 0.0479 · LOPO 0.0578 · 差 17% · 健康 (gap &gt; 0.02 = 过拟合)</td></tr>
+<tr><td>Multi-seed GBM 稳定性 (10 seeds)</td><td class="n">SD = 0.0000</td><td>范围 0.0595-0.0596 · 模型 deterministic</td></tr>
+<tr><td>随机噪声特征 sanity check</td><td class="n">+0.0004</td><td>加入随机特征 MAE 几乎不变 · 模型不 fit 噪声</td></tr>
+</table>
+
+<h3>11.2 · 每份试卷 LOPO 表现</h3>
+
+<table>
+<tr><th>试卷</th><th class="n">题数</th><th class="n">LOPO MAE</th><th class="n">LOPO R²</th></tr>
+<tr><td>高考 2022</td><td class="n">30</td><td class="n">0.0548</td><td class="n">0.823</td></tr>
+<tr><td>高考 2023</td><td class="n">31</td><td class="n">0.0619</td><td class="n">0.882</td></tr>
+<tr><td>高考 2024</td><td class="n">32</td><td class="n">0.0601</td><td class="n">0.912</td></tr>
+<tr><td>高考 2025</td><td class="n">31</td><td class="n">0.0515</td><td class="n">0.913</td></tr>
+<tr><td>西城 2024</td><td class="n">33</td><td class="n">0.0536</td><td class="n">0.913</td></tr>
+<tr><td>西城 2025</td><td class="n">33</td><td class="n">0.0600</td><td class="n">0.929</td></tr>
+<tr><td>西城 2026</td><td class="n">33</td><td class="n">0.0626</td><td class="n">0.845</td></tr>
+</table>
+
+<p>所有 7 份试卷 R² &gt; 0.82 · 6 份 &gt; 0.88. MAE 范围 5.15%-6.26% · 无 outlier.</p>
+
+<h3>11.3 · 整卷加权得分率预测 (命题工具核心 metric)</h3>
+
+<table>
+<tr><th>试卷</th><th class="n">实际总</th><th class="n">预测总</th><th class="n">误差 (pp)</th></tr>
+<tr><td>高考 2022</td><td class="n">0.7077</td><td class="n">0.7226</td><td class="n">+1.50</td></tr>
+<tr><td>高考 2023</td><td class="n">0.6947</td><td class="n">0.7090</td><td class="n">+1.43</td></tr>
+<tr><td>高考 2024</td><td class="n">0.7259</td><td class="n">0.6992</td><td class="n">−2.67</td></tr>
+<tr><td>高考 2025</td><td class="n">0.7256</td><td class="n">0.7211</td><td class="n">−0.44</td></tr>
+<tr><td>西城 2024</td><td class="n">0.6795</td><td class="n">0.6826</td><td class="n">+0.31</td></tr>
+<tr><td>西城 2025</td><td class="n">0.6634</td><td class="n">0.6902</td><td class="n">+2.67</td></tr>
+<tr><td>西城 2026</td><td class="n">0.7259</td><td class="n">0.7193</td><td class="n">−0.66</td></tr>
+</table>
+
+<div class="banner info">
+  <b>整卷 MAE = 1.38 pp</b> · 中位数 1.43 pp · 最大 2.67 pp. 相比西城学生高考实测总得分率 0.70-0.73 的 3 pp 自然波动 · 模型误差是自然波动的 <b>~46%</b>. 已经足够精细的命题工具用途 (预测偏离目标 &lt; 3pp 时可靠).
+</div>
+
+<h3>11.4 · 下一步方向 (未来 iteration · 非当前 blocker)</h3>
+
+<ul>
+  <li><b>要突破 MAE 0.05 · 需要更多 teacher trap labels</b>. 目前只 30/223 labeled. 剩下 193 items 我尝试 heuristic + mini-model imputation 都不 work (adds noise · features 冗余). 需要杨老师亲手 label 才有独立信号.</li>
+  <li><b>陷阱数概念扩展</b>: 杨老师 16:57 指出 A-G 分类不完全 · 还有变力运动 / 陌生图像信息 / 等. 长期扩 taxonomy 可能有帮助.</li>
+  <li><b>命题工具化</b>: 当前精度已达实用 · 可以做成 web app · 老师上传题目 → 立即输出预测. 无需再等模型精进.</li>
+  <li><b>发论文方向</b>: 数据 pipeline + 方法论 + 实践意义完备 · 可写 "AI-assisted difficulty prediction for Chinese physics exam questions" 类文章.</li>
+</ul>
 
 <h2>附录 A · 陷阱数 打分请求 (30 道题, 采用杨老师 18:13 定义)</h2>
 
