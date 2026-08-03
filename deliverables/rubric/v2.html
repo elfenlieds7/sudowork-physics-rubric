@@ -601,6 +601,29 @@
   距离目标 0.050 还差 0.018 · 靠后续陷阱数 + 长期扩样本继续推
 </div>
 
+<h4>9.6.2 · Ridge 正则化再削 0.0014 · 特征工程触及 162 样本天花板</h4>
+
+<p>在 v5.1 上加 L2 正则化 (Ridge) 缓解交互项过拟合. 扫描 alpha:</p>
+
+<table>
+<tr><th>模型</th><th class="n">alpha</th><th class="n">LOPO R²</th><th class="n">LOPO MAE</th></tr>
+<tr><td>v5.1 OLS (无正则)</td><td class="n">0</td><td class="n">0.8674</td><td class="n">0.0676</td></tr>
+<tr><td>v5.1 Ridge</td><td class="n">2.0</td><td class="n">0.8723</td><td class="n">0.0662</td></tr>
+<tr><td>v5.1 Ridge</td><td class="n">5.0</td><td class="n">0.8719</td><td class="n">0.0662</td></tr>
+<tr><td>29 特征 (加所有 pairwise 交互 + 平方项)</td><td class="n">20.0</td><td class="n"><b>0.8741</b></td><td class="n"><b>0.0660</b></td></tr>
+</table>
+
+<div class="banner">
+  <b>关键判断:</b> v5.1 + Ridge 到 0.0662, 加更多特征 + 更强正则化只再降 0.0002. 这说明:
+  <ul style="margin:6px 0 0 18px">
+    <li><b>在 162 样本上, 特征工程的天花板差不多是 MAE 0.066</b></li>
+    <li>之前 OLS 有 overfit · Ridge α=2 收紧后是 honest 上限</li>
+    <li>要再往下压 MAE, 需要新信息: 陷阱数 label 或者扩样本 (更多试卷)</li>
+  </ul>
+</div>
+
+<p><b>累计进展 (v4 → v5.1 + Ridge)</b>: MAE 0.0730 → <b>0.0660</b> · 削减 <b>9.6% 误差</b>. 距目标 0.050 还差 0.016.</p>
+
 <h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
 
 <p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
