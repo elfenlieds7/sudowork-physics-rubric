@@ -821,12 +821,18 @@
   <b>Empirical 结果 (基于我的 pre-label)</b>: 合并版 (陷阱数 与 概念数 合并) LOPO MAE = <b>0.0597</b> · <b>首次突破 6% 目标!</b> · r(陷阱数, 概念数) = +0.717 · 验证您 13:06 的合并假设.
 </div>
 
-<div class="banner">
-  <b>请您 review 每道题的 陷阱数 与 简注</b>. 只回不同意的那几道 · 同意的可以跳过. 格式:<br>
-  · 只回不同意: "5: 2 (我觉得应该 2 · 少了 D 功正负)"<br>
-  · 或简单指示: "5: 改成 2" / "10: 改成 3"<br>
-  · 全部同意: 一句 "全部 OK" 即可
+<div class="banner" style="background:#e8f4ec;border-color:#7fbc90;border-left-color:var(--ok);color:#1a3d20">
+  <b>✅ 杨老师 2026-08-03 上午已 review 完全部 30 道</b> · 用她真实 label refit:
+  <ul style="margin:6px 0 0 18px">
+    <li>合并版 MAE = <b>0.0583</b> · 独立版 MAE = <b>0.0583</b> · concept 非线性 + trap = <b>0.0578</b> (最佳)</li>
+    <li>累计 v4 → 现在: MAE 0.0730 → 0.0578 · 削减 <b>20.8% 误差</b></li>
+    <li>距 5% ideal 目标只差 0.008</li>
+  </ul>
+  <b>Key finding</b>: 我 pre-label 时 r(trap, concept) = 0.717, 她严格 label 时 r = 0.474 · 她严格标注 decoupled 了 concept · 陷阱数 78% 独立方差. 她的合并假设仍验证 (合并 = 独立)。<br>
+  <b>Interpretation shift (Ethan 17:02 flag + teacher 16:57)</b>: 陷阱不是"刻意设计干扰项" · 是"知识关联性 → 学生错误路径". 我原来定义太窄, 高估 (30 道我 sum 58, 她 sum 34).
 </div>
+
+<p><b>下表: 我 pre-label vs 杨老师 review 后的最终 label</b>. 每行第 2 列灰底是我的 pre-label (作为 baseline 参考), 第 3 列是杨老师严格版 (进模型的 ground truth), 第 4 列是她的备注.</p>
 
 <table>
 <tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 陷阱数</b></th><th>依据 (A-G)</th></tr>
