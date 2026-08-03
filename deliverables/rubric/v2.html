@@ -624,6 +624,51 @@
 
 <p><b>累计进展 (v4 → v5.1 + Ridge)</b>: MAE 0.0730 → <b>0.0660</b> · 削减 <b>9.6% 误差</b>. 距目标 0.050 还差 0.016.</p>
 
+<h4>9.6.3 · 换非线性模型 + 集成 · 突破线性天花板到 MAE 0.0642</h4>
+
+<p><b>触发点</b>: Ethan 13:03 "让 AI 换几个模型试试" · 我之前说 "0.066 是天花板" 太自信. 试非线性 (随机森林 · 梯度提升 · kNN · SVR) + 模型集成.</p>
+
+<p><b>各种模型 LOPO 对比 (v5.1 特征 · 17 个)</b>:</p>
+
+<table>
+<tr><th>模型</th><th class="n">LOPO R²</th><th class="n">LOPO MAE</th></tr>
+<tr><td>Ridge α=2 (线性 · 之前最好)</td><td class="n">0.8723</td><td class="n">0.0662</td></tr>
+<tr><td>Lasso α=0.001 (自动特征选择)</td><td class="n">0.8741</td><td class="n">0.0655</td></tr>
+<tr><td>GBM 500 树/深 2/学习率 0.01</td><td class="n">0.8767</td><td class="n">0.0660</td></tr>
+<tr><td>Random Forest 100 树/深 5</td><td class="n">0.8702</td><td class="n">0.0669</td></tr>
+<tr><td>kNN k=5</td><td class="n">0.8283</td><td class="n">0.0733</td></tr>
+<tr><td>SVR (rbf 核)</td><td class="n">0.8595</td><td class="n">0.0718</td></tr>
+<tr><td><b>Ridge + GBM 等权平均</b></td><td class="n">0.8818</td><td class="n"><b>0.0645</b></td></tr>
+<tr><td><b>Lasso + GBM 等权平均 · 采纳</b></td><td class="n green">0.8825</td><td class="n green"><b>0.0642</b></td></tr>
+</table>
+
+<div class="banner ok">
+  <b>集成突破 · 采纳 Lasso + GBM 等权平均模型 · LOPO MAE = 0.0642</b><br>
+  单模型天花板 0.0655 (Lasso). Lasso (线性) 和 GBM (树状) 学的是不同的 patterns · 平均起来 variance 抵消 · MAE 再降 0.0013.<br>
+  累计 v4 → Lasso+GBM: MAE 0.0730 → 0.0642 · 削减 <b>12% 误差</b> · 距目标 0.050 还差 <b>0.014</b>
+</div>
+
+<p><b>Lasso 揭示的特征结构</b> (自动 zero 掉的特征 = 认为是纯噪声):</p>
+
+<table>
+<tr><th>特征</th><th class="n">Lasso 系数</th><th>状态</th></tr>
+<tr><td>concept (概念数)</td><td class="n">-0.105</td><td>强负 · 保留</td></tr>
+<tr><td>modeling (建模自主度)</td><td class="n">+0.073</td><td>正 · 保留</td></tr>
+<tr><td>topic_em (电磁)</td><td class="n">+0.042</td><td>正 · 保留</td></tr>
+<tr><td>textbook_pattern_degree (模式相似度)</td><td class="n">+0.037</td><td>正 · 保留</td></tr>
+<tr><td>mod_x_open (建模 × 大题)</td><td class="n">-0.050</td><td>强负 · 保留</td></tr>
+<tr><td>con_x_mod (概念 × 建模)</td><td class="n">-0.024</td><td>负 · 保留</td></tr>
+<tr><td>mod_x_nov (建模 × 新颖)</td><td class="n">-0.006</td><td>弱负 · 保留</td></tr>
+<tr><td>position</td><td class="n" style="color:#999">0.000</td><td>零 · Lasso 判定噪声</td></tr>
+<tr><td>is_open</td><td class="n" style="color:#999">0.000</td><td>零 (但被交互项 mod_x_open 抓住了)</td></tr>
+<tr><td>textbook_scene_degree</td><td class="n" style="color:#999">0.000</td><td>零 (被 mod_x_nov 部分吸收)</td></tr>
+<tr><td>transfer_cost</td><td class="n" style="color:#999">0.000</td><td>零</td></tr>
+<tr><td>is_last_quarter</td><td class="n" style="color:#999">0.000</td><td>零</td></tr>
+<tr><td>earlier_load</td><td class="n" style="color:#999">0.000</td><td>零</td></tr>
+</table>
+
+<p>17 特征里 6 个被 zero · 说明其中很多特征跟保留的特征共线 · 或者信号弱到 Lasso 认为不值得付出复杂度代价. 这提示未来 rubric 简化的方向.</p>
+
 <h3>9.5 · 位置与内容难度的统计解耦 (基于 Ethan 20:15 shareone 评论)</h3>
 
 <p><b>Ethan 观察:</b> 现在的卷面倾向于把难的题目靠后放, 所以 <em class="term">位置</em> 和 <em class="term">内容难度</em> 天然共线. <em class="term">位置</em> 特征在模型里其实是抓住"控制内容后的残余位置效应" · 语义混乱, 需要考虑怎么处理。</p>
