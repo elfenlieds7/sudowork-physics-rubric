@@ -102,10 +102,6 @@ def loo_mae(fit_fn, xs, bs):
         elif res['model'].startswith('M2'):
             preds[i] = xs[i] + res['c'] * (1 - xs[i])
         elif res['model'].startswith('M3'):
-            for band in res['bands']:
-                lo, hi = eval(band['band'].replace(',', ','))  # noqa
-                # Simpler: just re-classify
-            # Fallback: use full-fit band
             bands = [(0, 0.5), (0.5, 0.8), (0.8, 1.01)]
             for lo, hi in bands:
                 if lo <= xs[i] < hi:
