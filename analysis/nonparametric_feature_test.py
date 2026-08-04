@@ -213,5 +213,134 @@ def main():
     print("逐步回归主要用于: (a) 验证多维独立信号 · (b) 论文中论证特征必要性 · (c) 对照文献方法.")
 
 
+def overfit_check_stepwise(rows):
+    """Compare in-sample R² to LOPO R² for stepwise-selected features.
+
+    Two flavors:
+    - Naive (pre-selected features · LOPO): may still be inflated because feature
+      selection was done on full data
+    - Nested (stepwise per fold · LOPO): honest — feature selection redone in each
+      training fold
+    """
+    from sklearn.linear_model import LinearRegression
+    from sklearn.model_selection import LeaveOneGroupOut
+
+    y = np.array([r['y'] for r in rows])
+    groups = np.array([r['paper'] for r in rows])
+    logo = LeaveOneGroupOut()
+
+    print()
+    print("=" * 84)
+    print("Step 4 · Overfit check on stepwise-regression R²=0.91")
+    print("=" * 84)
+
+    # ---- 4a: naive LOPO with pre-selected 6 features ----
+    print("\n4a · Naive LOPO (pre-selected 6 features · feature list frozen on full data):")
+    selected, _ = stepwise_forward(rows, FEATS, alpha=0.05)
+    print(f"  预选特征: {selected}")
+    ys_all, yp_all = [], []
+    per_paper_r2 = {}
+    for tr, te in logo.split(rows, y, groups):
+        Xtr = np.array([[rows[i][c] for c in selected] for i in tr])
+        Xte = np.array([[rows[i][c] for c in selected] for i in te])
+        m = LinearRegression().fit(Xtr, y[tr])
+        yp = m.predict(Xte)
+        ys_all.extend(y[te].tolist())
+        yp_all.extend(yp.tolist())
+        held = groups[te[0]]
+        per_paper_r2[held] = float(np.corrcoef(y[te], yp)[0, 1] ** 2) if len(te) > 1 else np.nan
+    ys_all = np.array(ys_all)
+    yp_all = np.array(yp_all)
+    lopo_mae = float(np.mean(np.abs(ys_all - yp_all)))
+    lopo_r2 = float(1 - np.sum((ys_all - yp_all) ** 2) / np.sum((ys_all - ys_all.mean()) ** 2))
+    print(f"  LOPO MAE = {lopo_mae:.4f}")
+    print(f"  LOPO R²  = {lopo_r2:.4f}")
+    print(f"  In-sample R² (前面报的) = 0.9076")
+    print(f"  Gap (in-sample - LOPO) = {0.9076 - lopo_r2:+.4f}")
+    print(f"  Per-paper LOPO R²:")
+    for p in sorted(per_paper_r2):
+        print(f"    {p:<15} R² = {per_paper_r2[p]:.4f}")
+    sd = np.std(list(per_paper_r2.values()))
+    print(f"  Per-paper R² SD = {sd:.4f}  (低 = 一致 · 高 = 某卷 leak)")
+
+    # ---- 4b: nested LOPO (stepwise per fold) ----
+    print("\n4b · Nested LOPO (stepwise 重新在每 fold 训练集上跑 · 无 feature-selection leak):")
+    ys_all, yp_all = [], []
+    fold_selections = {}
+    for tr, te in logo.split(rows, y, groups):
+        held = groups[te[0]]
+        tr_rows = [rows[i] for i in tr]
+        fold_selected, _ = stepwise_forward(tr_rows, FEATS, alpha=0.05, max_features=6)
+        fold_selections[held] = fold_selected
+        Xtr = np.array([[rows[i][c] for c in fold_selected] for i in tr])
+        Xte = np.array([[rows[i][c] for c in fold_selected] for i in te])
+        m = LinearRegression().fit(Xtr, y[tr])
+        yp = m.predict(Xte)
+        ys_all.extend(y[te].tolist())
+        yp_all.extend(yp.tolist())
+    ys_all = np.array(ys_all)
+    yp_all = np.array(yp_all)
+    nested_mae = float(np.mean(np.abs(ys_all - yp_all)))
+    nested_r2 = float(1 - np.sum((ys_all - yp_all) ** 2) / np.sum((ys_all - ys_all.mean()) ** 2))
+    print(f"  Nested LOPO MAE = {nested_mae:.4f}")
+    print(f"  Nested LOPO R²  = {nested_r2:.4f}")
+    print()
+    print(f"  Per-fold stepwise selections (顺序 · 前 6):")
+    for p in sorted(fold_selections):
+        print(f"    {p:<15}: {' → '.join(DISPLAY_NAME.get(f, f) for f in fold_selections[p][:6])}")
+
+    # ---- 4c: random-feature sanity check ----
+    print("\n4c · Random-noise sanity check:")
+    np.random.seed(999)
+    rand_feat = np.random.randn(len(rows))
+    for r_, v in zip(rows, rand_feat):
+        r_['_random'] = float(v)
+    feats_with_noise = FEATS + ['_random']
+    DISPLAY_NAME['_random'] = '随机噪声'
+    ys_all, yp_all = [], []
+    n_selected_noise = 0
+    for tr, te in logo.split(rows, y, groups):
+        tr_rows = [rows[i] for i in tr]
+        fold_selected, _ = stepwise_forward(tr_rows, feats_with_noise, alpha=0.05, max_features=6)
+        if '_random' in fold_selected:
+            n_selected_noise += 1
+        Xtr = np.array([[rows[i][c] for c in fold_selected] for i in tr])
+        Xte = np.array([[rows[i][c] for c in fold_selected] for i in te])
+        m = LinearRegression().fit(Xtr, y[tr])
+        yp = m.predict(Xte)
+        ys_all.extend(y[te].tolist())
+        yp_all.extend(yp.tolist())
+    ys_all = np.array(ys_all)
+    yp_all = np.array(yp_all)
+    noise_r2 = float(1 - np.sum((ys_all - yp_all) ** 2) / np.sum((ys_all - ys_all.mean()) ** 2))
+    print(f"  加随机特征后 nested LOPO R² = {noise_r2:.4f}")
+    print(f"  vs 无随机特征 nested LOPO R² = {nested_r2:.4f}")
+    print(f"  差 = {noise_r2 - nested_r2:+.4f}  (近 0 = ok)")
+    print(f"  随机特征在 7 次 fold 里被 stepwise 选中的次数 = {n_selected_noise} / 7  (低 = ok)")
+
+    print()
+    print("=" * 84)
+    print("综合判断")
+    print("=" * 84)
+    gap = 0.9076 - nested_r2
+    if gap < 0.05:
+        judge = "健康 · 无严重过拟合"
+    elif gap < 0.10:
+        judge = "轻度过拟合 · 但仍可信"
+    else:
+        judge = "过拟合警告 · 报告 nested LOPO R² 更诚实"
+    print(f"  In-sample R² = 0.9076")
+    print(f"  Naive LOPO R² = {lopo_r2:.4f} (feature list frozen)")
+    print(f"  Nested LOPO R² = {nested_r2:.4f} (feature list per-fold)")
+    print(f"  最保守估计 (nested LOPO R²) = {nested_r2:.4f}")
+    print(f"  过拟合 gap = {gap:+.4f}")
+    print(f"  判断: {judge}")
+
+
 if __name__ == "__main__":
     main()
+    print()
+    print("### 追加过拟合检验 (Ethan 08-05 提醒) ###")
+    print()
+    rows = load()
+    overfit_check_stepwise(rows)

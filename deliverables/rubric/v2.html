@@ -438,16 +438,30 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td class="n">7</td><td>模式相似度 (未入选)</td><td class="n">+0.002</td><td class="n">0.908</td><td class="n">3.4</td><td class="n">0.066 <em class="key">← 停</em></td></tr>
 </table>
 
+<h4>Step 3 · 过拟合检验 (Ethan 08-05 提醒 · 补上)</h4>
+
+<p>逐步回归 R² = 0.9076 是 in-sample · 未经交叉验证前不能直接用. 补 3 个层次的检验:</p>
+
+<table>
+<tr><th>层次</th><th>方法</th><th class="n">R²</th><th class="n">MAE</th><th>诊断</th></tr>
+<tr><td>1 · in-sample</td><td>6 特征线性 · 全 223 训练测试</td><td class="n">0.9076</td><td class="n">—</td><td>基线 · 未验证</td></tr>
+<tr><td>2 · Naive LOPO</td><td>feature list 冻结 · 系数每 fold 重训</td><td class="n">0.8995</td><td class="n">0.0565</td><td>gap +0.008 · 极小 · 系数稳定</td></tr>
+<tr><td>3 · <b>Nested LOPO</b></td><td>stepwise 每 fold 重跑 · 无 feature-selection leak</td><td class="n"><b>0.8857</b></td><td class="n"><b>0.0592</b></td><td>gap +0.022 · <b>健康区间</b></td></tr>
+<tr><td>4 · 随机噪声 sanity</td><td>加 1 随机特征后 nested LOPO</td><td class="n">0.8857</td><td class="n">—</td><td>Δ = 0.000 · 0/7 fold 选中噪声 · clean</td></tr>
+</table>
+
+<p>7 fold 中 <b>概念平方 · 建模×大题 · 陷阱数</b> 三个特征每 fold 都进前 6 · 说明特征选择极稳定. 各 fold LOPO R² 在 0.82-0.95 之间 · SD = 0.041 · 无某卷 leak.</p>
+
 <div class="banner ok">
-  <b>关键对照</b>: 冯雪媚 2022 广西合格性考试 (108 单选题 · 5 维保留) 逐步回归 <b>R² = 0.74</b>. 我们 (西城高考 223 题 · 6 维保留) 逐步回归 <b>R² = 0.91</b>.
+  <b>关键对照 (诚实数字)</b>: 冯雪媚 2022 广西合格性考试 (108 单选 · 5 维保留) 逐步回归 R² = 0.74 (in-sample). 我们 (西城高考 223 题 · 6 维保留) 逐步回归 in-sample R² = 0.91 · <b>nested LOPO R² = 0.886</b>.
   <ul style="margin:6px 0 0 20px">
-    <li>R² 领先 17 个百分点 (相对). 关键差别: 我们的样本包含高选拔性大题子问 · variance 更大 · 线性模型更容易拟合. 而合格性考试 p 值高度集中于 0.85+ · 天花板压缩了 R².</li>
-    <li>陷阱数进入 Top 3 入选 · 加入后 R² +0.012 · 独立信号得到实证支持 (前面 6.3 表里 #5 独占贡献成立).</li>
-    <li>建模×大题 交互项 rank #2 · 证明 8-1 至 8-3 我们迭代的交互项设计 (来自您学生 4 步骤 taxonomy · 建模 step 卡在大题) 有效.</li>
+    <li>用最诚实的 nested LOPO 数字 · 领先冯雪媚 15 个百分点. 关键差别: 我们样本包含高选拔性大题子问 · variance 更大 · 线性模型更容易吃到信号. 合格性考试 p 值集中 0.85+ · 天花板压缩了 R².</li>
+    <li>陷阱数进入 stepwise Top 3 且 <b>每 fold 都稳定入选</b> · 独立信号得到 nested LOPO 支持 (6.3 表 #5 独占贡献确认).</li>
+    <li>建模×大题 交互项 rank #2 · 每 fold 都入选 · 8-1 至 8-3 迭代设计有效.</li>
   </ul>
 </div>
 
-<p>Champion (Lasso + GBM 集成 · LOPO) 单题 MAE 0.057 对应约 R² 0.89. 逐步回归 6 维线性模型 R² 0.91 (in-sample). 二者接近 · 说明线性模型加机器学习增益主要来自非线性组合 + 交互项 · 而不是特征数. <em class="term">线性模型 in-sample 已经吃满了主要信号 · 论文里可用逐步回归作为 baseline · Lasso+GBM 集成作为主模型.</em></p>
+<p>Champion (Lasso + GBM 集成) LOPO MAE 0.057 · R² ≈ 0.89. 线性 6 维 nested LOPO MAE 0.059 · R² = 0.886. 二者极接近 · 说明<em class="term">主要信号已被合适的 6 维线性模型抓住</em> · Lasso+GBM 集成的增益主要来自非线性组合 + 交互项 · 而不是特征数. 论文里可用线性 baseline 讲清主要 driver · Lasso+GBM 集成作为进一步精化.</p>
 
 <h3>6.6 · 定位陈述 (draft · 供论文写作用)</h3>
 
