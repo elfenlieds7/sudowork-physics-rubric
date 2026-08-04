@@ -407,7 +407,49 @@ Object.keys(CHART_DATA).forEach(renderChart);
   <li><b>布鲁姆认知水平</b>: 6 篇中 5 篇用. 我们的 concept + reasoning 隐含此思路但未显性化. 加显性布鲁姆维度可能改善建构效度.</li>
 </ul>
 
-<h3>6.5 · 定位陈述 (draft · 供论文写作用)</h3>
+<h3>6.5 · 借鉴冯雪媚方法学 · 实证结果 (2026-08-05 凌晨新增)</h3>
+
+<p>杨老师 23:58 定 (2)(3)(4) 全做. (4) 复用冯雪媚 2022 非参检验 + 逐步回归. 用她的方法学在我们数据集上跑一遍 · 直接产出论文一节.</p>
+
+<h4>Step 1 · 非参检验 (K-W H / M-W-U)</h4>
+
+<p>24 个特征 (17 原始 + 7 派生非线性 · 交互项 · 概念 dummy) 逐一对得分率做检验:</p>
+
+<table>
+<tr><th>显著性水平</th><th class="n">通过特征数</th><th>典型 top 特征</th></tr>
+<tr><td>p &lt; 0.001</td><td class="n"><b>18 / 24</b></td><td>概念数 / 概念平方 (p=6.3e-37) · 推理步数 (5.4e-35) · 概念×建模 (7.8e-34) · 模式相似度 (7.2e-27)</td></tr>
+<tr><td>p &lt; 0.01</td><td class="n">19 / 24</td><td>+陷阱数 (p=3.7e-3)</td></tr>
+<tr><td>p &lt; 0.05</td><td class="n">21 / 24</td><td>+电磁学 · 迁移成本</td></tr>
+<tr><td>不显著 (p ≥ 0.05)</td><td class="n">3 / 24</td><td>视觉复杂度 (p=0.20) · 力学 (0.54) · 大题子问 (0.07)</td></tr>
+</table>
+
+<p>Spearman ρ 与真实得分率相关最强: 概念数/概念平方 ρ = −0.882 · 推理步数 ρ = −0.857 · 概念×建模 ρ = −0.854 (均负相关 · 越难得分率越低 · 符号正确). 场景相似度 ρ = +0.637 · 模式相似度 ρ = +0.735 (正相关 · 越熟悉得分率越高).</p>
+
+<h4>Step 2 · 前向逐步回归 (α = 0.05)</h4>
+
+<table>
+<tr><th class="n">step</th><th>入选特征</th><th class="n">ΔR²</th><th class="n">累积 R²</th><th class="n">F 值</th><th class="n">p 值</th></tr>
+<tr><td class="n">1</td><td>概念平方</td><td class="n">0.844</td><td class="n">0.844</td><td class="n">1190.9</td><td class="n">&lt; 1e-99</td></tr>
+<tr><td class="n">2</td><td>建模×大题</td><td class="n">+0.035</td><td class="n">0.878</td><td class="n">62.5</td><td class="n">1.25e-13</td></tr>
+<tr><td class="n">3</td><td><b>陷阱数</b></td><td class="n">+0.012</td><td class="n">0.890</td><td class="n">23.7</td><td class="n">2.14e-06</td></tr>
+<tr><td class="n">4</td><td>概念=2 dummy</td><td class="n">+0.008</td><td class="n">0.898</td><td class="n">17.5</td><td class="n">4.20e-05</td></tr>
+<tr><td class="n">5</td><td>电磁学</td><td class="n">+0.004</td><td class="n">0.902</td><td class="n">9.1</td><td class="n">2.86e-03</td></tr>
+<tr><td class="n">6</td><td>概念=4 dummy</td><td class="n">+0.004</td><td class="n">0.906</td><td class="n">8.7</td><td class="n">3.45e-03</td></tr>
+<tr><td class="n">7</td><td>模式相似度 (未入选)</td><td class="n">+0.002</td><td class="n">0.908</td><td class="n">3.4</td><td class="n">0.066 <em class="key">← 停</em></td></tr>
+</table>
+
+<div class="banner ok">
+  <b>关键对照</b>: 冯雪媚 2022 广西合格性考试 (108 单选题 · 5 维保留) 逐步回归 <b>R² = 0.74</b>. 我们 (西城高考 223 题 · 6 维保留) 逐步回归 <b>R² = 0.91</b>.
+  <ul style="margin:6px 0 0 20px">
+    <li>R² 领先 17 个百分点 (相对). 关键差别: 我们的样本包含高选拔性大题子问 · variance 更大 · 线性模型更容易拟合. 而合格性考试 p 值高度集中于 0.85+ · 天花板压缩了 R².</li>
+    <li>陷阱数进入 Top 3 入选 · 加入后 R² +0.012 · 独立信号得到实证支持 (前面 6.3 表里 #5 独占贡献成立).</li>
+    <li>建模×大题 交互项 rank #2 · 证明 8-1 至 8-3 我们迭代的交互项设计 (来自您学生 4 步骤 taxonomy · 建模 step 卡在大题) 有效.</li>
+  </ul>
+</div>
+
+<p>Champion (Lasso + GBM 集成 · LOPO) 单题 MAE 0.057 对应约 R² 0.89. 逐步回归 6 维线性模型 R² 0.91 (in-sample). 二者接近 · 说明线性模型加机器学习增益主要来自非线性组合 + 交互项 · 而不是特征数. <em class="term">线性模型 in-sample 已经吃满了主要信号 · 论文里可用逐步回归作为 baseline · Lasso+GBM 集成作为主模型.</em></p>
+
+<h3>6.6 · 定位陈述 (draft · 供论文写作用)</h3>
 
 <div class="banner info">
   <b>中文核心期刊版</b> (直接可用):<br>
@@ -436,10 +478,30 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <h3>7.2 · 中长期</h3>
 
 <ol>
-  <li><b>命题工具化</b>: 精度已达实用 · 可做成 web 应用 · 老师上传题目 → 模型辅助打分 → 输出预测得分率 + 曲线 + 异常题预警 + 全北京反推. 无需再等模型精进.</li>
+  <li><b>命题工具化</b>: 精度已达实用 · 可做成 web 应用 · 老师上传题目 → 模型辅助打分 → 输出预测得分率 + 曲线 + 异常题预警 + 全北京反推. 无需再等模型精进. Ethan 2026-08-05 提议做成 shareone 应用 (利用其 DB 新功能) 甚至智能体 (LLM 从题目文本自动提取 17 features) · 使论文贡献含新形式 · 待商榷.</li>
   <li><b>陷阱数 taxonomy 扩展</b>: 杨老师 16:57 指出 A-G 不完全 · 还有变力运动 · 陌生图像信息提取 等类型. 长期扩清单可能有帮助.</li>
   <li><b>2026 高考实测</b>: 等 2026 年 9 月底真实高考得分率出来 · 直接对比模型对 2026 高考的整卷预测 · 检验 docx 场景三 (真正跨试卷种类泛化).</li>
 </ol>
+
+<h2>八 · 论文框架 (draft · 2026-08-05 凌晨)</h2>
+
+<p>基于杨老师 23:58 定的甲方向 (中文核心期刊). 目标期刊候选: 《教育测量与评价》 · 《中学物理教学参考》 · 《物理教师》 · 《课程·教材·教法》. 篇幅目标: 8000-12000 字.</p>
+
+<table>
+<tr><th>章节</th><th>内容</th><th class="n">页数</th><th>状态</th></tr>
+<tr><td>1 · 引言 (Introduction)</td><td>问题背景 (命题辅助工具的迫切性 · 教师经验依赖的局限) · 现有综合难度模型的实证缺口 · 本研究贡献陈述</td><td class="n">1</td><td>待起草</td></tr>
+<tr><td>2 · 文献综述 (Literature Review)</td><td>综合难度模型谱系 (鲍建生 2002 → 杜明荣 2008 → 郭芳侠 2022 → 杨英恺 2024) · 6 篇对比表 · 定位 (§六 内容直接迁移)</td><td class="n">1.5</td><td class="green">材料就绪</td></tr>
+<tr><td>3 · 数据 (Data)</td><td>7 套试卷 · 223 题 · 西城区学生实测得分率 · 数据来源和保密说明 · cohort 澄清</td><td class="n">1</td><td class="green">材料就绪</td></tr>
+<tr><td>4 · 方法 (Methods)</td><td>17 维评分表 (定义 + 值域 + 与文献对照) · 陷阱数创新维度详解 · 建模 (Lasso + GBM 集成) · 交叉验证协议 (LOPO)</td><td class="n">2</td><td class="green">材料就绪</td></tr>
+<tr><td>5 · 结果 (Results)</td><td>5.1 单题预测精度 (MAE 0.057) · 5.2 整卷加权精度 (1.53 pp) · 5.3 过拟合检验四项 · 5.4 非参检验和逐步回归 (对照冯雪媚方法) · 5.5 跨样本群校准模型 (西城 ⇌ 全北京 · M3 · LOO MAE 1.9pp)</td><td class="n">2.5</td><td class="green">材料就绪</td></tr>
+<tr><td>6 · 讨论 (Discussion)</td><td>与鲍建生学派对比 · 陷阱数概念的教育心理学意义 · 跨样本群校准的实践意义 · label 稳定性反思 (Q15-1 · Q19-1 更正案例) · 局限 (西城单区域 · 陷阱数只 30/223)</td><td class="n">1.5</td><td>需起草</td></tr>
+<tr><td>7 · 结论 (Conclusion)</td><td>核心贡献回顾 · 命题工具化前景 · 未来工作 (跨区域扩样本 · IRT baseline · LLM 自动化打分)</td><td class="n">0.5</td><td>需起草</td></tr>
+<tr><td>参考文献 · 附录</td><td>6 篇文献 + 鲍建生原文 + Nohara 原文 · 附录含评分表完整定义 + 陷阱数 30 例 · 特征代码 github 链接</td><td class="n">2</td><td class="green">材料就绪</td></tr>
+</table>
+
+<div class="banner">
+  <b>写作策略</b>: 5 章 (Results) 是核心 · 已有全部实证材料 · 一天可起草. 2/3/4 章材料在 v2.html §六/§三/§附录 A 里已备. 1/6/7 章需要新起草 · 主要工作在讨论层. <b>杨老师 23:58 说"希望先出论文框架"</b> · 这就是框架 · 请审阅.
+</div>
 
 <h2>附录 A · 陷阱数 打分请求 (30 道题, 采用杨老师 18:13 定义)</h2>
 
