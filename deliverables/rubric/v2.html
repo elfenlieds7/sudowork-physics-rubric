@@ -318,6 +318,18 @@ if (document.readyState === 'loading') {
     </label>
   </div>
 
+  <div style="border-top:1px dashed var(--border-strong);padding-top:14px;margin-top:6px;">
+    <div style="font-size:13px;color:var(--accent);font-weight:600;margin-bottom:4px;">整卷阅读量控制警示 (可选 · 不进模型 · 只作命题警示)</div>
+    <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">杨老师 2026-08-05 23:26: 北京高考控制在 4400 字左右 · 老师初稿常超标 · 文字量越多难度越大. 训练集样本均已调平 · 模型学不到这维 · 工具做警示. 把整卷题干贴进下面框 · JS 自动数字数.</div>
+
+    <label style="display:block;">整卷题干 (可选 · 贴题目文字 · 只在浏览器计算 · 不外传)
+      <textarea id="f_paper_text" rows="4" placeholder="把整卷所有题目的文字粘贴进来 (选择题 + 填空题 + 解答题的题干合起来) · 系统自动数字数并做警示."
+        style="width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--border-strong);border-radius:3px;padding:6px 8px;font-size:13px;font-family:inherit;margin-top:4px;"
+        oninput="updateWarnings()"></textarea>
+    </label>
+    <div id="paperWarnings" style="font-size:12px;line-height:1.6;margin-top:6px;"></div>
+  </div>
+
   <div class="tool-actions">
     <button class="tool-btn" onclick="runPrediction()">🎯 预测得分率</button>
     <button class="tool-btn secondary" onclick="clearForm()">重置</button>
@@ -502,6 +514,28 @@ if (document.readyState === 'loading') {
     document.getElementById('f_earlier_load').value = 2.5;
   };
 
+  window.updateWarnings = function() {
+    const text = document.getElementById('f_paper_text').value || '';
+    // Count non-whitespace characters (Chinese + English mix)
+    const rl = text.replace(/\s+/g, '').length;
+    const el = document.getElementById('paperWarnings');
+    if (rl === 0) {
+      el.innerHTML = '<div style="color:var(--muted);">未输入题干. 若需要阅读量警示 · 请贴整卷文字进去.</div>';
+      return;
+    }
+    const warnings = ['<div style="color:var(--muted);">已统计字数: <b style="color:var(--ink)">' + rl + ' 字</b> (基准: 4400 字)</div>'];
+    if (rl > 5500) {
+      warnings.push('🛑 <b style="color:#f0895a">阅读量严重超标</b> (超基准 ' + Math.round((rl-4400)/44) + '%). 学生做题时间会紧张 · 预期得分率比同难度题目再低 5-10 个百分点. 建议大幅精简题干或去掉冗余情境描述.');
+    } else if (rl > 4800) {
+      warnings.push('⚠️ <b style="color:#f0895a">阅读量超标</b> (超基准 ' + Math.round((rl-4400)/44) + '%). 建议减少约 ' + (rl - 4400) + ' 字回到 4400 基准.');
+    } else if (rl >= 4000 && rl <= 4800) {
+      warnings.push('✅ <span style="color:#6ecc8f">阅读量在合理区间</span> (4000-4800 均正常).');
+    } else if (rl < 4000 && rl > 0) {
+      warnings.push('ℹ️ 阅读量偏低. 若情境陈述缺失 · 学生理解题意可能有困难.');
+    }
+    el.innerHTML = warnings.map(w => '<div style="padding:2px 0">' + w + '</div>').join('');
+  };
+
   const HKEY = 'rubric_history_v1';
   function saveToHistory(rec) {
     try {
@@ -536,6 +570,12 @@ if (document.readyState === 'loading') {
     }
   }
   checkModel();
+  // Trigger initial warning display
+  if (document.readyState !== 'loading') {
+    updateWarnings();
+  } else {
+    document.addEventListener('DOMContentLoaded', updateWarnings);
+  }
 })();
 </script>
 
