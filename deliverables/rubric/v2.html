@@ -457,7 +457,7 @@
   // Wait for model to load
   function checkModel() {
     if (window.RUBRIC_MODEL) {
-      document.getElementById('modelStatus').textContent = '模型已就绪 (v' + window.RUBRIC_MODEL.version + ')';
+      document.getElementById('modelStatus').textContent = '模型已就绪 (' + window.RUBRIC_MODEL.version + ')';
       document.getElementById('modelStatus').style.color = 'var(--ok)';
       renderHistory();
     } else {
