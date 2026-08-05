@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>物理试题难度预测 · 评分表 v2 · 5 试卷交叉验证 · 教材场景+模式拆分</title>
+<title>物理试题难度预测 · 评分表 v2 · 5 试卷交叉验证 · 教材<t>场景</t>+模式拆分</title>
 <script>
   MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
 </script>
@@ -96,8 +96,8 @@
   <b>🎯 当前状态 (single source of truth):</b><br>
   <b>单题预测 MAE = 0.0570 (西城尺度)</b> · <b>整卷加权预测 MAE = 1.53 个百分点</b><br>
   <b>跨样本群校准</b>: 西城 ⇌ 全北京 差异模型已建成 (M3 · LOO MAE 1.90 个百分点)<br>
-  数据: 7 份北京物理试卷 · 223 道题 · 30 道陷阱数由杨老师亲自 review · 121 对 (西城, 全北京) 校准数据<br>
-  模型: 17 特征 + concept 非线性 + 陷阱数 · Lasso + GBM 集成 · 留一试卷交叉验证<br>
+  数据: 7 份北京物理试卷 · 223 道题 · 30 道<t>陷阱数</t>由杨老师亲自 review · 121 对 (西城, 全北京) 校准数据<br>
+  模型: 17 特征 + concept 非线性 + <t>陷阱数</t> · Lasso + GBM 集成 · 留一试卷交叉验证<br>
   过拟合 4 项检验全过 (详见第二部分)<br>
   单题距 5% 理想目标 0.7 个百分点 · 距 6% 已达标 · 命题工具实用门槛已过
 </div>
@@ -110,7 +110,7 @@
     <dt>R² (决定系数)</dt>
     <dd>模型解释真实数据波动的比例, 取值 0-1, 越接近 1 越准。当前单题 R² ≈ 0.89 意思是"模型解释了 89% 的题间难度波动"。</dd>
     <dt>留一试卷交叉验证 (LOPO, Leave-One-Paper-Out)</dt>
-    <dd>把 7 套试卷里的 1 套完全从训练集拿出去, 用剩下 6 套训练模型, 再让模型预测被拿出去那套。依次换 7 次每套都被"当过测试集"。模拟"出一份新卷子, 用历史数据预测其难度"这个真实场景。上文所有 MAE / R² 都是 LOPO 数值 (out-of-sample)。</dd>
+    <dd>把 7 套试卷里的 1 套完全从训练集拿出去, 用剩下 6 套训练模型, 再让模型预测被拿出去那套。依次换 7 次每套都被"当过测试集"。模拟"出一份新卷子, 用历史数据预测其难度"这个真实<t>场景</t>。上文所有 MAE / R² 都是 LOPO 数值 (out-of-sample)。</dd>
     <dt>整卷加权 MAE</dt>
     <dd>把单题预测按分值权重加起来算整卷得分率, 与实际整卷得分率比。因为单题误差在整卷聚合时高估低估互相抵消 (中心极限效应), 整卷 MAE (1.53 pp) 远小于单题 MAE (5.7 pp), 缩小约 4 倍。</dd>
     <dt>样本群 (cohort)</dt>
@@ -119,6 +119,75 @@
     <dd>模型在训练数据上表现好, 但换成没见过的新数据就崩了。LOPO 就是防过拟合的主要手段。第二部分给了 4 项额外的过拟合检验。</dd>
   </dl>
 </div>
+
+<div class="term-system" style="border:2px solid #c73838;background:#2a1a1a;border-radius:6px;padding:16px 20px;margin:20px 0;">
+  <h2 style="margin:0 0 8px;color:#f3b0b0;border:none;padding:0;font-size:17px;">🛑 术语映射系统 · 未来编辑者必读</h2>
+
+  <p style="margin:6px 0;color:#f3b0b0;font-size:13px;"><b>如果您 (人工或 AI) 准备编辑本页 · 先读此节</b>. 本页多数术语被 <code style="color:#f4dfa0;background:#3a3220;padding:1px 5px;border-radius:2px;">&lt;t&gt;...&lt;/t&gt;</code> 元素包裹 · 页面加载时由 JS 按下方映射表替换渲染. 未理解本系统前请勿直接改术语文字 · 否则可能破坏渲染一致性.</p>
+
+  <p style="margin:6px 0;color:#f3b0b0;font-size:13px;"><b>背景</b>: 杨老师 (北京八中 物理教研组长) 2026-08-05 22:51 指出评分表原用工程/ML 术语与物理教师日常语言不匹配. 我们据《中国高考评价体系》(教育部考试中心 2019)、《高考评价体系说明》(2019)、《普通高中物理课程标准 2017 版 2025 修订》三份权威文件系统迁移到教师官方术语. 但迁移不做一次性文字替换 · 而做函数式映射 · 好处:</p>
+  <ul style="color:#f3b0b0;font-size:13px;margin:4px 0 10px 20px;">
+    <li>未来 AI 或人工编辑不会盲目"改正"或"回退"术语 · 因为源代码里始终是原始 key · 编辑前必须查表</li>
+    <li>若需要调整某术语渲染值 · 只改下方 JS 的 <code style="color:#f4dfa0;background:#3a3220;padding:1px 5px;border-radius:2px;">TERM_MAP</code> · 不用改每处出现</li>
+    <li>论文写作时 · 可选择显示源码 (工程视角) 或渲染值 (教师视角) · 灵活切换</li>
+  </ul>
+
+  <h3 style="margin:12px 0 6px;color:#f3b0b0;font-size:14px;">映射表 (源码 → 渲染值)</h3>
+  <table style="font-size:13px;">
+    <tr><th style="background:#3a1e1e;color:#f8c8c8;">源码 (原工程术语)</th><th style="background:#3a1e1e;color:#f8c8c8;">渲染值 (教师官方术语)</th><th style="background:#3a1e1e;color:#f8c8c8;">官方依据</th></tr>
+    <tr><td><code>话题</code></td><td>知识模块</td><td>物理课标 p.10+</td></tr>
+    <tr><td><code>热光近代</code></td><td>热学·光学·原子物理学</td><td>物理课标 5 大分支</td></tr>
+    <tr><td><code>电磁</code></td><td>电磁学</td><td>物理课标</td></tr>
+    <tr><td><code>场景</code></td><td>情境</td><td>课标 37 次 vs 0 次 · 评价体系一致</td></tr>
+    <tr><td><code>场景相似度</code></td><td>情境典型度</td><td>评价体系 "情境典型性" (p.29)</td></tr>
+    <tr><td><code>模式相似度</code></td><td>解题模式熟悉度</td><td>教师日常</td></tr>
+    <tr><td><code>大题子问</code></td><td>解答题</td><td>教师习惯</td></tr>
+    <tr><td><code>概念数</code></td><td>涉及的物理概念与规律数</td><td>课标 "概念和规律" (8 次同义搭配)</td></tr>
+    <tr><td><code>陷阱数</code></td><td>典型错误干扰项数</td><td>课标 p.55 命题建议 (5)</td></tr>
+    <tr><td><code>建模自主度</code></td><td>物理模型建构自主度</td><td>课标 "模型建构" (科学思维要素)</td></tr>
+    <tr><td><code>推理步数</code></td><td>科学推理链长度</td><td>课标 "科学推理" (科学思维要素)</td></tr>
+    <tr><td><code>前段累积概念载荷</code></td><td>前段综合负荷</td><td>评价体系 "综合性" 横向纵向融通</td></tr>
+    <tr><td><code>视觉复杂度</code></td><td>图表信息复杂度</td><td>教师日常</td></tr>
+  </table>
+
+  <p style="margin:10px 0 0;color:#f3b0b0;font-size:12px;"><b>官方框架锚</b> (仅供论文引用 · 未纳入映射): 一核 (立德树人 · 服务选才 · 引导教学) · 四层 (核心价值 · 学科素养 · 关键能力 · 必备知识) · 四翼 (基础性 · 综合性 · 应用性 · 创新性) · 物理核心素养 4 项 (物理观念 · 科学思维 · 科学探究 · 科学态度与责任). 详见 <a href="https://github.com/elfenlieds7/sudowork-physics-rubric/tree/main/data/references/authoritative" style="color:#f8c8c8;">github 权威文件</a>.</p>
+</div>
+
+<script>
+window.TERM_MAP = {
+  "话题": "知识模块",
+  "热光近代": "热学·光学·原子物理学",
+  "电磁": "电磁学",
+  "场景": "情境",
+  "场景相似度": "情境典型度",
+  "模式相似度": "解题模式熟悉度",
+  "大题子问": "解答题",
+  "概念数": "涉及的物理概念与规律数",
+  "陷阱数": "典型错误干扰项数",
+  "建模自主度": "物理模型建构自主度",
+  "推理步数": "科学推理链长度",
+  "前段累积概念载荷": "前段综合负荷",
+  "视觉复杂度": "图表信息复杂度"
+};
+function substituteTerms() {
+  document.querySelectorAll('t').forEach(el => {
+    const key = el.textContent.trim();
+    const target = window.TERM_MAP[key];
+    if (target) {
+      el.textContent = target;
+      el.setAttribute('data-source', key);
+      el.setAttribute('title', '源: ' + key + ' · 映射自术语系统');
+      el.style.borderBottom = '1px dotted var(--accent-soft)';
+      el.style.cursor = 'help';
+    }
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', substituteTerms);
+} else {
+  substituteTerms();
+}
+</script>
 
 <style>
   .tool-panel{background:var(--paper-elev);border:2px solid var(--accent);border-radius:6px;padding:20px 22px;margin:20px 0 30px;}
@@ -164,28 +233,30 @@
     <label>题型
       <select id="f_is_open">
         <option value="0">选择题 (单选或多选)</option>
-        <option value="1">大题子问 (17-20 各小问)</option>
+        <option value="0.5">填空题</option>
+        <option value="1"><t>大题子问</t> (17-20 各小问)</option>
       </select>
+      <span class="hint" style="margin-top:4px;">填空题模型精度不确定 (训练集主要含选择+解答类) · 建议先按接近的题型选</span>
     </label>
 
-    <label>话题
+    <label><t>话题</t>
       <select id="f_topic">
         <option value="mech">力学</option>
-        <option value="em">电磁学</option>
-        <option value="other">热学 / 光学 / 近代物理</option>
+        <option value="em"><t>电磁</t></option>
+        <option value="other"><t>热光近代</t></option>
       </select>
     </label>
-    <label>概念数 <span class="hint">(涉及独立物理概念的数目)</span>
+    <label><t>概念数</t> <span class="hint">(题目涉及的物理<t>概念数</t>与物理规律数之和 · 例: 用 F=ma 解题 · 1 个规律 + 3 个概念 (F, m, a) = 4)</span>
       <select id="f_concept">
-        <option value="1">1 · 单一概念</option>
-        <option value="2">2 · 两个概念</option>
-        <option value="3" selected>3 · 三个概念</option>
-        <option value="4">4 · 四个概念</option>
-        <option value="5">5 · 五个及以上</option>
+        <option value="1">1 · 一个概念或规律</option>
+        <option value="2">2 · 两个 (如 一个规律 + 一个概念)</option>
+        <option value="3" selected>3 · 三个 (如 F=ma 里的 F/m/a 三概念 · 或两个规律联立)</option>
+        <option value="4">4 · 四个 (如 F=ma 全套 · 或多规律综合)</option>
+        <option value="5">5 · 五个及以上 (多规律 + 多概念综合)</option>
       </select>
     </label>
 
-    <label>推理步数
+    <label><t>推理步数</t>
       <select id="f_reasoning">
         <option value="1">1 · 无推理或直接套公式</option>
         <option value="2" selected>2 · 1-2 步简单推理</option>
@@ -197,13 +268,13 @@
     <label>情境新颖度
       <select id="f_novelty">
         <option value="0" selected>0 · 教材经典情境</option>
-        <option value="1">1 · 教材场景稍作变形</option>
-        <option value="2">2 · 陌生场景 / 生活新素材</option>
+        <option value="1">1 · 教材情境稍作变形</option>
+        <option value="2">2 · 陌生情境 / 生活新素材</option>
         <option value="3">3 · 科技前沿 / 科研情境</option>
       </select>
     </label>
 
-    <label>建模自主度 <span class="hint">(需要学生自己构建物理模型)</span>
+    <label><t>建模自主度</t> <span class="hint">(需要学生自己构建物理模型的程度)</span>
       <select id="f_modeling">
         <option value="0" selected>0 · 题目已给全部条件</option>
         <option value="1">1 · 需要少量抽象</option>
@@ -211,7 +282,7 @@
         <option value="3">3 · 复杂原始物理问题</option>
       </select>
     </label>
-    <label>视觉复杂度 <span class="hint">(图表理解难度)</span>
+    <label><t>视觉复杂度</t> <span class="hint">(图表理解难度)</span>
       <select id="f_visual">
         <option value="0" selected>0 · 无图或极简</option>
         <option value="1">1 · 一般图表</option>
@@ -219,14 +290,14 @@
       </select>
     </label>
 
-    <label>场景相似度 <span class="hint">(与教材例题习题的场景相似程度)</span>
+    <label><t>场景相似度</t> <span class="hint">(与教材例题习题的情境相似程度)</span>
       <select id="f_scene">
         <option value="0">0 · 完全陌生</option>
-        <option value="1">1 · 教材场景明显变形</option>
-        <option value="2" selected>2 · 教材场景直接对应</option>
+        <option value="1">1 · 教材情境明显变形</option>
+        <option value="2" selected>2 · 教材情境直接对应</option>
       </select>
     </label>
-    <label>模式相似度 <span class="hint">(解题模式与教材套路相似程度)</span>
+    <label><t>模式相似度</t> <span class="hint">(解题模式与教材套路相似程度)</span>
       <select id="f_pattern">
         <option value="0">0 · 需自主建模 / 类比 / 数学构造</option>
         <option value="1">1 · 教材模式的小改造</option>
@@ -234,15 +305,15 @@
       </select>
     </label>
 
-    <label>陷阱数 <span class="hint">(触发学生常见失分点的个数)</span>
+    <label><t>陷阱数</t> <span class="hint">(触发学生常见失分点的个数 · 参照课标 p.55 "选择题选项应能反映学生典型错误")</span>
       <select id="f_trap">
-        <option value="0">0 · 无陷阱</option>
-        <option value="1" selected>1 · 一个陷阱 (如竖直方向易丢重力)</option>
-        <option value="2">2 · 两个陷阱</option>
+        <option value="0">0 · 无</option>
+        <option value="1" selected>1 · 一个 (如竖直方向易丢重力)</option>
+        <option value="2">2 · 两个</option>
         <option value="3">3 · 三个或以上</option>
       </select>
     </label>
-    <label>前段累积概念载荷 <span class="hint">(前面题目的平均概念数 · 不知道填 2.5)</span>
+    <label><t>前段累积概念载荷</t> <span class="hint">(前面题目的平均<t>概念数</t> · 不知道填 2.5)</span>
       <input type="number" id="f_earlier_load" value="2.5" min="0" max="5" step="0.1">
     </label>
   </div>
@@ -501,7 +572,7 @@
       · 预测 0.65-0.75: 难度合适<br>
       · 预测 &gt; 0.75: 卷子偏容易 · 可加难 1-2 道</li>
     <li><b>逐题预测得分率</b> (误差 ~6 pp) · 沿题号排序画曲线 · 检查是否符合您理想中的"三段递增"结构 (选择题递增 / 15-16 递增 / 17-20 递增)</li>
-    <li><b>异常题预警</b>: 预测得分率与后续实际差异大的题 · 通常是评分表没覆盖的因素 (陷阱数 · 新维度) · 值得回头分析</li>
+    <li><b>异常题预警</b>: 预测得分率与后续实际差异大的题 · 通常是评分表没覆盖的因素 (<t>陷阱数</t> · 新维度) · 值得回头分析</li>
   </ol>
   相比经验拍板判断难度, 这个工具能量化, 不依赖个人主观, 也能持续跟真实高考数据校准 (docx 场景三).<br>
   <b>杨老师 14:15 确认</b>: "整卷的精度已经够用了, 非常了不起了! 将会对我以后的命题工作有重要的作用."
@@ -534,21 +605,21 @@
 
 <table>
 <tr><th>类别</th><th>特征</th><th>取值</th></tr>
-<tr><td rowspan="6">rubric 基础 (老师认知)</td><td>概念数</td><td>1-5 (涉及独立物理概念数)</td></tr>
-<tr><td>推理步数</td><td>1-5</td></tr>
+<tr><td rowspan="6">rubric 基础 (老师认知)</td><td><t>概念数</t></td><td>1-5 (涉及独立物理<t>概念数</t>)</td></tr>
+<tr><td><t>推理步数</t></td><td>1-5</td></tr>
 <tr><td>情境新颖度</td><td>0-3</td></tr>
-<tr><td>建模自主度</td><td>0-3</td></tr>
-<tr><td>场景相似度 (与教材)</td><td>0-2</td></tr>
-<tr><td>模式相似度 (与教材)</td><td>0-2</td></tr>
+<tr><td><t>建模自主度</t></td><td>0-3</td></tr>
+<tr><td><t>场景相似度</t> (与教材)</td><td>0-2</td></tr>
+<tr><td><t>模式相似度</t> (与教材)</td><td>0-2</td></tr>
 <tr><td rowspan="3">结构</td><td>题号位置</td><td>0-1 (卷面位置归一)</td></tr>
-<tr><td>大题子问</td><td>0 / 1</td></tr>
-<tr><td>话题 (力/电/热光近代)</td><td>one-hot</td></tr>
-<tr><td>视觉图表</td><td>视觉复杂度</td><td>0-2</td></tr>
-<tr><td rowspan="3">工程交叉项</td><td>迁移成本 = 模式 − 场景 (clipped)</td><td>0-2</td></tr>
+<tr><td><t>大题子问</t></td><td>0 / 1</td></tr>
+<tr><td><t>话题</t> (力/电/<t>热光近代</t>)</td><td>one-hot</td></tr>
+<tr><td>视觉图表</td><td><t>视觉复杂度</t></td><td>0-2</td></tr>
+<tr><td rowspan="3">工程交叉项</td><td>迁移成本 = 模式 − <t>场景</t> (clipped)</td><td>0-2</td></tr>
 <tr><td>建模 × 新颖 · 建模 × 大题</td><td>—</td></tr>
 <tr><td>概念 × 建模</td><td>—</td></tr>
-<tr><td>非线性</td><td>concept², concept 分档 dummies, concept × 场景</td><td>—</td></tr>
-<tr><td>陷阱数 (老师亲自 label)</td><td>触发学生常见失分点的个数</td><td>0-3 (30/223 已 label)</td></tr>
+<tr><td>非线性</td><td>concept², concept 分档 dummies, concept × <t>场景</t></td><td>—</td></tr>
+<tr><td><t>陷阱数</t> (老师亲自 label)</td><td>触发学生常见失分点的个数</td><td>0-3 (30/223 已 label)</td></tr>
 </table>
 
 <h3>3.3 · 模型</h3>
@@ -642,9 +713,9 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <p>杨老师 8:19 微信确认 "5000+ 人整体稳定". 数据侧算: 7 份试卷整卷均分范围 0.663-0.726 · 跨试卷 SD 只有 0.024. <b>结论</b>: 学生届次差异远小于试卷内的题间难度差异. 建模时不需要额外届次校正 (试过 3 种校正方案, 都无收益).</p>
 
-<h3>5.2 · 场景 / 模式相似度 · A+B 拆分 + label bias 修正</h3>
+<h3>5.2 · <t>场景</t> / <t>模式相似度</t> · A+B 拆分 + label bias 修正</h3>
 
-<p>杨老师 8:17 微信 "典型模型 = A+B" 之后, 拆成两维. 初期 v2 数据显示 "场景系数 ≈ 0, 只有模式有信号", 但杨老师 11:24 反对: 场景熟悉降低难度是真实的 (霍尔推进器例子). 加入迁移成本交叉特征 (= 模式 − 场景) 后, 场景系数从 +0.0003 恢复到 +0.026. 也印证 label bias: 若人工评分时把"陌生场景"的罚分算进 concept/modeling, 场景本身的独立信号被抢走.</p>
+<p>杨老师 8:17 微信 "典型模型 = A+B" 之后, 拆成两维. 初期 v2 数据显示 "<t>场景</t>系数 ≈ 0, 只有模式有信号", 但杨老师 11:24 反对: <t>场景</t>熟悉降低难度是真实的 (霍尔推进器例子). 加入迁移成本交叉特征 (= 模式 − <t>场景</t>) 后, <t>场景</t>系数从 +0.0003 恢复到 +0.026. 也印证 label bias: 若人工评分时把"陌生<t>场景</t>"的罚分算进 concept/modeling, <t>场景</t>本身的独立信号被抢走.</p>
 
 <h3>5.3 · 建模难度交互项 · 学生卡步骤 2 (2026-08-02 晚)</h3>
 
@@ -654,20 +725,20 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <p>Ethan 20:15 shareone 评论指出 "位置" 和 "内容难度" 天然共线 (命题者按难度递增排题). 位置 91% 变化被内容特征解释. 试验后决定<b>保留位置特征</b> · 因为位置可能有正交的时间压力贡献 · 在样本量扩大后可能能干净分离. 当前删或留 LOPO MAE 差异在噪声范围内 (± 0.002).</p>
 
-<h3>5.5 · 陷阱数 · 老师 review 后加入 · 20.8% 误差削减</h3>
+<h3>5.5 · <t>陷阱数</t> · 老师 review 后加入 · 20.8% 误差削减</h3>
 
-<p>杨老师 13:06 提出陷阱数假设 (陷阱数 ≈ f(概念数) · 可能合并). 8-3 上午在 shareone 亲自 review 我 pre-label 的 30 道题, 详细给出严格版陷阱数 + A-G 依据. 数据侧验证:</p>
+<p>杨老师 13:06 提出<t>陷阱数</t>假设 (<t>陷阱数</t> ≈ f(<t>概念数</t>) · 可能合并). 8-3 上午在 shareone 亲自 review 我 pre-label 的 30 道题, 详细给出严格版<t>陷阱数</t> + A-G 依据. 数据侧验证:</p>
 <ul>
-  <li><b>合并版 (陷阱数 + 概念数 单一特征)</b>: MAE 0.058 · 验证她的合并假设</li>
-  <li><b>独立版 (陷阱数独立特征)</b>: MAE 0.058 · 与合并版相同</li>
-  <li><b>只用陷阱数替代概念数</b>: MAE 0.061 · 差 · 说明两者各有独立信号</li>
-  <li>r(陷阱数, 概念数) 从我 pre-label 时的 0.72 降到她严格版的 0.47 · 陷阱数 78% 独立方差</li>
+  <li><b>合并版 (<t>陷阱数</t> + <t>概念数</t> 单一特征)</b>: MAE 0.058 · 验证她的合并假设</li>
+  <li><b>独立版 (<t>陷阱数</t>独立特征)</b>: MAE 0.058 · 与合并版相同</li>
+  <li><b>只用<t>陷阱数</t>替代<t>概念数</t></b>: MAE 0.061 · 差 · 说明两者各有独立信号</li>
+  <li>r(<t>陷阱数</t>, <t>概念数</t>) 从我 pre-label 时的 0.72 降到她严格版的 0.47 · <t>陷阱数</t> 78% 独立方差</li>
 </ul>
-<p><b>加入陷阱数后 · 单题 MAE 从 0.062 → 0.058</b> (最大单一 gain). 也印证 Ethan 17:02 的 interpretation: 陷阱不是"刻意设计干扰项", 是知识关联性引发的错误路径.</p>
+<p><b>加入<t>陷阱数</t>后 · 单题 MAE 从 0.062 → 0.058</b> (最大单一 gain). 也印证 Ethan 17:02 的 interpretation: 陷阱不是"刻意设计干扰项", 是知识关联性引发的错误路径.</p>
 
 <h3>5.6 · 集成 (Lasso + GBM) 突破线性天花板</h3>
 
-<p>Ethan 13:03 push "让 AI 换几个模型试试" · 试了 10+ 种. 单模型天花板 0.062-0.066 (线性 Ridge / Lasso / 树 GBM / XGB / LGB / RF / kNN / SVR). <b>Lasso + GBM 等权集成突破到 0.062</b> (Lasso 学线性, GBM 学非线性组合, 两者互补). 加陷阱数后共同到 0.058. 试过 stacking, 加权优化, bag-of-GBMs, 都无明显提升.</p>
+<p>Ethan 13:03 push "让 AI 换几个模型试试" · 试了 10+ 种. 单模型天花板 0.062-0.066 (线性 Ridge / Lasso / 树 GBM / XGB / LGB / RF / kNN / SVR). <b>Lasso + GBM 等权集成突破到 0.062</b> (Lasso 学线性, GBM 学非线性组合, 两者互补). 加<t>陷阱数</t>后共同到 0.058. 试过 stacking, 加权优化, bag-of-GBMs, 都无明显提升.</p>
 
 <h3>5.7 · 跨试卷种类泛化 pilot (docx 场景三)</h3>
 
@@ -675,7 +746,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <h3>5.8 · 跨样本群校准 · 西城 ⇌ 全北京 (2026-08-04 晚新增)</h3>
 
-<p>触发: 杨老师 08-04 早上发一道验证题 · 报了得分率 59%. 我模型预测 58.6% · 看似神预测 (0.4 pp) · 但杨老师随后澄清: <b>训练集全是西城学生 · 验证题真值是全北京</b>. 两个尺度不同. 深入分析后发现"神预测"是两个方向相反的误差 (陷阱数打分偏高 · 样本群尺度差异) 恰好抵消的巧合. 详见 [<a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/analysis/cohort_shift_diagnostic.py" target="_blank">诊断脚本</a>].</p>
+<p>触发: 杨老师 08-04 早上发一道验证题 · 报了得分率 59%. 我模型预测 58.6% · 看似神预测 (0.4 pp) · 但杨老师随后澄清: <b>训练集全是西城学生 · 验证题真值是全北京</b>. 两个尺度不同. 深入分析后发现"神预测"是两个方向相反的误差 (<t>陷阱数</t>打分偏高 · 样本群尺度差异) 恰好抵消的巧合. 详见 [<a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/analysis/cohort_shift_diagnostic.py" target="_blank">诊断脚本</a>].</p>
 
 <p>杨老师当晚发来 3 份表 (2023、2024、2025 高考各小题 西城 + 全北京 得分率对照 · 由她从教研数据源摘录 · <em class="term">保密处理 · 不出具体数字</em>), 共 <b>121 对 (西城, 全北京) 配对</b>. 在此上拟合 4 个偏移模型 · 交叉验证选最佳:</p>
 
@@ -702,7 +773,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
   <li>全北京 truth = 59%</li>
   <li>M3 反推西城 truth ≈ 59 + 8.2 = <b>67.2%</b> (气泡上浮题 · 中难段)</li>
   <li>杨老师直觉 西城 = 65%</li>
-  <li>模型预测 (陷阱数修正后 · 西城尺度) = 66%</li>
+  <li>模型预测 (<t>陷阱数</t>修正后 · 西城尺度) = 66%</li>
   <li><b>三个数字相差 ≤ 2.4 个百分点</b> · 排除样本群差异和 label 误差后 · 模型在西城尺度上确实校准良好 · 这才是 clean validation.</li>
 </ul>
 
@@ -740,9 +811,9 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td class="n">2</td><td>留一试卷交叉验证 (LOPO)</td><td>7 次交叉 · 单题 MAE 0.057</td><td class="n"><b>0</b></td></tr>
 <tr><td class="n">3</td><td>四项过拟合检验</td><td>per-paper 一致性 + train vs LOPO gap + 多种子 + 随机噪声</td><td class="n"><b>0</b></td></tr>
 <tr><td class="n">4</td><td>机器学习模型</td><td>Lasso + GBM 集成 · 17 维 + 交互项 + 概念非线性</td><td class="n">0 (全等权 5-8 维)</td></tr>
-<tr><td class="n">5</td><td><b>陷阱数</b> (学生失分点密度)</td><td>杨老师亲手 30 道 label · 独立信号</td><td class="n"><b>0</b> (无此维度)</td></tr>
+<tr><td class="n">5</td><td><b><t>陷阱数</t></b> (学生失分点密度)</td><td>杨老师亲手 30 道 label · 独立信号</td><td class="n"><b>0</b> (无此维度)</td></tr>
 <tr><td class="n">6</td><td>跨样本群校准</td><td>西城 ⇌ 全北京 · M3 按难度分档 · LOO MAE 1.9 pp</td><td class="n"><b>0</b></td></tr>
-<tr><td class="n">7</td><td>场景 / 模式相似度双维 + 迁移成本交叉</td><td>2 独立维度 + 交叉项</td><td class="n">0 (余建刚有类似但无独立度量)</td></tr>
+<tr><td class="n">7</td><td><t>场景</t> / <t>模式相似度</t>双维 + 迁移成本交叉</td><td>2 独立维度 + 交叉项</td><td class="n">0 (余建刚有类似但无独立度量)</td></tr>
 <tr><td class="n">8</td><td>开源可复现</td><td>github 全代码 + 本页全过程</td><td class="n"><b>0</b></td></tr>
 </table>
 
@@ -765,13 +836,13 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <table>
 <tr><th>显著性水平</th><th class="n">通过特征数</th><th>典型 top 特征</th></tr>
-<tr><td>p &lt; 0.001</td><td class="n"><b>18 / 24</b></td><td>概念数 / 概念平方 (p=6.3e-37) · 推理步数 (5.4e-35) · 概念×建模 (7.8e-34) · 模式相似度 (7.2e-27)</td></tr>
-<tr><td>p &lt; 0.01</td><td class="n">19 / 24</td><td>+陷阱数 (p=3.7e-3)</td></tr>
+<tr><td>p &lt; 0.001</td><td class="n"><b>18 / 24</b></td><td><t>概念数</t> / 概念平方 (p=6.3e-37) · <t>推理步数</t> (5.4e-35) · 概念×建模 (7.8e-34) · <t>模式相似度</t> (7.2e-27)</td></tr>
+<tr><td>p &lt; 0.01</td><td class="n">19 / 24</td><td>+<t>陷阱数</t> (p=3.7e-3)</td></tr>
 <tr><td>p &lt; 0.05</td><td class="n">21 / 24</td><td>+电磁学 · 迁移成本</td></tr>
-<tr><td>不显著 (p ≥ 0.05)</td><td class="n">3 / 24</td><td>视觉复杂度 (p=0.20) · 力学 (0.54) · 大题子问 (0.07)</td></tr>
+<tr><td>不显著 (p ≥ 0.05)</td><td class="n">3 / 24</td><td><t>视觉复杂度</t> (p=0.20) · 力学 (0.54) · <t>大题子问</t> (0.07)</td></tr>
 </table>
 
-<p>Spearman ρ 与真实得分率相关最强: 概念数/概念平方 ρ = −0.882 · 推理步数 ρ = −0.857 · 概念×建模 ρ = −0.854 (均负相关 · 越难得分率越低 · 符号正确). 场景相似度 ρ = +0.637 · 模式相似度 ρ = +0.735 (正相关 · 越熟悉得分率越高).</p>
+<p>Spearman ρ 与真实得分率相关最强: <t>概念数</t>/概念平方 ρ = −0.882 · <t>推理步数</t> ρ = −0.857 · 概念×建模 ρ = −0.854 (均负相关 · 越难得分率越低 · 符号正确). <t>场景相似度</t> ρ = +0.637 · <t>模式相似度</t> ρ = +0.735 (正相关 · 越熟悉得分率越高).</p>
 
 <h4>Step 2 · 前向逐步回归 (α = 0.05)</h4>
 
@@ -779,11 +850,11 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><th class="n">step</th><th>入选特征</th><th class="n">ΔR²</th><th class="n">累积 R²</th><th class="n">F 值</th><th class="n">p 值</th></tr>
 <tr><td class="n">1</td><td>概念平方</td><td class="n">0.844</td><td class="n">0.844</td><td class="n">1190.9</td><td class="n">&lt; 1e-99</td></tr>
 <tr><td class="n">2</td><td>建模×大题</td><td class="n">+0.035</td><td class="n">0.878</td><td class="n">62.5</td><td class="n">1.25e-13</td></tr>
-<tr><td class="n">3</td><td><b>陷阱数</b></td><td class="n">+0.012</td><td class="n">0.890</td><td class="n">23.7</td><td class="n">2.14e-06</td></tr>
+<tr><td class="n">3</td><td><b><t>陷阱数</t></b></td><td class="n">+0.012</td><td class="n">0.890</td><td class="n">23.7</td><td class="n">2.14e-06</td></tr>
 <tr><td class="n">4</td><td>概念=2 dummy</td><td class="n">+0.008</td><td class="n">0.898</td><td class="n">17.5</td><td class="n">4.20e-05</td></tr>
 <tr><td class="n">5</td><td>电磁学</td><td class="n">+0.004</td><td class="n">0.902</td><td class="n">9.1</td><td class="n">2.86e-03</td></tr>
 <tr><td class="n">6</td><td>概念=4 dummy</td><td class="n">+0.004</td><td class="n">0.906</td><td class="n">8.7</td><td class="n">3.45e-03</td></tr>
-<tr><td class="n">7</td><td>模式相似度 (未入选)</td><td class="n">+0.002</td><td class="n">0.908</td><td class="n">3.4</td><td class="n">0.066 <em class="key">← 停</em></td></tr>
+<tr><td class="n">7</td><td><t>模式相似度</t> (未入选)</td><td class="n">+0.002</td><td class="n">0.908</td><td class="n">3.4</td><td class="n">0.066 <em class="key">← 停</em></td></tr>
 </table>
 
 <h4>Step 3 · 过拟合检验 (Ethan 08-05 提醒 · 补上)</h4>
@@ -798,13 +869,13 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td>4 · 随机噪声 sanity</td><td>加 1 随机特征后 nested LOPO</td><td class="n">0.8857</td><td class="n">—</td><td>Δ = 0.000 · 0/7 fold 选中噪声 · clean</td></tr>
 </table>
 
-<p>7 fold 中 <b>概念平方 · 建模×大题 · 陷阱数</b> 三个特征每 fold 都进前 6 · 说明特征选择极稳定. 各 fold LOPO R² 在 0.82-0.95 之间 · SD = 0.041 · 无某卷 leak.</p>
+<p>7 fold 中 <b>概念平方 · 建模×大题 · <t>陷阱数</t></b> 三个特征每 fold 都进前 6 · 说明特征选择极稳定. 各 fold LOPO R² 在 0.82-0.95 之间 · SD = 0.041 · 无某卷 leak.</p>
 
 <div class="banner ok">
   <b>关键对照 (诚实数字)</b>: 冯雪媚 2022 广西合格性考试 (108 单选 · 5 维保留) 逐步回归 R² = 0.74 (in-sample). 我们 (西城高考 223 题 · 6 维保留) 逐步回归 in-sample R² = 0.91 · <b>nested LOPO R² = 0.886</b>.
   <ul style="margin:6px 0 0 20px">
-    <li>用最诚实的 nested LOPO 数字 · 领先冯雪媚 15 个百分点. 关键差别: 我们样本包含高选拔性大题子问 · variance 更大 · 线性模型更容易吃到信号. 合格性考试 p 值集中 0.85+ · 天花板压缩了 R².</li>
-    <li>陷阱数进入 stepwise Top 3 且 <b>每 fold 都稳定入选</b> · 独立信号得到 nested LOPO 支持 (6.3 表 #5 独占贡献确认).</li>
+    <li>用最诚实的 nested LOPO 数字 · 领先冯雪媚 15 个百分点. 关键差别: 我们样本包含高选拔性<t>大题子问</t> · variance 更大 · 线性模型更容易吃到信号. 合格性考试 p 值集中 0.85+ · 天花板压缩了 R².</li>
+    <li><t>陷阱数</t>进入 stepwise Top 3 且 <b>每 fold 都稳定入选</b> · 独立信号得到 nested LOPO 支持 (6.3 表 #5 独占贡献确认).</li>
     <li>建模×大题 交互项 rank #2 · 每 fold 都入选 · 8-1 至 8-3 迭代设计有效.</li>
   </ul>
 </div>
@@ -815,7 +886,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <div class="banner info">
   <b>中文核心期刊版</b> (直接可用):<br>
-  "以鲍建生 (2002) 综合难度模型为代表的 5-8 维专家赋值 + 等权公式主导了国内物理试题难度研究 (王刚 2024 · 冯小沙 2023 · 余招贤 2021 · 余建刚 2025 · 杨英恺 2024). 该谱系尚未与学生真实得分率进行系统实证校准 (王刚 2024 明说'吻合程度未知') · 亦未讨论跨样本群 (district cohort) 差异. 本研究以 223 道真题 × 7 套试卷 × 西城区学生实测得分率为标签 · 用套索回归 + 梯度提升树集成模型将维度扩至 17 维 + 交互项 · 引入陷阱数作为学生错误路径独立维度 · 单题 MAE = 0.057 · 整卷加权 MAE = 1.53 pp. 同时首次拟合跨样本群偏移模型 (西城 ⇌ 全北京 · 按难度分档 · LOO MAE 1.9 pp) · 填补该研究谱系的实证验证缺口."<br><br>
+  "以鲍建生 (2002) 综合难度模型为代表的 5-8 维专家赋值 + 等权公式主导了国内物理试题难度研究 (王刚 2024 · 冯小沙 2023 · 余招贤 2021 · 余建刚 2025 · 杨英恺 2024). 该谱系尚未与学生真实得分率进行系统实证校准 (王刚 2024 明说'吻合程度未知') · 亦未讨论跨样本群 (district cohort) 差异. 本研究以 223 道真题 × 7 套试卷 × 西城区学生实测得分率为标签 · 用套索回归 + 梯度提升树集成模型将维度扩至 17 维 + 交互项 · 引入<t>陷阱数</t>作为学生错误路径独立维度 · 单题 MAE = 0.057 · 整卷加权 MAE = 1.53 pp. 同时首次拟合跨样本群偏移模型 (西城 ⇌ 全北京 · 按难度分档 · LOO MAE 1.9 pp) · 填补该研究谱系的实证验证缺口."<br><br>
   <b>国际检索期刊版</b> (需再加 IRT baseline + 跨区域扩样本):<br>
   论文方向和实验补充见 §七.
 </div>
@@ -832,16 +903,16 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <h3>7.1 · 独立可开工 (不依赖论文方向决策)</h3>
 
 <ol>
-  <li><b>特征扩展</b>: 加入余建刚"无关信息量"维度 · 用杨英恺阅读量 / 推理步数切点重编码 · 显性化布鲁姆认知水平. 预期改善 label 稳定性 + 建构效度.</li>
+  <li><b>特征扩展</b>: 加入余建刚"无关信息量"维度 · 用杨英恺阅读量 / <t>推理步数</t>切点重编码 · 显性化布鲁姆认知水平. 预期改善 label 稳定性 + 建构效度.</li>
   <li><b>非参检验 sanity check</b>: 复用冯雪媚方法学 · 对 17 维特征做 K-W / M-W-U + 逐步回归 · 输出每维独立信号强度. 帮助论文中论证特征必要性.</li>
-  <li><b>陷阱数扩 label</b>: 目前 30 / 223. 更多陷阱数 label 是突破 MAE 0.05 的关键. 需要杨老师亲手 label 更多 · 或探索"关键少数"策略 (label 高 residual 的题).</li>
+  <li><b><t>陷阱数</t>扩 label</b>: 目前 30 / 223. 更多<t>陷阱数</t> label 是突破 MAE 0.05 的关键. 需要杨老师亲手 label 更多 · 或探索"关键少数"策略 (label 高 residual 的题).</li>
 </ol>
 
 <h3>7.2 · 中长期</h3>
 
 <ol>
   <li><b>命题工具化</b>: 精度已达实用 · 可做成 web 应用 · 老师上传题目 → 模型辅助打分 → 输出预测得分率 + 曲线 + 异常题预警 + 全北京反推. 无需再等模型精进. Ethan 2026-08-05 提议做成 shareone 应用 (利用其 DB 新功能) 甚至智能体 (LLM 从题目文本自动提取 17 features) · 使论文贡献含新形式 · 待商榷.</li>
-  <li><b>陷阱数 taxonomy 扩展</b>: 杨老师 16:57 指出 A-G 不完全 · 还有变力运动 · 陌生图像信息提取 等类型. 长期扩清单可能有帮助.</li>
+  <li><b><t>陷阱数</t> taxonomy 扩展</b>: 杨老师 16:57 指出 A-G 不完全 · 还有变力运动 · 陌生图像信息提取 等类型. 长期扩清单可能有帮助.</li>
   <li><b>2026 高考实测</b>: 等 2026 年 9 月底真实高考得分率出来 · 直接对比模型对 2026 高考的整卷预测 · 检验 docx 场景三 (真正跨试卷种类泛化).</li>
 </ol>
 
@@ -854,21 +925,21 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td>1 · 引言 (Introduction)</td><td>问题背景 (命题辅助工具的迫切性 · 教师经验依赖的局限) · 现有综合难度模型的实证缺口 · 本研究贡献陈述</td><td class="n">1</td><td>待起草</td></tr>
 <tr><td>2 · 文献综述 (Literature Review)</td><td>综合难度模型谱系 (鲍建生 2002 → 杜明荣 2008 → 郭芳侠 2022 → 杨英恺 2024) · 6 篇对比表 · 定位 (§六 内容直接迁移)</td><td class="n">1.5</td><td class="green">材料就绪</td></tr>
 <tr><td>3 · 数据 (Data)</td><td>7 套试卷 · 223 题 · 西城区学生实测得分率 · 数据来源和保密说明 · cohort 澄清</td><td class="n">1</td><td class="green">材料就绪</td></tr>
-<tr><td>4 · 方法 (Methods)</td><td>17 维评分表 (定义 + 值域 + 与文献对照) · 陷阱数创新维度详解 · 建模 (Lasso + GBM 集成) · 交叉验证协议 (LOPO)</td><td class="n">2</td><td class="green">材料就绪</td></tr>
+<tr><td>4 · 方法 (Methods)</td><td>17 维评分表 (定义 + 值域 + 与文献对照) · <t>陷阱数</t>创新维度详解 · 建模 (Lasso + GBM 集成) · 交叉验证协议 (LOPO)</td><td class="n">2</td><td class="green">材料就绪</td></tr>
 <tr><td>5 · 结果 (Results)</td><td>5.1 单题预测精度 (MAE 0.057) · 5.2 整卷加权精度 (1.53 pp) · 5.3 过拟合检验四项 · 5.4 非参检验和逐步回归 (对照冯雪媚方法) · 5.5 跨样本群校准模型 (西城 ⇌ 全北京 · M3 · LOO MAE 1.9pp)</td><td class="n">2.5</td><td class="green">材料就绪</td></tr>
-<tr><td>6 · 讨论 (Discussion)</td><td>与鲍建生学派对比 · 陷阱数概念的教育心理学意义 · 跨样本群校准的实践意义 · label 稳定性反思 (Q15-1 · Q19-1 更正案例) · 局限 (西城单区域 · 陷阱数只 30/223)</td><td class="n">1.5</td><td>需起草</td></tr>
+<tr><td>6 · 讨论 (Discussion)</td><td>与鲍建生学派对比 · <t>陷阱数</t>概念的教育心理学意义 · 跨样本群校准的实践意义 · label 稳定性反思 (Q15-1 · Q19-1 更正案例) · 局限 (西城单区域 · <t>陷阱数</t>只 30/223)</td><td class="n">1.5</td><td>需起草</td></tr>
 <tr><td>7 · 结论 (Conclusion)</td><td>核心贡献回顾 · 命题工具化前景 · 未来工作 (跨区域扩样本 · IRT baseline · LLM 自动化打分)</td><td class="n">0.5</td><td>需起草</td></tr>
-<tr><td>参考文献 · 附录</td><td>6 篇文献 + 鲍建生原文 + Nohara 原文 · 附录含评分表完整定义 + 陷阱数 30 例 · 特征代码 github 链接</td><td class="n">2</td><td class="green">材料就绪</td></tr>
+<tr><td>参考文献 · 附录</td><td>6 篇文献 + 鲍建生原文 + Nohara 原文 · 附录含评分表完整定义 + <t>陷阱数</t> 30 例 · 特征代码 github 链接</td><td class="n">2</td><td class="green">材料就绪</td></tr>
 </table>
 
 <div class="banner">
   <b>写作策略</b>: 5 章 (Results) 是核心 · 已有全部实证材料 · 一天可起草. 2/3/4 章材料在 v2.html §六/§三/§附录 A 里已备. 1/6/7 章需要新起草 · 主要工作在讨论层. <b>杨老师 23:58 说"希望先出论文框架"</b> · 这就是框架 · 请审阅.
 </div>
 
-<h2>附录 A · 陷阱数 打分请求 (30 道题, 采用杨老师 18:13 定义)</h2>
+<h2>附录 A · <t>陷阱数</t> 打分请求 (30 道题, 采用杨老师 18:13 定义)</h2>
 
 <div class="banner">
-  <b>陷阱数定义 (采用杨老师 18:13 的说法):</b><br>
+  <b><t>陷阱数</t>定义 (采用杨老师 18:13 的说法):</b><br>
   一道题里, 触发学生常见失分点 (misconception zone) 的个数。触发几个失分点就打几分, 一般 0 到 3 之间。
   <ul style="margin:6px 0 0 18px">
     <li>0 = 该题内容没触发学生常见失分点</li>
@@ -892,7 +963,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 </div>
 
 <div class="banner">
-  <b>为什么选这 30 道:</b> 从当前 v4 评分表<b>预测残差最大</b>的题里挑 · 前 20 道是选择题 (每份试卷 4 道) · 后 10 道是大题小问 (每份试卷 2 道) · 都是模型现在解释不了的题目, 陷阱数最可能解释这里。<br>
+  <b>为什么选这 30 道:</b> 从当前 v4 评分表<b>预测残差最大</b>的题里挑 · 前 20 道是选择题 (每份试卷 4 道) · 后 10 道是大题小问 (每份试卷 2 道) · 都是模型现在解释不了的题目, <t>陷阱数</t>最可能解释这里。<br>
   <b>三个数字含义:</b> 实际得分率 = 您红笔标注的; v4 预测 = 当前模型给出的; 残差 = 实际减预测 (正数说明我低估了难度, 负数说明我高估了)。
 </div>
 
@@ -900,7 +971,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <div class="banner ok">
   <b>Pattern shift (Ethan 14:41 建议):</b> 我根据您 18:13 的定义 pre-label 了 30 道 · 您只需 review + 调整我判断错的 · 比空白让您打分快得多。<br>
-  <b>Empirical 结果 (基于我的 pre-label)</b>: 合并版 (陷阱数 与 概念数 合并) LOPO MAE = <b>0.0597</b> · <b>首次突破 6% 目标!</b> · r(陷阱数, 概念数) = +0.717 · 验证您 13:06 的合并假设.
+  <b>Empirical 结果 (基于我的 pre-label)</b>: 合并版 (<t>陷阱数</t> 与 <t>概念数</t> 合并) LOPO MAE = <b>0.0597</b> · <b>首次突破 6% 目标!</b> · r(<t>陷阱数</t>, <t>概念数</t>) = +0.717 · 验证您 13:06 的合并假设.
 </div>
 
 <div class="banner ok">
@@ -910,14 +981,14 @@ Object.keys(CHART_DATA).forEach(renderChart);
     <li>累计 v4 → 现在: MAE 0.0730 → 0.0578 · 削减 <b>20.8% 误差</b></li>
     <li>距 5% ideal 目标只差 0.008</li>
   </ul>
-  <b>Key finding</b>: 我 pre-label 时 r(trap, concept) = 0.717, 她严格 label 时 r = 0.474 · 她严格标注 decoupled 了 concept · 陷阱数 78% 独立方差. 她的合并假设仍验证 (合并 = 独立)。<br>
+  <b>Key finding</b>: 我 pre-label 时 r(trap, concept) = 0.717, 她严格 label 时 r = 0.474 · 她严格标注 decoupled 了 concept · <t>陷阱数</t> 78% 独立方差. 她的合并假设仍验证 (合并 = 独立)。<br>
   <b>Interpretation shift (Ethan 17:02 flag + teacher 16:57)</b>: 陷阱不是"刻意设计干扰项" · 是"知识关联性 → 学生错误路径". 我原来定义太窄, 高估 (30 道我 sum 58, 她 sum 34).
 </div>
 
 <p><b>下表: 我 pre-label vs 杨老师 review 后的最终 label</b>. 每行第 2 列灰底是我的 pre-label (作为 baseline 参考), 第 3 列是杨老师严格版 (进模型的 ground truth), 第 4 列是她的备注.</p>
 
 <table>
-<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 陷阱数</b></th><th>依据 (A-G)</th></tr>
+<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 <t>陷阱数</t></b></th><th>依据 (A-G)</th></tr>
 <tr><td>1</td><td>高考 2024</td><td>Q8</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">竖直上抛 · 空气阻力与速度成正比</a></td><td class="n">0.74</td><td class="n">0.62</td><td class="n green">+0.12</td><td class="n"><b>3</b></td><td>A 重力 + B 阻力方向随速度 + D 阻力功正负</td></tr>
 <tr><td>2</td><td>高考 2024</td><td>Q6</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p02.png" target="_blank">互感线圈 · 开关瞬间与稳态</a></td><td class="n">0.78</td><td class="n">0.70</td><td class="n green">+0.08</td><td class="n"><b>2</b></td><td>B 感应电流方向 + G 瞬间vs稳态</td></tr>
 <tr><td>3</td><td>高考 2024</td><td>Q10</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p03.png" target="_blank">水平传送带 · 摩擦力方向判断</a></td><td class="n">0.80</td><td class="n">0.72</td><td class="n green">+0.08</td><td class="n"><b>2</b></td><td>B 摩擦力方向 + G 物vs带谁快</td></tr>
@@ -943,7 +1014,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <h3>A.2 · 10 道大题小问 · 我已 pre-label · 请您 review</h3>
 
 <table>
-<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 陷阱数</b></th><th>依据 (A-G)</th></tr>
+<tr><th>#</th><th>试卷</th><th>题号</th><th>主题速览 (点开看原题)</th><th class="n">实际</th><th class="n">v4 预测</th><th class="n">残差</th><th class="n"><b>我打 <t>陷阱数</t></b></th><th>依据 (A-G)</th></tr>
 <tr><td>21</td><td>西城 2026</td><td>Q15-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p05.png" target="_blank">电学实验 · 第 2 小问</a></td><td class="n">0.54</td><td class="n">0.73</td><td class="n red">−0.19</td><td class="n"><b>2</b></td><td>G 电学计算 + F 代数</td></tr>
 <tr><td>22</td><td>高考 2024</td><td>Q19-2a</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/gaokao_2024_p07.png" target="_blank">宇宙密度 · 动能变化 (引力势能应用)</a></td><td class="n">0.41</td><td class="n">0.59</td><td class="n red">−0.18</td><td class="n"><b>2</b></td><td>A 引力势能符号 + F 代数</td></tr>
 <tr><td>23</td><td>西城 2026</td><td>Q16-2</td><td><a href="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/data/extracted_pages/xicheng_2026_p06.png" target="_blank">力学实验第 2 小问</a></td><td class="n">0.80</td><td class="n">0.98</td><td class="n red">−0.18</td><td class="n"><b>2</b></td><td>G 实验计算 + F 代数</td></tr>
@@ -964,14 +1035,14 @@ Object.keys(CHART_DATA).forEach(renderChart);
   微信直接回或本页评论都行. 时间估计 5-10 分钟.
 </div>
 
-<h2>附录 B · 场景/模式 抽查 (5 道题)</h2>
+<h2>附录 B · <t>场景</t>/模式 抽查 (5 道题)</h2>
 
 <div class="banner">
-  <b>说明:</b> 既然您已经反对"场景没信号"的结论 (v4 也已修正), 想再请您抽查 5 道具体的题目, 看我给场景相似度、模式相似度的打分是否符合您理解。特别是场景=0 的极端组数据太少 (只 2 道), 想扩这一组的样本。
+  <b>说明:</b> 既然您已经反对"<t>场景</t>没信号"的结论 (v4 也已修正), 想再请您抽查 5 道具体的题目, 看我给<t>场景相似度</t>、<t>模式相似度</t>的打分是否符合您理解。特别是<t>场景</t>=0 的极端组数据太少 (只 2 道), 想扩这一组的样本。
 </div>
 
 <table>
-<tr><th>#</th><th>试卷 · 题号</th><th>题目主题</th><th class="n">我的场景 (0-2)</th><th class="n">我的模式 (0-2)</th><th class="n"><b>您的场景</b></th><th class="n"><b>您的模式</b></th></tr>
+<tr><th>#</th><th>试卷 · 题号</th><th>题目主题</th><th class="n">我的<t>场景</t> (0-2)</th><th class="n">我的模式 (0-2)</th><th class="n"><b>您的<t>场景</t></b></th><th class="n"><b>您的模式</b></th></tr>
 <tr><td>1</td><td>高考 2024 · 第 20 题</td><td>天宫霍尔推进器 (您提到的经典迁移例子)</td><td class="n">0</td><td class="n">2</td><td class="n">___</td><td class="n">___</td></tr>
 <tr><td>2</td><td>高考 2025 · 第 19(3) 题</td><td>气流机翼力 F 与 u 的 α 次方 · 自行建模</td><td class="n">0</td><td class="n">0</td><td class="n">___</td><td class="n">___</td></tr>
 <tr><td>3</td><td>西城 2024 · 第 14 题</td><td>阿秒光脉冲 · 情境题</td><td class="n">0</td><td class="n">1</td><td class="n">___</td><td class="n">___</td></tr>
@@ -980,15 +1051,15 @@ Object.keys(CHART_DATA).forEach(renderChart);
 </table>
 
 <div class="ask">
-  <span class="lbl">场景 / 模式 打分</span>
+  <span class="lbl"><t>场景</t> / 模式 打分</span>
   <b>打分标准回顾</b> (v2 里定义过, 这里再贴一次):<br>
-  · 场景 = 2: 题目物理场景/装置和教材例题习题直接对应<br>
-  · 场景 = 1: 教材场景的明显变形 (换外壳、加约束)<br>
-  · 场景 = 0: 完全陌生的场景 (教材没出现过)<br><br>
+  · <t>场景</t> = 2: 题目物理<t>场景</t>/装置和教材例题习题直接对应<br>
+  · <t>场景</t> = 1: 教材<t>场景</t>的明显变形 (换外壳、加约束)<br>
+  · <t>场景</t> = 0: 完全陌生的<t>场景</t> (教材没出现过)<br><br>
   · 模式 = 2: 教材训练过的解题模式直接可套<br>
   · 模式 = 1: 教材模式的小改造 (需要跨章联立、图像技巧等)<br>
   · 模式 = 0: 需要自主建模/类比推理/数学构造<br><br>
-  <b>怎么回:</b> 微信文字直接回都行, 比如 "1: 场景 0 模式 2 (同意)、 2: 场景 1 模式 1 (我认为场景应该给 1 因为机翼在教材有介绍)、..." · 或者只回和我不同的那几道也行。
+  <b>怎么回:</b> 微信文字直接回都行, 比如 "1: <t>场景</t> 0 模式 2 (同意)、 2: <t>场景</t> 1 模式 1 (我认为<t>场景</t>应该给 1 因为机翼在教材有介绍)、..." · 或者只回和我不同的那几道也行。
 </div>
 
 <h2>附录 C · 版本迭代记录</h2>
@@ -996,15 +1067,15 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <table>
 <tr><th>日期</th><th>版本</th><th>数据</th><th>特征</th><th>关键改动</th><th>LOPO MAE</th></tr>
 <tr><td>2026-08-01</td><td>v1</td><td>33 (西城 2026)</td><td>10</td><td>初版评分表 · 训练集 R² only</td><td>—</td></tr>
-<tr><td>2026-08-02 早</td><td>v2</td><td>162 (5 papers)</td><td>11</td><td>加 4 份历史卷; 典型模型 → 场景 + 模式; 改用 LOPO 评估</td><td>0.076</td></tr>
-<tr><td>2026-08-02 中</td><td>v4</td><td>162</td><td>14</td><td>+ 迁移成本 / 卷面末段 / 前段载荷; 场景信号恢复</td><td>0.068</td></tr>
+<tr><td>2026-08-02 早</td><td>v2</td><td>162 (5 papers)</td><td>11</td><td>加 4 份历史卷; 典型模型 → <t>场景</t> + 模式; 改用 LOPO 评估</td><td>0.076</td></tr>
+<tr><td>2026-08-02 中</td><td>v4</td><td>162</td><td>14</td><td>+ 迁移成本 / 卷面末段 / 前段载荷; <t>场景</t>信号恢复</td><td>0.068</td></tr>
 <tr><td>2026-08-02 晚</td><td>v5</td><td>162</td><td>17</td><td>+ 建模×新颖 / 建模×大题 / 概念×建模 (老师 4 步骤 taxonomy)</td><td>0.062</td></tr>
 <tr><td>2026-08-03 上</td><td>v5.1</td><td>223 (7 papers)</td><td>17</td><td>+ 高考 2022 · 2023 (61 题) · + concept 非线性 dummies</td><td>0.062</td></tr>
-<tr><td>2026-08-03 晚</td><td>v5.2 (milestone lock)</td><td>223</td><td>17 + 陷阱数 (30 老师 label)</td><td>+ 陷阱数特征 · Lasso+GBM 集成 · 4 项过拟合检验通过 · 整卷 MAE = 1.38 pp</td><td>0.058</td></tr>
+<tr><td>2026-08-03 晚</td><td>v5.2 (milestone lock)</td><td>223</td><td>17 + <t>陷阱数</t> (30 老师 label)</td><td>+ <t>陷阱数</t>特征 · Lasso+GBM 集成 · 4 项过拟合检验通过 · 整卷 MAE = 1.38 pp</td><td>0.058</td></tr>
 <tr><td>2026-08-04 晚</td><td><b>v5.3 (校准 milestone)</b></td><td>223</td><td>同上</td><td>修正 2 处 label 错误 (2023 Q15-1 · 2024 Q19-1 · sub-question 编号错) · 加拟合跨样本群 (西城 ⇌ 全北京) 偏移模型 (121 对 · M3 按难度分档 · LOO MAE 1.90 pp)</td><td><b>0.057</b></td></tr>
 </table>
 
-<p><b>说明 · 附录 A/B 遗留请求:</b> A 里 30 道陷阱数请求 · 杨老师 2026-08-03 上午已 review 完成 · 标签已合入 v5.2+ champion. B 里 5 道场景/模式抽查 · 杨老师 2026-08-02 电话说 "场景熟悉降低难度是真实的 (霍尔推进器)", 后经迁移成本交叉项数据侧修正, 打分已趋对齐, 无需二次 review.</p>
+<p><b>说明 · 附录 A/B 遗留请求:</b> A 里 30 道<t>陷阱数</t>请求 · 杨老师 2026-08-03 上午已 review 完成 · 标签已合入 v5.2+ champion. B 里 5 道<t>场景</t>/模式抽查 · 杨老师 2026-08-02 电话说 "<t>场景</t>熟悉降低难度是真实的 (霍尔推进器)", 后经迁移成本交叉项数据侧修正, 打分已趋对齐, 无需二次 review.</p>
 
 <footer class="doc">
   <p>sudowork 智能体 · 评分表 · v5.3 校准 milestone · 2026-08-04 晚<br>
