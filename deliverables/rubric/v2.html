@@ -120,6 +120,354 @@
   </dl>
 </div>
 
+<style>
+  .tool-panel{background:var(--paper-elev);border:2px solid var(--accent);border-radius:6px;padding:20px 22px;margin:20px 0 30px;}
+  .tool-panel .tool-title{font-size:17px;font-weight:600;color:var(--accent);margin:0 0 6px;letter-spacing:0.02em;}
+  .tool-panel .tool-sub{font-size:12px;color:var(--muted);margin:0 0 16px;}
+  .tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;margin-bottom:12px;}
+  .tool-grid label{font-size:13px;color:var(--ink);display:flex;flex-direction:column;gap:4px;}
+  .tool-grid label .hint{font-size:11px;color:var(--muted);}
+  .tool-grid input[type="number"], .tool-grid select{background:var(--paper);color:var(--ink);border:1px solid var(--border-strong);border-radius:3px;padding:5px 8px;font-size:13px;font-family:inherit;}
+  .tool-grid input[type="number"]:focus, .tool-grid select:focus{outline:2px solid var(--accent);border-color:var(--accent);}
+  .tool-actions{display:flex;gap:12px;margin:8px 0 4px;flex-wrap:wrap;}
+  .tool-btn{background:var(--accent);color:#0f1114;border:none;padding:8px 18px;font-size:14px;font-weight:600;border-radius:3px;cursor:pointer;font-family:inherit;}
+  .tool-btn:hover{background:#a5c8e6;}
+  .tool-btn.secondary{background:var(--paper-elev);color:var(--accent);border:1px solid var(--accent);}
+  .tool-result{margin-top:14px;padding:14px 16px;background:var(--paper);border:1px solid var(--border-strong);border-radius:4px;display:none;}
+  .tool-result.active{display:block;}
+  .tool-result .pred-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:10px;}
+  .tool-result .pred-item{flex:1;min-width:180px;}
+  .tool-result .pred-item .lbl{font-size:12px;color:var(--muted);margin-bottom:2px;}
+  .tool-result .pred-item .val{font-size:24px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;}
+  .tool-result .pred-item .sub{font-size:11px;color:var(--muted);margin-top:2px;}
+  .tool-result .band-tag{display:inline-block;padding:2px 8px;border-radius:2px;font-size:12px;font-weight:600;}
+  .tool-result .band-easy{background:var(--ok-soft);color:var(--ok-ink);}
+  .tool-result .band-medium{background:var(--box);color:var(--box-ink);}
+  .tool-result .band-hard{background:var(--hilite);color:var(--hilite-ink);}
+  .tool-result .neighbors{margin-top:10px;font-size:12px;color:var(--muted);}
+  .tool-history{margin-top:14px;font-size:12px;color:var(--muted);border-top:1px dashed var(--border);padding-top:10px;}
+  .tool-history .h-item{display:flex;gap:10px;padding:3px 0;}
+  .tool-history .h-item .h-tag{font-family:monospace;color:var(--ink);}
+  .tool-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5;}
+</style>
+
+<div class="tool-panel" id="scoringTool">
+  <div class="tool-title">🎯 命题辅助工具 · 立即打分预测</div>
+  <div class="tool-sub">给一道新题打评分表 14 维分, 立即输出预测得分率 (西城尺度) + 跨样本群反推 (全北京尺度) + 难度分段. 模型: Lasso + GBM 集成 · LOPO MAE 0.057. 打分记录自动存本页.</div>
+
+  <div class="tool-grid">
+    <label>题号位置 <span class="hint">(在多少题的卷子里第几题, 用来算位置和末段权重)</span>
+      <div style="display:flex;gap:6px;align-items:center;font-size:13px;">
+        第 <input type="number" id="f_qnum" value="3" min="1" max="99" style="width:60px"> 题 · 全卷共 <input type="number" id="f_qtotal" value="33" min="10" max="99" style="width:60px"> 题
+      </div>
+    </label>
+    <label>题型
+      <select id="f_is_open">
+        <option value="0">选择题 (单选或多选)</option>
+        <option value="1">大题子问 (17-20 各小问)</option>
+      </select>
+    </label>
+
+    <label>话题
+      <select id="f_topic">
+        <option value="mech">力学</option>
+        <option value="em">电磁学</option>
+        <option value="other">热学 / 光学 / 近代物理</option>
+      </select>
+    </label>
+    <label>概念数 <span class="hint">(涉及独立物理概念的数目)</span>
+      <select id="f_concept">
+        <option value="1">1 · 单一概念</option>
+        <option value="2">2 · 两个概念</option>
+        <option value="3" selected>3 · 三个概念</option>
+        <option value="4">4 · 四个概念</option>
+        <option value="5">5 · 五个及以上</option>
+      </select>
+    </label>
+
+    <label>推理步数
+      <select id="f_reasoning">
+        <option value="1">1 · 无推理或直接套公式</option>
+        <option value="2" selected>2 · 1-2 步简单推理</option>
+        <option value="3">3 · 3-4 步中等推理</option>
+        <option value="4">4 · 5 步以上多步推理</option>
+        <option value="5">5 · 长链推理 + 综合</option>
+      </select>
+    </label>
+    <label>情境新颖度
+      <select id="f_novelty">
+        <option value="0" selected>0 · 教材经典情境</option>
+        <option value="1">1 · 教材场景稍作变形</option>
+        <option value="2">2 · 陌生场景 / 生活新素材</option>
+        <option value="3">3 · 科技前沿 / 科研情境</option>
+      </select>
+    </label>
+
+    <label>建模自主度 <span class="hint">(需要学生自己构建物理模型)</span>
+      <select id="f_modeling">
+        <option value="0" selected>0 · 题目已给全部条件</option>
+        <option value="1">1 · 需要少量抽象</option>
+        <option value="2">2 · 需要构建中等模型</option>
+        <option value="3">3 · 复杂原始物理问题</option>
+      </select>
+    </label>
+    <label>视觉复杂度 <span class="hint">(图表理解难度)</span>
+      <select id="f_visual">
+        <option value="0" selected>0 · 无图或极简</option>
+        <option value="1">1 · 一般图表</option>
+        <option value="2">2 · 多图 / 复杂图</option>
+      </select>
+    </label>
+
+    <label>场景相似度 <span class="hint">(与教材例题习题的场景相似程度)</span>
+      <select id="f_scene">
+        <option value="0">0 · 完全陌生</option>
+        <option value="1">1 · 教材场景明显变形</option>
+        <option value="2" selected>2 · 教材场景直接对应</option>
+      </select>
+    </label>
+    <label>模式相似度 <span class="hint">(解题模式与教材套路相似程度)</span>
+      <select id="f_pattern">
+        <option value="0">0 · 需自主建模 / 类比 / 数学构造</option>
+        <option value="1">1 · 教材模式的小改造</option>
+        <option value="2" selected>2 · 教材训练过的模式直接可套</option>
+      </select>
+    </label>
+
+    <label>陷阱数 <span class="hint">(触发学生常见失分点的个数)</span>
+      <select id="f_trap">
+        <option value="0">0 · 无陷阱</option>
+        <option value="1" selected>1 · 一个陷阱 (如竖直方向易丢重力)</option>
+        <option value="2">2 · 两个陷阱</option>
+        <option value="3">3 · 三个或以上</option>
+      </select>
+    </label>
+    <label>前段累积概念载荷 <span class="hint">(前面题目的平均概念数 · 不知道填 2.5)</span>
+      <input type="number" id="f_earlier_load" value="2.5" min="0" max="5" step="0.1">
+    </label>
+  </div>
+
+  <div class="tool-actions">
+    <button class="tool-btn" onclick="runPrediction()">🎯 预测得分率</button>
+    <button class="tool-btn secondary" onclick="clearForm()">重置</button>
+    <span id="modelStatus" style="align-self:center;font-size:12px;color:var(--muted);">模型加载中...</span>
+  </div>
+
+  <div id="predResult" class="tool-result">
+    <div class="pred-row">
+      <div class="pred-item">
+        <div class="lbl">西城尺度预测</div>
+        <div class="val" id="predXicheng">—</div>
+        <div class="sub">模型训练用的样本群</div>
+      </div>
+      <div class="pred-item">
+        <div class="lbl">全北京尺度反推</div>
+        <div class="val" id="predBeijing">—</div>
+        <div class="sub">M3 按难度分档偏移模型</div>
+      </div>
+      <div class="pred-item">
+        <div class="lbl">难度分段</div>
+        <div class="val" id="predBand">—</div>
+        <div class="sub">依据西城尺度值</div>
+      </div>
+    </div>
+    <div class="neighbors" id="predNeighbors"></div>
+  </div>
+
+  <div id="predHistory" class="tool-history"></div>
+
+  <div class="tool-note">
+    <b>使用说明</b>: 打分标准与训练集一致 (参见 §四 特征表定义). 预测精度: 单题平均误差 ± 5.7 个百分点 (西城尺度) · ± 8 个百分点 (全北京尺度, 加了跨样本群偏移的不确定度). 若打分后觉得不合适可反复调整重新预测. 打分历史保存在浏览器 (可选) 或 shareone 页面数据 (需 allow-data). 隐私: 打分数据不外传 · 只在本页面本地保存.
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/elfenlieds7/sudowork-physics-rubric@main/deliverables/rubric/model_champion.js"></script>
+<script>
+(function() {
+  // Feature order must match window.RUBRIC_MODEL.features
+  function collectFeatures() {
+    const qnum = parseFloat(document.getElementById('f_qnum').value) || 1;
+    const qtotal = parseFloat(document.getElementById('f_qtotal').value) || 33;
+    const position = qnum / qtotal;
+    const isOpen = parseFloat(document.getElementById('f_is_open').value);
+    const topic = document.getElementById('f_topic').value;
+    const concept = parseFloat(document.getElementById('f_concept').value);
+    const reasoning = parseFloat(document.getElementById('f_reasoning').value);
+    const novelty = parseFloat(document.getElementById('f_novelty').value);
+    const modeling = parseFloat(document.getElementById('f_modeling').value);
+    const visual = parseFloat(document.getElementById('f_visual').value);
+    const scene = parseFloat(document.getElementById('f_scene').value);
+    const pattern = parseFloat(document.getElementById('f_pattern').value);
+    const trap = parseFloat(document.getElementById('f_trap').value);
+    const earlierLoad = parseFloat(document.getElementById('f_earlier_load').value) || 0;
+
+    // Derived features
+    const feats = {
+      concept: concept,
+      reasoning: reasoning,
+      novelty: novelty,
+      visual: visual,
+      modeling: modeling,
+      position: position,
+      is_open: isOpen,
+      topic_mech: topic === 'mech' ? 1 : 0,
+      topic_em: topic === 'em' ? 1 : 0,
+      textbook_scene_degree: scene,
+      textbook_pattern_degree: pattern,
+      transfer_cost: Math.max(0, pattern - scene),
+      is_last_quarter: position > 0.75 ? 1 : 0,
+      earlier_load: earlierLoad,
+      mod_x_nov: modeling * novelty,
+      mod_x_open: modeling * isOpen,
+      con_x_mod: concept * modeling,
+      concept_sq: concept * concept,
+      con_is_2: concept === 2 ? 1 : 0,
+      con_is_3: concept === 3 ? 1 : 0,
+      con_is_4: concept === 4 ? 1 : 0,
+      con_is_5: concept === 5 ? 1 : 0,
+      con_x_scene: concept * scene,
+      trap_count: trap,
+    };
+    return feats;
+  }
+
+  function predictLasso(featVec) {
+    const M = window.RUBRIC_MODEL.lasso;
+    let s = M.intercept;
+    for (let i = 0; i < featVec.length; i++) {
+      s += featVec[i] * M.coef[i];
+    }
+    return s;
+  }
+
+  function predictOneTree(nodes, featVec) {
+    let idx = 0;
+    while (nodes[idx].left !== -1) {
+      const n = nodes[idx];
+      if (featVec[n.feature] <= n.threshold) idx = n.left;
+      else idx = n.right;
+    }
+    return nodes[idx].value;
+  }
+
+  function predictGBM(featVec) {
+    const M = window.RUBRIC_MODEL.gbm;
+    let s = M.init;
+    for (const tree of M.trees) {
+      s += M.learning_rate * predictOneTree(tree, featVec);
+    }
+    return s;
+  }
+
+  function applyM3Offset(xichengPred) {
+    const M = window.RUBRIC_MODEL.m3_band;
+    let offsetPp;
+    let bandName;
+    if (xichengPred >= M.simple.lo) {
+      offsetPp = M.simple.offset_pp; bandName = 'simple';
+    } else if (xichengPred >= M.medium.lo) {
+      offsetPp = M.medium.offset_pp; bandName = 'medium';
+    } else {
+      offsetPp = M.hard.offset_pp; bandName = 'hard';
+    }
+    return { beijing: xichengPred + offsetPp / 100, band: bandName };
+  }
+
+  window.runPrediction = function() {
+    if (!window.RUBRIC_MODEL) {
+      alert('模型还未加载完成 · 请等几秒后重试');
+      return;
+    }
+    const feats = collectFeatures();
+    const featOrder = window.RUBRIC_MODEL.features;
+    const featVec = featOrder.map(name => feats[name]);
+    const lassoP = predictLasso(featVec);
+    const gbmP = predictGBM(featVec);
+    const ensemble = (lassoP + gbmP) / 2;
+    const clamp = v => Math.max(0, Math.min(1, v));
+    const xicheng = clamp(ensemble);
+    const { beijing, band } = applyM3Offset(xicheng);
+    const beijingClamped = clamp(beijing);
+
+    // Render
+    document.getElementById('predXicheng').textContent = (xicheng * 100).toFixed(1) + '%';
+    document.getElementById('predBeijing').textContent = (beijingClamped * 100).toFixed(1) + '%';
+    const bandLabels = { simple: '简单题 (西城 ≥ 0.8)', medium: '中难题 (0.5-0.8)', hard: '极难题 (< 0.5)' };
+    const bandClass = { simple: 'band-easy', medium: 'band-medium', hard: 'band-hard' };
+    const bandEl = document.getElementById('predBand');
+    bandEl.innerHTML = '<span class="band-tag ' + bandClass[band] + '">' + bandLabels[band] + '</span>';
+    // Neighbor context
+    const neighbors = document.getElementById('predNeighbors');
+    neighbors.innerHTML = '分量: 线性 ' + (lassoP * 100).toFixed(1) + '% · 树集成 ' + (gbmP * 100).toFixed(1) + '% · 平均 ' + (ensemble * 100).toFixed(1) + '% · 90% 置信区间 (西城): [' + Math.max(0, (xicheng - 0.057) * 100).toFixed(1) + '%, ' + Math.min(100, (xicheng + 0.057) * 100).toFixed(1) + '%]';
+    document.getElementById('predResult').classList.add('active');
+
+    // Save to history (localStorage)
+    saveToHistory({
+      timestamp: new Date().toISOString().slice(0, 16).replace('T', ' '),
+      qnum: document.getElementById('f_qnum').value,
+      qtotal: document.getElementById('f_qtotal').value,
+      xicheng: xicheng,
+      beijing: beijingClamped,
+      concept: feats.concept,
+      trap: feats.trap_count,
+    });
+  };
+
+  window.clearForm = function() {
+    document.getElementById('predResult').classList.remove('active');
+    // Reset to defaults
+    document.getElementById('f_qnum').value = 3;
+    document.getElementById('f_qtotal').value = 33;
+    document.getElementById('f_is_open').value = 0;
+    document.getElementById('f_topic').value = 'mech';
+    document.getElementById('f_concept').value = 3;
+    document.getElementById('f_reasoning').value = 2;
+    document.getElementById('f_novelty').value = 0;
+    document.getElementById('f_modeling').value = 0;
+    document.getElementById('f_visual').value = 0;
+    document.getElementById('f_scene').value = 2;
+    document.getElementById('f_pattern').value = 2;
+    document.getElementById('f_trap').value = 1;
+    document.getElementById('f_earlier_load').value = 2.5;
+  };
+
+  const HKEY = 'rubric_history_v1';
+  function saveToHistory(rec) {
+    try {
+      const cur = JSON.parse(localStorage.getItem(HKEY) || '[]');
+      cur.unshift(rec);
+      localStorage.setItem(HKEY, JSON.stringify(cur.slice(0, 20)));
+      renderHistory();
+    } catch (e) { /* localStorage may be blocked */ }
+  }
+  function renderHistory() {
+    try {
+      const cur = JSON.parse(localStorage.getItem(HKEY) || '[]');
+      const el = document.getElementById('predHistory');
+      if (!cur.length) { el.innerHTML = ''; return; }
+      let html = '<b>最近打分历史</b> (仅存本地浏览器 · 不外传):<br>';
+      cur.slice(0, 5).forEach(r => {
+        html += '<div class="h-item"><span class="h-tag">' + r.timestamp + '</span> Q' + r.qnum + '/' + r.qtotal + ' · 概念=' + r.concept + ' 陷阱=' + r.trap + ' · 西城 ' + (r.xicheng * 100).toFixed(1) + '% 全北京 ' + (r.beijing * 100).toFixed(1) + '%</div>';
+      });
+      if (cur.length > 5) html += '<div class="h-item" style="color:var(--muted)">... 加 ' + (cur.length - 5) + ' 条更早记录</div>';
+      el.innerHTML = html;
+    } catch (e) {}
+  }
+
+  // Wait for model to load
+  function checkModel() {
+    if (window.RUBRIC_MODEL) {
+      document.getElementById('modelStatus').textContent = '模型已就绪 (v' + window.RUBRIC_MODEL.version + ')';
+      document.getElementById('modelStatus').style.color = 'var(--ok)';
+      renderHistory();
+    } else {
+      setTimeout(checkModel, 200);
+    }
+  }
+  checkModel();
+})();
+</script>
+
 <h2>一 · 当前主要结果</h2>
 
 <div class="metric-row">
