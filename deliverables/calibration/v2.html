@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>评分表 v2.1 · 20 题多人打分校准包</title>
+<style>
+  :root{
+    --paper:#16181c; --paper-elev:#1e2126;
+    --ink:#e5e3dd; --ink-strong:#f4f2ec;
+    --muted:#8a8d87; --border:#2f3339; --border-strong:#3d434a;
+    --accent:#78b0e0; --accent-soft:#3a5a7a;
+    --hilite:#3a3220; --hilite-border:#7a6830; --hilite-ink:#e9d799;
+    --box:#1c2a3a; --box-border:#3e587a; --box-ink:#a8caeb;
+    --key:#f0895a;
+    --ok:#6ecc8f; --ok-soft:#1e3524; --ok-border:#3a6a48; --ok-ink:#b8e4c4;
+    --gloss:#2a2820; --gloss-border:#5e5432; --gloss-ink:#dccb95;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--paper);}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.75;font-size:15.5px;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;padding:44px 56px 100px;background:var(--paper);}
+  header.doc{border-bottom:2px solid var(--border-strong);padding-bottom:18px;margin-bottom:28px;}
+  .kicker{font-size:11px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;color:var(--ink-strong);}
+  .meta{font-size:13px;color:var(--muted);}
+  .meta b{color:var(--ink);font-weight:500}
+  h2{font-size:19px;color:var(--accent);margin:32px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+  h3{font-size:15.5px;margin:20px 0 8px;font-weight:600;color:var(--ink-strong);}
+  p{color:var(--ink);}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent-soft);}
+  a:hover{border-bottom-style:solid;}
+  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #c89e30;padding:12px 16px;margin:0 0 20px;font-size:14px;color:var(--hilite-ink);border-radius:2px;}
+  .banner b{color:#f4dfa0}
+  .banner.ok{background:var(--ok-soft);border-color:var(--ok-border);border-left-color:var(--ok);color:var(--ok-ink)}
+  .banner.ok b{color:#daf1e0}
+  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:var(--box-ink)}
+  .banner.info b{color:#d8ecff}
+  .item{background:var(--paper-elev);border:1px solid var(--border-strong);border-radius:4px;padding:14px 18px;margin:10px 0;}
+  .item .idx{display:inline-block;background:var(--accent);color:#0f1114;font-weight:700;padding:2px 10px;border-radius:2px;font-size:14px;letter-spacing:0.05em;}
+  .item .src{color:var(--muted);font-size:13px;margin-left:12px;}
+  .template{background:#0f1114;border:1px solid var(--border-strong);border-radius:4px;padding:14px 18px;margin:10px 0;font-family:"Consolas","SF Mono",monospace;font-size:13px;color:var(--ok-ink);white-space:pre;overflow-x:auto;line-height:1.55;}
+  footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="kicker">评分表 v2.1 · 多人打分一致性校准 · 2026-08-08 晚</div>
+  <h1>评分表 v2.1 · 20 题双盲打分包</h1>
+  <div class="meta">
+    <b>杨老师</b> (北京八中 · 独立打分方 A) · <b>sudowork 智能体</b> (打分方 B · 我打分不在本页) · 目标: 计算多人打分一致性 kappa · 出打分手册 · 补齐论文方法学
+  </div>
+</header>
+
+<div class="banner ok">
+  <b>🎯 目标:</b> 您独立打这 20 题的 10 维分数 · 我把您打的和我按 v2.1 已打的对比 · 分歧例子讨论 · 出<b>打分手册</b> · 计算每一维 Cohen's kappa · 补进论文附录。
+</div>
+
+<div class="banner">
+  <b>⚠️ 独立打分的重要性:</b><br>
+  · 请不要看您原稿上的<b>红笔实测得分率</b> (那是您之前记的 · 会成为不自觉的锚点)<br>
+  · 请不要查看主评分表页面 <a href="https://s.shareone.vip/s/difficulty-rubric-v1-yang">主 SSOT 页</a> 里已展示的任何打分数字<br>
+  · 请按 <b>盲编号顺序</b> (第 1 → 第 20 题) 打分 · 不要按题号或位置暗示排序<br>
+  · 遇到不确定的档位 · 就选您觉得最合理的一档 · 分歧讨论环节会一起 refine
+</div>
+
+<div class="banner info">
+  <b>📖 打分维度定义</b> 请参考已签字确认的 <a href="https://s.shareone.vip/s/rubric-v2-spec-yang">v2.1 完整清单</a> · 10 维:<br>
+  <b>情境信息类</b>: (1) 情境特征 · (2) 信息呈现<br>
+  <b>学科知识类</b>: (3) 模块属性 · (4) 知识点数 · (5) 知识深度<br>
+  <b>思维任务类</b>: (6) 设问开放度 · (7) 建模复杂度 · (8) 推理链长度 · (9) 运算难度 · (10) 题型因素
+</div>
+
+<h2>20 道题清单 (盲顺序 · 独立打分)</h2>
+
+<div class="banner info">
+  <b>题源查阅:</b> 这 20 题都出自您之前提供的 7 份试卷。每题标注题源后 · 您可以在自己的原稿或 PDF 里定位。请只对本页列出的题打分。
+</div>
+
+<div class="item"><span class="idx">第 1 题</span><span class="src">题源: 西城 2024 一模 · 第 16 题第 2 问 (电学实验 · U-I 图)</span></div>
+<div class="item"><span class="idx">第 2 题</span><span class="src">题源: 西城 2026 一模 · 第 14 题 (声呐 · 光折射类比 · 情境题)</span></div>
+<div class="item"><span class="idx">第 3 题</span><span class="src">题源: 高考 2025 · 第 19 题第 1 问 (飞机加速跑道 · 牵引功)</span></div>
+<div class="item"><span class="idx">第 4 题</span><span class="src">题源: 高考 2022 · 第 19 题第 3 问 (流浪地球 · 新轨道周期)</span></div>
+<div class="item"><span class="idx">第 5 题</span><span class="src">题源: 高考 2023 · 第 1 题 (夜间轮胎气温 · 气体分子理论)</span></div>
+<div class="item"><span class="idx">第 6 题</span><span class="src">题源: 西城 2026 一模 · 第 11 题 (加速度计 · 弹簧+电路)</span></div>
+<div class="item"><span class="idx">第 7 题</span><span class="src">题源: 西城 2026 一模 · 第 16 题第 3 问 (单摆 g 表达式)</span></div>
+<div class="item"><span class="idx">第 8 题</span><span class="src">题源: 西城 2026 一模 · 第 19 题第 1 问 (火箭一级箭体 · 空气阻力 W)</span></div>
+<div class="item"><span class="idx">第 9 题</span><span class="src">题源: 西城 2026 一模 · 第 20 题第 1 问后半 (标记为 20-1b · 电子束冲击力 F∝v^α)</span></div>
+<div class="item"><span class="idx">第 10 题</span><span class="src">题源: 西城 2024 一模 · 第 19 题第 2 问后半 (标记为 19-2b · 离子密度 nx-x)</span></div>
+<div class="item"><span class="idx">第 11 题</span><span class="src">题源: 高考 2025 · 第 15 题第 1 问 (实验操作 · 3 项判断)</span></div>
+<div class="item"><span class="idx">第 12 题</span><span class="src">题源: 西城 2026 一模 · 第 20 题第 2 问 (相对论质能 · 储存环 B(t))</span></div>
+<div class="item"><span class="idx">第 13 题</span><span class="src">题源: 高考 2024 · 第 20 题第 2 问 (径向磁感应强度 B2)</span></div>
+<div class="item"><span class="idx">第 14 题</span><span class="src">题源: 高考 2023 · 第 18 题第 1 问 (电磁撬 · 安培力)</span></div>
+<div class="item"><span class="idx">第 15 题</span><span class="src">题源: 西城 2024 一模 · 第 20 题第 2 问后半 (标记为 20-2b · 30 度推力 · 最近距离)</span></div>
+<div class="item"><span class="idx">第 16 题</span><span class="src">题源: 西城 2025 一模 · 第 20 题第 3 问 (横坐标表达式 · 斜率 e/m)</span></div>
+<div class="item"><span class="idx">第 17 题</span><span class="src">题源: 高考 2024 · 第 14 题 (电荷/电压/电流/磁通量 · 元件属性图)</span></div>
+<div class="item"><span class="idx">第 18 题</span><span class="src">题源: 西城 2025 一模 · 第 12 题 (缓慢移动 vs 恒力 · 功能比较)</span></div>
+<div class="item"><span class="idx">第 19 题</span><span class="src">题源: 高考 2025 · 第 8 题 (小山坡等高线 · 力学+电场类比)</span></div>
+<div class="item"><span class="idx">第 20 题</span><span class="src">题源: 西城 2024 一模 · 第 2 题 (卢瑟福核反应)</span></div>
+
+<h2>打分回传模板</h2>
+
+<div class="banner">
+  <b>怎么发给我:</b> 复制下面模板到微信 · 每行填数字或档位 · 空格或逗号分隔都行 · 全部打完发我 · 分几次发也行。
+</div>
+
+<div class="template">题号  情境特征 信息呈现 模块 知识点数 知识深度 开放度 建模 推理链 运算 题型
+    (0/1/2) (0/1/2) (力/电/热/跨) (1-5) (记/理/应/析) (封/半/全) (0-3) (1-5) (0-3) (选/填/解)
+第 1 题:
+第 2 题:
+第 3 题:
+第 4 题:
+第 5 题:
+第 6 题:
+第 7 题:
+第 8 题:
+第 9 题:
+第 10 题:
+第 11 题:
+第 12 题:
+第 13 题:
+第 14 题:
+第 15 题:
+第 16 题:
+第 17 题:
+第 18 题:
+第 19 题:
+第 20 题:</div>
+
+<h2>时间估计 & 分批建议</h2>
+
+<p>凭您教学经验 · 每题大约 3 - 5 分钟 · 20 题总计约 60 - 90 分钟。建议分 3 - 4 次做:</p>
+<ul>
+  <li>第一批: 第 1 - 5 题 · 大约 15 分钟</li>
+  <li>第二批: 第 6 - 10 题 · 大约 20 分钟</li>
+  <li>第三批: 第 11 - 15 题 · 大约 20 分钟</li>
+  <li>第四批: 第 16 - 20 题 · 大约 20 分钟</li>
+</ul>
+<p>不催 · 您方便时打 · 都完成后我们做对比讨论。</p>
+
+<footer class="doc">
+  <p>sudowork 智能体 · 评分表 v2.1 多人打分校准包 · 2026-08-08 晚<br>
+  <a href="https://s.shareone.vip/s/rubric-v2-spec-yang">← 返回 v2.1 完整清单</a> ·
+  <a href="https://s.shareone.vip/s/difficulty-rubric-v1-yang">主评分表页面 (v1)</a> ·
+  <a href="https://github.com/elfenlieds7/sudowork-physics-rubric">GitHub 代码库</a></p>
+</footer>
+
+</div>
+</body>
+</html>
