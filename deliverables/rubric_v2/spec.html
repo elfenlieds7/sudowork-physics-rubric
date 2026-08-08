@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>评分表 v2 · 完整维度清单 · 待杨老师签字</title>
+<style>
+  :root{
+    --paper:#16181c; --paper-elev:#1e2126;
+    --ink:#e5e3dd; --ink-strong:#f4f2ec;
+    --muted:#8a8d87; --border:#2f3339; --border-strong:#3d434a;
+    --accent:#78b0e0; --accent-soft:#3a5a7a;
+    --hilite:#3a3220; --hilite-border:#7a6830; --hilite-ink:#e9d799;
+    --box:#1c2a3a; --box-border:#3e587a; --box-ink:#a8caeb;
+    --key:#f0895a;
+    --ok:#6ecc8f; --ok-soft:#1e3524; --ok-border:#3a6a48; --ok-ink:#b8e4c4;
+    --gloss:#2a2820; --gloss-border:#5e5432; --gloss-ink:#dccb95;
+    --cat1:#3a5a7a; --cat2:#5a3a7a; --cat3:#7a5a3a;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--paper);}
+  body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--paper);line-height:1.75;font-size:15.5px;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
+  .page{max-width:920px;margin:0 auto;padding:44px 56px 100px;background:var(--paper);}
+  header.doc{border-bottom:2px solid var(--border-strong);padding-bottom:18px;margin-bottom:28px;}
+  .kicker{font-size:11px;letter-spacing:0.3em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+  h1{font-family:"Songti SC","Source Han Serif SC",Georgia,serif;font-weight:600;font-size:26px;margin:0 0 10px;color:var(--ink-strong);}
+  .meta{font-size:13px;color:var(--muted);}
+  .meta b{color:var(--ink);font-weight:500}
+  h2{font-size:20px;color:var(--accent);margin:32px 0 14px;padding:8px 14px;border-left:4px solid var(--accent);background:rgba(120,176,224,0.06);}
+  h3{font-size:16px;margin:20px 0 8px;font-weight:600;color:var(--ink-strong);}
+  p{color:var(--ink);}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent-soft);}
+  a:hover{border-bottom-style:solid;}
+  .banner{background:var(--hilite);border:1px solid var(--hilite-border);border-left:4px solid #c89e30;padding:12px 16px;margin:0 0 20px;font-size:14px;color:var(--hilite-ink);border-radius:2px;}
+  .banner b{color:#f4dfa0}
+  .banner.ok{background:var(--ok-soft);border-color:var(--ok-border);border-left-color:var(--ok);color:var(--ok-ink)}
+  .banner.ok b{color:#daf1e0}
+  .banner.info{background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:var(--box-ink)}
+  .banner.info b{color:#d8ecff}
+  .dim{background:var(--paper-elev);border:1px solid var(--border-strong);border-radius:4px;padding:14px 18px;margin:12px 0;}
+  .dim .name{font-size:16px;font-weight:600;color:var(--ink-strong);margin-bottom:4px;}
+  .dim .name .num{display:inline-block;background:var(--accent);color:#0f1114;padding:1px 8px;border-radius:2px;font-size:13px;margin-right:8px;}
+  .dim .def{color:var(--muted);font-size:14px;margin-bottom:8px;}
+  .dim .levels{background:#0f1114;border-left:3px solid var(--accent-soft);padding:8px 12px;margin:6px 0;font-size:14px;}
+  .dim .levels ul{margin:2px 0;padding-left:22px;}
+  .dim .levels li{color:var(--ink);margin:2px 0;}
+  .dim .example{background:rgba(110,204,143,0.06);border-left:3px solid var(--ok-border);padding:6px 12px;margin:6px 0;font-size:13px;color:var(--ok-ink);}
+  .dim .example b{color:#daf1e0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--paper-elev);}
+  th,td{border:1px solid var(--border);padding:6px 10px;text-align:left;color:var(--ink);}
+  th{background:#242830;font-weight:600;font-size:13px;color:var(--ink-strong);}
+  tr:nth-child(even) td{background:#191c21;}
+  footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="doc">
+  <div class="kicker">评分表 v2 · 完整维度清单 · 2026-08-08</div>
+  <h1>评分表 v2 · 完整维度清单</h1>
+  <div class="meta">
+    <b>杨老师</b> (北京八中 · 分类体系设计) · <b>sudowork 智能体</b> (维度定义 + 打分示例) · 待杨老师签字确认后启动 223 题重打分
+  </div>
+</header>
+
+<div class="banner ok">
+  <b>🎯 v2 相对 v1 的改进:</b><br>
+  · 采用杨老师的<b>三大类分类体系</b>: 情境信息（输入）· 学科知识（知识储备）· 思维任务（输出）· 对应评价体系/课标taxonomy<br>
+  · 概念规律数改名<b>知识点数</b> · F=ma = 1 · 语言与物理老师一致<br>
+  · 情境新颖度和场景相似度合并为<b>情境特征</b> · 消除重叠<br>
+  · 舍去解题模式熟悉度 · 老师无法复现 · 信号部分被知识深度吸收<br>
+  · 新增<b>知识深度</b>（记忆/理解/应用/分析 · Bloom 层次）· 独立于建模复杂度<br>
+  · 新增<b>运算难度</b> · 独立于推理链长度 · 气泡题为完美 counter-example<br>
+  · 题型因素从二档扩为<b>三档</b>（选择/填空/解答）· 与北京物理试卷结构一致<br>
+  · 舍去陷阱数 + 位置 · 归为"波动因素" · 追求纯客观评分表
+</div>
+
+<div class="banner info">
+  <b>📋 v2 完整维度: 10 项打分 · 分 3 大类</b><br>
+  您需要独立打的是 10 维 (前 10 项) · 无客观自动项
+</div>
+
+<h2>🧭 大类 1: 情境信息 (输入)</h2>
+
+<div class="dim">
+  <div class="name"><span class="num">1</span>情境特征 <span style="color:var(--muted);font-size:13px;font-weight:400">(context_familiarity · 3 档)</span></div>
+  <div class="def">题目情境与学生已见过的教材/常规练习的熟悉程度。合并了原 v1 的"情境新颖度"和"场景相似度"两维。</div>
+  <div class="levels">
+    <ul>
+      <li><b>0 · 熟悉情境</b>: 教材原题级 · 装置和例题习题直接对应</li>
+      <li><b>1 · 半陌生情境</b>: 教材场景的明显变形 · 换外壳、加约束</li>
+      <li><b>2 · 完全陌生情境</b>: 教材没出现过的场景</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 0 = 高考 2025 Q1 古代点火器（教材热学 + 力做功经典情境）<br>
+    · 1 = 西城 2025 Q3 庆典气球上升（气体上升教材经典 · 但换到气球场景）<br>
+    · 2 = 高考 2024 Q20 天宫霍尔推进器（航天推进 · 教材无对应）
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">2</span>信息呈现 <span style="color:var(--muted);font-size:13px;font-weight:400">(info_complexity · 3 档)</span></div>
+  <div class="def">题目通过图 / 表 / 图像给出信息的复杂程度。对应 v1 的"视觉复杂度"。</div>
+  <div class="levels">
+    <ul>
+      <li><b>0 · 无图</b>: 纯文字题</li>
+      <li><b>1 · 简单示意图</b>: 帮助理解 · 无需从图提取数据</li>
+      <li><b>2 · 复杂图信息</b>: 需要从图/图像提取多个数据点 · 如 v-t 图判读、复杂电路图</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 0 = 高考 2024 Q1 半衰期（纯文字）<br>
+    · 1 = 高考 2022 Q5 斜面上物块受力（简单力示意图）<br>
+    · 2 = 高考 2023 Q4 简谐横波 t=T 时的波形图（4 选 1 波形对比 · 需读多组图）
+  </div>
+</div>
+
+<h2>📚 大类 2: 学科知识 (知识储备)</h2>
+
+<div class="dim">
+  <div class="name"><span class="num">3</span>模块属性 <span style="color:var(--muted);font-size:13px;font-weight:400">(topic · 3 类)</span></div>
+  <div class="def">题目主要考察的物理模块。</div>
+  <div class="levels">
+    <ul>
+      <li><b>力学</b>: 运动学 / 力 / 动量 / 能量 / 机械振动</li>
+      <li><b>电磁</b>: 电场 / 磁场 / 电路 / 电磁感应 / 交流电</li>
+      <li><b>热光近代</b>: 热学 / 光学 / 原子物理 / 相对论 / 核物理</li>
+    </ul>
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">4</span>知识点数 <span style="color:var(--muted);font-size:13px;font-weight:400">(concept_count · 5 档 · 原名"概念规律数")</span></div>
+  <div class="def">学生要用到多少个独立的物理规律 / 定律 / 公式族才能解出这题。<b>F=ma 记 1 个知识点 · 运动学公式记 1 个知识点</b>。同一规律的不同代数形式算 1 个。</div>
+  <div class="levels">
+    <ul>
+      <li><b>1</b>: 直接套一个知识点（如半衰期公式 · 光的现象判定）</li>
+      <li><b>2</b>: 一个知识点 + 一步选路径 / 几何抽取（如匀变速运动 + 选择公式）</li>
+      <li><b>3</b>: 两三个知识点串联（如气泡上浮: 理想气体 + 液体压强 + 第一定律）</li>
+      <li><b>4</b>: 多知识点联立 + 跨模块（如带电粒子在磁场中的运动: 洛伦兹力 + 圆周运动 + 能量守恒）</li>
+      <li><b>5+</b>: 复合场 · 多阶段 · 多物体联立（大题最后小问常见）</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 1 = 高考 2024 Q1 半衰期（半衰期公式 1 个）<br>
+    · 2 = 汽车匀减速制动（匀变速运动 1 + 选平均速度或运动学公式）<br>
+    · 3 = 气泡上浮（理想气体等温 + 液体压强 + 第一定律）<br>
+    · 4 = 电磁感应大题主问（法拉第 + 楞次 + 欧姆 + 焦耳）<br>
+    · 5 = 复合场带电粒子最后小问（洛伦兹 + 电场力 + 能量 + 几何 + 数学）
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">5</span>知识深度 <span style="color:var(--muted);font-size:13px;font-weight:400">(knowledge_depth · 4 档 · v2 新增)</span></div>
+  <div class="def">对物理概念 / 规律理解的深度要求。只和知识内容挂钩，和"怎么搭建模型"无关。<b>打学生能达到的最高层级</b>（杨老师 18:31）。</div>
+  <div class="levels">
+    <ul>
+      <li><b>记忆识别</b>: 识别现象名字 / 记住公式 / 背概念定义</li>
+      <li><b>基础理解</b>: 理解概念内涵 · 能用一个公式解决直接问题</li>
+      <li><b>常规应用</b>: 能把几个概念组合起来解常规问题 · 有教材训练过的解题套路</li>
+      <li><b>综合分析</b>: 需要跨概念、跨模块综合 · 或需要在多种可能中判断选取 · 或需要迁移创新</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 记忆识别 = 高考 2025 Q1 古代点火器（记住"绝热压缩 → 内能↑ → 温度↑ → 点燃"）<br>
+    · 基础理解 = 高考 2022 Q3 理想气体 pV 图判过程（理解 pV 图各段含义）<br>
+    · 常规应用 = 匀变速制动求距离（应用匀变速运动组合公式）<br>
+    · 综合分析 = 气泡上浮判 D（综合等温 + 液体压强 + 第一定律推吸热）
+  </div>
+</div>
+
+<h2>🧠 大类 3: 思维任务 (输出)</h2>
+
+<div class="dim">
+  <div class="name"><span class="num">6</span>设问开放度 <span style="color:var(--muted);font-size:13px;font-weight:400">(openness · 3 档 · 扩展 v1 的 is_open)</span></div>
+  <div class="def">题目设问的封闭程度。反映答案的唯一性和解题路径的多样性。</div>
+  <div class="levels">
+    <ul>
+      <li><b>封闭</b>: 答案唯一 · 解题路径基本唯一 · 大部分选择题</li>
+      <li><b>半开放</b>: 答案唯一但解题路径可多样 · 或需要选取合适分析角度 · 大题主问常见</li>
+      <li><b>完全开放</b>: 需要学生自选建模路径 · 结论可以有多种表述 · 大题最后小问常见</li>
+    </ul>
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">7</span>建模复杂度 <span style="color:var(--muted);font-size:13px;font-weight:400">(modeling · 4 档 · 承接 v1)</span></div>
+  <div class="def">从真实情境抽象、简化、组合物理系统的操作过程。<b>聚焦"把文字场景翻译成理想化模型的加工工作量"</b>（杨老师 18:35）· 独立于知识深度。</div>
+  <div class="levels">
+    <ul>
+      <li><b>0</b>: 题目已给全部理想化条件 · 学生不需要建模</li>
+      <li><b>1</b>: 需要选择合适模型 · 但候选很少</li>
+      <li><b>2</b>: 需要抽象出关键假设 · 排除干扰因素</li>
+      <li><b>3</b>: 需要从头建模 + 数学构造（自主选择物理系统的边界、变量、假设）</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 0 = 大部分选择题（题目已给全条件）<br>
+    · 1 = 平抛运动小车（选水平/竖直分解模型）<br>
+    · 2 = 天宫霍尔推进器（需要抽象出"动量守恒 + 微小推力持续作用"模型）<br>
+    · 3 = 变力做功题最后小问（需自主选择微元法/图像法建模）
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">8</span>推理链长度 <span style="color:var(--muted);font-size:13px;font-weight:400">(reasoning · 5 档 · 承接 v1)</span></div>
+  <div class="def">从已知条件到物理方程 · 需要几步逻辑判断、过程拆分、规律选取。<b>关注思维步骤 · 不涉及数值 / 符号计算</b>（杨老师 18:41）· 独立于运算难度。</div>
+  <div class="levels">
+    <ul>
+      <li><b>1</b>: 一步推出结论</li>
+      <li><b>2</b>: 两步推理</li>
+      <li><b>3</b>: 三步推理 · 需分过程或用临界条件</li>
+      <li><b>4</b>: 四步推理 · 需多个规律串联判断</li>
+      <li><b>5</b>: 五步以上 · 或需要多次回溯、假设、验证</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 推理 = 3（气泡上浮: 恒温 → 内能不变 → 排除 A · 深度减 → 压强减 → 排除 B/C · 得 D 需第一定律）
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">9</span>运算难度 <span style="color:var(--muted);font-size:13px;font-weight:400">(computation · 4 档 · v2 新增)</span></div>
+  <div class="def">数学处理操作的复杂度。<b>仅看列式后的计算工作量 · 和逻辑推导无关</b>（杨老师 18:41）· 独立于推理链长度。</div>
+  <div class="levels">
+    <ul>
+      <li><b>无运算仅定性</b>: 只需定性判断大小 / 方向 / 变化 · 无数值计算</li>
+      <li><b>简单数值运算</b>: 一两步代数 / 单位换算</li>
+      <li><b>中等多步运算</b>: 联立方程 / 几何分解 / 三角函数</li>
+      <li><b>复杂推导运算</b>: 微分 / 积分 / 多参推演 / 复杂几何优化</li>
+    </ul>
+  </div>
+  <div class="example">
+    <b>示例:</b><br>
+    · 无运算仅定性 = 气泡上浮判 D（只判方向 · 无计算）<br>
+    · 简单数值 = 汽车匀减速求距离（一步公式代入）<br>
+    · 中等多步 = 带电粒子在场中偏转（联立力 + 运动学 + 几何）<br>
+    · 复杂推导 = 变力做功微元求积分
+  </div>
+</div>
+
+<div class="dim">
+  <div class="name"><span class="num">10</span>题型因素 <span style="color:var(--muted);font-size:13px;font-weight:400">(question_type · 3 类)</span></div>
+  <div class="def">题型对得分方式的影响。北京物理高考试题主要 3 类。</div>
+  <div class="levels">
+    <ul>
+      <li><b>选择题</b>: 4 选 1 · 有猜测下限 25% · 支持排除法</li>
+      <li><b>填空题</b>: 需给出具体数值 / 表达式 · 常见于实验题 15 / 16 小问</li>
+      <li><b>解答题</b>: 需完整推理和计算过程 · 大题 17 到 20 的主问</li>
+    </ul>
+  </div>
+</div>
+
+<h2>❌ 舍去的旧维度</h2>
+
+<table>
+<tr><th>旧维度</th><th>舍去原因</th><th>信号去向</th></tr>
+<tr><td>解题模式熟悉度</td><td>不在评价体系 / 课标 · 物理老师无法复现</td><td>部分被知识深度吸收（教材例题级 ≈ 基础理解 · 跨章联立 ≈ 常规应用 · 自主建模 ≈ 综合分析）</td></tr>
+<tr><td>陷阱数</td><td>多与学生个体和心理相关 · 属于"干扰项 / 波动因素" · 不是纯客观题目属性</td><td>30 道评审数据保留在项目档案 · 作为独立的"学生易失分点数据集"存底 · 不进 v2 主评分表</td></tr>
+<tr><td>题号位置</td><td>与学生做题时间累积效应相关 · 非纯客观题目属性</td><td>不再纳入模型 · 精度评估重新做</td></tr>
+</table>
+
+<h2>📈 精度预期</h2>
+
+<div class="banner info">
+  <b>v2 精度预估:</b><br>
+  · 加入知识深度 · 运算难度 · 情境特征合并 · 都是 net gain 方向<br>
+  · 舍去陷阱数（原 4 pp 贡献）· 位置（原 1 pp 贡献）· net loss 方向<br>
+  · <b>两方向净效应需要按 v2 重新打分后实测</b> · 预估单题 MAE 在 5.5 到 7 个百分点之间 · 大概率在 6 到 6.5<br>
+  · 整卷加权 MAE 预估 1.5 到 2.5 个百分点 · 仍在实用范围<br>
+  · 论文可以两种数字都报（v1 完整 5.7% · v2 纯客观 X%）· 各有 methodology 意义
+</div>
+
+<h2>✅ 请杨老师确认</h2>
+
+<div class="banner">
+  <b>需要您签字确认的 3 件事:</b><br>
+  一、v2 维度清单（10 项）与您的三大类分类体系完全一致 · 每一维定义 / 档位标准 / 示例都合适 · 有需要调整的地方微信告诉我<br>
+  二、舍去清单（解题模式 / 陷阱数 / 位置）没有异议<br>
+  三、启动 223 题重打分的时机（我建议立即启动 · 大约 3 到 4 小时我这边搞定 · 完成后立即出 v2 打分校准包给您）<br>
+  <br>
+  您回一句"确认" · 或"某某维度改成 XX" · 我就动手。
+</div>
+
+<footer class="doc">
+  <p>sudowork 智能体 · 评分表 v2 完整维度清单 · 2026-08-08 傍晚<br>
+  <a href="https://s.shareone.vip/s/difficulty-rubric-v1-yang">← 返回主评分表页面（v1）</a> ·
+  <a href="https://github.com/elfenlieds7/sudowork-physics-rubric">GitHub 代码库</a></p>
+</footer>
+
+</div>
+</body>
+</html>
