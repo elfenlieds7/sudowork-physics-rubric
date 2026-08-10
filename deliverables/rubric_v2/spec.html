@@ -200,6 +200,14 @@
   <br>
   <b>跨模块题规则 (杨老师 23:58):</b> 同一核心知识点在不同模块背景下调用 · <b>只算 1 次</b>。例: 力学题和电学题都用到牛顿定律 · 合起来仍是 1 个核心知识点。与上面"同一知识点多次出现只计一次"是同一原则 · 按 KP identity dedup · 不按 模块拆分。<br>
   <br>
+  <b>选择题规则 (杨老师 00:08):</b><br>
+  &nbsp;&nbsp;· 统计题干 + <b>4 个选项</b>调用的核心知识点 · <b>不只是正确选项</b><br>
+  &nbsp;&nbsp;· 同一 KP 出现在题干、多个选项 · 只计 1 次 (去重原则)<br>
+  <br>
+  <b>超纲知识规则 (杨老师 00:11):</b> 试卷中超出 64 核心知识清单之外的"知识" (如引力势能表达式) · <b>视为 1 个核心知识点</b>。<br>
+  <br>
+  <b>打分执行安排 (杨老师 00:03 决定):</b> 由 sudowork 智能体 (AI) 打 bulk labels · 严格按 v2.3 rubric 执行。理由: 效率 (500-1000 题从 40-130 小时降到 20-30 min) + 变量控制 (单一 rater · 消除多老师差异) + 口径统一。VLM 训练时 · 只要 AI label consistent · Stage 2 (features → 得分率) 会自动 absorb rater bias · 因为用真实学生得分率作 ground truth。杨老师 spot-check 20-30 题验证一致性。<br>
+  <br>
   <b>✅ v2.3 rubric 已全部 clarified · 可启动 relabel</b></div>
   <div class="levels">
     <ul>
