@@ -56,10 +56,10 @@
 <div class="page">
 
 <header class="doc">
-  <div class="kicker">评分表 v2.2 · 完整维度清单 · 2026-08-09</div>
-  <h1>评分表 v2.2 · 完整维度清单</h1>
+  <div class="kicker">评分表 v2.3 · 完整维度清单 · 2026-08-10</div>
+  <h1>评分表 v2.3 · 完整维度清单</h1>
   <div class="meta">
-    <b>杨老师</b> (北京八中 · 分类体系设计 + v2.1 细化 08-08 11:48-13:03 · v2.2 澄清 14:15/14:20) · <b>sudowork 智能体</b> (维度定义 + 打分示例 + 系统 bias 分析) · v2.2 按 kappa study 结果 + 老师 2 维澄清全面更新 · 启动 223 题 relabel
+    <b>杨老师</b> (北京八中 · 分类体系设计 + v2.1 细化 08-08 · v2.2 澄清 08-09 14:15/14:20 · v2.3 核心知识 taxonomy 08-10 23:46) · <b>sudowork 智能体</b> (维度定义 + 打分示例 + 系统 bias 分析) · v2.3 按 64 核心知识清单精修知识点数维度 · 待启动 relabel
   </div>
 </header>
 
@@ -89,6 +89,29 @@
   · <b>设问开放度</b>: 定义精确化 · 补充保留理由 (2025 / 2026 高考出现开放题 · 政策要求)<br>
   · <b>运算难度</b>: 全部按高中物理特化 · 微积分改为"多组方程" · 各档加"方程组"提法<br>
   · 示例中"几何"改"牛顿定律" · "数学"改"动量定理"
+</div>
+
+<div class="banner" style="background:var(--ok-soft);border-color:var(--ok-border);border-left-color:var(--ok);color:var(--ok-ink)">
+  <b>🆕 v2.3 相对 v2.2 的改动 · 按 08-10 23:46 杨老师"核心知识" taxonomy:</b><br>
+  <br>
+  <b>1) 术语升级</b> (杨老师 23:51): <b>"知识点" → "核心知识"</b> · 更准确 · 覆盖:<br>
+  &nbsp;&nbsp;· <b>概念性知识</b> (如库仑定律 · 万有引力定律)<br>
+  &nbsp;&nbsp;· <b>规律</b> (如楞次定律 · 机械能守恒)<br>
+  &nbsp;&nbsp;· <b>方法性知识</b> (如受力分析 · 整体隔离法 · 力的合成分解)<br>
+  <br>
+  <b>2) 打分改用 64 核心知识清单</b> (方案二 · 杨老师 23:52 confirm) · 消除"什么算独立知识"的根本模糊 · 让 rater 之间容易到 κ 0.8+ · 也为未来 VLM 电子标注员提供 well-defined seed:<br>
+  &nbsp;&nbsp;· 底层: 按 64 KP 清单精确 count (每题涉及哪几个 KP)<br>
+  &nbsp;&nbsp;· 上层: 从 count 映射到 3 档 (少 1-2 / 中 3-5 / 大 6+) · 用于报告 / paper 呈现<br>
+  &nbsp;&nbsp;· 参考: <a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/data/reference/%E9%AB%98%E4%B8%AD%E7%89%A9%E7%90%86%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.xlsx">高中物理核心知识.xlsx (64 项)</a><br>
+  <br>
+  <b>3) 计数原则</b>:<br>
+  &nbsp;&nbsp;· 概念/规律/方法性知识 <b>每项独立 count 1</b> (方法类同权重)<br>
+  &nbsp;&nbsp;· 同一物理规律的代数变形 <b>合 1 个</b> (如匀变速 v=v₀+at · s=v₀t+½at² · v²=v₀²−2as)<br>
+  &nbsp;&nbsp;· 用到 2 个独立物理关系仍 count 2 (如 F=ma 求 a · 再运动学求 s)<br>
+  &nbsp;&nbsp;· 跨模块题 · 各模块触发的核心知识分别 count (待杨老师最终确认)<br>
+  &nbsp;&nbsp;· 实验题 · "每个实验算 1" 是基础 · 是否叠加其他 KP 待确认<br>
+  <br>
+  <b>4) 后续动作</b>: sudowork 智能体明天按 v2.3 rules relabel 223 题 concept_count 维度 · 重算 kappa · 期望从 v2.2 加权 κ 0.30 → v2.3 加权 κ &gt; 0.6
 </div>
 
 <div class="banner" style="background:var(--box);border-color:var(--box-border);border-left-color:var(--accent);color:var(--box-ink)">
@@ -161,10 +184,16 @@
 </div>
 
 <div class="dim">
-  <div class="name"><span class="num">4</span>知识点数 <span style="color:var(--muted);font-size:13px;font-weight:400">(concept_count · 5 档 · 原名"概念规律数")</span></div>
+  <div class="name"><span class="num">4</span>核心知识数 <span style="color:var(--muted);font-size:13px;font-weight:400">(concept_count · v2.3 改名"核心知识" · 5 档 · 或 3 档 少/中/大)</span></div>
   <div class="def">学生要用到多少个独立的物理规律 / 定律 / 公式族才能解出这题。<b>F=ma 记 1 个知识点 · 运动学公式记 1 个知识点</b>。同一规律的不同代数形式算 1 个。<b>选路径 / 选公式不算独立知识点</b>（v2.1 · 杨老师 11:49）· 跨模块也不在这里计（在模块属性里）。<br>
   <br>
-  <b>⚠️ v2.2 澄清 (杨老师 14:20)</b>: 同一物理规律下的代数变形 <b>合并算 1 个知识点</b>。如"匀变速运动"含 v=v₀+at · s=v₀t+½at² · v²=v₀²−2as 是 1 个。但"刹车类减速题用 F=ma 求 a · 再用运动学公式求 s" 是 <b>2 个</b>知识点 (F=ma 1 个 + 运动学 1 个) · 因为用到了两个独立的物理关系。判定原则: 数独立的物理定律 · 不数代数式。</div>
+  <b>⚠️ v2.2 澄清 (杨老师 14:20)</b>: 同一物理规律下的代数变形 <b>合并算 1 个知识点</b>。如"匀变速运动"含 v=v₀+at · s=v₀t+½at² · v²=v₀²−2as 是 1 个。但"刹车类减速题用 F=ma 求 a · 再用运动学公式求 s" 是 <b>2 个</b>知识点 (F=ma 1 个 + 运动学 1 个) · 因为用到了两个独立的物理关系。判定原则: 数独立的物理定律 · 不数代数式。<br>
+  <br>
+  <b>🆕 v2.3 升级 (杨老师 08-10 23:46-52)</b>: 采用 <b>64 核心知识清单</b> · 术语从"知识点"改为"核心知识" (覆盖概念/规律/方法)。参考清单 <a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/data/reference/%E9%AB%98%E4%B8%AD%E7%89%A9%E7%90%86%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.xlsx">高中物理核心知识.xlsx</a> (64 项 · 力学/电磁/热光原/方法类/实验)。<br>
+  <br>
+  <b>打分规则</b>: 每题按清单精确 count 涉及的核心知识数量 (概念性 + 方法性同权重 · 每项独立 count 1) · 再从 count 映射到档位 (少 1-2 · 中 3-5 · 大 6+)。<br>
+  <br>
+  <b>2 个待确认</b> (不 gate 明天 relabel · 杨老师方便时回): 跨模块题 · 各模块触发的核心知识分别 count 还是合并? 实验题 · "每个实验算 1" 外是否叠加其他 KP?</div>
   <div class="levels">
     <ul>
       <li><b>1 个核心知识点</b>: 直接套一个知识点（如半衰期公式 · 光的现象判定）</li>
@@ -331,7 +360,7 @@
 </div>
 
 <footer class="doc">
-  <p>sudowork 智能体 · 评分表 v2.2 完整维度清单 · 2026-08-09 (按杨老师 14:15/14:20 澄清 + kappa 分析系统 bias 校准)<br>
+  <p>sudowork 智能体 · 评分表 v2.3 完整维度清单 · 2026-08-10 (按杨老师 23:46-52 "核心知识" taxonomy · 64 KP 清单)<br>
   <a href="https://s.shareone.vip/s/difficulty-rubric-v1-yang">← 返回主评分表页面（v1）</a> ·
   <a href="https://github.com/elfenlieds7/sudowork-physics-rubric">GitHub 代码库</a></p>
 </footer>
