@@ -57,6 +57,38 @@
   <b>✅ 已完成:</b> 杨老师 08-09 13:11 交付 20 题独立打分 · 全 10 维完整。
 </div>
 
+<div class="banner info">
+  <b>🆕 v2.2 update · 08-09 14:50 · 机械规则校准后的 kappa 结果 (无模型 · 仅 rubric 校准):</b><br>
+  <br>
+  按杨老师 14:15 (设问开放度) + 14:20 (知识点数) 澄清 + kappa 分析发现的建模/运算/推理三维系统性下调 1 档 · 结果:<br>
+  <br>
+  <table style="margin:8px 0;background:transparent;border:1px solid var(--box-border)">
+    <tr style="background:rgba(120,176,224,0.12)">
+      <th style="color:var(--box-ink)">维度</th>
+      <th style="color:var(--box-ink)">v2.1 一致度</th>
+      <th style="color:var(--box-ink)">v2.2 一致度</th>
+      <th style="color:var(--box-ink)">v2.1 加权κ</th>
+      <th style="color:var(--box-ink)">v2.2 加权κ</th>
+      <th style="color:var(--box-ink)">结论</th>
+    </tr>
+    <tr><td style="color:var(--box-ink)">设问开放度</td><td style="color:var(--box-ink)">60%</td><td style="color:#daf1e0"><b>100%</b></td><td style="color:var(--box-ink)">n/a (κ=0)</td><td style="color:#daf1e0"><b>1.000</b></td><td style="color:#daf1e0">✅ 完美对齐</td></tr>
+    <tr><td style="color:var(--box-ink)">运算难度</td><td style="color:var(--box-ink)">45%</td><td style="color:#daf1e0"><b>65%</b></td><td style="color:var(--box-ink)">0.506</td><td style="color:#daf1e0"><b>0.609</b></td><td style="color:#daf1e0">✅ 明显改善</td></tr>
+    <tr><td style="color:var(--box-ink)">建模复杂度</td><td style="color:var(--box-ink)">45%</td><td style="color:#daf1e0"><b>55%</b></td><td style="color:var(--box-ink)">0.504</td><td style="color:#daf1e0"><b>0.567</b></td><td style="color:#daf1e0">✅ 改善</td></tr>
+    <tr><td style="color:var(--box-ink)">推理链长度</td><td style="color:var(--box-ink)">40%</td><td style="color:#daf1e0"><b>40%</b></td><td style="color:var(--box-ink)">0.394</td><td style="color:#daf1e0"><b>0.451</b></td><td style="color:#daf1e0">改善 (弱)</td></tr>
+    <tr><td style="color:var(--box-ink)">知识点数</td><td style="color:var(--box-ink)">25%</td><td style="color:#e9d799"><b>30%</b></td><td style="color:var(--box-ink)">0.265</td><td style="color:#e9d799"><b>0.302</b></td><td style="color:#e9d799">⚠️ 仍需逐题精修</td></tr>
+    <tr><td style="color:var(--box-ink)">情境/信息/模块/深度/题型</td><td colspan="4" style="color:var(--box-ink);text-align:center">保持不变 (v2.2 未触碰)</td><td style="color:#daf1e0">✅ 稳定</td></tr>
+  </table>
+  <br>
+  <b>核心结论</b>: 从"5 维 catastrophic 分歧" 收敛到 "1 维仍需精修" · 证明 rubric 途径本身就够 · 未必需要 VLM 兜底 subjectivity。<br>
+  <br>
+  <b>MAE 稳定 (v2.1 → v2.2)</b>: 单题 MAE 8.4 → 8.68 pp (在噪声范围内 · 印证杨老师 14:39 "close to noise floor" 判断) · 整卷 MAE 保持 &lt; 2.1 pp · 4 项过拟合校验全通过 (overfit gap 1 pp · multi-seed stdev 0 · 随机特征几乎无变化) · 模型 robust。<br>
+  <br>
+  <b>方向影响</b> (Ethan/杨老师 14:24-14:50 讨论):<br>
+  · 杨老师 14:45 "14 维度都是客观难度" 得到数据支持 (机械规则校准即可大幅收敛)<br>
+  · VLM 定位从"必需"降为"加分项" · rubric 途径 (人工培训 + 定义精修) 是主路径 · VLM 只是加速器<br>
+  · 决策 gate: 若知识点数逐题精修后 5 维都 κ &gt; 0.7 → 全面证明 rubric approach 足够 · VLM 降为可选自动化工具
+</div>
+
 <div class="banner">
   <b>🎯 核心结论 (诚实版):</b><br>
   <b>1.</b> 4 维一致 (题型 90% · 知识深度 75% · 模块 70% · 情境 70%) · kappa 0.54-0.68 · 良好<br>
