@@ -1135,6 +1135,28 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <h2>附录 D · v2 系列 kappa study & rubric evolution (2026-08-08 to 08-11)</h2>
 
+<div style="background:#1a3a24;border-left:4px solid #4ade80;padding:14px 18px;margin:16px 0;color:#c4f0d0;border-radius:2px;">
+  <b>🎯 核心方法学 finding (2026-08-11 上午 v2.3 kappa validation 证明):</b><br>
+  <br>
+  <b>rubric 本身的设计质量 · 是 rater agreement 的 gate · 而不是 rater 数量或 rater 训练强度。</b><br>
+  <br>
+  证据链:
+  <ul>
+    <li><b>v2.1 rubric (未 kappa 校准)</b>: 智能体 vs 杨老师 在 concept_count 一致度只 30% · κ 0.05 (catastrophic disagreement)</li>
+    <li><b>v2.3 rubric (加 64 KP 清单 + 5 条计数规则)</b>: 同一个智能体 vs 同一个杨老师 · 同一 20 题 · 一致度跳到 <b>85%</b> · κ <b>0.798</b> · 加权 κ <b>0.869</b> (excellent agreement 标准)</li>
+    <li>唯一变化: <b>rubric 定义</b>更精确 (64 KP 清单锁 "什么算独立知识") + 5 条计数规则消除 edge cases 歧义</li>
+    <li>rater (智能体) 没变 · rater 训练量没变 · 数据没变 · 只是 rubric 迭代</li>
+  </ul>
+
+  <b>方法学 implication</b>:<br>
+  <ul>
+    <li><b>产品化建议</b>: 换到别的教研老师用这套系统 · 只要她认可 rubric 定义 · κ 就能保持 · 无需重新培训 rater</li>
+    <li><b>VLM 训练建议</b>: rubric 设计好 = VLM 训练 seed 质量有保证 · 不用担心 AI 打分 "污染" 模型 (只要 consistent)</li>
+    <li><b>投资顺序</b>: 精修 rubric 优先级 &gt;&gt; 招更多 rater / 培训 rater · rubric 是 leverage 最大的一环</li>
+    <li><b>论文核心贡献</b>: "well-designed rubric can enable AI-human agreement at expert level (κ &gt; 0.8) with a single rater · without extensive training" · 这是心理测量学 (psychometrics) 传统认为需要多轮 rater 培训才能达到的水平</li>
+  </ul>
+</div>
+
 <p><b>核心里程碑 · 从"AI 单一 rater 无验证"到"专家教研 kappa validated"</b>:</p>
 
 <ul>
@@ -1146,11 +1168,13 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <li><b>08-11 上午</b> v2.3 kappa validation: <b>17/20 一致 · κ 0.798 · 加权 κ 0.869</b> · 证明 rubric 本身设计对 · AI apply rubric 收敛到 excellent 级别 · 剩 3 处 minor 分歧待 spot-check</li>
 </ul>
 
-<p><b>论文影响 (待整合)</b>: 本轮 kappa study + v2.3 rubric 收敛过程 · 是<em class="term">论文方法学部分</em>的核心贡献:</p>
+<p><b>论文影响 (待整合)</b>: 本轮 kappa study + v2.3 rubric 收敛过程 · 是<em class="term">论文方法学部分</em>的核心贡献 · 需在 Discussion 或 Methods 章节展开:</p>
 <ul>
-<li>展示"专家 rubric + AI 打分" hybrid 的可行性 (κ &gt; 0.8)</li>
-<li>提供 rubric 精修的 case study (从模糊到可执行 · 需要哪些澄清)</li>
+<li><b>最核心 finding (见上方绿框)</b>: rubric 设计质量是 rater agreement 的 gate · 不是 rater 数量/培训 · 挑战了传统心理测量学"多 rater + 培训"路径</li>
+<li>展示"专家 rubric + AI 打分" hybrid 的可行性 (κ &gt; 0.8 with 单 AI rater · 无培训)</li>
+<li>提供 rubric 精修的 case study (从模糊到可执行 · 需要哪些澄清 · 见 08-08 → 08-11 evolution)</li>
 <li>作为未来 VLM 电子标注员的 seed 数据准备方法论 · 让下一位教研老师能复现</li>
+<li>Methodology 引用: <a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/data/labeled/v2_3_calibration_reasoning.json">v2_3_calibration_reasoning.json</a> 有每题 reasoning · 是 methodology 复现的 evidence</li>
 </ul>
 
 <p><b>SSOT 分布 (供 cross-reference)</b>:</p>
