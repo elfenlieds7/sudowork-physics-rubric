@@ -1126,12 +1126,45 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td>2026-08-03 上</td><td>v5.1</td><td>223 (7 papers)</td><td>17</td><td>+ 高考 2022 · 2023 (61 题) · + concept 非线性 dummies</td><td>0.062</td></tr>
 <tr><td>2026-08-03 晚</td><td>v5.2 (milestone lock)</td><td>223</td><td>17 + <t>陷阱数</t> (30 老师 label)</td><td>+ <t>陷阱数</t>特征 · Lasso+GBM 集成 · 4 项过拟合检验通过 · 整卷 MAE = 1.38 pp</td><td>0.058</td></tr>
 <tr><td>2026-08-04 晚</td><td><b>v5.3 (校准 milestone)</b></td><td>223</td><td>同上</td><td>修正 2 处 label 错误 (2023 Q15-1 · 2024 Q19-1 · sub-question 编号错) · 加拟合跨样本群 (西城 ⇌ 全北京) 偏移模型 (121 对 · M3 按难度分档 · LOO MAE 1.90 pp)</td><td><b>0.057</b></td></tr>
+<tr><td>2026-08-08</td><td>v2 (10 维 · 三大类)</td><td>223</td><td>10</td><td>杨老师提出<t>三大类分类体系</t>: 情境信息(输入) · 学科知识(储备) · 思维任务(输出); 舍<t>陷阱数</t>+位置(波动因素); 加<t>知识深度</t>(Bloom)+<t>运算难度</t>(独立于推理链); 从产品指标转向纯客观 rubric</td><td>—</td></tr>
+<tr><td>2026-08-08 晚</td><td>v2.1 (29 条评审细化)</td><td>223</td><td>10</td><td>杨老师 11:48-13:03 全维定义精确化 · 加"跨模块综合"档 · 命名统一 · 全量 relabel 出结果</td><td>0.084</td></tr>
+<tr><td>2026-08-09</td><td><b>v2.2 (kappa study 校准)</b></td><td>223</td><td>10</td><td>杨老师 08-09 上午独立标 20 题 gold · kappa 揭示 5 维 catastrophic 分歧 (建模/运算/推理智能体系统打高 1 档 · 开放度智能体过判 semi/open · 知识点数颗粒度不齐); 澄清 2 维 (设问开放度默认封闭 · 知识点数变形合并) + 3 维系统 bias 校准</td><td>0.087</td></tr>
+<tr><td>2026-08-10 晚</td><td><b>v2.3 (核心知识 · 64 KP)</b></td><td>223 (concept_count 待 relabel)</td><td>10</td><td>杨老师 23:46-00:17 深度打磨: 术语"知识点"→"核心知识"(含概念+规律+方法); 提供 64 高中物理核心知识清单; 5 条计数规则 (变形合并/桥接分开/跨模块 dedup by KP identity/实验必做1+内部要素不拆+创新探究不增设/选择题去重/超纲=1); 决定 AI 单一 rater 打 bulk labels (效率+变量控制+口径统一) · 杨老师 spot-check 20-30 题</td><td>待重打</td></tr>
+<tr><td>2026-08-11 上午</td><td><b>v2.3 concept_count validation</b></td><td>20 (kappa subset)</td><td>10</td><td>按 v2.3 rubric 独立重打 20 kappa items concept_count · vs 杨老师 gold: 一致 <b>17/20 (85%)</b> · Simple κ <b>0.798</b> · Weighted κ <b>0.869</b> (vs v2.1 的 30% / 0.05 / 0.30 · 从 catastrophic → excellent agreement 标准); 3 处 minor 分歧待 spot-check</td><td>待 223 全量 rerun</td></tr>
 </table>
+
+<h2>附录 D · v2 系列 kappa study & rubric evolution (2026-08-08 to 08-11)</h2>
+
+<p><b>核心里程碑 · 从"AI 单一 rater 无验证"到"专家教研 kappa validated"</b>:</p>
+
+<ul>
+<li><b>08-08</b> 杨老师提出<em class="term">三大类分类体系</em> · 从"预测精度导向"改为"纯客观教研 rubric" · 舍陷阱数/位置</li>
+<li><b>08-09 上午</b> 杨老师独立标 20 题 gold · 出<em class="term">首个 kappa study</em>: 5 维一致 · 5 维 catastrophic 分歧 · 系统 pattern (智能体系统性打高 1 档)</li>
+<li><b>08-09 午后</b> v2.2 机械校准 (3 维下调 1 档 + 定义澄清 2 项) · 5 维 catastrophic 收敛到 1 维仍需精修 (concept_count) · MAE 保持 8.68 pp (印证 close to noise floor)</li>
+<li><b>08-09 下午</b> 关键判断反转 · 杨老师"14 维不易标准化 · 自己也权衡半天" · VLM 电子标注员从"nice-to-have"升为"must-have"; sudowork 智能体分析 Stage-1 VLM + Stage-2 features→得分率 双阶段架构 · rater bias 由 Stage 2 自动 absorb (只要 consistent)</li>
+<li><b>08-10 晚</b> 杨老师提供 <em class="term">64 高中物理核心知识清单</em> + 5 条计数规则 · v2.3 rubric 完全 lock · 决定 AI 打 bulk labels · 杨老师 spot-check</li>
+<li><b>08-11 上午</b> v2.3 kappa validation: <b>17/20 一致 · κ 0.798 · 加权 κ 0.869</b> · 证明 rubric 本身设计对 · AI apply rubric 收敛到 excellent 级别 · 剩 3 处 minor 分歧待 spot-check</li>
+</ul>
+
+<p><b>论文影响 (待整合)</b>: 本轮 kappa study + v2.3 rubric 收敛过程 · 是<em class="term">论文方法学部分</em>的核心贡献:</p>
+<ul>
+<li>展示"专家 rubric + AI 打分" hybrid 的可行性 (κ &gt; 0.8)</li>
+<li>提供 rubric 精修的 case study (从模糊到可执行 · 需要哪些澄清)</li>
+<li>作为未来 VLM 电子标注员的 seed 数据准备方法论 · 让下一位教研老师能复现</li>
+</ul>
+
+<p><b>SSOT 分布 (供 cross-reference)</b>:</p>
+<ul>
+<li>本页 = 主 SSOT (物理试题难度预测项目全局状态)</li>
+<li><a href="https://s.shareone.vip/s/rubric-v2-spec-yang">rubric-v2-spec-yang</a> = 评分表 v2.3 完整维度定义 (10 维打分口径 + 计数规则)</li>
+<li><a href="https://s.shareone.vip/s/rubric-calibration-v2-yang">rubric-calibration-v2-yang</a> = kappa study 结果 (v2.1 vs 杨老师 gold · v2.2 校准后对比)</li>
+<li><a href="https://github.com/elfenlieds7/sudowork-physics-rubric">GitHub repo</a> = 全部脚本 + 数据 + label · 每次迭代提交留档 (非敏感数据)</li>
+</ul>
 
 <p><b>说明 · 附录 A/B 遗留请求:</b> A 里 30 道<t>陷阱数</t>请求 · 杨老师 2026-08-03 上午已 review 完成 · 标签已合入 v5.2+ champion. B 里 5 道<t>场景</t>/模式抽查 · 杨老师 2026-08-02 电话说 "<t>场景</t>熟悉降低难度是真实的 (霍尔推进器)", 后经迁移成本交叉项数据侧修正, 打分已趋对齐, 无需二次 review.</p>
 
 <footer class="doc">
-  <p>sudowork 智能体 · 评分表 · v5.3 校准 milestone · 2026-08-04 晚<br>
+  <p>sudowork 智能体 · 评分表 · v2.3 living document · 2026-08-11 上午 (v5.3 校准 milestone 是 v1 支线 · v2 支线走杨老师三大类分类体系 · 详见附录 D)<br>
   <a href="https://github.com/elfenlieds7/sudowork-physics-rubric" style="color:var(--accent)">github.com/elfenlieds7/sudowork-physics-rubric</a></p>
 </footer>
 
