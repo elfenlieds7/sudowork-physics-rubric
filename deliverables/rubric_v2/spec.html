@@ -210,6 +210,11 @@
   &nbsp;&nbsp;· 例: xicheng_2026 Q20-1b 电子束冲击力 F∝v^α 可用 (牛二 + 描述运动的物理量) 或 (动量定理 + 牛三) 两条路径 · 都是 2 KPs · 不能混算 3 KPs<br>
   &nbsp;&nbsp;· <b>不允许把不同路径的 KP 加起来</b> · 这会 over-count · 违背"客观难度" 原则<br>
   <br>
+  <b>从属概念规则 (杨老师 19:40)</b>: <b>1 个核心 KP 的从属概念不算独立 KP</b>。<br>
+  &nbsp;&nbsp;· 例: 动能定理 = 1 KP · 功/动能/阻力都是它的从属概念 (套娃嵌套结构) · 阻力做的功归到动能定理内 · 不额外 count<br>
+  &nbsp;&nbsp;· <b>Exception</b>: 若试题独立考查从属概念本身 (如阻力的大小、方向分析) · 才额外 count 该从属 KP (如"摩擦力")<br>
+  &nbsp;&nbsp;· 例: xicheng_2026 Q19-1 火箭减速 · 只用动能定理算 W = ΔEk · 阻力作为 W 里的分量 · 不独立 · 打 1<br>
+  <br>
   <b>打分执行安排 (杨老师 00:03 决定):</b> 由 sudowork 智能体 (AI) 打 bulk labels · 严格按 v2.3 rubric 执行。理由: 效率 (500-1000 题从 40-130 小时降到 20-30 min) + 变量控制 (单一 rater · 消除多老师差异) + 口径统一。VLM 训练时 · 只要 AI label consistent · Stage 2 (features → 得分率) 会自动 absorb rater bias · 因为用真实学生得分率作 ground truth。杨老师 spot-check 20-30 题验证一致性。<br>
   <br>
   <b>✅ v2.3 rubric 已全部 clarified · 可启动 relabel</b></div>
