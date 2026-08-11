@@ -1130,7 +1130,8 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td>2026-08-08 晚</td><td>v2.1 (29 条评审细化)</td><td>223</td><td>10</td><td>杨老师 11:48-13:03 全维定义精确化 · 加"跨模块综合"档 · 命名统一 · 全量 relabel 出结果</td><td>0.084</td></tr>
 <tr><td>2026-08-09</td><td><b>v2.2 (kappa study 校准)</b></td><td>223</td><td>10</td><td>杨老师 08-09 上午独立标 20 题 gold · kappa 揭示 5 维 catastrophic 分歧 (建模/运算/推理智能体系统打高 1 档 · 开放度智能体过判 semi/open · 知识点数颗粒度不齐); 澄清 2 维 (设问开放度默认封闭 · 知识点数变形合并) + 3 维系统 bias 校准</td><td>0.087</td></tr>
 <tr><td>2026-08-10 晚</td><td><b>v2.3 (核心知识 · 64 KP)</b></td><td>223 (concept_count 待 relabel)</td><td>10</td><td>杨老师 23:46-00:17 深度打磨: 术语"知识点"→"核心知识"(含概念+规律+方法); 提供 64 高中物理核心知识清单; 5 条计数规则 (变形合并/桥接分开/跨模块 dedup by KP identity/实验必做1+内部要素不拆+创新探究不增设/选择题去重/超纲=1); 决定 AI 单一 rater 打 bulk labels (效率+变量控制+口径统一) · 杨老师 spot-check 20-30 题</td><td>待重打</td></tr>
-<tr><td>2026-08-11 上午</td><td><b>v2.3 concept_count validation</b></td><td>20 (kappa subset)</td><td>10</td><td>按 v2.3 rubric 独立重打 20 kappa items concept_count · vs 杨老师 gold: 一致 <b>17/20 (85%)</b> · Simple κ <b>0.798</b> · Weighted κ <b>0.869</b> (vs v2.1 的 30% / 0.05 / 0.30 · 从 catastrophic → excellent agreement 标准); 3 处 minor 分歧待 spot-check</td><td>待 223 全量 rerun</td></tr>
+<tr><td>2026-08-11 上午</td><td><b>v2.3 concept_count validation (first pass)</b></td><td>20 (kappa subset)</td><td>10</td><td>按 v2.3 rubric 独立重打 20 kappa items concept_count · vs 杨老师 gold: 一致 <b>17/20 (85%)</b> · Simple κ <b>0.798</b> · Weighted κ <b>0.869</b> (vs v2.1 的 30% / 0.05 / 0.30 · 从 catastrophic → excellent agreement 标准); 3 处 minor 分歧待 spot-check</td><td>待 223 全量 rerun</td></tr>
+<tr><td>2026-08-11 下午</td><td><b>v2.3 二次更新 · near-perfect</b></td><td>20 (kappa subset)</td><td>10</td><td>杨老师 14:56 加"最简路径规则"(解题方法不唯一时按最简统计) + 15:27 确认实验 sub-question 每问加实验 KP · 修正 2 处 (teacher gold Item 1 · AI Item 9) · 一致度 <b>19/20 (95%)</b> · Simple κ <b>0.931</b> · Weighted κ <b>0.955</b> (<b>near-perfect 标准</b>); 剩 Item 8 (火箭减速阻力独立性) 待确认</td><td>待 223 全量 rerun</td></tr>
 </table>
 
 <h2>附录 D · v2 系列 kappa study & rubric evolution (2026-08-08 to 08-11)</h2>
@@ -1143,7 +1144,8 @@ Object.keys(CHART_DATA).forEach(renderChart);
   证据链:
   <ul>
     <li><b>v2.1 rubric (未 kappa 校准)</b>: 智能体 vs 杨老师 在 concept_count 一致度只 30% · κ 0.05 (catastrophic disagreement)</li>
-    <li><b>v2.3 rubric (加 64 KP 清单 + 5 条计数规则)</b>: 同一个智能体 vs 同一个杨老师 · 同一 20 题 · 一致度跳到 <b>85%</b> · κ <b>0.798</b> · 加权 κ <b>0.869</b> (excellent agreement 标准)</li>
+    <li><b>v2.3 rubric first pass (加 64 KP 清单 + 5 条计数规则)</b>: 同一个智能体 vs 同一个杨老师 · 同一 20 题 · 一致度跳到 <b>85%</b> · κ <b>0.798</b> · 加权 κ <b>0.869</b> (excellent agreement 标准)</li>
+    <li><b>v2.3 rubric 二次更新 (加 08-11 14:56 最简路径规则 + 15:27 实验 sub-question 每问加实验 KP)</b>: 一致度到 <b>95%</b> · κ <b>0.931</b> · 加权 κ <b>0.955</b> (<b>near-perfect agreement 标准 · κ &gt; 0.9</b>)</li>
     <li>唯一变化: <b>rubric 定义</b>更精确 (64 KP 清单锁 "什么算独立知识") + 5 条计数规则消除 edge cases 歧义</li>
     <li>rater (智能体) 没变 · rater 训练量没变 · 数据没变 · 只是 rubric 迭代</li>
   </ul>
