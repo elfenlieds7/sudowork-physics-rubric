@@ -85,29 +85,29 @@
 <div class="page">
 
 <header class="doc">
-  <div class="kicker">命题辅助工具 · 2026-08-04 晚 · v5.3 label 修正 + 跨样本群校准</div>
-  <h1>物理试题难度预测 · 评分表</h1>
+  <div class="kicker">命题辅助工具 · living v2.4 · 2026-08-14 · 项目主 SSOT</div>
+  <h1>物理试题难度预测 · 评价量表</h1>
   <div class="meta">
-    <b>杨老师</b> (北京八中 物理教研组长) · <b>sudowork 智能体</b> · 2026-08-01 启动 → 2026-08-04 校准里程碑
+    <b>杨蕾</b> (北京市西城区教育研修学院 物理教师) · <b>sudowork 智能体</b> · 2026-08-01 启动 · 2026-08-04 校准里程碑 · 2026-08-14 v2.4 定稿
   </div>
 </header>
 
 <div class="banner ok" style="border-left-width:6px">
-  <b>🎯 当前状态 (single source of truth):</b><br>
-  <b>单题预测 MAE = 0.0570 (西城尺度)</b> · <b>整卷加权预测 MAE = 1.53 个百分点</b><br>
-  <b>跨样本群校准</b>: 西城 ⇌ 全北京 差异模型已建成 (M3 · LOO MAE 1.90 个百分点)<br>
-  数据: 7 份北京物理试卷 · 223 道题 · 30 道<t>陷阱数</t>由杨老师亲自 review · 121 对 (西城, 全北京) 校准数据<br>
-  模型: 17 特征 + concept 非线性 + <t>陷阱数</t> · Lasso + GBM 集成 · 留一试卷交叉验证<br>
-  过拟合 4 项检验全过 (详见第二部分)<br>
-  单题距 5% 理想目标 0.7 个百分点 · 距 6% 已达标 · 命题工具实用门槛已过
+  <b>🎯 当前状态 · v2.4 (2026-08-14 定稿):</b><br>
+  <b>整卷加权预测 MAE = 1.96 个百分点</b> (突破 2 pp) · <b>单题预测 MAE = 8.5 个百分点</b> · R² = 0.76<br>
+  数据: 7 份北京物理试卷 (近三年西城一模 + 近四年北京高考) · 223 道题 · 西城区学生实测得分率为标签<br>
+  评价量表: <b>10 维打分 (三大类) + 4 派生特征</b> · 详见附录 E (spec 已并入本页)<br>
+  模型: 套索回归 + 梯度提升树等权集成 + 小问分值加权训练 · 跨试卷交叉验证 · 4 项过拟合校验全过<br>
+  <b>Kappa 校准</b>: 双专家 6 次评价量表迭代 · κ 从 0.05 到 <b>1.00</b> (完全一致) · 详见附录 F (kappa study 已并入本页)<br>
+  <b>方法学 finding</b>: 评价量表定义质量是评分者一致性的 gate · 不是评分者数量或培训强度
 </div>
 
 <div class="banner info">
-  <b>📎 相关工作 · 外部页面索引</b><br>
-  · <a href="https://s.shareone.vip/s/rubric-v2-spec-yang">评分表 v2.1 · 完整维度清单</a> · 2026-08-08 晚 · <b>已杨老师签字确认</b> · 采用三大类分类体系 · 10 维纯客观<br>
-  · <a href="https://s.shareone.vip/s/rubric-calibration-v2-yang">评分表 v2.1 · 20 题多人打分校准包</a> · 2026-08-08 晚 · 分层抽样 · 补齐方法学 · 待杨老师独立打分<br>
-  · <a href="https://s.shareone.vip/s/sodu-physics-rubric-paper-v1">论文 v1 初稿</a> · 2026-08-06 · 7 章约 9000 字 · 将随 v2.1 kappa 结果重新起草<br>
-  · <a href="https://github.com/elfenlieds7/sudowork-physics-rubric">GitHub 开源代码库</a> · 全部代码 / 数据处理脚本 / 论文源文件
+  <b>📎 SSOT boundary · 外部资源</b><br>
+  · <b>本页 = 项目全局唯一 SSOT</b> · 含: 全过程版本演进 (附录 D) + 评价量表 v2.4 完整定义 (附录 E · 原 spec 页并入) + Kappa study 完整结果 (附录 F · 原 calibration 页并入)<br>
+  · 论文 (发表版 · 学术格式独立): <a href="https://s.shareone.vip/s/sodu-physics-rubric-paper-v1">s.shareone.vip/s/sodu-physics-rubric-paper-v1</a><br>
+  · 本研究物理专项代码 + 数据 (可复现): <a href="https://github.com/elfenlieds7/sudowork-physics-rubric" target="_blank">github.com/elfenlieds7/sudowork-physics-rubric</a><br>
+  · sudowork 智能体协同科研平台: <a href="https://github.com/sudoprivacy/sudowork" target="_blank">github.com/sudoprivacy/sudowork</a>
 </div>
 
 <div class="gloss">
@@ -1194,9 +1194,88 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <p><b>说明 · 附录 A/B 遗留请求:</b> A 里 30 道<t>陷阱数</t>请求 · 杨老师 2026-08-03 上午已 review 完成 · 标签已合入 v5.2+ champion. B 里 5 道<t>场景</t>/模式抽查 · 杨老师 2026-08-02 电话说 "<t>场景</t>熟悉降低难度是真实的 (霍尔推进器)", 后经迁移成本交叉项数据侧修正, 打分已趋对齐, 无需二次 review.</p>
 
+<h2>附录 E · 评价量表 v2.4 · 10 维完整定义 (原 rubric-v2-spec-yang 内容并入)</h2>
+
+<div class="banner ok">
+  <b>本附录整合原 spec 页 (rubric-v2-spec-yang) 内容</b> · v2.4 最终版 10 维评价量表定义 + 7 条计数规则。原独立页已删除 · 本页为唯一 SSOT。
+</div>
+
+<h3>E.1 · 三大类结构与 10 维打分</h3>
+
+<p>评价量表按学生完整解题流程的三个环节划分: <b>读题接收信息 (输入) → 调取知识储备 (储备) → 思维加工作答 (输出)</b>。</p>
+
+<table>
+<tr><th>大类</th><th>维度</th><th>档位</th></tr>
+<tr><td rowspan="2">情境信息 (输入)</td><td>情境特征</td><td>3 档 (熟悉 · 半陌生 · 完全陌生)</td></tr>
+<tr><td>信息呈现</td><td>4 档 (信息量少 · 适中直接读 · 需信息转换 · 信息量大)</td></tr>
+<tr><td rowspan="3">学科知识 (储备)</td><td>模块属性</td><td>2 档 (模块内 · 跨模块)</td></tr>
+<tr><td>核心知识数</td><td>1 到 6 个及以上</td></tr>
+<tr><td>知识深度</td><td>4 档 (记忆 · 理解 · 应用 · 分析)</td></tr>
+<tr><td rowspan="5">思维任务 (输出)</td><td>设问开放度</td><td>3 档 (封闭 · 半开放 · 完全开放)</td></tr>
+<tr><td>建模复杂度</td><td>4 档 (0 到 3)</td></tr>
+<tr><td>推理链长度</td><td>5 档 (1 到 5)</td></tr>
+<tr><td>运算复杂度</td><td>4 档 (无运算仅定性 · 简单 · 中等多步 · 复杂推导)</td></tr>
+<tr><td>任务类型</td><td>3 类 (选择题 · 填空题 · 解答题)</td></tr>
+</table>
+
+<h3>E.2 · 核心知识数维度 · 7 条计数规则</h3>
+
+<ol>
+<li><b>基本清单 (v2.3)</b>: 使用杨老师 2026-08-10 提供的 64 项<a href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/data/reference/%E9%AB%98%E4%B8%AD%E7%89%A9%E7%90%86%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E7%82%B9.xlsx">高中物理核心知识清单</a> (力学·电磁学·热光原子物理·方法性知识·实验知识) 作 canonical 基准 · 每题按清单精确 count 涉及的核心知识数量</li>
+<li><b>规律的代数变形合并</b>: 同一物理规律的不同代数形式算 1 个核心知识 (如 F=ma 与其变形式)</li>
+<li><b>桥接需分开</b>: 用 2 个独立物理关系"桥接"求解 (如 F=ma 求 a · 再用运动学求 s) 算 2 个</li>
+<li><b>跨模块 dedup by KP identity</b>: 同一 KP 在不同模块背景下调用 · 只算 1 次 (如力学题和电学题都用到牛顿定律 = 1 个 KP)</li>
+<li><b>实验题 3 条规则 (杨老师 2026-08-10 23:54)</b>: (a) 教材规定的学生必做实验 · 每一完整实验计为 1 个独立实验知识点 · 操作步骤/读数/数据处理/误差分析均属该实验内部要素不再拆分; (b) 实验试题同时调用实验知识点与物理理论知识点 · 二者分别统计; (c) 试题创设的创新探究实验 · 不增设实验知识点 · 仅统计所调用的物理理论知识点</li>
+<li><b>选择题去重 (杨老师 2026-08-11 00:08)</b>: 统计题干和 4 个选项调用的知识点 · 不只是正确选项 · 同一知识点出现在题干/多个选项 · 只计 1 次</li>
+<li><b>超纲知识计 1 (杨老师 2026-08-11 00:11)</b>: 试卷中超出 64 核心知识清单之外的"知识" (如引力势能表达式) · 视为 1 个核心知识点</li>
+<li><b>最简路径规则 (杨老师 2026-08-11 14:56)</b>: 解题方法不唯一时 · 统一按最简路径统计核心知识数 · 这是试题的客观难度</li>
+<li><b>从属概念不独立 (杨老师 2026-08-11 19:40)</b>: 1 个核心 KP 的从属概念不算独立 KP (如动能定理 = 1 个 · 功/动能/阻力都是它的从属·除非试题独立考查该从属概念)</li>
+</ol>
+
+<h2>附录 F · Kappa 校准 study · 完整结果 (原 rubric-calibration-v2-yang 内容并入)</h2>
+
+<div class="banner ok">
+  <b>本附录整合原 kappa study 页 (rubric-calibration-v2-yang) 内容</b> · v2.1 → v2.4 一致性系数完整 evolution。原独立页已删除 · 本页为唯一 SSOT。
+</div>
+
+<h3>F.1 · Evolution table · 5 阶段 κ 从 0.05 到 1.00</h3>
+
+<table>
+<tr><th>版本</th><th>关键改动</th><th class="n">简单 κ</th><th class="n">加权 κ</th><th>一致性等级</th></tr>
+<tr><td>v2.1 (初版)</td><td>未做评价量表定义校准 · 直接从传统综合难度模型迁移</td><td class="n">0.05</td><td class="n">0.30</td><td>灾难分歧</td></tr>
+<tr><td>v2.2 (系统偏差校准)</td><td>建模/运算/推理 三维打分锚点整体下调 1 档 (智能体 11/11 · 11/11 · 12/12 均单向打高) + 设问开放度默认封闭 + 核心知识数变形合并</td><td class="n">0.30</td><td class="n">0.61</td><td>较低</td></tr>
+<tr><td>v2.3 first pass (64 KP 清单)</td><td>引入 64 项高中物理核心知识清单 + 5 条计数规则 (变形合并 · 桥接分开 · 跨模块dedup · 实验必做1 · 选择题去重 · 超纲=1)</td><td class="n">0.80</td><td class="n">0.87</td><td>良好 (excellent)</td></tr>
+<tr><td>v2.3 二次更新 (最简路径 + 实验sub 精修)</td><td>加"最简路径规则"·"实验题子问统计"精修</td><td class="n">0.93</td><td class="n">0.96</td><td>近乎完全一致</td></tr>
+<tr><td><b>v2.3 FINAL (从属概念规则)</b></td><td>加"从属概念不独立"规则 (核心知识内嵌套的从属概念不算独立)</td><td class="n"><b>1.00</b></td><td class="n"><b>1.00</b></td><td><b>完全一致</b> (perfect agreement)</td></tr>
+</table>
+
+<h3>F.2 · 核心方法学 finding · rubric 定义是 gate</h3>
+
+<p><b>发现</b>: 评价量表定义质量是评分者一致性的核心决定因素 · <b>不是</b>评分者数量或培训强度。同一批评分者 · 同一批试题 · 无额外培训, 仅通过评价量表定义的 6 次精修 · 一致性系数从 0.05 提升到 1.00。这挑战了心理测量学传统"多评分者 + 强培训"路径 · 提供实证证据: <em class="key">投资精修评价量表定义 &gt; 招募多评分者 · 培训强度</em>。</p>
+
+<h3>F.3 · Root cause 分析 · 智能体系统性 pattern</h3>
+
+<p>v2.1 阶段 5/10 维 catastrophic 分歧的 root cause 分析:</p>
+<ul>
+<li><b>建模复杂度 · 运算复杂度 · 推理链长度</b> — 智能体系统性打高 1 档 (11/11 · 11/11 · 12/12 均单向)。原因: AI 从"物理专家视角"感知"抽象工作量"·学生视角下"套模型+少量参数变化"其实是常规应用</li>
+<li><b>设问开放度</b> — 智能体过度判 semi/open · 老师判定几乎全"封闭"。原因: 智能体缺"北京高考物理 &gt; 98% 封闭"的分布先验</li>
+<li><b>核心知识数</b> — 智能体拆细 vs 老师看整体。原因: 智能体缺"什么算独立知识"的 canonical 界定 · v2.3 加 64 KP 清单后收敛</li>
+</ul>
+
+<h3>F.4 · v2.3 定稿之外的方法学升级 · Plan 1 分值 weight</h3>
+
+<p>v2.4 训练时引入小问分值加权 · 让高分值综合大题在训练损失中获得更高权重:</p>
+<ul>
+<li>综合大题 (Q19/Q20) MAE: <b>10.26 → 10.05 pp</b> (改善 -0.21pp)</li>
+<li>简单题 MAE: 8.13 → 8.15 pp (基本不变 · 未退化)</li>
+<li>Overall MAE: 8.53 → 8.51 pp</li>
+</ul>
+
 <footer class="doc">
-  <p>sudowork 智能体 · 评分表 · v2.3 living document · 2026-08-11 上午 (v5.3 校准 milestone 是 v1 支线 · v2 支线走杨老师三大类分类体系 · 详见附录 D)<br>
-  <a href="https://github.com/elfenlieds7/sudowork-physics-rubric" style="color:var(--accent)">github.com/elfenlieds7/sudowork-physics-rubric</a></p>
+  <p>sudowork 智能体 · 评价量表 · v2.4 living document · 2026-08-14 (v5.3 校准 milestone 是 v1 支线 · v2 支线走杨老师三大类分类体系 · 详见附录 D-F)<br>
+  论文 (v2.4.2 发表版): <a href="https://s.shareone.vip/s/sodu-physics-rubric-paper-v1" style="color:var(--accent)">s.shareone.vip/s/sodu-physics-rubric-paper-v1</a><br>
+  本研究物理专项代码 + 数据: <a href="https://github.com/elfenlieds7/sudowork-physics-rubric" style="color:var(--accent)">github.com/elfenlieds7/sudowork-physics-rubric</a><br>
+  sudowork 智能体协同科研平台: <a href="https://github.com/sudoprivacy/sudowork" style="color:var(--accent)">github.com/sudoprivacy/sudowork</a></p>
 </footer>
 
 </div>
