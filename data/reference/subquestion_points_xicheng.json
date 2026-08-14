@@ -1,0 +1,26 @@
+{
+  "source": "杨老师 2026-08-14 18:32-33 提供 · 3 份西城一模答案 PDF",
+  "extraction_note": "从答案 PDF 用 regex '（X 分）' 提取 · 按 Q 边界切分",
+  "papers": {
+    "xicheng_2024": {
+      "Q15": {"total": 8, "subs": [2, 4, 2], "sub_labels_in_data": ["Q15-1", "Q15-2a+Q15-2b", "Q15-3?"]},
+      "Q16": {"total": 10, "subs": [1, 4, 2, 3], "sub_labels_in_data": ["Q16-1", "Q16-2 (含 U-I图分析)", "Q16-3 (系统误差)", "Q16-4"]},
+      "Q17": {"total": 9, "subs": [3, 3, 3], "sub_labels_in_data": ["Q17-1", "Q17-2", "Q17-3"]},
+      "Q18": {"total": 9, "subs": [3, 3, 3], "sub_labels_in_data": ["Q18-1", "Q18-2", "Q18-3"]},
+      "Q19": {"total": 10, "subs": [2, 2, 2, 2, 2], "sub_labels_in_data": ["Q19-1", "Q19-2a", "Q19-2b (5-part in answer)"]},
+      "Q20": {"total": 12, "subs": [2, 1, 2, 2, 1, 1, 1, 2], "sub_labels_in_data": ["Q20-1", "Q20-2a", "Q20-2b"]}
+    },
+    "xicheng_2026": {
+      "Q15": {"total": 8, "subs": [2, 2, 2, 2]},
+      "Q16": {"total": 10, "subs": [2, 2, 2, 4]},
+      "Q17": {"total": 9, "subs": [3, 3, 3]},
+      "Q18": {"total": 9, "subs": [3, 3, 3]},
+      "Q19": {"total": 10, "subs": [2, 5, 3]},
+      "Q20": {"total": 12, "subs": [2, 5, 5]}
+    },
+    "xicheng_2025": {
+      "source": "docx 待手动 extract 或转 PDF"
+    }
+  },
+  "notes": "Sub-question 编号 与 我数据里的 Q19-2a/Q19-2b 等 fine-grain labels 不完全 1:1 aligned · 需 case-by-case mapping。当前 pipeline (Plan 1) 用 Q-total 分 / sub-count 等分作 default weight · 后续若做 Plan 2 需完成完整 mapping。gaokao (2022-2025) 4 份未有官方 sub-question 分值 · 暂沿用 default 等分。"
+}
