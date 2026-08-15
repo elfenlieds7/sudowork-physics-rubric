@@ -45,3 +45,6 @@ data/extracted_pages/
 # Private data · 高考得分率原始数据 · 保密
 data/private/
 
+
+# Mock/test data for validator tool
+deliverables/tools/mock_actuals.csv

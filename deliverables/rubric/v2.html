@@ -587,6 +587,291 @@ if (document.readyState === 'loading') {
 })();
 </script>
 
+<style>
+  #validatorTool .val-privacy{background:linear-gradient(135deg,#1a2e22 0%,#1e3a2a 100%);border:1px solid #2d5a3d;border-radius:6px;padding:14px 18px;margin:14px 0;color:#a8d5b5;}
+  #validatorTool .val-privacy-title{font-size:14px;font-weight:600;color:#b8e4c4;margin:0 0 4px;}
+  #validatorTool .val-privacy-sum{font-size:13px;margin:0;}
+  #validatorTool .val-privacy-toggle{background:none;border:none;color:#8fc4a3;font-size:11px;cursor:pointer;padding:2px 0;margin-top:6px;text-decoration:underline;font-family:inherit;}
+  #validatorTool .val-privacy-details{font-size:12px;margin-top:8px;line-height:1.55;color:#a8d5b5;}
+  #validatorTool .val-privacy-details[hidden]{display:none;}
+  #validatorTool .val-storage-status{font-size:11px;color:#7ea88b;margin-top:8px;font-family:monospace;}
+  #validatorTool .val-step-label{display:inline-block;background:var(--accent);color:#0f1114;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:8px;letter-spacing:0.5px;}
+  #validatorTool .val-section-title{font-size:14px;font-weight:600;color:var(--ink-strong);margin:0 0 10px;}
+  #validatorTool .val-desc{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.55;}
+  #validatorTool .val-example{background:#0f1114;color:#c7d1c3;padding:12px 14px;border-radius:4px;font-family:monospace;font-size:12px;margin:8px 0;overflow-x:auto;line-height:1.7;white-space:pre;border:1px solid var(--border);}
+  #validatorTool .val-example .val-hd{color:var(--muted);}
+  #validatorTool .val-dropzone{border:2px dashed var(--border-strong);border-radius:6px;padding:32px 20px;text-align:center;color:var(--muted);cursor:pointer;transition:all .15s;font-size:14px;background:var(--paper);margin-top:8px;}
+  #validatorTool .val-dropzone:hover,#validatorTool .val-dropzone.val-drag{border-color:var(--accent);background:var(--accent-soft);color:var(--ink-strong);}
+  #validatorTool .val-dropzone input{display:none;}
+  #validatorTool .val-file-loaded{font-size:12px;color:var(--ok-ink);margin-top:10px;padding:8px 12px;background:var(--ok-soft);border-radius:4px;border:1px solid var(--ok-border);}
+  #validatorTool .val-warning{font-size:12px;color:var(--hilite-ink);margin-top:8px;padding:8px 12px;background:var(--hilite);border-radius:4px;border:1px solid var(--hilite-border);}
+  #validatorTool .val-error{font-size:12px;color:#f0a5a5;margin-top:8px;padding:8px 12px;background:#3a1e1e;border-radius:4px;border:1px solid #5a3030;}
+  #validatorTool .val-metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:6px;}
+  #validatorTool .val-metric{padding:14px 12px;background:var(--paper);border-radius:5px;text-align:center;border:1px solid var(--border);}
+  #validatorTool .val-metric-value{font-size:26px;font-weight:700;color:var(--accent);line-height:1.1;font-variant-numeric:tabular-nums;}
+  #validatorTool .val-metric-value .val-unit{font-size:13px;font-weight:500;margin-left:1px;}
+  #validatorTool .val-metric-label{font-size:11px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:0.5px;}
+  #validatorTool .val-results{margin-top:16px;display:none;}
+  #validatorTool .val-results.val-active{display:block;}
+  #validatorTool .val-subsection{margin-top:20px;}
+  #validatorTool .val-scatter{width:100%;height:380px;background:var(--paper);border-radius:5px;border:1px solid var(--border);}
+  #validatorTool .val-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;padding:8px 10px;background:var(--paper);border-radius:4px;font-size:11px;border:1px solid var(--border);}
+  #validatorTool .val-legend-item{display:flex;align-items:center;gap:5px;color:var(--muted);}
+  #validatorTool .val-legend-dot{width:9px;height:9px;border-radius:50%;}
+  #validatorTool .val-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px;}
+  #validatorTool .val-table th,#validatorTool .val-table td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);}
+  #validatorTool .val-table th{background:var(--paper);color:var(--muted);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;}
+  #validatorTool .val-neg{color:#f0a5a5;font-weight:600;}
+  #validatorTool .val-pos{color:var(--ok);font-weight:600;}
+  #validatorTool .val-clear-row{margin-top:20px;text-align:center;}
+  #validatorTool .val-clear-btn{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:6px 14px;font-size:12px;border-radius:3px;cursor:pointer;font-family:inherit;}
+  #validatorTool .val-clear-btn:hover{background:var(--accent-soft);}
+  #validatorTool .val-clear-hint{font-size:11px;color:var(--muted);margin-top:6px;}
+  #validatorTool code{background:var(--paper);padding:1px 5px;border-radius:2px;font-size:11px;color:var(--accent);}
+</style>
+
+<div class="tool-panel" id="validatorTool">
+  <div class="tool-title">🔬 本地验证工具 · v2.4 客观难度模型 <span style="color:var(--hilite-ink);font-size:12px;">(β)</span></div>
+  <div class="tool-sub">用您本地的实测得分率验证 v2.4 模型精度. 数据只保存在您浏览器 · 不上传. 输出整体 MAE / R² / 残差散点 / Top-10 异常题 / 按 paper 分组表.</div>
+
+  <div class="val-privacy">
+    <p class="val-privacy-title">🔒 数据不离开您的电脑</p>
+    <p class="val-privacy-sum">您上传的 CSV 只保存在这台电脑的浏览器里 · 通过 ShareOne 注入的 <code>putPrivate</code> API · 不发任何 HTTP 请求上传. Ethan 和任何人都看不到.</p>
+    <button class="val-privacy-toggle" id="valPrivacyToggle">▸ 技术细节</button>
+    <div class="val-privacy-details" id="valPrivacyDetails" hidden>
+      <code>putPrivate</code> 类似浏览器 IndexedDB · 数据留在这台设备. 验证结果 (MAE / R²) 只显示在您自己屏幕上 · 除非您主动截图或告知 · 否则数字不会离开这个页面. 若在纯 file:// 打开本页 (未通过 ShareOne 托管) · 自动 fallback 到 sessionStorage (关闭标签即清除).
+    </div>
+    <div class="val-storage-status" id="valStorageStatus">初始化中...</div>
+  </div>
+
+  <div style="margin-top:16px;">
+    <span class="val-step-label">STEP 1</span>
+    <div class="val-section-title">上传您的实测数据 CSV</div>
+    <p class="val-desc">三列 · 首行表头。<code>paper_id</code> 取值: <code>gaokao_2022/2023/2024/2025</code> · <code>xicheng_2024/2025/2026</code>。<code>question_id</code> 如 <code>1</code> · <code>15-1</code> · <code>20-1a</code>。得分率 0-1 小数。</p>
+    <div class="val-example"><span class="val-hd">paper_id,question_id,actual_score_rate</span>
+gaokao_2024,1,0.85
+gaokao_2024,15-1,0.72
+xicheng_2026,20-3,0.31</div>
+    <label class="val-dropzone" id="valDropzone">
+      <input type="file" id="valFileInput" accept=".csv,text/csv">
+      <div>📁 &nbsp;点击选择 CSV · 或拖拽到此处</div>
+    </label>
+    <div id="valFileInfo"></div>
+  </div>
+
+  <div class="val-results" id="valResults">
+    <div class="val-subsection">
+      <span class="val-step-label">STEP 2</span>
+      <div class="val-section-title">验证结果 · 整体</div>
+      <div class="val-metric-grid" id="valMetrics"></div>
+    </div>
+
+    <div class="val-subsection">
+      <div class="val-section-title">残差散点 · 预测 vs 实测</div>
+      <p class="val-desc">对角线 = 完美预测 · 虚线为 ±10pp 带 · 点越远离对角线残差越大 · 悬停可看单题详情.</p>
+      <svg class="val-scatter" id="valScatter"></svg>
+      <div class="val-legend" id="valLegend"></div>
+    </div>
+
+    <div class="val-subsection">
+      <div class="val-section-title">Top-10 异常题目 (残差最大)</div>
+      <p class="val-desc">残差 = 预测 - 实测 · <span style="color:var(--ok)">正值</span> = 模型高估 · <span style="color:#f0a5a5">负值</span> = 模型低估. 这些题可人工 audit · 看 rubric 是否有系统性 miss.</p>
+      <table class="val-table" id="valOutliers"></table>
+    </div>
+
+    <div class="val-subsection">
+      <div class="val-section-title">按 paper 分组</div>
+      <table class="val-table" id="valPerPaper"></table>
+    </div>
+
+    <div class="val-clear-row">
+      <button class="val-clear-btn" id="valClearBtn">清除本地数据 · 重新开始</button>
+      <div class="val-clear-hint">(删除浏览器里存的 CSV · 不影响服务器 · 因为本来就没上传)</div>
+    </div>
+  </div>
+
+  <div class="tool-note" style="margin-top:16px;">
+    <b>技术说明</b>: 模型 v2.4 (Lasso + GBM ensemble · 223 题 · LOPO CV · 训练 MAE 8.5pp) · 预测数据 (paper, qid) → predicted 得分率 页面内嵌 · <em>无</em>学生数据 · 逻辑: 您上传每行用 (paper, qid) 查页面预测表 · 算差 · 出 MAE + 图. 不匹配的 (paper, qid) 会跳过并在文件区列出.
+  </div>
+</div>
+
+<script>
+window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble · LOPO","features":["context_familiarity","info_complexity","topic_cross","concept_count","depth_ord","open_ord","modeling","reasoning","computation","qt_fill","qt_solve","concept_sq","mod_x_open","con_x_mod","depth_x_reason"],"n_items":223,"mae_overall":0.0853,"r2_overall":0.7582,"per_paper":{"gaokao_2022":{"n":30,"mae":0.07042126910419894},"gaokao_2023":{"n":31,"mae":0.07645335227877612},"gaokao_2024":{"n":32,"mae":0.06718745929847206},"gaokao_2025":{"n":31,"mae":0.08416582151531768},"xicheng_2024":{"n":33,"mae":0.10660449260444038},"xicheng_2025":{"n":33,"mae":0.11266683338476056},"xicheng_2026":{"n":33,"mae":0.07728283579037706}},"generated_by":"analysis/export_v24_predictions.py"},"items":{"xicheng_2024::1":{"paper":"xicheng_2024","qid":"1","qtype":"mcq","main_q":1,"pred":0.8928},"xicheng_2024::2":{"paper":"xicheng_2024","qid":"2","qtype":"mcq","main_q":2,"pred":0.9193},"xicheng_2024::3":{"paper":"xicheng_2024","qid":"3","qtype":"mcq","main_q":3,"pred":0.8436},"xicheng_2024::4":{"paper":"xicheng_2024","qid":"4","qtype":"mcq","main_q":4,"pred":0.8872},"xicheng_2024::5":{"paper":"xicheng_2024","qid":"5","qtype":"mcq","main_q":5,"pred":0.8787},"xicheng_2024::6":{"paper":"xicheng_2024","qid":"6","qtype":"mcq","main_q":6,"pred":0.8279},"xicheng_2024::7":{"paper":"xicheng_2024","qid":"7","qtype":"mcq","main_q":7,"pred":0.8876},"xicheng_2024::8":{"paper":"xicheng_2024","qid":"8","qtype":"mcq","main_q":8,"pred":0.7822},"xicheng_2024::9":{"paper":"xicheng_2024","qid":"9","qtype":"mcq","main_q":9,"pred":0.5864},"xicheng_2024::10":{"paper":"xicheng_2024","qid":"10","qtype":"mcq","main_q":10,"pred":0.7918},"xicheng_2024::11":{"paper":"xicheng_2024","qid":"11","qtype":"mcq","main_q":11,"pred":0.6822},"xicheng_2024::12":{"paper":"xicheng_2024","qid":"12","qtype":"mcq","main_q":12,"pred":0.5472},"xicheng_2024::13":{"paper":"xicheng_2024","qid":"13","qtype":"mcq","main_q":13,"pred":0.6189},"xicheng_2024::14":{"paper":"xicheng_2024","qid":"14","qtype":"mcq","main_q":14,"pred":0.6343},"xicheng_2024::15-1":{"paper":"xicheng_2024","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8752},"xicheng_2024::15-2a":{"paper":"xicheng_2024","qid":"15-2a","qtype":"fill","main_q":15,"pred":0.772},"xicheng_2024::15-2b":{"paper":"xicheng_2024","qid":"15-2b","qtype":"fill","main_q":15,"pred":0.8932},"xicheng_2024::16-1":{"paper":"xicheng_2024","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8752},"xicheng_2024::16-2":{"paper":"xicheng_2024","qid":"16-2","qtype":"fill","main_q":16,"pred":0.7935},"xicheng_2024::16-3":{"paper":"xicheng_2024","qid":"16-3","qtype":"fill","main_q":16,"pred":0.7493},"xicheng_2024::16-4":{"paper":"xicheng_2024","qid":"16-4","qtype":"fill","main_q":16,"pred":0.5028},"xicheng_2024::17-1":{"paper":"xicheng_2024","qid":"17-1","qtype":"solve","main_q":17,"pred":0.8119},"xicheng_2024::17-2":{"paper":"xicheng_2024","qid":"17-2","qtype":"solve","main_q":17,"pred":0.8108},"xicheng_2024::17-3":{"paper":"xicheng_2024","qid":"17-3","qtype":"solve","main_q":17,"pred":0.6269},"xicheng_2024::18-1":{"paper":"xicheng_2024","qid":"18-1","qtype":"solve","main_q":18,"pred":0.8328},"xicheng_2024::18-2":{"paper":"xicheng_2024","qid":"18-2","qtype":"solve","main_q":18,"pred":0.7799},"xicheng_2024::18-3":{"paper":"xicheng_2024","qid":"18-3","qtype":"solve","main_q":18,"pred":0.348},"xicheng_2024::19-1":{"paper":"xicheng_2024","qid":"19-1","qtype":"solve","main_q":19,"pred":0.7009},"xicheng_2024::19-2a":{"paper":"xicheng_2024","qid":"19-2a","qtype":"solve","main_q":19,"pred":0.4172},"xicheng_2024::19-2b":{"paper":"xicheng_2024","qid":"19-2b","qtype":"solve","main_q":19,"pred":0.3154},"xicheng_2024::20-1":{"paper":"xicheng_2024","qid":"20-1","qtype":"solve","main_q":20,"pred":0.7424},"xicheng_2024::20-2a":{"paper":"xicheng_2024","qid":"20-2a","qtype":"solve","main_q":20,"pred":0.4454},"xicheng_2024::20-2b":{"paper":"xicheng_2024","qid":"20-2b","qtype":"solve","main_q":20,"pred":0.1999},"xicheng_2025::1":{"paper":"xicheng_2025","qid":"1","qtype":"mcq","main_q":1,"pred":0.8956},"xicheng_2025::2":{"paper":"xicheng_2025","qid":"2","qtype":"mcq","main_q":2,"pred":0.8956},"xicheng_2025::3":{"paper":"xicheng_2025","qid":"3","qtype":"mcq","main_q":3,"pred":0.8541},"xicheng_2025::4":{"paper":"xicheng_2025","qid":"4","qtype":"mcq","main_q":4,"pred":0.8614},"xicheng_2025::5":{"paper":"xicheng_2025","qid":"5","qtype":"mcq","main_q":5,"pred":0.8491},"xicheng_2025::6":{"paper":"xicheng_2025","qid":"6","qtype":"mcq","main_q":6,"pred":0.8541},"xicheng_2025::7":{"paper":"xicheng_2025","qid":"7","qtype":"mcq","main_q":7,"pred":0.8283},"xicheng_2025::8":{"paper":"xicheng_2025","qid":"8","qtype":"mcq","main_q":8,"pred":0.8541},"xicheng_2025::9":{"paper":"xicheng_2025","qid":"9","qtype":"mcq","main_q":9,"pred":0.8657},"xicheng_2025::10":{"paper":"xicheng_2025","qid":"10","qtype":"mcq","main_q":10,"pred":0.7235},"xicheng_2025::11":{"paper":"xicheng_2025","qid":"11","qtype":"mcq","main_q":11,"pred":0.5667},"xicheng_2025::12":{"paper":"xicheng_2025","qid":"12","qtype":"mcq","main_q":12,"pred":0.6046},"xicheng_2025::13":{"paper":"xicheng_2025","qid":"13","qtype":"mcq","main_q":13,"pred":0.6299},"xicheng_2025::14":{"paper":"xicheng_2025","qid":"14","qtype":"mcq","main_q":14,"pred":0.6499},"xicheng_2025::15-1":{"paper":"xicheng_2025","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8699},"xicheng_2025::15-2":{"paper":"xicheng_2025","qid":"15-2","qtype":"fill","main_q":15,"pred":0.8699},"xicheng_2025::15-3":{"paper":"xicheng_2025","qid":"15-3","qtype":"fill","main_q":15,"pred":0.7872},"xicheng_2025::16-1":{"paper":"xicheng_2025","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8699},"xicheng_2025::16-2":{"paper":"xicheng_2025","qid":"16-2","qtype":"fill","main_q":16,"pred":0.8699},"xicheng_2025::16-3":{"paper":"xicheng_2025","qid":"16-3","qtype":"fill","main_q":16,"pred":0.7389},"xicheng_2025::16-4":{"paper":"xicheng_2025","qid":"16-4","qtype":"fill","main_q":16,"pred":0.1681},"xicheng_2025::17-1":{"paper":"xicheng_2025","qid":"17-1","qtype":"solve","main_q":17,"pred":0.8749},"xicheng_2025::17-2":{"paper":"xicheng_2025","qid":"17-2","qtype":"solve","main_q":17,"pred":0.7955},"xicheng_2025::17-3":{"paper":"xicheng_2025","qid":"17-3","qtype":"solve","main_q":17,"pred":0.7999},"xicheng_2025::18-1":{"paper":"xicheng_2025","qid":"18-1","qtype":"solve","main_q":18,"pred":0.7783},"xicheng_2025::18-2":{"paper":"xicheng_2025","qid":"18-2","qtype":"solve","main_q":18,"pred":0.7739},"xicheng_2025::18-3":{"paper":"xicheng_2025","qid":"18-3","qtype":"solve","main_q":18,"pred":0.4408},"xicheng_2025::19-1":{"paper":"xicheng_2025","qid":"19-1","qtype":"solve","main_q":19,"pred":0.619},"xicheng_2025::19-2":{"paper":"xicheng_2025","qid":"19-2","qtype":"solve","main_q":19,"pred":0.4235},"xicheng_2025::19-3":{"paper":"xicheng_2025","qid":"19-3","qtype":"solve","main_q":19,"pred":0.2652},"xicheng_2025::20-1":{"paper":"xicheng_2025","qid":"20-1","qtype":"solve","main_q":20,"pred":0.4358},"xicheng_2025::20-2":{"paper":"xicheng_2025","qid":"20-2","qtype":"solve","main_q":20,"pred":0.4484},"xicheng_2025::20-3":{"paper":"xicheng_2025","qid":"20-3","qtype":"solve","main_q":20,"pred":0.2474},"xicheng_2026::1":{"paper":"xicheng_2026","qid":"1","qtype":"mcq","main_q":1,"pred":0.9128},"xicheng_2026::2":{"paper":"xicheng_2026","qid":"2","qtype":"mcq","main_q":2,"pred":0.9128},"xicheng_2026::3":{"paper":"xicheng_2026","qid":"3","qtype":"mcq","main_q":3,"pred":0.838},"xicheng_2026::4":{"paper":"xicheng_2026","qid":"4","qtype":"mcq","main_q":4,"pred":0.8726},"xicheng_2026::5":{"paper":"xicheng_2026","qid":"5","qtype":"mcq","main_q":5,"pred":0.841},"xicheng_2026::6":{"paper":"xicheng_2026","qid":"6","qtype":"mcq","main_q":6,"pred":0.838},"xicheng_2026::7":{"paper":"xicheng_2026","qid":"7","qtype":"mcq","main_q":7,"pred":0.817},"xicheng_2026::8":{"paper":"xicheng_2026","qid":"8","qtype":"mcq","main_q":8,"pred":0.838},"xicheng_2026::9":{"paper":"xicheng_2026","qid":"9","qtype":"mcq","main_q":9,"pred":0.6529},"xicheng_2026::10":{"paper":"xicheng_2026","qid":"10","qtype":"mcq","main_q":10,"pred":0.6682},"xicheng_2026::11":{"paper":"xicheng_2026","qid":"11","qtype":"mcq","main_q":11,"pred":0.4422},"xicheng_2026::12":{"paper":"xicheng_2026","qid":"12","qtype":"mcq","main_q":12,"pred":0.6601},"xicheng_2026::13":{"paper":"xicheng_2026","qid":"13","qtype":"mcq","main_q":13,"pred":0.4767},"xicheng_2026::14":{"paper":"xicheng_2026","qid":"14","qtype":"mcq","main_q":14,"pred":0.6154},"xicheng_2026::15-1":{"paper":"xicheng_2026","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8893},"xicheng_2026::15-2":{"paper":"xicheng_2026","qid":"15-2","qtype":"fill","main_q":15,"pred":0.8838},"xicheng_2026::15-3":{"paper":"xicheng_2026","qid":"15-3","qtype":"fill","main_q":15,"pred":0.7683},"xicheng_2026::16-1":{"paper":"xicheng_2026","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8838},"xicheng_2026::16-2":{"paper":"xicheng_2026","qid":"16-2","qtype":"fill","main_q":16,"pred":0.8893},"xicheng_2026::16-3":{"paper":"xicheng_2026","qid":"16-3","qtype":"fill","main_q":16,"pred":0.7811},"xicheng_2026::16-4":{"paper":"xicheng_2026","qid":"16-4","qtype":"fill","main_q":16,"pred":0.5055},"xicheng_2026::17-1":{"paper":"xicheng_2026","qid":"17-1","qtype":"solve","main_q":17,"pred":0.8612},"xicheng_2026::17-2a":{"paper":"xicheng_2026","qid":"17-2a","qtype":"solve","main_q":17,"pred":0.9239},"xicheng_2026::17-2b":{"paper":"xicheng_2026","qid":"17-2b","qtype":"solve","main_q":17,"pred":0.8058},"xicheng_2026::18-1a":{"paper":"xicheng_2026","qid":"18-1a","qtype":"solve","main_q":18,"pred":0.9048},"xicheng_2026::18-1b":{"paper":"xicheng_2026","qid":"18-1b","qtype":"solve","main_q":18,"pred":0.8362},"xicheng_2026::18-2":{"paper":"xicheng_2026","qid":"18-2","qtype":"solve","main_q":18,"pred":0.4499},"xicheng_2026::19-1":{"paper":"xicheng_2026","qid":"19-1","qtype":"solve","main_q":19,"pred":0.6689},"xicheng_2026::19-2a":{"paper":"xicheng_2026","qid":"19-2a","qtype":"solve","main_q":19,"pred":0.3829},"xicheng_2026::19-2b":{"paper":"xicheng_2026","qid":"19-2b","qtype":"solve","main_q":19,"pred":0.2411},"xicheng_2026::20-1a":{"paper":"xicheng_2026","qid":"20-1a","qtype":"solve","main_q":20,"pred":0.8383},"xicheng_2026::20-1b":{"paper":"xicheng_2026","qid":"20-1b","qtype":"solve","main_q":20,"pred":0.2584},"xicheng_2026::20-2":{"paper":"xicheng_2026","qid":"20-2","qtype":"solve","main_q":20,"pred":0.2238},"gaokao_2022::1":{"paper":"gaokao_2022","qid":"1","qtype":"mcq","main_q":1,"pred":0.9111},"gaokao_2022::2":{"paper":"gaokao_2022","qid":"2","qtype":"mcq","main_q":2,"pred":0.9111},"gaokao_2022::3":{"paper":"gaokao_2022","qid":"3","qtype":"mcq","main_q":3,"pred":0.8771},"gaokao_2022::4":{"paper":"gaokao_2022","qid":"4","qtype":"mcq","main_q":4,"pred":0.9344},"gaokao_2022::5":{"paper":"gaokao_2022","qid":"5","qtype":"mcq","main_q":5,"pred":0.9365},"gaokao_2022::6":{"paper":"gaokao_2022","qid":"6","qtype":"mcq","main_q":6,"pred":0.7276},"gaokao_2022::7":{"paper":"gaokao_2022","qid":"7","qtype":"mcq","main_q":7,"pred":0.8273},"gaokao_2022::8":{"paper":"gaokao_2022","qid":"8","qtype":"mcq","main_q":8,"pred":0.8396},"gaokao_2022::9":{"paper":"gaokao_2022","qid":"9","qtype":"mcq","main_q":9,"pred":0.8539},"gaokao_2022::10":{"paper":"gaokao_2022","qid":"10","qtype":"mcq","main_q":10,"pred":0.8562},"gaokao_2022::11":{"paper":"gaokao_2022","qid":"11","qtype":"mcq","main_q":11,"pred":0.6616},"gaokao_2022::12":{"paper":"gaokao_2022","qid":"12","qtype":"mcq","main_q":12,"pred":0.7475},"gaokao_2022::13":{"paper":"gaokao_2022","qid":"13","qtype":"mcq","main_q":13,"pred":0.6143},"gaokao_2022::14":{"paper":"gaokao_2022","qid":"14","qtype":"mcq","main_q":14,"pred":0.7235},"gaokao_2022::15-1":{"paper":"gaokao_2022","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8718},"gaokao_2022::15-2":{"paper":"gaokao_2022","qid":"15-2","qtype":"fill","main_q":15,"pred":0.8718},"gaokao_2022::15-3":{"paper":"gaokao_2022","qid":"15-3","qtype":"fill","main_q":15,"pred":0.7567},"gaokao_2022::16-4":{"paper":"gaokao_2022","qid":"16-4","qtype":"fill","main_q":16,"pred":0.4684},"gaokao_2022::17-1":{"paper":"gaokao_2022","qid":"17-1","qtype":"solve","main_q":17,"pred":0.8736},"gaokao_2022::17-2":{"paper":"gaokao_2022","qid":"17-2","qtype":"solve","main_q":17,"pred":0.8712},"gaokao_2022::17-3":{"paper":"gaokao_2022","qid":"17-3","qtype":"solve","main_q":17,"pred":0.8073},"gaokao_2022::18-1":{"paper":"gaokao_2022","qid":"18-1","qtype":"solve","main_q":18,"pred":0.9071},"gaokao_2022::18-2":{"paper":"gaokao_2022","qid":"18-2","qtype":"solve","main_q":18,"pred":0.8736},"gaokao_2022::18-3":{"paper":"gaokao_2022","qid":"18-3","qtype":"solve","main_q":18,"pred":0.7111},"gaokao_2022::19-1":{"paper":"gaokao_2022","qid":"19-1","qtype":"solve","main_q":19,"pred":0.8736},"gaokao_2022::19-2":{"paper":"gaokao_2022","qid":"19-2","qtype":"solve","main_q":19,"pred":0.7783},"gaokao_2022::19-3":{"paper":"gaokao_2022","qid":"19-3","qtype":"solve","main_q":19,"pred":0.4162},"gaokao_2022::20-1":{"paper":"gaokao_2022","qid":"20-1","qtype":"solve","main_q":20,"pred":0.6535},"gaokao_2022::20-2":{"paper":"gaokao_2022","qid":"20-2","qtype":"solve","main_q":20,"pred":0.4268},"gaokao_2022::20-3":{"paper":"gaokao_2022","qid":"20-3","qtype":"solve","main_q":20,"pred":0.255},"gaokao_2023::1":{"paper":"gaokao_2023","qid":"1","qtype":"mcq","main_q":1,"pred":0.9075},"gaokao_2023::2":{"paper":"gaokao_2023","qid":"2","qtype":"mcq","main_q":2,"pred":0.9033},"gaokao_2023::3":{"paper":"gaokao_2023","qid":"3","qtype":"mcq","main_q":3,"pred":0.9223},"gaokao_2023::4":{"paper":"gaokao_2023","qid":"4","qtype":"mcq","main_q":4,"pred":0.8645},"gaokao_2023::5":{"paper":"gaokao_2023","qid":"5","qtype":"mcq","main_q":5,"pred":0.8281},"gaokao_2023::6":{"paper":"gaokao_2023","qid":"6","qtype":"mcq","main_q":6,"pred":0.8354},"gaokao_2023::7":{"paper":"gaokao_2023","qid":"7","qtype":"mcq","main_q":7,"pred":0.8288},"gaokao_2023::8":{"paper":"gaokao_2023","qid":"8","qtype":"mcq","main_q":8,"pred":0.7454},"gaokao_2023::11":{"paper":"gaokao_2023","qid":"11","qtype":"mcq","main_q":11,"pred":0.6743},"gaokao_2023::12":{"paper":"gaokao_2023","qid":"12","qtype":"mcq","main_q":12,"pred":0.5638},"gaokao_2023::13":{"paper":"gaokao_2023","qid":"13","qtype":"mcq","main_q":13,"pred":0.5764},"gaokao_2023::14":{"paper":"gaokao_2023","qid":"14","qtype":"mcq","main_q":14,"pred":0.5638},"gaokao_2023::15-1":{"paper":"gaokao_2023","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8676},"gaokao_2023::15-2a":{"paper":"gaokao_2023","qid":"15-2a","qtype":"fill","main_q":15,"pred":0.8581},"gaokao_2023::15-2b":{"paper":"gaokao_2023","qid":"15-2b","qtype":"fill","main_q":15,"pred":0.7925},"gaokao_2023::16-1":{"paper":"gaokao_2023","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8581},"gaokao_2023::16-2":{"paper":"gaokao_2023","qid":"16-2","qtype":"fill","main_q":16,"pred":0.8581},"gaokao_2023::16-3":{"paper":"gaokao_2023","qid":"16-3","qtype":"fill","main_q":16,"pred":0.817},"gaokao_2023::16-4":{"paper":"gaokao_2023","qid":"16-4","qtype":"fill","main_q":16,"pred":0.2148},"gaokao_2023::17-1":{"paper":"gaokao_2023","qid":"17-1","qtype":"solve","main_q":17,"pred":0.872},"gaokao_2023::17-2":{"paper":"gaokao_2023","qid":"17-2","qtype":"solve","main_q":17,"pred":0.872},"gaokao_2023::17-3":{"paper":"gaokao_2023","qid":"17-3","qtype":"solve","main_q":17,"pred":0.872},"gaokao_2023::18-1":{"paper":"gaokao_2023","qid":"18-1","qtype":"solve","main_q":18,"pred":0.8942},"gaokao_2023::18-2":{"paper":"gaokao_2023","qid":"18-2","qtype":"solve","main_q":18,"pred":0.8771},"gaokao_2023::18-3":{"paper":"gaokao_2023","qid":"18-3","qtype":"solve","main_q":18,"pred":0.7932},"gaokao_2023::19-1":{"paper":"gaokao_2023","qid":"19-1","qtype":"solve","main_q":19,"pred":0.7932},"gaokao_2023::19-2a":{"paper":"gaokao_2023","qid":"19-2a","qtype":"solve","main_q":19,"pred":0.4722},"gaokao_2023::19-2b":{"paper":"gaokao_2023","qid":"19-2b","qtype":"solve","main_q":19,"pred":0.2579},"gaokao_2023::20-1":{"paper":"gaokao_2023","qid":"20-1","qtype":"solve","main_q":20,"pred":0.8519},"gaokao_2023::20-2":{"paper":"gaokao_2023","qid":"20-2","qtype":"solve","main_q":20,"pred":0.4056},"gaokao_2023::20-3":{"paper":"gaokao_2023","qid":"20-3","qtype":"solve","main_q":20,"pred":0.2721},"gaokao_2024::1":{"paper":"gaokao_2024","qid":"1","qtype":"mcq","main_q":1,"pred":0.899},"gaokao_2024::2":{"paper":"gaokao_2024","qid":"2","qtype":"mcq","main_q":2,"pred":0.899},"gaokao_2024::4":{"paper":"gaokao_2024","qid":"4","qtype":"mcq","main_q":4,"pred":0.9215},"gaokao_2024::5":{"paper":"gaokao_2024","qid":"5","qtype":"mcq","main_q":5,"pred":0.8737},"gaokao_2024::6":{"paper":"gaokao_2024","qid":"6","qtype":"mcq","main_q":6,"pred":0.8355},"gaokao_2024::7":{"paper":"gaokao_2024","qid":"7","qtype":"mcq","main_q":7,"pred":0.8543},"gaokao_2024::8":{"paper":"gaokao_2024","qid":"8","qtype":"mcq","main_q":8,"pred":0.7269},"gaokao_2024::10":{"paper":"gaokao_2024","qid":"10","qtype":"mcq","main_q":10,"pred":0.8543},"gaokao_2024::11":{"paper":"gaokao_2024","qid":"11","qtype":"mcq","main_q":11,"pred":0.8543},"gaokao_2024::12":{"paper":"gaokao_2024","qid":"12","qtype":"mcq","main_q":12,"pred":0.563},"gaokao_2024::13":{"paper":"gaokao_2024","qid":"13","qtype":"mcq","main_q":13,"pred":0.5329},"gaokao_2024::14":{"paper":"gaokao_2024","qid":"14","qtype":"mcq","main_q":14,"pred":0.6836},"gaokao_2024::15-1":{"paper":"gaokao_2024","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8633},"gaokao_2024::15-2":{"paper":"gaokao_2024","qid":"15-2","qtype":"fill","main_q":15,"pred":0.8522},"gaokao_2024::15-3":{"paper":"gaokao_2024","qid":"15-3","qtype":"fill","main_q":15,"pred":0.6844},"gaokao_2024::16-1":{"paper":"gaokao_2024","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8522},"gaokao_2024::16-2":{"paper":"gaokao_2024","qid":"16-2","qtype":"fill","main_q":16,"pred":0.8626},"gaokao_2024::16-a":{"paper":"gaokao_2024","qid":"16-a","qtype":"fill","main_q":16,"pred":0.8522},"gaokao_2024::16-b":{"paper":"gaokao_2024","qid":"16-b","qtype":"fill","main_q":16,"pred":0.7435},"gaokao_2024::16-3":{"paper":"gaokao_2024","qid":"16-3","qtype":"fill","main_q":16,"pred":0.1415},"gaokao_2024::17-1":{"paper":"gaokao_2024","qid":"17-1","qtype":"solve","main_q":17,"pred":0.9291},"gaokao_2024::17-2":{"paper":"gaokao_2024","qid":"17-2","qtype":"solve","main_q":17,"pred":0.9291},"gaokao_2024::17-3":{"paper":"gaokao_2024","qid":"17-3","qtype":"solve","main_q":17,"pred":0.8032},"gaokao_2024::18-1":{"paper":"gaokao_2024","qid":"18-1","qtype":"solve","main_q":18,"pred":0.9271},"gaokao_2024::18-2":{"paper":"gaokao_2024","qid":"18-2","qtype":"solve","main_q":18,"pred":0.9271},"gaokao_2024::18-3":{"paper":"gaokao_2024","qid":"18-3","qtype":"solve","main_q":18,"pred":0.5922},"gaokao_2024::19-1":{"paper":"gaokao_2024","qid":"19-1","qtype":"solve","main_q":19,"pred":0.6222},"gaokao_2024::19-2a":{"paper":"gaokao_2024","qid":"19-2a","qtype":"solve","main_q":19,"pred":0.387},"gaokao_2024::19-2b":{"paper":"gaokao_2024","qid":"19-2b","qtype":"solve","main_q":19,"pred":0.2607},"gaokao_2024::20-1":{"paper":"gaokao_2024","qid":"20-1","qtype":"solve","main_q":20,"pred":0.7548},"gaokao_2024::20-2":{"paper":"gaokao_2024","qid":"20-2","qtype":"solve","main_q":20,"pred":0.446},"gaokao_2024::20-3":{"paper":"gaokao_2024","qid":"20-3","qtype":"solve","main_q":20,"pred":0.2368},"gaokao_2025::1":{"paper":"gaokao_2025","qid":"1","qtype":"mcq","main_q":1,"pred":0.8139},"gaokao_2025::2":{"paper":"gaokao_2025","qid":"2","qtype":"mcq","main_q":2,"pred":0.9031},"gaokao_2025::3":{"paper":"gaokao_2025","qid":"3","qtype":"mcq","main_q":3,"pred":0.8428},"gaokao_2025::4":{"paper":"gaokao_2025","qid":"4","qtype":"mcq","main_q":4,"pred":0.8791},"gaokao_2025::5":{"paper":"gaokao_2025","qid":"5","qtype":"mcq","main_q":5,"pred":0.8521},"gaokao_2025::6":{"paper":"gaokao_2025","qid":"6","qtype":"mcq","main_q":6,"pred":0.6583},"gaokao_2025::7":{"paper":"gaokao_2025","qid":"7","qtype":"mcq","main_q":7,"pred":0.8386},"gaokao_2025::8":{"paper":"gaokao_2025","qid":"8","qtype":"mcq","main_q":8,"pred":0.765},"gaokao_2025::9":{"paper":"gaokao_2025","qid":"9","qtype":"mcq","main_q":9,"pred":0.6406},"gaokao_2025::10":{"paper":"gaokao_2025","qid":"10","qtype":"mcq","main_q":10,"pred":0.6406},"gaokao_2025::11":{"paper":"gaokao_2025","qid":"11","qtype":"mcq","main_q":11,"pred":0.6159},"gaokao_2025::12":{"paper":"gaokao_2025","qid":"12","qtype":"mcq","main_q":12,"pred":0.6616},"gaokao_2025::13":{"paper":"gaokao_2025","qid":"13","qtype":"mcq","main_q":13,"pred":0.7001},"gaokao_2025::14":{"paper":"gaokao_2025","qid":"14","qtype":"mcq","main_q":14,"pred":0.6776},"gaokao_2025::15-1":{"paper":"gaokao_2025","qid":"15-1","qtype":"fill","main_q":15,"pred":0.8569},"gaokao_2025::15-2a":{"paper":"gaokao_2025","qid":"15-2a","qtype":"fill","main_q":15,"pred":0.8568},"gaokao_2025::15-2b":{"paper":"gaokao_2025","qid":"15-2b","qtype":"fill","main_q":15,"pred":0.8716},"gaokao_2025::15-3":{"paper":"gaokao_2025","qid":"15-3","qtype":"fill","main_q":15,"pred":0.7682},"gaokao_2025::16-1":{"paper":"gaokao_2025","qid":"16-1","qtype":"fill","main_q":16,"pred":0.8614},"gaokao_2025::16-2":{"paper":"gaokao_2025","qid":"16-2","qtype":"fill","main_q":16,"pred":0.8614},"gaokao_2025::16-3":{"paper":"gaokao_2025","qid":"16-3","qtype":"fill","main_q":16,"pred":0.8331},"gaokao_2025::16-4":{"paper":"gaokao_2025","qid":"16-4","qtype":"fill","main_q":16,"pred":0.7176},"gaokao_2025::17-1":{"paper":"gaokao_2025","qid":"17-1","qtype":"solve","main_q":17,"pred":0.9258},"gaokao_2025::17-2":{"paper":"gaokao_2025","qid":"17-2","qtype":"solve","main_q":17,"pred":0.8767},"gaokao_2025::17-3":{"paper":"gaokao_2025","qid":"17-3","qtype":"solve","main_q":17,"pred":0.8037},"gaokao_2025::19-1":{"paper":"gaokao_2025","qid":"19-1","qtype":"solve","main_q":19,"pred":0.8767},"gaokao_2025::19-2":{"paper":"gaokao_2025","qid":"19-2","qtype":"solve","main_q":19,"pred":0.6455},"gaokao_2025::19-3":{"paper":"gaokao_2025","qid":"19-3","qtype":"solve","main_q":19,"pred":0.2605},"gaokao_2025::20-1":{"paper":"gaokao_2025","qid":"20-1","qtype":"solve","main_q":20,"pred":0.9058},"gaokao_2025::20-2":{"paper":"gaokao_2025","qid":"20-2","qtype":"solve","main_q":20,"pred":0.2506},"gaokao_2025::20-3":{"paper":"gaokao_2025","qid":"20-3","qtype":"solve","main_q":20,"pred":0.2625}}};
+(function(){
+  const preds = window.VALIDATOR_PREDICTIONS.items;
+  const storage = (() => {
+    const so = window.__SHAREONE__;
+    if (so && typeof so.putPrivate === 'function' && typeof so.getPrivate === 'function') {
+      return {kind:'shareone-private', put:(k,v)=>so.putPrivate(k,v), get:k=>so.getPrivate(k), del:k=>so.deletePrivate?so.deletePrivate(k):null};
+    }
+    return {kind:'session-fallback',
+      put:async(k,v)=>sessionStorage.setItem(k, typeof v==='string'?v:JSON.stringify(v)),
+      get:async k=>sessionStorage.getItem(k),
+      del:async k=>sessionStorage.removeItem(k)};
+  })();
+  document.getElementById('valStorageStatus').textContent =
+    storage.kind === 'shareone-private'
+      ? '存储通道: ShareOne putPrivate · 数据只在您的浏览器里'
+      : '存储通道: sessionStorage (fallback) · 关闭标签页即清除';
+
+  function parseCsv(text) {
+    const lines = text.trim().split(/\r?\n/);
+    const header = lines[0].split(',').map(s => s.trim().toLowerCase());
+    const paperIdx = header.findIndex(h => h === 'paper_id');
+    const qidIdx = header.findIndex(h => h === 'question_id');
+    const rateIdx = header.findIndex(h => h === 'actual_score_rate');
+    if (paperIdx < 0 || qidIdx < 0 || rateIdx < 0) throw new Error('CSV 必须包含表头 paper_id · question_id · actual_score_rate');
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+      const cells = lines[i].split(',').map(s => s.trim());
+      if (!cells[paperIdx] || !cells[qidIdx]) continue;
+      const rate = parseFloat(cells[rateIdx]);
+      if (isNaN(rate)) continue;
+      rows.push({paper: cells[paperIdx], qid: cells[qidIdx], key: cells[paperIdx]+'::'+cells[qidIdx], actual: rate});
+    }
+    return rows;
+  }
+
+  function validate(userRows) {
+    const matched = [], unmatched = [];
+    for (const r of userRows) {
+      if (preds[r.key]) {
+        matched.push({qid:r.qid, paper:r.paper, actual:r.actual, pred:preds[r.key].pred, qtype:preds[r.key].qtype, residual:preds[r.key].pred - r.actual});
+      } else unmatched.push(r.paper+'/'+r.qid);
+    }
+    return {matched, unmatched};
+  }
+
+  function computeMetrics(matched) {
+    const n = matched.length;
+    if (n === 0) return null;
+    const mae = matched.reduce((s,r)=>s+Math.abs(r.residual),0)/n;
+    const meanA = matched.reduce((s,r)=>s+r.actual,0)/n;
+    const ssRes = matched.reduce((s,r)=>s+r.residual**2,0);
+    const ssTot = matched.reduce((s,r)=>s+(r.actual-meanA)**2,0);
+    const r2 = ssTot>0 ? 1-ssRes/ssTot : 0;
+    const bias = matched.reduce((s,r)=>s+r.residual,0)/n;
+    return {n, mae, r2, bias};
+  }
+
+  function perPaperMetrics(matched) {
+    const g = {};
+    for (const r of matched) { (g[r.paper] = g[r.paper] || []).push(r); }
+    const out = {};
+    for (const p of Object.keys(g)) out[p] = computeMetrics(g[p]);
+    return out;
+  }
+
+  function renderMetrics(m) {
+    const maeColor = m.mae<0.08?'var(--ok)':m.mae<0.12?'var(--accent)':m.mae<0.15?'var(--hilite-ink)':'#f0a5a5';
+    const biasColor = Math.abs(m.bias)>0.03?'var(--hilite-ink)':'var(--ok)';
+    document.getElementById('valMetrics').innerHTML = `
+      <div class="val-metric"><div class="val-metric-value">${m.n}</div><div class="val-metric-label">匹配题数</div></div>
+      <div class="val-metric"><div class="val-metric-value" style="color:${maeColor}">${(m.mae*100).toFixed(2)}<span class="val-unit">pp</span></div><div class="val-metric-label">MAE</div></div>
+      <div class="val-metric"><div class="val-metric-value">${m.r2.toFixed(3)}</div><div class="val-metric-label">R²</div></div>
+      <div class="val-metric"><div class="val-metric-value" style="color:${biasColor}">${(m.bias*100>=0?'+':'')}${(m.bias*100).toFixed(2)}<span class="val-unit">pp</span></div><div class="val-metric-label">BIAS · 预测−实测</div></div>
+    `;
+  }
+
+  function renderScatter(matched) {
+    const svg = document.getElementById('valScatter');
+    const W=800, H=380, PAD_L=52, PAD_R=20, PAD_T=20, PAD_B=44;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    const papers = [...new Set(matched.map(r=>r.paper))].sort();
+    const colors = ['#78b0e0','#6ecc8f','#e9c07a','#f0a5a5','#c8a5f0','#5eb8c6','#f0a5c8'];
+    const pc = {};
+    papers.forEach((p,i)=>pc[p]=colors[i%colors.length]);
+    const xs = v => PAD_L + v*(W-PAD_L-PAD_R);
+    const ys = v => H - PAD_B - v*(H-PAD_T-PAD_B);
+    let s = '';
+    for (let i=0;i<=5;i++){
+      const x=xs(i/5), y=ys(i/5);
+      s += `<line x1="${x}" y1="${PAD_T}" x2="${x}" y2="${H-PAD_B}" stroke="#2f3339" stroke-width="1"/>`;
+      s += `<line x1="${PAD_L}" y1="${y}" x2="${W-PAD_R}" y2="${y}" stroke="#2f3339" stroke-width="1"/>`;
+      s += `<text x="${x}" y="${H-PAD_B+18}" font-size="11" fill="#8a8d87" text-anchor="middle">${(i/5).toFixed(1)}</text>`;
+      s += `<text x="${PAD_L-8}" y="${y+4}" font-size="11" fill="#8a8d87" text-anchor="end">${(i/5).toFixed(1)}</text>`;
+    }
+    s += `<line x1="${xs(0)}" y1="${ys(0)}" x2="${xs(1)}" y2="${ys(1)}" stroke="#8a8d87" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+    s += `<line x1="${xs(0)}" y1="${ys(0.1)}" x2="${xs(0.9)}" y2="${ys(1)}" stroke="#3d434a" stroke-width="1" stroke-dasharray="3 3"/>`;
+    s += `<line x1="${xs(0.1)}" y1="${ys(0)}" x2="${xs(1)}" y2="${ys(0.9)}" stroke="#3d434a" stroke-width="1" stroke-dasharray="3 3"/>`;
+    for (const r of matched) {
+      s += `<circle cx="${xs(r.actual)}" cy="${ys(r.pred)}" r="4.5" fill="${pc[r.paper]}" fill-opacity="0.6" stroke="${pc[r.paper]}" stroke-width="1.2"><title>${r.paper}/${r.qid}: pred=${(r.pred*100).toFixed(1)}%  actual=${(r.actual*100).toFixed(1)}%  residual=${r.residual*100>=0?'+':''}${(r.residual*100).toFixed(1)}pp</title></circle>`;
+    }
+    s += `<text x="${(W-PAD_R+PAD_L)/2}" y="${H-8}" font-size="13" fill="#c7d1c3" text-anchor="middle" font-weight="500">实测得分率</text>`;
+    s += `<text x="16" y="${(H-PAD_B+PAD_T)/2}" font-size="13" fill="#c7d1c3" text-anchor="middle" font-weight="500" transform="rotate(-90 16 ${(H-PAD_B+PAD_T)/2})">预测得分率</text>`;
+    svg.innerHTML = s;
+    document.getElementById('valLegend').innerHTML = papers.map(p =>
+      `<div class="val-legend-item"><span class="val-legend-dot" style="background:${pc[p]}"></span>${p}</div>`
+    ).join('');
+  }
+
+  function renderOutliers(matched) {
+    const sorted = [...matched].sort((a,b)=>Math.abs(b.residual)-Math.abs(a.residual)).slice(0,10);
+    document.getElementById('valOutliers').innerHTML = `
+      <thead><tr><th>Question ID</th><th>Paper</th><th>Type</th><th>实测</th><th>预测</th><th>残差</th></tr></thead>
+      <tbody>${sorted.map(r=>`<tr><td>${r.qid}</td><td>${r.paper}</td><td>${r.qtype}</td><td>${(r.actual*100).toFixed(1)}%</td><td>${(r.pred*100).toFixed(1)}%</td><td class="${r.residual>=0?'val-pos':'val-neg'}">${r.residual>=0?'+':''}${(r.residual*100).toFixed(1)}pp</td></tr>`).join('')}</tbody>`;
+  }
+
+  function renderPerPaper(pp) {
+    document.getElementById('valPerPaper').innerHTML = `
+      <thead><tr><th>Paper</th><th>N</th><th>MAE</th><th>R²</th><th>Bias</th></tr></thead>
+      <tbody>${Object.entries(pp).sort().map(([p,m])=>`<tr><td>${p}</td><td>${m.n}</td><td>${(m.mae*100).toFixed(2)}pp</td><td>${m.r2.toFixed(3)}</td><td class="${Math.abs(m.bias)>0.02?'val-neg':''}">${m.bias*100>=0?'+':''}${(m.bias*100).toFixed(2)}pp</td></tr>`).join('')}</tbody>`;
+  }
+
+  async function handleFile(file) {
+    const text = await file.text();
+    await storage.put('val_actual_csv', text);
+    await storage.put('val_actual_meta', JSON.stringify({name:file.name, size:file.size, uploaded_at:new Date().toISOString()}));
+    processStoredData();
+  }
+
+  async function processStoredData() {
+    const text = await storage.get('val_actual_csv');
+    const metaStr = await storage.get('val_actual_meta');
+    if (!text) return;
+    const meta = metaStr ? JSON.parse(metaStr) : {};
+    const infoEl = document.getElementById('valFileInfo');
+    infoEl.innerHTML = `<div class="val-file-loaded">✓ 已加载: <strong>${meta.name||'CSV'}</strong> · ${meta.size||'?'} bytes · ${meta.uploaded_at?new Date(meta.uploaded_at).toLocaleString('zh-CN'):''}</div>`;
+    let userRows;
+    try { userRows = parseCsv(text); }
+    catch(e) { infoEl.innerHTML += `<div class="val-error">解析失败: ${e.message}</div>`; return; }
+    const {matched, unmatched} = validate(userRows);
+    const m = computeMetrics(matched);
+    if (!m) { infoEl.innerHTML += `<div class="val-error">无匹配 (paper, qid) · 请检查格式</div>`; return; }
+    renderMetrics(m);
+    renderScatter(matched);
+    renderOutliers(matched);
+    renderPerPaper(perPaperMetrics(matched));
+    document.getElementById('valResults').classList.add('val-active');
+    if (unmatched.length > 0) {
+      infoEl.innerHTML += `<div class="val-warning">⚠ ${unmatched.length} 行的 (paper, qid) 在预测表里没找到 · 已跳过: ${unmatched.slice(0,5).join(' · ')}${unmatched.length>5?` ... (+${unmatched.length-5} 更多)`:''}</div>`;
+    }
+  }
+
+  document.getElementById('valFileInput').addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+  const dz = document.getElementById('valDropzone');
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('val-drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('val-drag'));
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('val-drag'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
+  document.getElementById('valClearBtn').addEventListener('click', async () => {
+    await storage.del('val_actual_csv'); await storage.del('val_actual_meta');
+    document.getElementById('valResults').classList.remove('val-active');
+    document.getElementById('valFileInfo').innerHTML = '';
+    document.getElementById('valFileInput').value = '';
+  });
+  document.getElementById('valPrivacyToggle').addEventListener('click', () => {
+    const d = document.getElementById('valPrivacyDetails');
+    const btn = document.getElementById('valPrivacyToggle');
+    if (d.hidden) { d.hidden = false; btn.textContent = '▾ 收起技术细节'; }
+    else { d.hidden = true; btn.textContent = '▸ 技术细节'; }
+  });
+
+  processStoredData();
+})();
+</script>
+
+
 <h2>一 · 当前主要结果</h2>
 
 <div class="metric-row">
