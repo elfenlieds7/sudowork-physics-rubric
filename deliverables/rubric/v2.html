@@ -690,38 +690,45 @@ xicheng_2026,20-3,0.31</div>
       </div>
       <div class="val-drop-loaded">🔄 <strong id="valLoadedName">已加载</strong> · 点击更换 CSV</div>
     </label>
+    <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:8px;">↓ 上传后自动出结果 · 无需再操作 ↓</div>
     <div id="valFileInfo"></div>
     <div id="valHistory"></div>
   </div>
 
-  <div class="val-results" id="valResults">
-    <div class="val-subsection">
-      <span class="val-step-label">STEP 2</span>
-      <div class="val-section-title">验证结果 · 整体</div>
-      <div class="val-metric-grid" id="valMetrics"></div>
+  <div style="margin-top:20px;">
+    <span class="val-step-label">STEP 2</span>
+    <div class="val-section-title">验证结果</div>
+    <div id="valResultsPlaceholder" style="padding:24px 20px;background:var(--paper);border:1px dashed var(--border-strong);border-radius:6px;text-align:center;color:var(--muted);font-size:13px;">
+      ⏳ 尚未上传 CSV · 上传后此处自动显示: 整体 MAE / R² / Bias · 残差散点图 · Top-10 异常题目 · 按 paper 分组表
     </div>
 
-    <div class="val-subsection">
-      <div class="val-section-title">残差散点 · 预测 vs 实测</div>
-      <p class="val-desc">对角线 = 完美预测 · 虚线为 ±10pp 带 · 点越远离对角线残差越大 · 悬停可看单题详情.</p>
-      <svg class="val-scatter" id="valScatter"></svg>
-      <div class="val-legend" id="valLegend"></div>
-    </div>
+    <div class="val-results" id="valResults">
+      <div>
+        <div class="val-metric-grid" id="valMetrics"></div>
+      </div>
 
-    <div class="val-subsection">
-      <div class="val-section-title">Top-10 异常题目 (残差最大)</div>
-      <p class="val-desc">残差 = 预测 - 实测 · <span style="color:var(--ok)">正值</span> = 模型高估 · <span style="color:#f0a5a5">负值</span> = 模型低估. 这些题可人工 audit · 看 rubric 是否有系统性 miss.</p>
-      <table class="val-table" id="valOutliers"></table>
-    </div>
+      <div class="val-subsection">
+        <div class="val-section-title">残差散点 · 预测 vs 实测</div>
+        <p class="val-desc">对角线 = 完美预测 · 虚线为 ±10pp 带 · 点越远离对角线残差越大 · 悬停可看单题详情.</p>
+        <svg class="val-scatter" id="valScatter"></svg>
+        <div class="val-legend" id="valLegend"></div>
+      </div>
 
-    <div class="val-subsection">
-      <div class="val-section-title">按 paper 分组</div>
-      <table class="val-table" id="valPerPaper"></table>
-    </div>
+      <div class="val-subsection">
+        <div class="val-section-title">Top-10 异常题目 (残差最大)</div>
+        <p class="val-desc">残差 = 预测 - 实测 · <span style="color:var(--ok)">正值</span> = 模型高估 · <span style="color:#f0a5a5">负值</span> = 模型低估. 这些题可人工 audit · 看 rubric 是否有系统性 miss.</p>
+        <table class="val-table" id="valOutliers"></table>
+      </div>
 
-    <div class="val-clear-row">
-      <button class="val-clear-btn" id="valClearBtn">清除本地数据 · 重新开始</button>
-      <div class="val-clear-hint">(删除浏览器里存的 CSV + 历史 · 不影响服务器 · 因为本来就没上传)</div>
+      <div class="val-subsection">
+        <div class="val-section-title">按 paper 分组</div>
+        <table class="val-table" id="valPerPaper"></table>
+      </div>
+
+      <div class="val-clear-row">
+        <button class="val-clear-btn" id="valClearBtn">清除本地数据 · 重新开始</button>
+        <div class="val-clear-hint">(删除浏览器里存的 CSV + 历史 · 不影响服务器 · 因为本来就没上传)</div>
+      </div>
     </div>
   </div>
 
@@ -924,8 +931,10 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
     renderHistory();
     if (!text) {
       document.getElementById('valDropzone').classList.remove('val-loaded');
+      document.getElementById('valResultsPlaceholder').style.display = 'block';
       return;
     }
+    document.getElementById('valResultsPlaceholder').style.display = 'none';
     const meta = metaStr ? JSON.parse(metaStr) : {};
     const infoEl = document.getElementById('valFileInfo');
     infoEl.innerHTML = `<div class="val-file-loaded">✓ 已加载: <strong>${meta.name||'CSV'}</strong> · ${meta.size||'?'} bytes · ${meta.uploaded_at?new Date(meta.uploaded_at).toLocaleString('zh-CN'):''}</div>`;
@@ -965,6 +974,7 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
     document.getElementById('valFileInput').value = '';
     document.getElementById('valDropzone').classList.remove('val-loaded');
     document.getElementById('valHistory').innerHTML = '';
+    document.getElementById('valResultsPlaceholder').style.display = 'block';
   });
   document.getElementById('valPrivacyToggle').addEventListener('click', () => {
     const d = document.getElementById('valPrivacyDetails');
