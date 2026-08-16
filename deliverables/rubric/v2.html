@@ -600,12 +600,35 @@ if (document.readyState === 'loading') {
   #validatorTool .val-desc{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.55;}
   #validatorTool .val-example{background:#0f1114;color:#c7d1c3;padding:12px 14px;border-radius:4px;font-family:monospace;font-size:12px;margin:8px 0;overflow-x:auto;line-height:1.7;white-space:pre;border:1px solid var(--border);}
   #validatorTool .val-example .val-hd{color:var(--muted);}
-  #validatorTool .val-dropzone{border:2px dashed var(--border-strong);border-radius:6px;padding:32px 20px;text-align:center;color:var(--muted);cursor:pointer;transition:all .15s;font-size:14px;background:var(--paper);margin-top:8px;}
+  #validatorTool .val-quick-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;align-items:center;}
+  #validatorTool .val-tpl-btn{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent);padding:6px 12px;font-size:12px;border-radius:3px;cursor:pointer;font-family:inherit;font-weight:500;}
+  #validatorTool .val-tpl-btn:hover{background:var(--accent);color:#0f1114;}
+  #validatorTool .val-corpus-link{color:var(--accent);text-decoration:none;font-size:12px;padding:6px 10px;border:1px solid var(--border-strong);border-radius:3px;}
+  #validatorTool .val-corpus-link:hover{background:var(--paper);border-color:var(--accent);}
+  #validatorTool .val-dropzone{border:2px dashed var(--border-strong);border-radius:6px;padding:32px 20px;text-align:center;color:var(--muted);cursor:pointer;transition:all .15s;font-size:14px;background:var(--paper);margin-top:8px;display:block;}
   #validatorTool .val-dropzone:hover,#validatorTool .val-dropzone.val-drag{border-color:var(--accent);background:var(--accent-soft);color:var(--ink-strong);}
   #validatorTool .val-dropzone input{display:none;}
+  #validatorTool .val-drop-empty{display:block;}
+  #validatorTool .val-drop-loaded{display:none;}
+  #validatorTool .val-drop-icon{font-size:36px;margin-bottom:8px;}
+  #validatorTool .val-drop-primary{font-size:15px;font-weight:600;color:var(--ink-strong);}
+  #validatorTool .val-drop-secondary{font-size:12px;color:var(--muted);margin-top:6px;}
+  #validatorTool .val-dropzone.val-loaded{padding:10px 14px;border-style:solid;border-color:var(--border);text-align:left;font-size:12px;}
+  #validatorTool .val-dropzone.val-loaded .val-drop-empty{display:none;}
+  #validatorTool .val-dropzone.val-loaded .val-drop-loaded{display:block;color:var(--muted);}
+  #validatorTool .val-dropzone.val-loaded .val-drop-loaded strong{color:var(--accent);}
   #validatorTool .val-file-loaded{font-size:12px;color:var(--ok-ink);margin-top:10px;padding:8px 12px;background:var(--ok-soft);border-radius:4px;border:1px solid var(--ok-border);}
   #validatorTool .val-warning{font-size:12px;color:var(--hilite-ink);margin-top:8px;padding:8px 12px;background:var(--hilite);border-radius:4px;border:1px solid var(--hilite-border);}
   #validatorTool .val-error{font-size:12px;color:#f0a5a5;margin-top:8px;padding:8px 12px;background:#3a1e1e;border-radius:4px;border:1px solid #5a3030;}
+  #validatorTool .val-history{margin-top:14px;padding:12px 14px;background:var(--paper);border:1px solid var(--border);border-radius:4px;}
+  #validatorTool .val-hist-title{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+  #validatorTool .val-hist-item{display:flex;gap:10px;padding:4px 0;font-size:12px;color:var(--ink);border-bottom:1px dashed var(--border);align-items:center;flex-wrap:wrap;}
+  #validatorTool .val-hist-item:last-child{border-bottom:none;}
+  #validatorTool .val-hist-icon{color:var(--ok);font-weight:600;}
+  #validatorTool .val-hist-name{font-family:monospace;color:var(--ink-strong);min-width:120px;}
+  #validatorTool .val-hist-time{color:var(--muted);font-size:11px;}
+  #validatorTool .val-hist-stat{color:var(--accent);font-family:monospace;font-size:11px;}
+  #validatorTool .val-hist-clear{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;padding:0;margin-top:8px;font-family:inherit;}
   #validatorTool .val-metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:6px;}
   #validatorTool .val-metric{padding:14px 12px;background:var(--paper);border-radius:5px;text-align:center;border:1px solid var(--border);}
   #validatorTool .val-metric-value{font-size:26px;font-weight:700;color:var(--accent);line-height:1.1;font-variant-numeric:tabular-nums;}
@@ -652,11 +675,23 @@ if (document.readyState === 'loading') {
 gaokao_2024,1,0.85
 gaokao_2024,15-1,0.72
 xicheng_2026,20-3,0.31</div>
+
+    <div class="val-quick-actions">
+      <button class="val-tpl-btn" id="valTplBtn">📥 下载空白模板 (223 题 · 只需填得分率)</button>
+      <a class="val-corpus-link" href="https://github.com/elfenlieds7/sudowork-physics-rubric/blob/main/data/labeled/v2_4_labels.csv" target="_blank" rel="noopener">📖 题库对照 (Github)</a>
+    </div>
+
     <label class="val-dropzone" id="valDropzone">
       <input type="file" id="valFileInput" accept=".csv,text/csv">
-      <div>📁 &nbsp;点击选择 CSV · 或拖拽到此处</div>
+      <div class="val-drop-empty">
+        <div class="val-drop-icon">📁</div>
+        <div class="val-drop-primary">点击选择 CSV · 或拖拽到此处</div>
+        <div class="val-drop-secondary">数据只存本地 · 不上传服务器</div>
+      </div>
+      <div class="val-drop-loaded">🔄 <strong id="valLoadedName">已加载</strong> · 点击更换 CSV</div>
     </label>
     <div id="valFileInfo"></div>
+    <div id="valHistory"></div>
   </div>
 
   <div class="val-results" id="valResults">
@@ -686,12 +721,12 @@ xicheng_2026,20-3,0.31</div>
 
     <div class="val-clear-row">
       <button class="val-clear-btn" id="valClearBtn">清除本地数据 · 重新开始</button>
-      <div class="val-clear-hint">(删除浏览器里存的 CSV · 不影响服务器 · 因为本来就没上传)</div>
+      <div class="val-clear-hint">(删除浏览器里存的 CSV + 历史 · 不影响服务器 · 因为本来就没上传)</div>
     </div>
   </div>
 
   <div class="tool-note" style="margin-top:16px;">
-    <b>技术说明</b>: 模型 v2.4 (Lasso + GBM ensemble · 223 题 · LOPO CV · 训练 MAE 8.5pp) · 预测数据 (paper, qid) → predicted 得分率 页面内嵌 · <em>无</em>学生数据 · 逻辑: 您上传每行用 (paper, qid) 查页面预测表 · 算差 · 出 MAE + 图. 不匹配的 (paper, qid) 会跳过并在文件区列出.
+    <b>技术说明</b>: 模型 v2.4 (Lasso + GBM ensemble · 223 题 · LOPO CV · 训练 MAE 8.5pp) · 预测数据 (paper, qid) → predicted 得分率 页面内嵌 · <em>无</em>学生数据 · 逻辑: 您上传每行用 (paper, qid) 查页面预测表 · 算差 · 出 MAE + 图. 不匹配的 (paper, qid) 会跳过并在文件区列出. 共识题库 (223 题 canonical) 见上方"题库对照"链接 · 也可"下载空白模板"直接得到含全部 paper_id + question_id 的 CSV.
   </div>
 </div>
 
@@ -819,6 +854,63 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
       <tbody>${Object.entries(pp).sort().map(([p,m])=>`<tr><td>${p}</td><td>${m.n}</td><td>${(m.mae*100).toFixed(2)}pp</td><td>${m.r2.toFixed(3)}</td><td class="${Math.abs(m.bias)>0.02?'val-neg':''}">${m.bias*100>=0?'+':''}${(m.bias*100).toFixed(2)}pp</td></tr>`).join('')}</tbody>`;
   }
 
+  async function appendHistory(meta, metrics) {
+    const histStr = await storage.get('val_upload_history');
+    const hist = histStr ? JSON.parse(histStr) : [];
+    hist.unshift({name: meta.name, at: meta.uploaded_at, n: metrics.n, mae_pp: +(metrics.mae*100).toFixed(2), r2: +metrics.r2.toFixed(3)});
+    await storage.put('val_upload_history', JSON.stringify(hist.slice(0, 5)));
+    renderHistory();
+  }
+
+  async function renderHistory() {
+    const histStr = await storage.get('val_upload_history');
+    const el = document.getElementById('valHistory');
+    if (!histStr) { el.innerHTML = ''; return; }
+    const hist = JSON.parse(histStr);
+    if (hist.length === 0) { el.innerHTML = ''; return; }
+    el.innerHTML = `
+      <div class="val-history">
+        <div class="val-hist-title">📋 上传历史 · 最近 ${hist.length} 次 · 只在本地</div>
+        ${hist.map(h => `<div class="val-hist-item">
+          <span class="val-hist-icon">✓</span>
+          <span class="val-hist-name">${h.name}</span>
+          <span class="val-hist-time">${new Date(h.at).toLocaleString('zh-CN')}</span>
+          <span class="val-hist-stat">${h.n} 行</span>
+          <span class="val-hist-stat">MAE ${h.mae_pp.toFixed(2)}pp</span>
+          <span class="val-hist-stat">R² ${h.r2.toFixed(3)}</span>
+        </div>`).join('')}
+        <button class="val-hist-clear" id="valHistClearBtn">清空历史</button>
+      </div>`;
+    document.getElementById('valHistClearBtn').addEventListener('click', async () => {
+      await storage.del('val_upload_history');
+      renderHistory();
+    });
+  }
+
+  function downloadTemplate() {
+    const items = window.VALIDATOR_PREDICTIONS.items;
+    const rows = [];
+    for (const key of Object.keys(items)) {
+      const [paper, qid] = key.split('::');
+      rows.push({paper, qid, main_q: items[key].main_q || 999, key});
+    }
+    rows.sort((a, b) => {
+      if (a.paper !== b.paper) return a.paper < b.paper ? -1 : 1;
+      if (a.main_q !== b.main_q) return a.main_q - b.main_q;
+      return a.qid < b.qid ? -1 : 1;
+    });
+    const csv = ['paper_id,question_id,actual_score_rate', ...rows.map(r => `${r.paper},${r.qid},`)].join('\n');
+    const blob = new Blob(['﻿' + csv], {type: 'text/csv;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'v2_actual_scores_template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   async function handleFile(file) {
     const text = await file.text();
     await storage.put('val_actual_csv', text);
@@ -829,10 +921,16 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
   async function processStoredData() {
     const text = await storage.get('val_actual_csv');
     const metaStr = await storage.get('val_actual_meta');
-    if (!text) return;
+    renderHistory();
+    if (!text) {
+      document.getElementById('valDropzone').classList.remove('val-loaded');
+      return;
+    }
     const meta = metaStr ? JSON.parse(metaStr) : {};
     const infoEl = document.getElementById('valFileInfo');
     infoEl.innerHTML = `<div class="val-file-loaded">✓ 已加载: <strong>${meta.name||'CSV'}</strong> · ${meta.size||'?'} bytes · ${meta.uploaded_at?new Date(meta.uploaded_at).toLocaleString('zh-CN'):''}</div>`;
+    document.getElementById('valLoadedName').textContent = meta.name || 'CSV';
+    document.getElementById('valDropzone').classList.add('val-loaded');
     let userRows;
     try { userRows = parseCsv(text); }
     catch(e) { infoEl.innerHTML += `<div class="val-error">解析失败: ${e.message}</div>`; return; }
@@ -847,6 +945,12 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
     if (unmatched.length > 0) {
       infoEl.innerHTML += `<div class="val-warning">⚠ ${unmatched.length} 行的 (paper, qid) 在预测表里没找到 · 已跳过: ${unmatched.slice(0,5).join(' · ')}${unmatched.length>5?` ... (+${unmatched.length-5} 更多)`:''}</div>`;
     }
+    // History: only append if this is a NEW upload (meta.uploaded_at not already in history)
+    const histStr = await storage.get('val_upload_history');
+    const hist = histStr ? JSON.parse(histStr) : [];
+    if (!hist.some(h => h.at === meta.uploaded_at)) {
+      appendHistory(meta, m);
+    }
   }
 
   document.getElementById('valFileInput').addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
@@ -855,10 +959,12 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
   dz.addEventListener('dragleave', () => dz.classList.remove('val-drag'));
   dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('val-drag'); if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); });
   document.getElementById('valClearBtn').addEventListener('click', async () => {
-    await storage.del('val_actual_csv'); await storage.del('val_actual_meta');
+    await storage.del('val_actual_csv'); await storage.del('val_actual_meta'); await storage.del('val_upload_history');
     document.getElementById('valResults').classList.remove('val-active');
     document.getElementById('valFileInfo').innerHTML = '';
     document.getElementById('valFileInput').value = '';
+    document.getElementById('valDropzone').classList.remove('val-loaded');
+    document.getElementById('valHistory').innerHTML = '';
   });
   document.getElementById('valPrivacyToggle').addEventListener('click', () => {
     const d = document.getElementById('valPrivacyDetails');
@@ -866,6 +972,7 @@ window.VALIDATOR_PREDICTIONS = {"meta":{"model":"v2.4 · Lasso + GBM ensemble ·
     if (d.hidden) { d.hidden = false; btn.textContent = '▾ 收起技术细节'; }
     else { d.hidden = true; btn.textContent = '▸ 技术细节'; }
   });
+  document.getElementById('valTplBtn').addEventListener('click', downloadTemplate);
 
   processStoredData();
 })();
