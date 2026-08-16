@@ -1811,7 +1811,29 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <p><b>核心结论</b>: 当前阶段 · <em class="key">任何跳过教师打分的预测都不 reliable</em>. 这次 sudowork 智能体 (Claude) 独立打分预测 57.1 分 · 是"AI 直接读试卷"这个 workflow 的<em class="key">失败 pilot</em> · 恰好证明 VLM 需要 human-in-loop 校准才能出可用结果 (特别在诺贝尔级前沿情境上)。这个 finding 应写入论文 §六 局限展望里作为 VLM 建设的必要条件。</p>
 
-<p><b>对本次 2026 预测的正确路径</b>: (a) 教师针对 Q14/Q19/Q20/Q16-4/Q18-2 等前沿/高难题目 spot-check 10 维打分 · sudowork 智能体重跑; 或 (b) 等 9 月底西城实测得分率数据 · 用主 SSOT 顶部本地验证工具跑 MAE 复核 (最靠谱)。</p>
+<p><b>对本次 2026 预测的正确路径</b>: (a) 教师针对 Q14/Q19/Q20/Q16-4/Q18-2 等前沿/高难题目 spot-check 10 维打分 · sudowork 智能体重跑; 或 (b) 等 9 月底西城实测得分率数据 · 用主 SSOT 顶部本地验证工具跑 MAE 复核 (最靠谱)。<b>杨老师 2026-08-16 18:53 选 (b) · 同时 18:55 给出教师直觉整卷 70+ 分</b> · 作为 back-solve anchor 使用。</p>
+
+<h4>G.6.b · 三个 anchor + 教师直觉数据点 · Domain shift 现象量化</h4>
+
+<table>
+<caption class="caption">表 G.7 · 三个预测版本 + 教师直觉 · 五个 anchor 比较</caption>
+<tr><th>版本 / 数据源</th><th class="n">整卷</th><th>说明</th></tr>
+<tr><td>Claude 原始打分 → 模型</td><td class="n">57.1</td><td>无 audit AI 独打分 · 系统偏严</td></tr>
+<tr><td>Claude moderate 打分 → 模型</td><td class="n">67.7</td><td>调整 Q14/Q19/Q20/Q16-4/Q18-2 若干极端标签</td></tr>
+<tr><td><em class="key">教师直觉 (杨老师 18:55)</em></td><td class="n"><em class="key">70+</em></td><td>不需模型 · 基于教研经验直觉估算</td></tr>
+<tr><td>教师 spot-check 打分 → 模型</td><td class="n">— (未跑)</td><td>需教师提供 5-8 道前沿题 gold 打分 · 教师选 (b) 未走此路</td></tr>
+<tr><td>9 月底西城实测</td><td class="n">— (待)</td><td>gold truth · 数据出来直接用本地验证工具跑 MAE</td></tr>
+</table>
+
+<p><b>Domain-shift 现象量化</b>: 三个 anchor (Claude 原始 · Claude moderate · 教师直觉) 相邻差距 10-13 pp · 说明 <em class="key">rubric 规则文本在前沿情境上是 underspecified</em>. 校准集 20 题不含前沿样本 · Claude 独打分只能基于自己直觉外推 · 而 Claude 直觉 ≠ 学生认知启动成本 → 系统性偏严。教师直觉作为第三个 anchor · 帮助量化了这个 gap 大小 (~13 pp)。</p>
+
+<p><b>方法学 finding (待 9 月实测验证)</b>: 如果 9 月实测确实在 70-73 附近 · 则:</p>
+<ul>
+<li>Kappa 1.00 校准子集对齐 = 校准了<em class="key">规则文本 + 典型样本应用</em> · 但不覆盖前沿样本</li>
+<li>Claude 独打分在前沿场景系统性偏低 · 约 -13 pp (~2 个模型标准 MAE)</li>
+<li>如果教师参与打分 (或 spot-check) · 该偏差可显著减少</li>
+<li>论文 §六 局限展望应写: "未来加大 · (a) 开放度 (b) 前沿情境 (c) 跨模块 三类稀疏样本的双专家校准 · 校准集从 20 扩到 60-100 题 · 这是 VLM 电子标注助手可用的必要前提条件"</li>
+</ul>
 
 <h3>G.7 · 模型对 2026 预测的置信度说明</h3>
 
