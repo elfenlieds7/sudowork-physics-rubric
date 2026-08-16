@@ -94,10 +94,11 @@
 
 <div class="banner" style="background:#1c2a3a;border-left:6px solid #78b0e0;">
   <b>🆕 2026-08-16 新增 · <a href="#appendix-g" style="color:var(--accent)">附录 G · 2026 北京高考物理试题应用分析</a></b><br>
-  杨老师 2026-08-16 发 2026 高考物理试题 · sudowork 用 v2.4 rubric 手工打分 33 小问 + 全模型预测 · <b>整卷预测 57.1 分</b> (前 4 年 70-74 分 · <em class="key">断崖式下降 13-16 分</em>)。<br>
-  五年趋势看到 <b>命题重心转移</b>: 情境陌生度略降 · 但建模复杂近 3 倍 · 推理链 +36% · 开放度首次突破 · 出现完全开放题 (Q20-2b 米格达尔+暗物质 · 预测 2.0%)。<br>
+  杨老师 2026-08-16 发 2026 高考物理试题 · sudowork 用 v2.4 rubric 手工打分 33 小问 + 全模型预测。<br>
+  <b>敏感度分析</b>: 原始 57.1 分 vs moderate 版 (Claude 打分校准 student experience 后) 67.7 分 · 一个 modest 调整 swing 10.6 pp。杨老师反馈"大家反映试题简单" · 印证 Claude 打分在前沿情境上系统性偏严。<br>
   两道诺贝尔级前沿情境: Q14 Hopfield 神经网络 (2024 诺奖) · Q20 米格达尔效应 (2026 我国首次实验)。<br>
-  <b>数据 9 月底出来后</b> · 直接用顶部"本地验证工具"上传实测 CSV · 一键出 MAE + 残差图复核。
+  <b>方法学 finding</b>: Kappa 1.00 是在 20 题校准集上达到的 · 但没覆盖前沿情境 · 单一 kappa 数字掩盖了 domain-shift 风险 · 论文 §六 局限里"未来加大 · 开放度/前沿情境/跨模块三类稀疏样本"的双专家校准是关键路径。<br>
+  <b>数据 9 月底出来后</b>直接用顶部"本地验证工具"上传实测 CSV · 一键出 MAE + 残差图。
 </div>
 
 <div class="banner ok" style="border-left-width:6px">
@@ -1756,7 +1757,63 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <tr><td>5</td><td>Q20-1</td><td class="n">24.4%</td><td>中性粒子对心碰撞 · 原子核动能 Ek</td><td>陌生情境 + 相同速度约束 + 动量能量联立</td></tr>
 </table>
 
-<h3>G.6 · 模型对 2026 预测的置信度说明</h3>
+<h3>G.6 · 敏感度分析 · Claude 打分偏差诊断 (2026-08-16 晚 · 教师质疑后新增)</h3>
+
+<p><b>杨老师 18:39 反馈</b>: "这个结果不太可能 · 今年大家普遍反映 2026 试题简单 · 是我们的模型哪里出了问题么?"</p>
+
+<p><b>诊断</b>: 模型没错 · 问题在 <em class="key">sudowork 智能体 (Claude) 的打分本身</em>。做了敏感度分析:</p>
+
+<table>
+<caption class="caption">表 G.5 · 敏感度分析 · 两个打分版本的预测对比</caption>
+<tr><th>版本</th><th class="n">整卷预测</th><th class="n">MCQ</th><th class="n">填空</th><th class="n">解答</th><th>最难题</th></tr>
+<tr><td>原始 (Claude default)</td><td class="n">57.1</td><td class="n">67.1%</td><td class="n">76.8%</td><td class="n">40.0%</td><td>Q20-2b 2.0%</td></tr>
+<tr><td>Moderate (Ethan 假设 · student experience 校准)</td><td class="n"><em class="key">67.7</em></td><td class="n">74.2%</td><td class="n">76.8%</td><td class="n">57.4%</td><td>Q20-2a 28%</td></tr>
+<tr><td>Δ 敏感度</td><td class="n">+10.6 pp</td><td>+7.1 pp</td><td>·</td><td>+17.4 pp</td><td>+26 pp</td></tr>
+</table>
+
+<p><b>根因诊断</b>:</p>
+<ul>
+<li><b>Claude 缺中国高考物理学生的认知启动成本直觉</b>. 我看到"米格达尔效应"觉得完全陌生 · 但学生看到题目给近似定义"系统损失动能都传给外电子"就能反应"这就是能量守恒"</li>
+<li>Q14 Hopfield/Q20 米格达尔 我标为 context=2 (完全陌生) + modeling=2-3 + reasoning=4-5 · 训练集里这种极端组合样本几乎没有 · 模型只能极端外推</li>
+<li>训练集只有 <em class="key">2 道 openness=open 题目</em> (2025 Q19-3 y=31% · Q20-3 y=2%) · 我标 Q20-2b=open 触发模型极端外推到 2% · 但实际题目给了具体数值 · 只需代入比较 · 不是自主推理</li>
+<li>Kappa 校准我们只做了 20 题 · 且没有前沿情境样本 · Q14/Q19/Q20 的打分本质上是 uncalibrated · 就相当于零训练数据的手工估计</li>
+</ul>
+
+<p><b>Moderate 版核心调整</b>:</p>
+<ul>
+<li>Q14 Hopfield: context 2→1 · info 4→3 · modeling 2→1 (MCQ 4 选给了铺垫 · 命题者做了建模 · 学生只需比较选项)</li>
+<li>Q19-2a/2b: context 2→1 · reasoning 4→3 · openness semi→closed (推导型不算真开放)</li>
+<li>Q20-1: context 2→1 (对心碰撞情境陌生但物理是标准动量守恒)</li>
+<li>Q20-2b: openness open→semi · concept 4→2 · modeling 3→1 · reasoning 5→3 · comp 3→1 (题给了 m=0.5 · M=120 · 0.03 keV 具体数值 · 只需代入比较阈值 · 不是自主构造理论)</li>
+</ul>
+
+<p><b>方法学 finding · 值得记入 kappa 校准局限</b>:</p>
+<ul>
+<li>Kappa 1.00 是在 20 题校准集上达到的 · 但那 20 题不包含前沿情境样本 (Hopfield/米格达尔/Q20 类)</li>
+<li>2026 出现的诺贝尔级情境 · 打分需要教研专家对"学生认知启动成本"的直觉判断 · AI 智能体 (无中国高考学生经验) 单打独斗会系统性偏严</li>
+<li><b>论文 §六 局限里"未来加大开放度样本"应扩展为"未来加大 · (a) 开放度 (b) 前沿情境 (c) 跨模块 三类稀疏样本的双专家校准"</b></li>
+</ul>
+
+<p><b>Live 反思 · 记入 [[project_physics_rubric_bomi]]</b>: 双专家 kappa 校准在扩展到 OOD 样本上时 · AI 智能体的估计会因缺少 domain-specific student experience 而系统性偏移 · 单一 kappa 数字掩盖了这个 domain-shift 风险。</p>
+
+<h4>G.6.a · 分工正确模式 · 当下 vs 未来 (工作流澄清)</h4>
+
+<p><b>这次 experiment 无意间证明了一个关键 workflow 事实</b>: sudowork 智能体今天做的 (Claude vision 读 PDF + 手工打 10 维分) 本质是 <em class="key">poor man's VLM</em> · 就是论文 §六 展望里"未来引入 VLM 电子标注助手"的最简早期版本。结果证明 · 无教师 audit 的 AI 直接打分 · 在前沿情境样本上会**系统性偏严** · 单卷预测偏差可达 10-15 pp。</p>
+
+<table>
+<caption class="caption">表 G.6 · 打分环节的分工矩阵</caption>
+<tr><th>环节</th><th>由谁</th><th>做什么</th><th>当下是否 mature</th></tr>
+<tr><td>打分 (10 维 rubric)</td><td><em class="key">教师 (canonical path)</em></td><td>出权威 10 维打分</td><td>✓ 唯一可靠 path</td></tr>
+<tr><td>模型预测</td><td>模型 v2.4</td><td>由打分算得分率</td><td>✓ 训练 MAE 2 pp · 成熟</td></tr>
+<tr><td>VLM 自动打分助手</td><td>VLM (未来 build)</td><td>auto 出 10 维打分建议</td><td>❌ <em class="key">尚未 build</em></td></tr>
+<tr><td>Human-in-the-loop 校准</td><td>教师</td><td>audit VLM 建议 · 只调不对的</td><td>❌ 依赖 VLM 就绪</td></tr>
+</table>
+
+<p><b>核心结论</b>: 当前阶段 · <em class="key">任何跳过教师打分的预测都不 reliable</em>. 这次 sudowork 智能体 (Claude) 独立打分预测 57.1 分 · 是"AI 直接读试卷"这个 workflow 的<em class="key">失败 pilot</em> · 恰好证明 VLM 需要 human-in-loop 校准才能出可用结果 (特别在诺贝尔级前沿情境上)。这个 finding 应写入论文 §六 局限展望里作为 VLM 建设的必要条件。</p>
+
+<p><b>对本次 2026 预测的正确路径</b>: (a) 教师针对 Q14/Q19/Q20/Q16-4/Q18-2 等前沿/高难题目 spot-check 10 维打分 · sudowork 智能体重跑; 或 (b) 等 9 月底西城实测得分率数据 · 用主 SSOT 顶部本地验证工具跑 MAE 复核 (最靠谱)。</p>
+
+<h3>G.7 · 模型对 2026 预测的置信度说明</h3>
 
 <p>需要坦诚: 2026 属于 <em class="key">out-of-distribution (分布外)</em> 样本 · 单题预测残差可能比往年更大:</p>
 <ul>
