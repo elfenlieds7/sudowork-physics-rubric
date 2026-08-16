@@ -85,12 +85,20 @@
 <div class="page">
 
 <header class="doc">
-  <div class="kicker">命题辅助工具 · living v2.4 · 2026-08-14 · 项目主 SSOT</div>
+  <div class="kicker">命题辅助工具 · living v2.4 · 2026-08-16 · 项目主 SSOT</div>
   <h1>物理试题难度预测 · 评价量表</h1>
   <div class="meta">
-    <b>杨蕾</b> (北京市西城区教育研修学院 物理教师) · <b>sudowork 智能体</b> · 2026-08-01 启动 · 2026-08-04 校准里程碑 · 2026-08-14 v2.4 定稿
+    <b>杨蕾</b> (北京市西城区教育研修学院 物理教师) · <b>sudowork 智能体</b> · 2026-08-01 启动 · 2026-08-04 校准里程碑 · 2026-08-14 v2.4 定稿 · 2026-08-16 新增 2026 高考应用分析
   </div>
 </header>
+
+<div class="banner" style="background:#1c2a3a;border-left:6px solid #78b0e0;">
+  <b>🆕 2026-08-16 新增 · <a href="#appendix-g" style="color:var(--accent)">附录 G · 2026 北京高考物理试题应用分析</a></b><br>
+  杨老师 2026-08-16 发 2026 高考物理试题 · sudowork 用 v2.4 rubric 手工打分 33 小问 + 全模型预测 · <b>整卷预测 57.1 分</b> (前 4 年 70-74 分 · <em class="key">断崖式下降 13-16 分</em>)。<br>
+  五年趋势看到 <b>命题重心转移</b>: 情境陌生度略降 · 但建模复杂近 3 倍 · 推理链 +36% · 开放度首次突破 · 出现完全开放题 (Q20-2b 米格达尔+暗物质 · 预测 2.0%)。<br>
+  两道诺贝尔级前沿情境: Q14 Hopfield 神经网络 (2024 诺奖) · Q20 米格达尔效应 (2026 我国首次实验)。<br>
+  <b>数据 9 月底出来后</b> · 直接用顶部"本地验证工具"上传实测 CSV · 一键出 MAE + 残差图复核。
+</div>
 
 <div class="banner ok" style="border-left-width:6px">
   <b>🎯 当前状态 · v2.4 (2026-08-14 定稿):</b><br>
@@ -1672,6 +1680,100 @@ Object.keys(CHART_DATA).forEach(renderChart);
 <li>简单题 MAE: 8.13 → 8.15 pp (基本不变 · 未退化)</li>
 <li>Overall MAE: 8.53 → 8.51 pp</li>
 </ul>
+
+<h2 id="appendix-g">附录 G · 2026 北京高考物理试题应用分析 (2026-08-16 新增)</h2>
+
+<p><b>背景</b>: 2026 年北京高考物理试题已公布 · 但学生实测得分率数据要等到 9 月底才能拿到。杨老师 8 月 16 日发试题 PDF + 参考答案 · 询问用 v2.4 模型对这套新卷做难度评价 + 五年趋势对比。这是本模型第一次做"data-未出前的先行预测" · 也是给杨老师九月拿到数据后 · 用主 SSOT 里"本地验证工具"跑 MAE 复核提供 baseline。</p>
+
+<p><b>方法</b>: sudowork 智能体按 v2.4 rubric 10 维打分 · 手工标注 2026 卷全部 33 小问 (含 Q14 Hopfield 神经网络 · Q20 米格达尔效应两道前沿题) · 然后用全 223 题训练的 Lasso + GBM 集成模型做预测。原始打分文件见 GitHub <code>data/labeled/gaokao_2026_v24_labels.csv</code>。</p>
+
+<h3>G.1 · 2026 整卷预测</h3>
+
+<table>
+<caption class="caption">表 G.1 · 2026 高考物理整卷预测 (100 分卷)</caption>
+<tr><th>指标</th><th>预测值</th><th>说明</th></tr>
+<tr><td>整卷加权预测得分率</td><td><em class="key">57.1%</em></td><td>预测均分 57.1 / 100 分</td></tr>
+<tr><td>MCQ (Q1-14 · 42 分)</td><td>67.1%</td><td>预测均分 28.2 / 42</td></tr>
+<tr><td>填空题 (Q15/16 · 18 分)</td><td>76.8%</td><td>相对较易</td></tr>
+<tr><td>解答题 (Q17-20 · 40 分)</td><td>40.0%</td><td><em class="key">大幅低于往年</em></td></tr>
+<tr><td>难度分布</td><td>8 易 · 13 中 · 3 较难 · 9 很难</td><td>基于 [≥80% / 60-80% / 40-60% / &lt;40%] 分档</td></tr>
+</table>
+
+<h3>G.2 · 五年整卷难度对比</h3>
+
+<table>
+<caption class="caption">表 G.2 · 2022-2026 五年整卷难度 (100 分卷 · 实测/预测均分)</caption>
+<tr><th>年份</th><th class="n">实测均分</th><th class="n">预测均分</th><th class="n">MAE</th><th>说明</th></tr>
+<tr><td>2022</td><td class="n">70.8</td><td class="n">73.0</td><td class="n">2.2 pp</td><td>模型 LOPO 预测</td></tr>
+<tr><td>2023</td><td class="n">69.7</td><td class="n">72.3</td><td class="n">2.6 pp</td><td>模型 LOPO 预测</td></tr>
+<tr><td>2024</td><td class="n">73.5</td><td class="n">71.4</td><td class="n">2.1 pp</td><td>模型 LOPO 预测</td></tr>
+<tr><td>2025</td><td class="n">72.6</td><td class="n">72.3</td><td class="n">0.3 pp</td><td>模型 LOPO 预测 · 精度最佳</td></tr>
+<tr><td>2026</td><td class="n">— (待 9 月)</td><td class="n"><em class="key">57.1</em></td><td class="n">—</td><td>全量模型预测 · <em class="key">大幅下降 13-16 分</em></td></tr>
+</table>
+
+<p><b>观察</b>: 前 4 年整卷均分稳定在 70-74 分区间 · 我们模型的历史 MAE 均在 3 pp 以内 · 预测精度可靠。若 2026 预测准确 · 将是近 5 年整卷难度跨度最大的一次。</p>
+
+<h3>G.3 · 五年评价量表维度均值趋势</h3>
+
+<table>
+<caption class="caption">表 G.3 · 五年各维度均值 · 显示命题特征演进</caption>
+<tr><th>维度</th><th class="n">2022</th><th class="n">2023</th><th class="n">2024</th><th class="n">2025</th><th class="n">2026</th><th>变化趋势</th></tr>
+<tr><td>情境陌生度</td><td class="n">0.77</td><td class="n">0.77</td><td class="n">0.75</td><td class="n">0.77</td><td class="n">0.61</td><td>↓ 略降</td></tr>
+<tr><td>信息呈现</td><td class="n">2.23</td><td class="n">2.26</td><td class="n">2.34</td><td class="n">2.39</td><td class="n">2.12</td><td>↓ 略降</td></tr>
+<tr><td>核心知识数</td><td class="n">1.80</td><td class="n">1.94</td><td class="n">1.97</td><td class="n">2.03</td><td class="n">2.61</td><td><em class="key">↑ 大升 +0.67</em></td></tr>
+<tr><td>跨模块比例</td><td class="n">0.00</td><td class="n">0.13</td><td class="n">0.09</td><td class="n">0.13</td><td class="n">0.24</td><td><em class="key">↑ 翻倍 +0.15</em></td></tr>
+<tr><td>知识深度</td><td class="n">2.20</td><td class="n">2.23</td><td class="n">2.28</td><td class="n">2.35</td><td class="n">2.52</td><td>↑ 稳升</td></tr>
+<tr><td>设问开放度</td><td class="n">0.00</td><td class="n">0.00</td><td class="n">0.00</td><td class="n">0.13</td><td class="n">0.21</td><td><em class="key">↑ 首次突破 +0.18</em></td></tr>
+<tr><td>建模复杂度</td><td class="n">0.40</td><td class="n">0.39</td><td class="n">0.41</td><td class="n">0.45</td><td class="n">1.18</td><td><em class="key">↑ 近 3 倍 +0.77</em></td></tr>
+<tr><td>推理链长度</td><td class="n">1.90</td><td class="n">1.97</td><td class="n">2.00</td><td class="n">2.03</td><td class="n">2.70</td><td><em class="key">↑ 大升 +0.72</em></td></tr>
+<tr><td>运算复杂度</td><td class="n">0.50</td><td class="n">0.74</td><td class="n">0.56</td><td class="n">0.39</td><td class="n">0.91</td><td>↑ 明显升</td></tr>
+</table>
+
+<h3>G.4 · 2026 命题特点 · 4 个核心观察</h3>
+
+<p><b>观察 1 · 命题重心转移 · 从"陌生情境包装"转向"深层思维加工"</b>: 情境陌生度不升反降 (0.77→0.61) · 但建模复杂度近 3 倍 · 推理链上升 36%。命题团队似乎不再靠"情境包装"制造区分度 · 而是直接在"建模 + 推理链"发力 · 与"物理素养 = 从情境抽象模型"的教研方向一致。</p>
+
+<p><b>观察 2 · 开放度突破 · 首次出现完全开放题</b>: 2022-2025 试卷几乎完全封闭 (开放度均值 &lt; 0.13) · 2026 出现 21% 开放/半开放 · 其中 Q20-2b (米格达尔效应 · 暗物质探测优势数据分析) 是完全开放的推理题。这个变化与本文 §六 局限展望里"未来加大开放性试题样本量"的预判方向吻合 · 说明教研共识与命题方向的趋势判断准确。</p>
+
+<p><b>观察 3 · 两个学术前沿情境 · 服务国家战略 + 前沿</b>:</p>
+<ul>
+<li>Q14 Hopfield 神经网络模型 (2024 诺贝尔物理学奖) · 将神经网络与物理势能场景类比</li>
+<li>Q20 米格达尔效应 · 2026 年 1 月我国科学家团队首次在实验中直接观测到中子与原子核碰撞过程中的米格达尔效应 · 与暗物质探测直接相关</li>
+</ul>
+<p>命题方向明确指向 "服务国家战略 + 学术前沿" · 但学生的认知启动成本极高。Q20-2b 我们模型给 2.0% (与 2025 年 Q20-3 静电除尘涉及玻尔原子 + 电场跨模块 · 实测 0.02 · 模型预测 0.27 的偏差模式一致)。</p>
+
+<p><b>观察 4 · 综合大题难度爆炸 · 区分度突显</b>: Q17-20 解答题预测均分 40.0% · 比 2022-2025 的 65-70% 断崖式下降。最难题预测 2.0% · 比往年 15-25% 低一档。若真如此 · 2026 综合大题的区分度会显著超越往年。</p>
+
+<h3>G.5 · 最难 5 题 · 模型预测排名</h3>
+
+<table>
+<caption class="caption">表 G.4 · 2026 预测最难 5 题</caption>
+<tr><th>排名</th><th>题号</th><th class="n">预测得分率</th><th>题目关键词</th><th>难点分析</th></tr>
+<tr><td>1</td><td>Q20-2b</td><td class="n"><em class="key">2.0%</em></td><td>米格达尔效应 · 暗物质探测优势数据分析</td><td>完全开放 + 前沿情境 + 数据比较 + 文字说明</td></tr>
+<tr><td>2</td><td>Q20-2a</td><td class="n">7.8%</td><td>米格达尔效应 · 电子最大能量 Ee 推导</td><td>前沿情境 + 复杂推导</td></tr>
+<tr><td>3</td><td>Q19-2b</td><td class="n">22.3%</td><td>二级质谱 · 仅施加电场可行性推导</td><td>跨模块 + 半开放 + 反证推理</td></tr>
+<tr><td>4</td><td>Q19-2a</td><td class="n">22.3%</td><td>二级质谱 · 仅施加匀强磁场可行性推导</td><td>跨模块 + 半开放 + 反证推理</td></tr>
+<tr><td>5</td><td>Q20-1</td><td class="n">24.4%</td><td>中性粒子对心碰撞 · 原子核动能 Ek</td><td>陌生情境 + 相同速度约束 + 动量能量联立</td></tr>
+</table>
+
+<h3>G.6 · 模型对 2026 预测的置信度说明</h3>
+
+<p>需要坦诚: 2026 属于 <em class="key">out-of-distribution (分布外)</em> 样本 · 单题预测残差可能比往年更大:</p>
+<ul>
+<li>2022-2025 历史整卷 MAE 都在 3 pp 以内 · 模型精度可靠 · 但那都是模型见过分布的样本</li>
+<li>2026 试题在多个维度<em class="key">超出训练集分布</em>: 完全陌生情境 (Q14 · Q20) · 完全开放题 (Q20-2b) · 建模复杂度 3+ · 三者训练集样本均极少</li>
+<li>Q20-2b 完全开放题目 · 训练集只有 2 道类似题 (2025 Q19-3 气流对机翼力 α · 2024 Q20-3 静电除尘) · 稀疏样本导致该维度系数不稳定 · 论文 §六 已作为已知局限声明</li>
+</ul>
+
+<p><b>下一步验证方案</b>: 9 月底实测数据出来后 · 直接用本页开头的<b>"本地验证工具 (β)"</b>上传 (paper_id, question_id, actual_score_rate) CSV · 一键出 MAE + 残差散点图 + Top-10 异常题目 · 立刻知道模型在 2026 上的实际表现。这是本模型第一次做前瞻预测 + 事后验证的完整闭环 · 也是评估模型对新题泛化能力的关键案例。</p>
+
+<p class="note"><b>数据文件位置</b>:<br>
+&#183; 打分标签: <code>data/labeled/gaokao_2026_v24_labels.csv</code><br>
+&#183; 预测结果: <code>data/labeled/gaokao_2026_predictions.csv</code><br>
+&#183; 五年对比: <code>data/labeled/5year_comparison.csv</code><br>
+&#183; 分析脚本: <code>analysis/predict_gaokao_2026.py</code> + <code>analysis/compare_5years.py</code></p>
+
+
 
 <footer class="doc">
   <p>sudowork 智能体 · 评价量表 · v2.4 living document · 2026-08-14 (v5.3 校准 milestone 是 v1 支线 · v2 支线走杨老师三大类分类体系 · 详见附录 D-F)<br>
