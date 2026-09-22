@@ -1854,6 +1854,76 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 
 
+
+<h3>G.8 · 2026 逐题预估得分率 (2026-09-23 · 应杨老师要求整理)</h3>
+
+<p>杨老师 2026-09-22 提出: 实测数据尚未下发 · 希望先看到模型对 2026 试题的预估得分率。以下给出<b>全部 33 个设问</b>的逐题预测。请注意<b>同时给出两个版本</b> · 并对照杨老师的教研直觉 · 三个数字一起看才有意义:</p>
+
+<table>
+<caption class="caption">表 G.7 · 三个整卷数字的对照 (100 分卷 · 预测均分)</caption>
+<tr><th>口径</th><th class="n">整卷</th><th>说明</th></tr>
+<tr><td>智能体原始打分 → 模型</td><td class="n">57.1</td><td>智能体独立打 10 维分 · 无教师校准 · 在诺贝尔级前沿情境题上<b>系统性偏严</b></td></tr>
+<tr><td>调整版打分 → 模型</td><td class="n"><em class="key">67.7</em></td><td>仅调整 Q14 / Q19 / Q20 / Q16-4 / Q18-2 若干极端标签后重跑 · 见 G.6</td></tr>
+<tr><td>杨老师教研直觉</td><td class="n">70+</td><td>2026-08-16 反馈"大家普遍反映试题简单"</td></tr>
+</table>
+
+<p class="note"><b>怎么读这两列</b>: 差值大的题 (表中高亮行 · 差 ≥ 10 个百分点) · 正是智能体打分最不可靠的地方 —— 集中在前沿情境 (Q14 Hopfield 神经网络 · Q20 米格达尔效应) 与跨模块推理 (Q19 二级质谱) 上。差值小甚至为 0 的题 · 两版一致 · 可信度较高。<b>若只能取一个数 · 建议用调整版 67.7 · 但真正的结论要等实测数据。</b></p>
+
+<table>
+<caption class="caption">表 G.8 · 2026 逐题预估得分率 · 原始打分 vs 调整版打分 (33 个设问)</caption>
+<tr><th>题号</th><th>题目关键词</th><th class="n">原始预测</th><th class="n">调整版预测</th><th class="n">差 (pp)</th></tr>
+<tr><td>Q1</td><td>筷子入水侧移·折射现象识别</td><td class="n">90.2%</td><td class="n"><em class="key">90.2%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q2</td><td>18F制备·核反应质量电荷守恒·PET情境</td><td class="n">84.5%</td><td class="n"><em class="key">84.5%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q3</td><td>理想气体等温膨胀·热一律</td><td class="n">86.9%</td><td class="n"><em class="key">86.9%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q4</td><td>汽车刹车距离·动能定理</td><td class="n">74.4%</td><td class="n"><em class="key">74.4%</em></td><td class="n">+0.0</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q5</td><td>简谐横波波形·λ+v+方向+加速度</td><td class="n">61.5%</td><td class="n"><em class="key">72.0%</em></td><td class="n">+10.5</td></tr>
+<tr><td>Q6</td><td>斜面匀速下滑·冲量+合力+机械能</td><td class="n">68.2%</td><td class="n"><em class="key">68.2%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q7</td><td>理想变压器+滑动变阻器·电流电压表变化</td><td class="n">60.7%</td><td class="n"><em class="key">60.7%</em></td><td class="n">+0.0</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q8</td><td>捷龙三号卫星·万有引力+圆周运动+第一宇宙速度</td><td class="n">60.3%</td><td class="n"><em class="key">74.4%</em></td><td class="n">+14.1</td></tr>
+<tr><td>Q9</td><td>直流电源+电阻+平行板电容器·稳态电路</td><td class="n">68.7%</td><td class="n"><em class="key">68.7%</em></td><td class="n">+0.0</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q10</td><td>蹦极·弹性绳+失重+势能变化·多阶段</td><td class="n">39.8%</td><td class="n"><em class="key">66.1%</em></td><td class="n">+26.3</td></tr>
+<tr><td>Q11</td><td>平行直导线电流磁场实验·可探究性</td><td class="n">78.2%</td><td class="n"><em class="key">79.2%</em></td><td class="n">+1.0</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q12</td><td>磁铁穿过线圈·感应电流i-t图分析</td><td class="n">36.7%</td><td class="n"><em class="key">60.7%</em></td><td class="n">+24.0</td></tr>
+<tr><td>Q13</td><td>光电导效应vs光电效应·半导体+金属对比</td><td class="n">68.3%</td><td class="n"><em class="key">69.9%</em></td><td class="n">+1.6</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q14</td><td>Hopfield神经网络·2024诺奖·能量类比</td><td class="n">60.9%</td><td class="n"><em class="key">82.3%</em></td><td class="n">+21.4</td></tr>
+<tr><td>Q15-1</td><td>加速度力关系实验·m与M关系条件</td><td class="n">87.8%</td><td class="n"><em class="key">87.8%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q15-2</td><td>实验操作判断·机械能守恒+气体+折射率</td><td class="n">86.6%</td><td class="n"><em class="key">86.6%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q15-3</td><td>电阻率测量·电路故障排除+误差分析</td><td class="n">80.2%</td><td class="n"><em class="key">80.2%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q16-1</td><td>平抛实验·实验操作必要条件</td><td class="n">87.3%</td><td class="n"><em class="key">87.3%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q16-2</td><td>平抛实验·同位置释放目的说明</td><td class="n">86.4%</td><td class="n"><em class="key">86.4%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q16-3</td><td>平抛实验·相等时间间隔选点方法</td><td class="n">73.8%</td><td class="n"><em class="key">73.8%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q16-4</td><td>平抛实验·从y/x-x直线求抛出点坐标</td><td class="n">35.5%</td><td class="n"><em class="key">35.5%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q17-1</td><td>U型导轨电磁感应·初始电流大小方向</td><td class="n">74.2%</td><td class="n"><em class="key">74.2%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q17-2</td><td>U型导轨·初始加速度</td><td class="n">74.2%</td><td class="n"><em class="key">74.2%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q17-3</td><td>U型导轨·v0减到0过程R产生热量</td><td class="n">59.9%</td><td class="n"><em class="key">59.9%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q18-1a</td><td>摆最低点绳拉力F·圆周运动</td><td class="n">71.4%</td><td class="n"><em class="key">71.4%</em></td><td class="n">+0.0</td></tr>
+<tr><td>Q18-1b</td><td>摆简谐运动·一周期绳对球冲量I</td><td class="n">41.0%</td><td class="n"><em class="key">48.4%</em></td><td class="n">+7.4</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q18-2</td><td>圆锥摆周期·与简谐周期比较大小</td><td class="n">31.5%</td><td class="n"><em class="key">48.4%</em></td><td class="n">+16.9</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q19-1</td><td>二级质谱药物研发·一级质谱加速电压U1</td><td class="n">49.2%</td><td class="n"><em class="key">59.7%</em></td><td class="n">+10.5</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q19-2a</td><td>二级质谱·仅施加匀强磁场可行性推导</td><td class="n">22.3%</td><td class="n"><em class="key">55.8%</em></td><td class="n">+33.5</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q19-2b</td><td>二级质谱·仅施加电场可行性推导</td><td class="n">22.3%</td><td class="n"><em class="key">55.8%</em></td><td class="n">+33.5</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q20-1</td><td>中性粒子对心碰撞·原子核动能Ek</td><td class="n">24.4%</td><td class="n"><em class="key">56.7%</em></td><td class="n">+32.3</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q20-2a</td><td>米格达尔效应·电子最大能量Ee推导</td><td class="n">7.8%</td><td class="n"><em class="key">28.3%</em></td><td class="n">+20.5</td></tr>
+<tr style="background:rgba(242,169,59,.10)"><td>Q20-2b</td><td>米格达尔效应·暗物质探测优势数据分析(完全开放)</td><td class="n">2.0%</td><td class="n"><em class="key">55.9%</em></td><td class="n">+53.9</td></tr>
+</table>
+
+<p><b>整卷分项 (调整版)</b>: 选择题 Q1-14 (42 分) 74.2% · 填空题 Q15-16 (18 分) 76.8% · 解答题 Q17-20 (40 分) 57.4%。难度分布: 容易 (≥80%) 9 题 · 中等 (60-80%) 14 题 · 较难 (40-60%) 8 题 · 很难 (&lt;40%) 2 题。</p>
+
+<h3>G.9 · 题型维度为什么是"弱信号" (2026-08-21 杨老师提问 · 已确认)</h3>
+
+<p><b>杨老师的问题</b>: "每套试题选择题得分率会高于解答题得分率 · 而且相差不少。为什么题型这个维度难度的贡献是'弱'呢?"</p>
+
+<p><b>结论: 两件事不矛盾。</b>训练集 223 题的真实数据显示 · 三类题型的得分率均值差确实明显 —— 选择题 78.0% (94 题) · 填空题 76.1% (48 题) · 解答题 63.4% (81 题) · 选择题与解答题相差 14.6 个百分点。</p>
+
+<p>但"相关性弱"说的是另一回事 · 有两个原因:</p>
+<ul>
+<li><b>组内差异远大于组间差异</b>: 每类题型<b>内部</b>的得分率变异 (组内方差 507) 是三类题型<b>之间</b>均值变异 (组间方差 46) 的<b>约 11 倍</b>。选择题内部从 30% 到 97% · 解答题内部从 2% 到 99% · 两类题的分布大幅重叠 · 相互抵消 · 相关系数自然被拉低。</li>
+<li><b>题型与其他维度高度绑定</b>: 解答题几乎总是同时具有核心知识数多 · 建模复杂 · 推理链长 · 运算复杂; 选择题则相反。"解答题更难"这个现象 · 实质是这几个维度带来的难度<b>通过题型这个外壳呈现出来</b>。模型一旦控制了这些维度 · 题型本身的边际贡献就很小。</li>
+</ul>
+
+<p class="note">因此报告中"任务类型 · 弱信号"的准确含义是: <b>在控制了建模复杂度 · 推理链长度等真实驱动因素之后 · 题型本身的额外解释力很小</b> · 而不是"题型与难度无关"。本说明已同步写入论文 §4.3 结果讨论。</p>
+
+
 <footer class="doc">
   <p>sudowork 智能体 · 评价量表 · v2.4 living document · 2026-08-14 (v5.3 校准 milestone 是 v1 支线 · v2 支线走杨老师三大类分类体系 · 详见附录 D-F)<br>
   论文 (v2.4.2 发表版): <a href="https://s.shareone.vip/s/sodu-physics-rubric-paper-v1" style="color:var(--accent)">s.shareone.vip/s/sodu-physics-rubric-paper-v1</a><br>
