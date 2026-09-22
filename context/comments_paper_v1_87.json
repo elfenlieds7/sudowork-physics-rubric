@@ -1,0 +1,1789 @@
+{
+  "share": "sodu-physics-rubric-paper-v1",
+  "status": "all",
+  "count": 87,
+  "comments": [
+    {
+      "id": "685096c1-df81-4ebd-b6d8-9ddd5a98c923",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "建模",
+      "content": "建议是不是丰富一下前后尝试过哪些模型，毕竟失败经验也是有价值的应该随论文一起交付",
+      "created_at": "2026-08-06T09:29:44.040890Z",
+      "resolution_note": "已丰富特征演进与备选模型 · 失败尝试透明化 · 均在 github 开放",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "b4940314-dfad-44f9-9cc1-68317341cab6",
+          "author_role": "agent",
+          "content": "已加两小节 · 4.1.1 评分表演进 (含 v1→v5.2 五次迭代 · 五个放弃的候选特征) 与 4.2.2 备选模型对比 (十模型 LOPO MAE 排序 · 四个放弃的集成尝试). 全部失败尝试的 script 均在 github 开放供 reviewer 复现. 请刷新页面.",
+          "created_at": "2026-08-06T09:36:29.982909Z"
+        }
+      ]
+    },
+    {
+      "id": "ab27ed0f-c915-4e89-aeaf-ecad4d3f3d74",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "放弃的候选特征",
+      "content": "感觉单独写一段吧，一般的论文有这种格式吗？",
+      "created_at": "2026-08-06T09:39:12.100005Z",
+      "resolution_note": "候选特征移入附录 B.1",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "b6038fb4-413e-4b45-b78c-7674e6625eda",
+          "author_role": "agent",
+          "content": "按您问题反思后确认标准做法: 正文保留对比表 (表 3 特征演进 + 表 4 备选模型 · 这是标准 model comparison), 失败尝试详细文字移入新增的附录 B (试验过程与放弃的探索 · 分 B.1 候选特征 · B.2 建模方案). 正文里各给一句话指向附录. 中文核心与国际期刊都是这个惯例. 请刷新看新版.",
+          "created_at": "2026-08-06T09:44:12.909600Z"
+        }
+      ]
+    },
+    {
+      "id": "05fff27c-0ffe-42a9-9854-b8ad81216a84",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "失败尝试",
+      "content": "同理，论文一般什么格式写试验过程和tried failures？",
+      "created_at": "2026-08-06T09:39:36.135505Z",
+      "resolution_note": "失败尝试移入附录 B.2",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "3bd4fe81-8e3a-4823-abc3-33b7f1f540d7",
+          "author_role": "agent",
+          "content": "按您问题反思后确认标准做法: 正文保留对比表 (表 3 特征演进 + 表 4 备选模型 · 这是标准 model comparison), 失败尝试详细文字移入新增的附录 B (试验过程与放弃的探索 · 分 B.1 候选特征 · B.2 建模方案). 正文里各给一句话指向附录. 中文核心与国际期刊都是这个惯例. 请刷新看新版.",
+          "created_at": "2026-08-06T09:44:13.829670Z"
+        }
+      ]
+    },
+    {
+      "id": "1b6c16ab-e095-4044-96a0-27fc2db86779",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "0.65 到 0.75 的区间",
+      "content": "不建议提具体数据，论文要阐述难度合适，但究竟多少合适，尚无定论。北京市一般在此区间，其它省市则不是。",
+      "created_at": "2026-08-06T14:30:31.262338Z",
+      "resolution_note": "阈值已去 · 5.2/6.3 同步更新",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "d19f7a33-939c-4ffa-915f-ca2739631fe1",
+          "author_role": "agent",
+          "content": "您指出的对 · 已从引言首段去除 0.65-0.75 具体数字. 改成\"两份权威文件都指向方法学原则但均未给出具体量化阈值 · 因为合理区间随考试类型 · 考生群体 · 命题目标而异\". 同时也更新了 §5.2 与 §6.3 建议 1 里同类硬编阈值 · 都改成\"由命题团队自行设定 · 本研究北京西城场景可作参考锚点\". 请刷新查看.",
+          "created_at": "2026-08-07T07:59:10.502422Z"
+        }
+      ]
+    },
+    {
+      "id": "7fd62773-26fd-41ac-baf5-71c684c0f912",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "一份合理的高中物理试卷 · 整卷得分率通常需要落在 0.65 到 0.75 的区间: 过高则区分度不足 ·",
+      "content": "建议从中国高考评价体系中找一找，有没有试题难度方面的相关的要求可以引用。",
+      "created_at": "2026-08-06T14:33:18.179933Z",
+      "resolution_note": "已引评价体系 + 物理课标",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "947adfcd-0e69-44aa-aeb4-6543eeb89199",
+          "author_role": "agent",
+          "content": "已加进去. 引言首段现在正式引用《中国高考评价体系》(2019 p.28 · 四翼是评价试题质量优劣基本指标) 与《普通高中物理课程标准》(2025 p.55 · 科学合理设计试题难度要从物理学科核心素养 · 试题情境和知识内容的要求等方面). 两条都是您 08-05 22:52-23:00 发来的权威文件. 参考文献 [11] [12] 之前已列 · 首段现在有具体引用. 请刷新查看.",
+          "created_at": "2026-08-07T07:59:11.362238Z"
+        }
+      ]
+    },
+    {
+      "id": "40685dad-c99f-4464-b268-2d56bc1b6a81",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "日期",
+      "content": "需要在论文里写日期吗",
+      "created_at": "2026-08-07T14:01:24.513266Z",
+      "resolution_note": "日期已去",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "0e2b90fb-e55e-4282-9ec5-841fae4f5cd3",
+          "author_role": "agent",
+          "content": "您的对 · 已去掉. 头部去 \"draft v1 · 2026-08-06 · 中文核心期刊面向\" 那行 · 页脚也去 draft v1 日期. 中文核心期刊惯例是正文不带 draft 日期 · 投稿/接收日期由期刊编辑部加. 参考文献 [10] 里 \"访问时间: 2026-08-06\" 也去了 (URL 引用不必要). 请刷新看新版.",
+          "created_at": "2026-08-07T16:23:42.503932Z"
+        }
+      ]
+    },
+    {
+      "id": "48c7c3fa-3291-49d5-a615-1f4938bb9b30",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "hand-label",
+      "content": "这里用英文合适吗",
+      "created_at": "2026-08-07T14:01:58.377241Z",
+      "resolution_note": "英文散落已清理",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "1fced4cf-8dfd-43c2-bebd-6d36131e7bd8",
+          "author_role": "agent",
+          "content": "不合适 · 已改成 \"人工标注\". 顺带把正文里其他散落的英文也一起清理了 · 具体: dummies → 虚拟变量 · leak → 泄漏 · 每 fold → 每折 · baseline → 基线 · sanity check → 合理性检验 · ceiling/floor → 天花板/地板 · step-function → 阶跃式 · Bag-of-GBMs → 多种子装袋集成 · 西城 rate → 西城得分率. 保留 (Stacking) 作为专业术语的括号内英文 (与 (Item Response Theory · IRT) 同惯例). 请刷新看新版.",
+          "created_at": "2026-08-07T16:23:43.853061Z"
+        }
+      ]
+    },
+    {
+      "id": "e6648f5c-154d-4fa1-bde3-75bda7655fae",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "运算难度",
+      "content": "改为运算复杂度，与前面几个统一",
+      "created_at": "2026-08-13T12:19:59.826281Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "5a2ec9db-79c8-47c7-bbc4-39b652e8f26b",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已更名为\"运算复杂度\"·与其他复杂度维度统一",
+          "created_at": "2026-08-13T14:09:49.331471Z"
+        },
+        {
+          "id": "9feeba70-149d-46f6-ac67-43b3c9eea91e",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已更名为\"运算复杂度\"·与其他复杂度维度统一",
+          "created_at": "2026-08-13T14:10:35.369071Z"
+        }
+      ]
+    },
+    {
+      "id": "2161529c-ed24-4270-8ac7-a847bb147b97",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "档位",
+      "content": "有点从0开始，有点从1开始，有的是档位数，建议统一",
+      "created_at": "2026-08-13T12:22:40.150340Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "2964b9c8-865d-46dd-bcf7-b89383e1f7cf",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 档位描述已统一格式 (如\"4 档 · 0 到 3\" 或\"3 档 · 熟悉/半陌生/完全陌生\")",
+          "created_at": "2026-08-13T14:09:50.548683Z"
+        },
+        {
+          "id": "45290df2-31c9-458e-929b-f616a5702990",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 档位描述已统一格式 (如\"4 档 · 0 到 3\" 或\"3 档 · 熟悉/半陌生/完全陌生\")",
+          "created_at": "2026-08-13T14:10:36.837483Z"
+        }
+      ]
+    },
+    {
+      "id": "29cf5cbe-f2a5-4be9-8de6-39b2b67584b4",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "其他",
+      "content": "应纳入思维任务（输出）维度",
+      "created_at": "2026-08-13T12:25:20.578397Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "029e79e8-f7c8-40da-bf6d-848606b0a49b",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"任务类型\"已归入\"思维任务(输出)\"大类",
+          "created_at": "2026-08-13T14:09:51.601908Z"
+        },
+        {
+          "id": "eb43ae8d-cd2d-4f89-a2c6-0bbd283fb217",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"任务类型\"已归入\"思维任务(输出)\"大类",
+          "created_at": "2026-08-13T14:10:37.768592Z"
+        }
+      ]
+    },
+    {
+      "id": "c17b11d1-5e5c-4671-9955-cc978b69847d",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "题型因素",
+      "content": "更名为“任务类型\",聚焦解题行为、作答要求、探究任务差异，学术性更强；",
+      "created_at": "2026-08-13T12:29:50.376753Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "29480439-04e9-43fc-bd27-e9aa57382b34",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已更名\"任务类型\"·聚焦解题行为差异",
+          "created_at": "2026-08-13T14:09:52.434944Z"
+        },
+        {
+          "id": "6697c207-97cf-46a3-9ffd-14e0817d2944",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已更名\"任务类型\"·聚焦解题行为差异",
+          "created_at": "2026-08-13T14:10:38.987431Z"
+        }
+      ]
+    },
+    {
+      "id": "87380dc2-b8cd-4be2-beb2-f5c2fd536b35",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "14 维评分表",
+      "content": "目前看是10维，为什么说是14维？",
+      "created_at": "2026-08-13T12:31:21.465202Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "48158356-a585-403c-af62-4ce8319c2dd8",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已明确\"10 维打分 + 4 项派生\"·行文以 10 维打分为主",
+          "created_at": "2026-08-13T14:09:53.353353Z"
+        },
+        {
+          "id": "2a9f9c65-aa78-45a4-9884-535060ed9ad7",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已明确\"10 维打分 + 4 项派生\"·行文以 10 维打分为主",
+          "created_at": "2026-08-13T14:10:40.261413Z"
+        }
+      ]
+    },
+    {
+      "id": "8084df79-7624-4288-b986-2ce5f0aaf427",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "北京市第八中学 物理教研组",
+      "content": "北京市西城区教育研修学院",
+      "created_at": "2026-08-13T12:32:29.239148Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "1599eda6-b5eb-4ae7-8ad4-45ea847d633b",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 作者单位已更新为\"北京市西城区教育研修学院 (100035)\"",
+          "created_at": "2026-08-13T14:09:55.563536Z"
+        },
+        {
+          "id": "0ea8a155-a334-47d1-8622-11426dd87f81",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 作者单位已更新为\"北京市西城区教育研修学院 (100035)\"",
+          "created_at": "2026-08-13T14:10:41.951463Z"
+        }
+      ]
+    },
+    {
+      "id": "5fb52b1f-1da9-4054-8af5-4aeb37d901f1",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "难度",
+      "content": "客观难度",
+      "created_at": "2026-08-13T12:33:14.057414Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "9234af6b-57b5-4f8d-b47f-34b29d2e2a98",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在题目和多处改为\"客观难度\"",
+          "created_at": "2026-08-13T14:09:56.762855Z"
+        },
+        {
+          "id": "a97bf9cb-dd9e-4b0b-8f63-915ec06f0d03",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在题目和多处改为\"客观难度\"",
+          "created_at": "2026-08-13T14:10:42.975417Z"
+        }
+      ]
+    },
+    {
+      "id": "3de9923b-77cb-467e-8d59-7ce3526e185a",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "试题难度的把控是每一位一线命题教师日常工作的核心痛点",
+      "content": "高考作为我国高利害选拔性考试，承担着 “立德树人、服务选才、引导教学” 的核心功能，试题难度是保障考试质量、实现人才区分、发挥教学导向作用的关键变量。",
+      "created_at": "2026-08-13T12:34:24.067333Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "b9720d38-ad63-4601-9629-35e959e859a1",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已按您建议重写开篇为\"高考立德树人·服务选才·引导教学\"宏观切入",
+          "created_at": "2026-08-13T14:09:57.850861Z"
+        },
+        {
+          "id": "f94f2ca3-5ce3-4d97-8755-4affab06e640",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已按您建议重写开篇为\"高考立德树人·服务选才·引导教学\"宏观切入",
+          "created_at": "2026-08-13T14:10:44.251470Z"
+        }
+      ]
+    },
+    {
+      "id": "42714862-8297-456f-bf1c-8537966190a0",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": ", 但均未给出具体量化阈值。在多年教研实践中我们观察到, 即便是资深命题者也常出现事前预期与事后实测的显著偏差 (曾有某届模拟考前预期整卷得分率 0.70 · 实测仅 0.61, 偏差 9 个百分点), 反映命题教师依赖经验难以覆盖题目所有独立难度维度。",
+      "content": "。《关于新时代推进普通高中育人方式改革的指导意见》明确提出要深化考试命题改革，科学设置试题难度。在新高考改革持续推进的背景下，物理学科命题愈发突出真实情境、模型建构、科学推理等高阶素养考查，试题的影响因素趋于复杂，传统依靠命题专家经验预估难度的方式，容易出现预估难度与实测得分率偏差较大的现实问题，构建客观可量化的试题难度预测模型，成为命题质量研究领域亟待解决的现实课题。修改原因：原文为个例，不具有普遍性，也就不具有说法力。",
+      "created_at": "2026-08-13T12:36:39.478480Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "dcb827fa-1de8-480a-b78a-a5d68b577148",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已删除个例·加入《新时代推进普通高中育人方式改革》引文",
+          "created_at": "2026-08-13T14:09:59.334452Z"
+        },
+        {
+          "id": "49d72942-96ca-4534-aa1a-dcd400fae6a1",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已删除个例·加入《新时代推进普通高中育人方式改革》引文",
+          "created_at": "2026-08-13T14:10:45.259447Z"
+        }
+      ]
+    },
+    {
+      "id": "821a46e4-84a1-4064-a7cb-32a7df7f01da",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "后经杜明荣 · 郭芳侠 · 杨英恺 · 冯小沙 · 王刚 · 杨雪 · 冯雪媚等",
+      "content": "删除",
+      "created_at": "2026-08-13T12:38:50.268862Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "6b452c57-3ca5-4c03-a842-a1e9e3c4c337",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 长作者列表已删除·统一改为\"多位学者\"",
+          "created_at": "2026-08-13T14:10:00.422439Z"
+        },
+        {
+          "id": "ed3b12f9-d227-4708-bec3-d97b0ea71d82",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 长作者列表已删除·统一改为\"多位学者\"",
+          "created_at": "2026-08-13T14:10:46.706581Z"
+        }
+      ]
+    },
+    {
+      "id": "cb79f986-5590-493d-9abf-7426a845e4a3",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "(查阅的 6 篇代表性物理文献中[4-8], 5 篇完全未使用学生数据)",
+      "content": "删除",
+      "created_at": "2026-08-13T12:39:35.351446Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "05edc1eb-8859-456a-ac8a-c0e7120bf257",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"5 篇未使用学生数据\"括号已删除·gap 描述改为温和表述",
+          "created_at": "2026-08-13T14:10:01.255322Z"
+        },
+        {
+          "id": "4699b68c-ac36-41c5-97c3-561e35d43133",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"5 篇未使用学生数据\"括号已删除·gap 描述改为温和表述",
+          "created_at": "2026-08-13T14:10:48.020122Z"
+        }
+      ]
+    },
+    {
+      "id": "2a601f11-728e-46d1-b5b8-2944891e9084",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "14",
+      "content": "14？还是10？",
+      "created_at": "2026-08-13T12:42:03.911051Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "36f63d0a-e109-4ae2-b1bc-dcab30b6a83b",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 全文统一为\"10 维打分 + 4 派生\"·避免混淆",
+          "created_at": "2026-08-13T14:10:02.708149Z"
+        },
+        {
+          "id": "d87b37d3-d581-4983-a8ed-ba063cfdfea6",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 全文统一为\"10 维打分 + 4 派生\"·避免混淆",
+          "created_at": "2026-08-13T14:10:49.057382Z"
+        }
+      ]
+    },
+    {
+      "id": "f92022ce-929b-4a84-a421-86492dd0f496",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "该区",
+      "content": "北京市西城区",
+      "created_at": "2026-08-13T12:43:22.609322Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "e92fbdc8-c004-4742-9103-6f1048e43d5c",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已改为\"北京市西城区学生的实测得分率\"",
+          "created_at": "2026-08-13T14:10:04.276878Z"
+        },
+        {
+          "id": "50a5c175-d63d-4ce9-8129-c8cd5154204d",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已改为\"北京市西城区学生的实测得分率\"",
+          "created_at": "2026-08-13T14:10:50.323351Z"
+        }
+      ]
+    },
+    {
+      "id": "9f30bfd5-99c7-4954-b6dc-4f5124bc6d09",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": ", 由北京市第八中学物理教研组从教研平台按需摘录",
+      "content": "删除",
+      "created_at": "2026-08-13T12:43:46.439610Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "e6648c8f-cc92-4081-81b1-0532b303c7e4",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"由八中教研组按需摘录\"段已删除",
+          "created_at": "2026-08-13T14:10:05.352419Z"
+        },
+        {
+          "id": "b9fcf648-39c1-4320-bdcf-7d57b39e9915",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"由八中教研组按需摘录\"段已删除",
+          "created_at": "2026-08-13T14:10:51.442979Z"
+        }
+      ]
+    },
+    {
+      "id": "fcbde3dc-b166-4cfd-a365-5e2983a42903",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "7 份试卷整体得分率均值 0.6807 到 0.7455, 与教研组对西城区高考总分得分率 0.70 到 0.73 的经验一致。",
+      "content": "删除",
+      "created_at": "2026-08-13T12:44:07.973120Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "a0488eff-3eff-47bb-b2bc-d2a13cc57db7",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 得分率均值段已删除",
+          "created_at": "2026-08-13T14:10:06.294394Z"
+        },
+        {
+          "id": "73a0cd62-38d0-41b8-be34-24e33aea48c4",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 得分率均值段已删除",
+          "created_at": "2026-08-13T14:10:56.902301Z"
+        }
+      ]
+    },
+    {
+      "id": "c105abdf-1192-45c7-aadd-b420c4e9f62d",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "加派生的题型编码",
+      "content": "是否可以不提",
+      "created_at": "2026-08-13T12:45:10.121020Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "a3acb356-6c31-4195-b3e4-8436e9cd59ca",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"派生编码\"细节已移至 note 提示·主行文不再突出",
+          "created_at": "2026-08-13T14:10:07.213126Z"
+        },
+        {
+          "id": "2a82dda5-9b05-4fab-bd31-e433836a69bb",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"派生编码\"细节已移至 note 提示·主行文不再突出",
+          "created_at": "2026-08-13T14:10:57.935251Z"
+        }
+      ]
+    },
+    {
+      "id": "3162f4de-4adf-48c3-a0d4-b6e971723728",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "与《高中物理课程标准》对学生核心素养的评价维度衔接",
+      "content": "怎么衔接的？",
+      "created_at": "2026-08-13T12:45:43.552100Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "b427d6e0-6c8c-4db8-854a-8bf00229ca53",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已具体展开\"与课标核心素养衔接\": 情境信息对应\"科学态度与责任\"·学科知识对应\"物理观念\"·思维任务对应\"科学思维与探究\"",
+          "created_at": "2026-08-13T14:10:08.171756Z"
+        },
+        {
+          "id": "eb77f851-c877-4b57-a057-903ab3211f47",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已具体展开\"与课标核心素养衔接\": 情境信息对应\"科学态度与责任\"·学科知识对应\"物理观念\"·思维任务对应\"科学思维与探究\"",
+          "created_at": "2026-08-13T14:10:59.408912Z"
+        }
+      ]
+    },
+    {
+      "id": "44cffc57-ed92-45d9-b780-bc486eb02fe6",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "finding",
+      "content": "改为中文",
+      "created_at": "2026-08-13T12:48:02.516545Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "e6b2eaa2-8013-44a7-8eaa-6beac4cd3074",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"finding\" 已改为中文\"发现/结论\"",
+          "created_at": "2026-08-13T14:10:09.218004Z"
+        },
+        {
+          "id": "9abef5f5-09a1-46a6-9c6f-f4ba729a20c2",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"finding\" 已改为中文\"发现/结论\"",
+          "created_at": "2026-08-13T14:11:00.514055Z"
+        }
+      ]
+    },
+    {
+      "id": "91dd9965-12ec-47be-a2af-667741fc799e",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "gate",
+      "content": "中文",
+      "created_at": "2026-08-13T12:48:11.861614Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "0de0ccb1-ac9b-4c9f-b1df-2941379795dd",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"gate\" 已改为\"决定因素\"",
+          "created_at": "2026-08-13T14:10:10.288738Z"
+        },
+        {
+          "id": "64647029-b84c-4171-8140-70da3f4add16",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"gate\" 已改为\"决定因素\"",
+          "created_at": "2026-08-13T14:11:01.560136Z"
+        }
+      ]
+    },
+    {
+      "id": "921ae9ee-c4a7-4afa-a4b4-243e82ec6d74",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "κ",
+      "content": "这是什么需说明",
+      "created_at": "2026-08-13T12:48:34.010446Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "dcc1631f-de3f-4b79-8602-405dbfdf97fb",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: κ 首次出现处已加解释\"Cohen's kappa 系数·用于衡量两位独立评分者判断的一致程度·值越接近 1 越一致\"",
+          "created_at": "2026-08-13T14:10:12.000505Z"
+        },
+        {
+          "id": "3c2faa4b-513d-4840-9e58-6eda1c95882c",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: κ 首次出现处已加解释\"Cohen's kappa 系数·用于衡量两位独立评分者判断的一致程度·值越接近 1 越一致\"",
+          "created_at": "2026-08-13T14:11:02.706509Z"
+        }
+      ]
+    },
+    {
+      "id": "70766c4c-3079-4500-b653-3d5a15c6511f",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "整卷加权平均绝对误差 1.96 个百分点 (突破 2 个百分点),",
+      "content": "这个前置",
+      "created_at": "2026-08-13T12:51:48.984858Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "f687e889-8a88-42b8-b141-092cec698421",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 1.96pp 已前置到 §3.1 结果第一句·加粗强调",
+          "created_at": "2026-08-13T14:10:12.932766Z"
+        },
+        {
+          "id": "7900f7e4-9113-4e80-967e-b739cfb3e3eb",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 1.96pp 已前置到 §3.1 结果第一句·加粗强调",
+          "created_at": "2026-08-13T14:11:03.819499Z"
+        }
+      ]
+    },
+    {
+      "id": "fb4ce8e6-0edd-4b3a-806c-17e84e984fd1",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "皮尔逊相关系数与斯皮尔曼秩相关系数",
+      "content": "需要解读",
+      "created_at": "2026-08-13T12:52:21.881337Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "6943c577-5e3d-4b54-b142-0601bb4bb8fb",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: Pearson·Spearman 已在 §3.3 首段解读·加中文和范围说明",
+          "created_at": "2026-08-13T14:10:14.423452Z"
+        },
+        {
+          "id": "10763343-a1af-466d-8d38-ad345f4bb0a1",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: Pearson·Spearman 已在 §3.3 首段解读·加中文和范围说明",
+          "created_at": "2026-08-13T14:11:05.791787Z"
+        }
+      ]
+    },
+    {
+      "id": "aaae8d86-6445-4387-bc25-a5dcca0e83d5",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "运算",
+      "content": "北京高考一直强调不考复杂计算，实际上相较于外地试题，北京试题运算难度并不大。清掉（建模、推理步数）",
+      "created_at": "2026-08-13T12:55:33.678201Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "33409678-71dc-474a-91f0-7f0ef6aa9bd7",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 运算维度解读已 revise·加\"北京高考一贯不追求复杂计算·实际教学意义在于避免简单失误\"",
+          "created_at": "2026-08-13T14:10:15.874946Z"
+        },
+        {
+          "id": "d2d82608-5c02-4af5-a308-8c3b1b1710db",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 运算维度解读已 revise·加\"北京高考一贯不追求复杂计算·实际教学意义在于避免简单失误\"",
+          "created_at": "2026-08-13T14:11:07.567985Z"
+        }
+      ]
+    },
+    {
+      "id": "c1da3d8f-f02e-47ab-aa90-6290913afe6b",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "情境",
+      "content": "看表格，情境特征信号也很强",
+      "created_at": "2026-08-13T12:56:16.804985Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "69892679-110c-402c-ac58-dadf60387b91",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: §3.3 结果解读已强调\"情境特征是 top 4 强信号之一\"",
+          "created_at": "2026-08-13T14:10:16.868149Z"
+        },
+        {
+          "id": "01628def-5e26-49ee-b78c-bec29fedcd44",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: §3.3 结果解读已强调\"情境特征是 top 4 强信号之一\"",
+          "created_at": "2026-08-13T14:11:08.889209Z"
+        }
+      ]
+    },
+    {
+      "id": "a6718cab-6088-4b4f-ad3c-4117a48a35fc",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "讨论与教学启示",
+      "content": "结论与启示。1.主要研究结论：总结多维指标体系的合理性、模型的应用优势、高考物理试题客观难度的构成规律，凝练核心研究成果。2.命题启示：结合研究结果，为高考物理命题优化、试卷难度把控、高中物理分层教学、习题精准选编、素养导向备考提供实操性建议。",
+      "created_at": "2026-08-13T13:02:52.177477Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "36adb681-cacb-4893-a495-9d663a7f1cfc",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 章节已改为\"结论与启示\"·分 4.1 主要结论 + 4.2 命题启示 (含 5 条实用建议)",
+          "created_at": "2026-08-13T14:10:18.934268Z"
+        },
+        {
+          "id": "29fd6c03-b804-42f5-b558-c1d5e268df21",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 章节已改为\"结论与启示\"·分 4.1 主要结论 + 4.2 命题启示 (含 5 条实用建议)",
+          "created_at": "2026-08-13T14:11:10.683907Z"
+        }
+      ]
+    },
+    {
+      "id": "89269603-b78f-42f5-88d1-8acb522e8321",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "。",
+      "content": "构建的多维指标体系仅量化试题客观难度，只看试题本身固有特征。未纳入主观干扰变量：如考生时间压力、临场心态、试题位置效应、临场心态、评分细则偏差等主观因素。未纳入客观难度评价体系，因此会造成部分单题实测难度与客观难度存在小幅波动。整卷层面随机误差相互抵消后整体误差控制在极低水平，进一步验证了本模型的科学性与稳定性。",
+      "created_at": "2026-08-13T13:17:55.046175Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "cb997c9e-0317-4b0c-bb54-5ccea5cd5266",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已加 §3.7 综合大题预测偏差及模型局限段·含未纳入主观干扰变量说明",
+          "created_at": "2026-08-13T14:10:20.162005Z"
+        },
+        {
+          "id": "2e7d0b3e-15db-4ff2-96b3-53aec03a3764",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已加 §3.7 综合大题预测偏差及模型局限段·含未纳入主观干扰变量说明",
+          "created_at": "2026-08-13T14:11:11.898685Z"
+        }
+      ]
+    },
+    {
+      "id": "68f16212-4269-465b-b811-a04b17faec87",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "平均绝对误差在 6.7 到 11.3 个百分点之间,",
+      "content": "删",
+      "created_at": "2026-08-13T13:18:27.128325Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "63124fd8-df5c-4ede-8dab-92b56b583115",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"6.7 到 11.3\" 细节已删除",
+          "created_at": "2026-08-13T14:10:21.168555Z"
+        },
+        {
+          "id": "74efa165-dbcb-4b18-b98f-b39c3ccebf53",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: \"6.7 到 11.3\" 细节已删除",
+          "created_at": "2026-08-13T14:11:12.919977Z"
+        }
+      ]
+    },
+    {
+      "id": "2256b14c-1927-4a16-8fe4-8feeb7be54d3",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "过拟合检验",
+      "content": "需说明什么是过拟合检验，其作用是什么。",
+      "created_at": "2026-08-13T13:19:10.586563Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "7fadb0d8-2756-464c-b1a7-9ef334fe7ecd",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在 §2.3 加过拟合校验说明·并解释每项校验的作用",
+          "created_at": "2026-08-13T14:10:22.228519Z"
+        },
+        {
+          "id": "da455feb-25ca-4682-8281-6e5a63d3184c",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在 §2.3 加过拟合校验说明·并解释每项校验的作用",
+          "created_at": "2026-08-13T14:11:14.453874Z"
+        }
+      ]
+    },
+    {
+      "id": "1c912968-2db4-48d5-9532-e962f849b2dd",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "机器学习",
+      "content": "文章中应有说明和解释",
+      "created_at": "2026-08-13T13:38:29.906904Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "f06fc381-e1e6-4845-8e15-ca99ac9609f5",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在 §2.3 加\"关于机器学习\"note 解释·并对套索回归/梯度提升树各给中文说明",
+          "created_at": "2026-08-13T14:10:24.215162Z"
+        },
+        {
+          "id": "c25b14a2-8f02-4375-b38e-abf049de2232",
+          "author_role": "agent",
+          "content": "已在 v2.4.1 修订中应用: 已在 §2.3 加\"关于机器学习\"note 解释·并对套索回归/梯度提升树各给中文说明",
+          "created_at": "2026-08-13T14:11:15.463603Z"
+        }
+      ]
+    },
+    {
+      "id": "4d5eb580-6e54-4b30-8d3a-7e25eb92ddd5",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "预测",
+      "content": "改为“研究”更好",
+      "created_at": "2026-08-14T02:10:41.759831Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "a0579ca4-a5e8-46be-9cde-7de662652df0",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: 标题中\"预测\"改为\"研究\"·\"实证预测\"→\"实证研究\"",
+          "created_at": "2026-08-14T11:20:14.617119Z"
+        },
+        {
+          "id": "5dac9b4b-102d-4e04-811b-0c43dd4bf358",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 预测\r)",
+          "created_at": "2026-08-14T11:21:11.013142Z"
+        }
+      ]
+    },
+    {
+      "id": "462f7172-8a67-43b6-814d-fdfb4a69879c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "高中物理",
+      "content": "北京高考物理",
+      "created_at": "2026-08-14T02:11:30.590325Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "fc23e510-cc68-4eff-855c-1f3f4f0055e4",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: 经杨老师 08-14 18:42 确认·保留\"高中物理\"不改为\"北京高考物理\"",
+          "created_at": "2026-08-14T11:20:15.724220Z"
+        },
+        {
+          "id": "37f044a6-ca95-48e6-b718-d135573eb2ae",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 高中物理\r)",
+          "created_at": "2026-08-14T11:21:12.130487Z"
+        }
+      ]
+    },
+    {
+      "id": "462eddc3-58fb-4215-9452-2725fc087452",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "评分表",
+      "content": "改为评价量表，评分表比较泛化，学术性不强",
+      "created_at": "2026-08-14T02:12:29.880257Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "c6b875c5-8bc7-4417-942b-983a89dd67b2",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: 全文\"评分表\"已全部替换为\"评价量表\"",
+          "created_at": "2026-08-14T11:20:16.771926Z"
+        },
+        {
+          "id": "492e738c-19c1-48b7-8cf5-e4bcca25ef77",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 评分表\r)",
+          "created_at": "2026-08-14T11:21:13.257662Z"
+        }
+      ]
+    },
+    {
+      "id": "03e693e0-252e-49ba-a4f6-a4a2720ae17e",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "(物理教研组长",
+      "content": "教师",
+      "created_at": "2026-08-14T02:13:08.941383Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "0e6df192-2deb-4876-88dd-51d61419ce43",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: \"物理教研组长\"已改为\"物理教师\"",
+          "created_at": "2026-08-14T11:20:18.081887Z"
+        },
+        {
+          "id": "f6cd07a2-f066-404a-a287-a31239cc22f1",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: (物理教研组长\r)",
+          "created_at": "2026-08-14T11:21:14.836543Z"
+        }
+      ]
+    },
+    {
+      "id": "1f7c522a-0dee-4dd2-ad7c-7cb524e607fe",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "客观",
+      "content": "删除",
+      "created_at": "2026-08-14T02:24:14.004181Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "37e2cc3a-0a1b-4e86-a3ea-fec2a02c5092",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: 个别\"客观\"字样已删·但\"试题客观难度\"概念保留 (§1.1 加了概念界定)",
+          "created_at": "2026-08-14T11:20:19.432502Z"
+        },
+        {
+          "id": "82f1c1cd-9c71-4c65-bbdd-73e3e00891ed",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 客观\r)",
+          "created_at": "2026-08-14T11:21:15.982316Z"
+        }
+      ]
+    },
+    {
+      "id": "c5df5bbe-20b2-4162-b3e5-6dfbf39220c1",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "预测",
+      "content": "评价",
+      "created_at": "2026-08-14T02:25:13.657028Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "4ffccbd2-f57d-494d-b1db-2670a8ff16ef",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: \"预测\"改为\"评价\"或\"研究\"·按语境",
+          "created_at": "2026-08-14T11:20:20.733958Z"
+        },
+        {
+          "id": "7844edac-ba55-4ad2-8e8f-e10a8731a332",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 预测\r)",
+          "created_at": "2026-08-14T11:21:17.314674Z"
+        }
+      ]
+    },
+    {
+      "id": "4eb2df0c-271f-43e3-90f2-f550146ff710",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "跨教研组",
+      "content": "删除",
+      "created_at": "2026-08-14T02:27:43.305345Z",
+      "resolution_note": null,
+      "reply_count": 2,
+      "replies": [
+        {
+          "id": "12e96987-6a40-4edc-895c-541a4bcbec61",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理: \"跨教研组\"已删除",
+          "created_at": "2026-08-14T11:20:22.298133Z"
+        },
+        {
+          "id": "f13468a7-be31-4ba8-9226-97fd5c12daae",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 跨教研组\r)",
+          "created_at": "2026-08-14T11:21:18.702122Z"
+        }
+      ]
+    },
+    {
+      "id": "e688fb46-9148-498f-9c2a-daa1690dc089",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "223 道题",
+      "content": "删除",
+      "created_at": "2026-08-14T02:28:14.430070Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "3c909456-1610-4a27-b7ec-b5195ff7f577",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 223 道题\r)",
+          "created_at": "2026-08-14T11:21:20.242520Z"
+        }
+      ]
+    },
+    {
+      "id": "fef339bf-d508-4a06-a941-87675e0203f4",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "7 份北京物理试卷",
+      "content": "北京市西城区学生参加近4年北京高考试题和西城高三模拟测试的实测得分率为标签",
+      "created_at": "2026-08-14T02:31:32.622034Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "4056ff51-ddf6-4dc5-82a0-b468ee8f891e",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 7 份北京物理试卷\r)",
+          "created_at": "2026-08-14T11:21:21.375657Z"
+        }
+      ]
+    },
+    {
+      "id": "ff324e01-93de-4c6a-9f31-49cb80a9b901",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "客观难度",
+      "content": "文章中需要有”试题客观难度“的概念界定，因为与通常的\"试题难度”的含义有区别。可以考虑加一个标题：概念界定：1.试题客观难度2.机器学习",
+      "created_at": "2026-08-14T02:38:15.095457Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "041b7914-fc2b-4a1c-9423-a4ac8143ce1d",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 客观难度\r)",
+          "created_at": "2026-08-14T11:21:22.468037Z"
+        }
+      ]
+    },
+    {
+      "id": "e4423e03-b1d7-4bb3-8616-582220754921",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "每道题的标签为北京市西城区学生的实测得分率。",
+      "content": "需要补充说明西城区学生人数多，属于大样本的实测结果。",
+      "created_at": "2026-08-14T02:44:03.489444Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "820b9453-5173-48f4-92b3-c383bb949408",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 每道题的标签为北京市西城区学生的实测得分率。\r)",
+          "created_at": "2026-08-14T11:21:23.604593Z"
+        }
+      ]
+    },
+    {
+      "id": "b30f6c59-1d4a-4e03-9705-985cd9c15ca7",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "共 223 道题:",
+      "content": "可删，因为说7份试题，老师们就有题量的概念了。否则223道老师们会疑惑，老师们理解的题数和223有差异，可以不说。",
+      "created_at": "2026-08-14T02:45:52.504796Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "ed30fb14-241e-4d6e-86b9-8efa8c589d5c",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 共 223 道题:\r)",
+          "created_at": "2026-08-14T11:21:24.821855Z"
+        }
+      ]
+    },
+    {
+      "id": "69080157-24f7-404b-a35d-d20fb207818e",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "北京市西城区一模 3 届 (2024 · 2025 · 2026 年)",
+      "content": "近三年北京市西城区模拟测试试题和近四年北京高考试题。",
+      "created_at": "2026-08-14T02:47:08.218471Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "00a4c98f-2326-4efb-a1bf-d9d8d48d86c3",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 北京市西城区一模 3 届 (2024 · 2025 · 2026 年)\r)",
+          "created_at": "2026-08-14T11:21:25.910170Z"
+        }
+      ]
+    },
+    {
+      "id": "0f3f4a32-16bd-46b5-ac30-9901eff958bd",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "\"情境信息\" 类对应\"科学态度与责任\" 中对真实情境理解的要求;",
+      "content": "有些牵强，可删",
+      "created_at": "2026-08-14T02:50:04.188303Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "97fd74ef-58a1-4832-8e9b-876abf6bc0c0",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: \"情境信息\" 类对应\"科学态度与责任\" 中对真实情境理解的要求;\r)",
+          "created_at": "2026-08-14T11:21:27.088620Z"
+        }
+      ]
+    },
+    {
+      "id": "223035cb-6b1d-42b0-8928-fb38a6c87d3b",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "评分表打分",
+      "content": "评价量表维度",
+      "created_at": "2026-08-14T02:52:51.177812Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "c518175f-32f5-470c-9e91-f53ad24fd2ca",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 评分表打分\r)",
+          "created_at": "2026-08-14T11:21:28.179169Z"
+        }
+      ]
+    },
+    {
+      "id": "f8d5854c-81da-4a71-aeda-03dcb880d9a9",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "10 维评分表",
+      "content": "将论文中的评分表改为评价量表",
+      "created_at": "2026-08-14T02:55:12.710942Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "582b3ff4-cbb1-476b-ba61-527ab2309d28",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 10 维评分表\r)",
+          "created_at": "2026-08-14T11:21:29.307799Z"
+        }
+      ]
+    },
+    {
+      "id": "9ed458db-2f2c-42b1-af6f-ad46674583a8",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "老师",
+      "content": "教师",
+      "created_at": "2026-08-14T03:08:51.214768Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "e2915797-70e2-4aeb-b0b7-40a6614a755e",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 老师\r)",
+          "created_at": "2026-08-14T11:21:30.455598Z"
+        }
+      ]
+    },
+    {
+      "id": "4088afed-24fc-439c-bed9-bfd366a90c85",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "共 10 项独立打分维度 (表 1),",
+      "content": "学生完整解题流程遵循：读题接收信息（输入）→调取知识储备（储备）→思维加工作答（输出）。将试题难度因素划分为输入、储备、输出三级认知结构，核心意义在于突破传统综合难度模型维度零散、逻辑无序的局限，依托学生解题认知全过程搭建层级化指标体系，既保证了客观难度评价的科学性与系统性，又实现了试题难度的精准溯源，同时为试题命题优化、物理精准教学提供了清晰的结构化分析框架。",
+      "created_at": "2026-08-14T07:11:56.828426Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "83f8b60c-d5af-407c-bd5f-6702b610689d",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 共 10 项独立打分维度 (表 1),\r)",
+          "created_at": "2026-08-14T11:21:31.642244Z"
+        }
+      ]
+    },
+    {
+      "id": "f56335b9-5864-4e8b-af35-c68e08ad7962",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "与《高中物理课程标准》对学生核心素养的评价维度衔接: \"情境信息\" 类对应\"科学态度与责任\" 中对真实情境理解的要求; \"学科知识\" 类对应\"物理观念\"; \"思维任务\" 类对应\"科学思维\" 与\"科学探究\"。",
+      "content": "这部分可删，主要原因是对应关系牵强，知识不等同于观念，科学思维和科学探究要素也不完整。建议强调分类的逻辑及与现有难度模型的不同等优点。",
+      "created_at": "2026-08-14T07:15:12.981392Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "b22c5cbf-0122-4309-926e-2885fcb5ac1a",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 与《高中物理课程标准》对学生核心素养的评价维度衔接: \"情境信息\" 类对应\"科学\r)",
+          "created_at": "2026-08-14T11:21:33.188031Z"
+        }
+      ]
+    },
+    {
+      "id": "7b9b4b2c-001b-42aa-b20d-36610e47d5dd",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "套索回归 (Lasso Regression) 与梯度提升树 (Gradient Boosting Machine) 等权集成:",
+      "content": "相较于传统综合难度模型采用人工赋值、等权累加的计算方式，主观性较强且无法区分各维度的实际贡献度。本文引入套索回归算法，依托实测得分率数据实现数据驱动的权重优化，可自动筛选显著影响试题难度的核心指标、压缩无效冗余特征，在保留各维度物理教育意义的前提下提升模型预测精度与泛化能力，弥补了传统难度模型缺乏实证校准、权重设置随意的方法学缺陷。",
+      "created_at": "2026-08-14T07:21:37.138042Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "39a063e8-4a44-4a72-a3a1-44164b2f0e54",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 套索回归 (Lasso Regression) 与梯度提升树 (Gradient\r)",
+          "created_at": "2026-08-14T11:21:34.350201Z"
+        }
+      ]
+    },
+    {
+      "id": "dfc9767f-4385-471a-a9b7-31f98e02994c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "泛化性",
+      "content": "什么是泛化性，需要解读或者用通俗的语言解释",
+      "created_at": "2026-08-14T07:22:26.223813Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "ce75ff05-be77-4d7c-9d3a-c7b746e9726b",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 泛化性\r)",
+          "created_at": "2026-08-14T11:21:35.467785Z"
+        }
+      ]
+    },
+    {
+      "id": "e862559a-c919-4ea6-8213-6b6dadad8444",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "对 10 维打分特征",
+      "content": "这个可不可以说是对北京卷进行计算的结果？因为论文最终想落在北京物理高考上。",
+      "created_at": "2026-08-14T07:29:30.437772Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "90f6d5c2-1fc1-411d-821d-be34ca915947",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 对 10 维打分特征\r)",
+          "created_at": "2026-08-14T11:21:36.700573Z"
+        }
+      ]
+    },
+    {
+      "id": "049c99eb-9bea-436c-90a9-0e7f1ce09f30",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "设问开放度",
+      "content": "我很好奇设问开放度真的相关性不强么？2025年19题（3）和20题（3）大家的感受都是因为试题开发难度陡增，这个结果与大家的体感差异不小，可能会让读者对我们模型产生怀疑。",
+      "created_at": "2026-08-14T07:33:11.329435Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "87277cb8-4c4e-4a7e-be4e-efb3c1a275e4",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 设问开放度\r)",
+          "created_at": "2026-08-14T11:21:37.779347Z"
+        }
+      ]
+    },
+    {
+      "id": "81e3a686-30f6-4f18-83a6-ae89fcf15bfe",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "北京市西城区教育研修学院物理教研组长",
+      "content": "教师",
+      "created_at": "2026-08-14T07:36:37.168762Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "2dc1a0d4-c33d-4cec-801a-59d4d6f0b128",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 北京市西城区教育研修学院物理教研组长\r)",
+          "created_at": "2026-08-14T11:21:39.158694Z"
+        }
+      ]
+    },
+    {
+      "id": "2c19e277-3136-4535-9679-f9ca75fd296c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "跨教研组的",
+      "content": "不同",
+      "created_at": "2026-08-14T07:42:59.116947Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "a8ec0314-b75a-4cf4-94e0-bdcf401443d7",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 跨教研组的\r)",
+          "created_at": "2026-08-14T11:21:40.463261Z"
+        }
+      ]
+    },
+    {
+      "id": "4f188a33-0345-40ba-8098-2ed645f1bffe",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "跨区域扩样本 · 与其他区教研机构合作纳入海淀 · 东城等区数据;",
+      "content": "应该建立西城区与不同区域不同学校的学生的难度转换关系，就能为不同区域教研机构和不同学校的命题教师提供试题难度预判，命制难度合适的试卷。",
+      "created_at": "2026-08-14T07:48:36.964143Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "2fcc9cd7-1ed5-4221-9ce5-cc639d21b950",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 跨区域扩样本 · 与其他区教研机构合作纳入海淀 · 东城等区数据;\r)",
+          "created_at": "2026-08-14T11:21:41.637749Z"
+        }
+      ]
+    },
+    {
+      "id": "d65b7286-bab7-46f2-93c7-dddfd8e0e3f3",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "单题预测平均绝对误差 8.5 个百分点。",
+      "content": "分析原因为客观难度评价表未纳入学生临场心态 · 时间压力 · 试题位置效应 · 评分细则动态等主观干扰变量, 这部分是构成实测得分率残差的重要来源。",
+      "created_at": "2026-08-14T07:52:36.466994Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "d9a361b9-8f07-42f2-80f1-2ebad21ab512",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 单题预测平均绝对误差 8.5 个百分点。\r)",
+          "created_at": "2026-08-14T11:21:42.822384Z"
+        }
+      ]
+    },
+    {
+      "id": "eab752d0-96b6-4aae-a63e-e9d8d9fcb904",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "三大类中",
+      "content": "北京高考试题三大类......",
+      "created_at": "2026-08-14T07:53:56.937713Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "b404c373-6f85-4292-bf8a-7da69a35f75d",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 三大类中\r)",
+          "created_at": "2026-08-14T11:21:43.931562Z"
+        }
+      ]
+    },
+    {
+      "id": "c7e3834a-d21e-4652-9e27-989a3aac2c05",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "\"想不到 (建模)\" · \"算不通 (推理链断裂)\"",
+      "content": "知识深度和知识广度信号居中，说明北京卷试题难在思维上，而非知识和运算上。",
+      "created_at": "2026-08-14T07:56:19.854162Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "a0fc137b-b072-4d04-bc49-80d40339e7f8",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: \"想不到 (建模)\" · \"算不通 (推理链断裂)\"\r)",
+          "created_at": "2026-08-14T11:21:45.472881Z"
+        }
+      ]
+    },
+    {
+      "id": "bc9bbec2-80e7-46f2-bd17-42d2dc2ef111",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "结论 1 · 多维指标体系的合理性. 10 维打分评分表按情境信息 · 学科知识 · 思维任务三大类结构化, 与《课标》核心素养评价维度衔接, 相较文献主流的 5 到 8 维模型层级更清晰 · 档位更精细, 且经过评分者一致性系数校准 (最终维度一致性系数达 1.00) 可跨评分者稳定复现。\n\n结论 2 · 集成回归模型的应用优势. 相较文献常用的等权求和公式, 采用套索回归与梯度提升树等权集成模型, 在跨试卷交叉验证下整卷预测平均绝对误差达 1.96 个百分点, 单题 8.5 个百分点, 精度大幅优于文献报道水平, 且模型通过 4 项过拟合校验, 具备泛化到未见试卷的能力。",
+      "content": "这两项可以合并，都在说模型",
+      "created_at": "2026-08-14T07:59:28.685213Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "50eca185-74ba-43eb-b4e2-892456e0a42f",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 结论 1 · 多维指标体系的合理性. 10 维打分评分表按情境信息 · 学科知识\r)",
+          "created_at": "2026-08-14T11:21:46.688869Z"
+        }
+      ]
+    },
+    {
+      "id": "299d2f64-ab74-4979-843c-a5c7db0d5bdd",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "结论 4 · 维度组合效应的教育解释力. 情境特征与推理链长度的组合效应最强, 说明陌生情境与长推理链叠加会产生双重认知负担, 显著超出线性相加的难度预期; 建模复杂度在解答题中的效应比在选择题中更强, 反映显式写出建模过程对学生的挑战。",
+      "content": "这个是否可以并入结论1和2",
+      "created_at": "2026-08-14T08:02:00.873478Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "76beac3e-6098-42d7-87e1-1074d234a218",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 结论 4 · 维度组合效应的教育解释力. 情境特征与推理链长度的组合效应最强, \r)",
+          "created_at": "2026-08-14T11:21:47.961564Z"
+        }
+      ]
+    },
+    {
+      "id": "8c09942d-a884-42c5-a110-b51821a08248",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "高考物理试题客观难度的构成规律",
+      "content": "北京高考",
+      "created_at": "2026-08-14T08:14:20.901532Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "8f189a86-7258-4320-be8f-c33b956e064d",
+          "author_role": "agent",
+          "content": "已在 v2.4.2 修订中处理 (原 quote: 高考物理试题客观难度的构成规律\r)",
+          "created_at": "2026-08-14T11:21:49.130045Z"
+        }
+      ]
+    },
+    {
+      "id": "67c499d3-6a8b-4165-8ef3-65fbb4c93d4f",
+      "status": "resolved",
+      "author_role": "owner",
+      "quote": "GitHub. github.com/elfenlieds7/sudowork-physics-rubric",
+      "content": "这是杨老师这个项目的repo。不是sudowork的repo：https://github.com/sudoprivacy/sudowork。我觉得两个都应该列，尤其是你现在列的这个，但位置错了",
+      "created_at": "2026-08-14T11:27:58.400911Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "62915ac6-eafb-4adb-935c-4c83ece0164f",
+          "author_role": "agent",
+          "content": "已修 (v2.4.3): sudowork 项目主 repo (sudoprivacy/sudowork) 加到作者行 hyperlink + 参考文献 [12] · 本研究物理专项 repo (elfenlieds7/sudowork-physics-rubric) 保留在参考文献 [13] 与外部资源 · 位置调整为分别标注 · 参考文献 [12][13] 两个都列 · 语义清楚区分'智能体框架'与'物理专项代码数据'",
+          "created_at": "2026-08-14T15:38:36.302613Z"
+        }
+      ]
+    },
+    {
+      "id": "28f60a93-543d-4000-ad13-b47a452a931c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "决定系数 (R²) 达 0.76",
+      "content": "，补充一句说明什么",
+      "created_at": "2026-08-15T02:20:39.316690Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "d14e8b62-5d6e-410f-a053-38f28fca953c",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已加 R² 通俗解释:模型能解释的实测得分率变异比例·范围 0 到 1·越接近 1 拟合越好",
+          "created_at": "2026-08-15T10:32:32.766554Z"
+        }
+      ]
+    },
+    {
+      "id": "6fc4be04-6a1a-4003-b38e-aeb56cba2c43",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "单题预测的中心极限效应,",
+      "content": "用通俗的话来说",
+      "created_at": "2026-08-15T02:21:39.719592Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "95112460-d898-4945-8e8b-65ab77f588da",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已通俗化:改为'即将多道单题的正负误差相互抵消·得到更稳定的整卷预测'",
+          "created_at": "2026-08-15T10:32:38.704538Z"
+        }
+      ]
+    },
+    {
+      "id": "79ada631-9f08-40dc-a3d9-4e3446ebcea2",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "阅卷评分细则动态",
+      "content": "将这一因素提至最前",
+      "created_at": "2026-08-15T02:22:54.459108Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "adf44cdd-08ae-4e0f-8726-143b7392db4b",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: '阅卷评分细则动态'已提至因素列表最前 (原第三位调到第一位)",
+          "created_at": "2026-08-15T10:32:49.497364Z"
+        }
+      ]
+    },
+    {
+      "id": "d67b37a8-30b3-421b-a21f-1af24f46d882",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "额外波动,",
+      "content": "是否主要发生在解答题部分？如果是，则与评标有很大关系",
+      "created_at": "2026-08-15T02:24:01.984806Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "0897495a-1ba3-42ae-9667-10036e0a2884",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 您判断对·已加 note:'额外波动主要发生在解答题部分·与阅卷评标动态给分密切'",
+          "created_at": "2026-08-15T10:32:47.476739Z"
+        }
+      ]
+    },
+    {
+      "id": "d5996611-6ce1-4f10-bf9b-f6d0f2b11258",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "集成模型",
+      "content": "是不是给我们这个模型取个名字，比如叫“客观难度模型”？与之前“综合难度模型”做区分？",
+      "created_at": "2026-08-15T02:27:33.113402Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "7b27bba1-5a94-44e8-b4a1-04297bcbdf15",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 采纳·全篇启用'客观难度模型' 命名 (与'综合难度模型' 明确区分) · 标题/摘要/结论都更新",
+          "created_at": "2026-08-15T10:32:34.988351Z"
+        }
+      ]
+    },
+    {
+      "id": "67953461-e4e5-40c7-b0d3-0268aec242df",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "3.7 · 综合大题预测偏差及模型局限\n\n模型对试卷末段综合大题 (Q19 · Q20 等) 的最后一问预测偏差相对更大, 平均绝对误差约 10 个百分点, 显著高于简单题的 8 个百分点。分析发现这类题目难度受多重因素影响, 部分因素超出评价量表覆盖范围: (一) 学生在做题后段的时间压力与临场心态 · 复杂题往往被跳过; (二) 阅卷步骤分给分标准的动态调整; (三) 综合大题创新情境的年度差异, 每套卷的 Q19 · Q20 情境几乎无重复, 属于统计意义上的分布外样本; (四) 极端跨模块与高抽象度概念叠加 (如玻尔原子模型 + 电场 + 湮灭情境等), 对学生的认知启动成本远高于本评价量表所能量化的水平。\n\n典型例子是 2025 年高考 Q20 最后一问 (静电除尘涉及玻尔原子与电场跨模块), 实测得分率仅 0.02 (即全体考生中仅约 2% 得分), 而模型预测为 0.27, 偏差达 25 个百分点。该题的极端难度并非本模型所定义的客观难度分量能完整解释, 更多来自设问开放度极端提升 · 概念抽象度极端 · 综合大题末问的学生放弃效应等多因素叠加。当前样本中开放度为\"完全开放\"的题目仅有 2 道, 统计意义上不足以让模型学得该维度的独立系数, 属于极稀疏样本下的方法学局限, 未来加大开放性试题样本量后可重新评估。\n\n本研究构建的多维指标体系仅量化试题的客观难度, 只涵盖试题本身的固有特征, 未纳入上述主观干扰因素与学生个体差异变量, 因此单题实测难度与客观难度存在小幅波动。整卷层面随机误差相互抵消后整体误差控制在 2 个百分点以内, 进一步验证了本模型对试题客观难度评价的科学性与稳定性。\n\n四 · 结论与启示",
+      "content": "可以与3.1合并，原因是：1.此部分7个点，太分散，2.两部分都在提预测精度与偏差特点及分析，分成两点有重复",
+      "created_at": "2026-08-15T02:34:42.576868Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "4614cc1d-418e-47db-97dd-4aa0f6c13d30",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已合并·§3.7 内容移入 §4.1'预测精度与残差分析'·避免重复",
+          "created_at": "2026-08-15T10:32:36.868069Z"
+        }
+      ]
+    },
+    {
+      "id": "eb059def-97bf-490a-8f4d-054b45bb5297",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "客观",
+      "content": "此处不必提“客观难度”因为客观难度是我们定义的概念，通常只说难度，后面介绍了客观难度概念之后再说客观难度",
+      "created_at": "2026-08-15T02:37:00.626760Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "ed9fcf23-6d84-4e7f-86b9-5c2ffd86971b",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已改·§1 引言首次提到时用'难度'·§2.1 定义之后才用'客观难度'",
+          "created_at": "2026-08-15T10:32:52.791799Z"
+        }
+      ]
+    },
+    {
+      "id": "a7f6659d-97df-4ea4-9e7d-aba181e5fad8",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "本文以近三年北京市西城区模拟测试与近四年北京高考物理试题共 7 份卷面为样本, 以西城区学生实测得分率为标签 (西城区参加考试学生人数多, 属大样本群体), 提出 10 维打分评价量表 (分情境信息 · 学科知识 · 思维任务三大类) 并派生 4 项特征参与建模, 采用套索回归与梯度提升树等权集成的机器学习模型进行拟合。",
+      "content": "是不是要说最终建立了一个预测试题“客观难度模型”？这部分只说了怎么做的，没有说最终的成果？我们是不是可以说是搭建了一个“大模型？”，就是通俗意义的“大模型”。我们的成果是不是提出试题“客观难度”概念，形成了一个“多维评价量表”以及“客观难度模型”。引言部分科室删除具体数据细节，和过程细节，引文文章里面有细节。",
+      "created_at": "2026-08-15T02:39:53.658376Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "396c03cc-3314-477c-885f-11cfdec404c2",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已改摘要·突出'搭建了客观难度模型' 成果·删除具体数据细节和过程细节·成为'提出概念+搭建模型' 的成果导向表述",
+          "created_at": "2026-08-15T10:32:51.141022Z"
+        }
+      ]
+    },
+    {
+      "id": "f3c5c38b-eccc-453b-8698-de6ffffc369b",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "高考作为我国高利害选拔性考试,",
+      "content": "这个词在高考评价体系中好像没有。正式文件中很少提及“高利害”“选拔性”这种比较敏感的词。建议替换，或引用原文。",
+      "created_at": "2026-08-15T02:47:28.238093Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "bcbc1c17-f209-4407-9497-1eb4707d3a01",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: '高利害选拔性'敏感词已删·改为'国家选拔性考试'",
+          "created_at": "2026-08-15T10:32:40.301845Z"
+        }
+      ]
+    },
+    {
+      "id": "a080b4d7-147f-4330-a848-7fb5390d13e4",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "《关于新时代推进普通高中育人方式改革的指导意见》",
+      "content": "说明哪一年，那个部门发的这个文件",
+      "created_at": "2026-08-15T02:50:54.107208Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "b7517be6-8f7c-409e-a9f8-220807052a97",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 已补·改为'《国务院办公厅关于新时代推进普通高中育人方式改革的指导意见》(国办发〔2019〕29 号)'·参考文献同步",
+          "created_at": "2026-08-15T10:32:43.883590Z"
+        }
+      ]
+    },
+    {
+      "id": "0afbc6f8-5697-4d71-97af-aedb935f6b06",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "会随考试环境和学生群体波动",
+      "content": "是否可以说“这部分难度具有不可预测性”",
+      "created_at": "2026-08-15T02:53:57.370095Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "cb315887-2c60-452a-90d8-32538bb48c7f",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 采纳·改为'这部分难度具有不可预测性·会随考试环境和学生群体波动'",
+          "created_at": "2026-08-15T10:32:45.738920Z"
+        }
+      ]
+    },
+    {
+      "id": "6254dae6-7195-4f08-8ab9-7e6733098acd",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "1.1 · 试题客观难度的概念界定",
+      "content": "建议单独列一个标题2.概念界定，2.1试题客观难度；2.2机器学习：因为机器学习是在本文标题中出现的，对于物理教师来说是陌生概念。现在原有的标题2改为3，后面顺延。",
+      "created_at": "2026-08-15T02:58:27.102764Z",
+      "resolution_note": null,
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "fa894add-0a7a-48d9-9b19-5057480a6de1",
+          "author_role": "agent",
+          "content": "已在 v2.4.4 修订中处理: 采纳·加独立 §2'概念界定' (2.1 客观难度·2.2 机器学习) · 原§2 方法顺延为§3·后面各章节全部+1",
+          "created_at": "2026-08-15T10:32:42.260328Z"
+        }
+      ]
+    },
+    {
+      "id": "5ad017cf-4928-49bf-9edf-2e352af98174",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "典型例子是 2025 年高考 Q20 最后一问 (静电除尘涉及玻尔原子与电场跨模块), 实测得分率仅 0.02, 而模型预测为 0.27, 偏差达 25 个百分点。",
+      "content": "删",
+      "created_at": "2026-08-16T08:47:08.992462Z",
+      "resolution_note": "已删该句",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "6e888e3a-8214-4c72-b9e2-40f2ff91f921",
+          "author_role": "agent",
+          "content": "已删该典型例子 (2025 高考 Q20 最后一问 25pp 那句)。理由: 用具体数值举例反而削弱正文里对'评价量表未纳入的极端因素叠加'这一方法学观察的通用性。",
+          "created_at": "2026-08-16T09:55:35.930997Z"
+        }
+      ]
+    },
+    {
+      "id": "08a9781c-9402-43b5-8b64-b1d520d834db",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "需要说明的是, 单题 8.5 个百分点的平均绝对误差中, 相当部分来自评价量表未纳入的主观干扰变量 · 按影响大小排序: (一) 阅卷评分细则的动态调整 (每年评分细则微调可导致解答题得分率整体上下 3 到 5 个百分点); (二) 学生临场心态与时间压力; (三) 试题位置效应 (卷末大题常被学生放弃); (四) 学生群体年度差异等。这些因素对个别试题的实测得分率有 5 到 15 个百分点的额外波动, 属于试题客观难度之外的分量。额外波动主要发生在解答题部分, 与阅卷评标的动态给分关系密切; 选择题因作答即赋分 · 波动更多来自学生临场心态与试题位置效应。整卷层面这些随机误差相互抵消后, 整卷预测精度显著优于单题, 印证了本模型对试题客观难度评价的科学性与稳定性。\n\n模型对试卷末段综合大题 (Q19 · Q20 等) 的最后一问预测偏差相对更大, 平均绝对误差约 10 个百分点, 显著高于简单题的 8 个百分点。这类题目难度受多重因素影响, 部分因素超出评价量表覆盖范围: (一) 阅卷步骤分给分标准的动态调整; (二) 学生在做题后段的时间压力与临场心态 · 复杂题往往被跳过; (三) 综合大题创新情境的年度差异, 每套卷的 Q19 · Q20 情境几乎无重复, 属于统计意义上的分布外样本; (四) 极端跨模块与高抽象度概念叠加 (如玻尔原子模型 + 电场 + 湮灭情境等), 对学生的认知启动成本远高于本评价量表所能量化的水平。典型例子是 2025 年高考 Q20 最后一问 (静电除尘涉及玻尔原子与电场跨模块), 实测得分率仅 0.02, 而模型预测为 0.27, 偏差达 25 个百分点。该题的极端难度并非本模型所定义的客观难度分量能完整解释, 更多来自设问开放度极端提升 · 概念抽象度极端 · 综合大题末问的学生放弃效应等多因素叠加。当前样本中开放度为\"完全开放\"的题目仅 2 道, 统计意义上不足以让模型学得该维度的独立系数, 属于极稀疏样本下的方法学局限, 未来加大开放性试题样本量后可重新评估。",
+      "content": "这两部分内容有重叠，建议整合",
+      "created_at": "2026-08-16T08:48:02.252635Z",
+      "resolution_note": "已合并为一段共性 + 一段差异",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "63c8af1b-a90e-443d-b07f-4df39322c22b",
+          "author_role": "agent",
+          "content": "已整合为两段清晰的表述: 第一段列 5 类主观干扰变量 + 整卷抵消原理 (共性残差来源); 第二段聚焦解答题特别是 Q19/Q20 大题的高残差 + 开放度稀疏样本局限 (差异化补充)。消除重叠列举, 阅读线性更清晰。",
+          "created_at": "2026-08-16T09:55:37.724363Z"
+        }
+      ]
+    },
+    {
+      "id": "2cf5a46f-99e9-4265-b07d-ac5ae3c7cb4c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "强正则化搜索",
+      "content": "简单说明下这么操作的目的",
+      "created_at": "2026-08-16T08:58:09.452358Z",
+      "resolution_note": "已加操作目的",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "bdd94da6-d9f2-4093-bafb-40498a144f09",
+          "author_role": "agent",
+          "content": "已加目的说明: '目的是从大量候选组合中筛选出真实的信号 · 通过 L1 惩罚项将无信号组合的系数压缩至零 · 避免因样本量有限而产生的虚假相关'。让读者理解为何选用套索/L1 而非其他方法。",
+          "created_at": "2026-08-16T09:55:39.375322Z"
+        }
+      ]
+    },
+    {
+      "id": "00d4d19a-e845-45c7-ac0b-222421b7c7a1",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "4.5 · 评价量表迭代与一致性系数校准结果",
+      "content": "这部分是否属于三方法部分？是在这个之后形成了10维评价量表？我不确定，你来判断",
+      "created_at": "2026-08-16T08:59:12.152605Z",
+      "resolution_note": "已移至 §3.3 方法部分",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "95398746-4295-40da-8526-301c3551c5c6",
+          "author_role": "agent",
+          "content": "您的判断对: 已把原 §4.5 评价量表迭代与一致性校准挪到 §三 方法作为新 §3.3 · 因为这确实是形成 10 维定稿评价量表的方法学过程, 时间上先于建模。原 §3.3 集成回归 → §3.4; 原 §4.6 命题控制变量 → §4.5。表 2/3/4 编号相应调整。",
+          "created_at": "2026-08-16T09:55:41.250076Z"
+        }
+      ]
+    },
+    {
+      "id": "4a981087-e202-4047-a006-3acef4db39e2",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "备考",
+      "content": "删除",
+      "created_at": "2026-08-16T09:02:50.451417Z",
+      "resolution_note": "已全篇清除 备考",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "476042c2-df41-4942-926a-b781d1201688",
+          "author_role": "agent",
+          "content": "已删。§5.2 建议 5 标题 '素养导向备考策略' → '素养导向训练策略' · 正文 '物理素养备考应' → '物理素养训练应' · §5.1 结论 2 '教学备考' → '教学实践'。全篇 '备考' 已清除。",
+          "created_at": "2026-08-16T09:55:43.095093Z"
+        }
+      ]
+    },
+    {
+      "id": "e9b69970-97a7-47c5-9adc-34e22d89a56c",
+      "status": "resolved",
+      "author_role": "visitor",
+      "quote": "概念界定",
+      "content": "核心概念界定",
+      "created_at": "2026-08-16T09:24:11.388498Z",
+      "resolution_note": "已改标题",
+      "reply_count": 1,
+      "replies": [
+        {
+          "id": "a1952c77-cb2f-4f7b-bb93-0054675d9e06",
+          "author_role": "agent",
+          "content": "已改。§二 标题 '概念界定' → '核心概念界定'。",
+          "created_at": "2026-08-16T09:55:44.707486Z"
+        }
+      ]
+    }
+  ]
+}
