@@ -1,6 +1,8 @@
 # 项目文件结构 · SSOT
 
-**最后更新**: 2026-08-15 · **当前 canonical 版本**: v2.4
+**最后更新**: 2026-10-29 · **当前主计划**: v3.0（语义决策模型评测与领域适配）
+
+下列 v2.4 量表、标签和训练脚本保留为历史基线；当前工作以主 SSOT 上方的新计划为准。新路线尚未完成精度评测。
 
 本文档描述本项目所有材料的组织方式 · 覆盖:
 - 📂 **GitHub 公开**部分 (本 repo 内 · 可 clone)
@@ -19,7 +21,7 @@ sudowork-physics-rubric/
 │
 ├── deliverables/                # 交付产物 · 面向读者
 │   ├── paper/                   # 📄 论文 (v2.4.4)
-│   ├── rubric/                  # 📊 主 SSOT (living v2.4)
+│   ├── rubric/                  # 📊 主 SSOT（计划 v3.0 + 完整旧版历史区）
 │   └── archive/                 # 历史快照 (spec / calibration 已并入主 SSOT)
 │
 ├── data/                        # 数据
@@ -48,7 +50,7 @@ sudowork-physics-rubric/
 | 目录 / 文件 | 用途 | Shareone URL |
 |-------------|------|--------------|
 | `paper/v1.html` | **论文 v2.4.4** · 独立发表版 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) |
-| `rubric/v2.html` | **主 SSOT (living v2.4)** · 项目全景 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
+| `rubric/v2.html` | **主 SSOT（计划 v3.0）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
 | `archive/spec_2026-08-08_snapshot/` | 原独立 spec 页 (内容已并入主 SSOT 附录 E) | 已 dead |
 | `archive/calibration_2026-08-09_snapshot/` | 原独立 kappa study 页 (已并入主 SSOT 附录 F) | 已 dead |
 | `archive/bungee_solution/` | 早期探索 · 不再维护 | 无 |
@@ -156,7 +158,7 @@ sudowork-physics-rubric/
 
 | URL | 用途 | 对应本地 |
 |-----|------|----------|
-| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT (living v2.4) | `deliverables/rubric/v2.html` |
+| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT（计划 v3.0 + 历史区） | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 论文 (v2.4.4) | `deliverables/paper/v1.html` |
 
 **已废弃 URL** (tombstoned · HTTP 410):

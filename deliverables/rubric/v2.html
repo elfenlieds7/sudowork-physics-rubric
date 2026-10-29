@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>物理试题难度预测 · 评分表 v2 · 5 试卷交叉验证 · 教材<t>场景</t>+模式拆分</title>
+<title>物理试题得分率预测 · 下一阶段工作计划 v3.0</title>
 <script>
   MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
 </script>
@@ -80,8 +80,215 @@
   footer.doc{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);text-align:center;}
   footer.doc a{color:var(--accent);border-bottom:none;}
 </style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.ssot-next,.ssot-archive,.ssot-footer{max-width:1120px;margin:0 auto;padding:0 32px}
+.ssot-next{--mint:#9ae0c4;--subtle:#b4bcbf;--line:#343d43;--surface:#1c2429;padding-top:48px}
+.ssot-next h1,.ssot-next h2,.ssot-next h3{font-family:"PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:0;border:0;padding:0;color:#f3f5ef}
+.ssot-next h1{font-size:clamp(28px,3.7vw,43px);line-height:1.35;margin:18px 0}
+.ssot-next h1 span{color:var(--mint);font-size:.74em;font-weight:500}
+.ssot-next h2{font-size:25px;line-height:1.45;margin:9px 0 18px}
+.ssot-next h3{font-size:17px;line-height:1.5;margin:0 0 12px}
+.ssot-next p{margin:12px 0;color:#d6dddc}
+.ssot-next a,.ssot-archive-intro a{color:#a9d8e6}
+.ssot-eyebrow,.ssot-section-label{color:#a7bdba;font-size:12px;letter-spacing:.08em}
+.ssot-lead{max-width:840px;font-size:17px;line-height:1.8}
+.ssot-badges{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0 28px}
+.ssot-badges span,.ssot-pill{display:inline-block;border:1px solid #46575b;background:#202d31;border-radius:20px;padding:3px 11px;font-size:12px;color:#c9d8da;white-space:normal}
+.ssot-badges .ssot-amber{color:#f1d7a7;background:#332d23;border-color:#625539}
+.ssot-nav{display:flex;gap:6px;overflow-x:auto;position:sticky;top:0;background:#16181cf5;z-index:5;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;scrollbar-width:thin}
+.ssot-nav a{white-space:nowrap;padding:5px 11px;border:0;border-radius:5px;font-size:13px}
+.ssot-nav a:hover{background:#283238}
+.ssot-section{padding:36px 0;border-bottom:1px solid var(--line);scroll-margin-top:70px}
+.ssot-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:25px 0}
+.ssot-metrics article{padding:20px 18px;background:#282720;border:1px solid #5a5140;border-radius:12px}
+.ssot-metrics span{font-size:12px;color:#c3b99d;display:block}
+.ssot-metrics strong{font-size:35px;font-variant-numeric:tabular-nums;color:#f2d09a;display:block;line-height:1.4;margin-top:13px}
+.ssot-metrics strong small{font-size:12px;color:#d1c5ad;font-weight:400}
+.ssot-metrics p{font-size:13px;margin:5px 0 0}
+.ssot-metrics .ssot-scope{background:#1d2b30;border-color:#3c5861}
+.ssot-metrics .ssot-scope span{color:#b2ccd2}
+.ssot-metrics .ssot-scope strong{color:#b5dfeb}
+.ssot-metrics .ssot-scope small{color:#b2ccd2}
+.ssot-callout{background:#23332e;border:1px solid #46645a;border-left:4px solid var(--mint);padding:16px 18px;border-radius:7px;margin:18px 0;color:#d4e8de;font-size:14px}
+.ssot-next .ssot-note{font-size:13px;color:#aab6b7;line-height:1.8}
+.ssot-next .ssot-note a{color:#b5d7e2}
+.ssot-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.ssot-card{background:var(--surface);border:1px solid var(--line);padding:22px;border-radius:10px;min-width:0}
+.ssot-card ul,.ssot-card ol{padding-left:22px;margin:6px 0}
+.ssot-card li{padding-bottom:7px;font-size:14px;color:#d1dcda}
+.ssot-card p{font-size:14px}
+.ssot-diagram{background:#1a2227;border:1px solid var(--line);border-radius:10px;padding:20px 14px;overflow-x:auto;margin:24px 0;scrollbar-width:thin}
+.ssot-diagram pre.mermaid{visibility:hidden;min-height:100px;margin:0;background:none;border:0;font-size:14px}
+.ssot-diagram pre.mermaid[data-processed]{visibility:visible}
+.ssot-diagram svg{min-width:880px;max-width:none!important;width:100%;height:auto}
+.ssot-diagram .ssot-note{margin:10px 0 0}
+.ssot-switch{display:flex;gap:5px;flex-wrap:wrap;background:#11171b;border:1px solid var(--line);padding:6px;border-radius:10px;margin-top:24px}
+.ssot-switch button{flex:1;min-width:155px;padding:12px 15px;background:transparent;color:#acbfc1;border:0;border-radius:6px;font:inherit;font-size:14px;cursor:pointer}
+.ssot-switch button[aria-selected="true"]{background:#314c43;color:#c7f2dc;font-weight:600}
+.ssot-switch button:focus-visible,.ssot-next summary:focus-visible{outline:2px solid #acdcec;outline-offset:3px}
+.ssot-mode{padding:24px;background:#1d282c;border:1px solid #3d5358;border-radius:10px;margin:12px 0 20px;min-height:198px}
+.ssot-mode[hidden]{display:none}
+.ssot-mode p{font-size:14px}
+.ssot-status-line{font-size:13px;line-height:1.9;color:#cadbd6}
+.ssot-dot{display:inline-block;background:#9ae0c4;width:7px;height:7px;border-radius:50%;margin-right:7px}
+.ssot-muted{color:#acb7b8}
+.ssot-table-wrap{overflow-x:auto;margin:24px 0}
+.ssot-next table.ssot-table{margin:0;min-width:740px;font-size:14px;line-height:1.65}
+.ssot-next table.ssot-table th{padding:13px 14px;background:#263137}
+.ssot-next table.ssot-table td{padding:14px;vertical-align:top}
+.ssot-pill{font-size:11px;padding:2px 9px;margin:2px 0}
+.ssot-pill.ready{background:#213b2f;border-color:#456d59;color:#b6e6c7}
+.ssot-pill.historical{background:#2c2932;border-color:#524b60;color:#c7c0d3}
+.ssot-details{background:#1d242a;border:1px solid var(--line);border-radius:9px;margin:18px 0}
+.ssot-details summary{padding:16px 18px;cursor:pointer;font-size:14px;color:#d8e6e2}
+.ssot-details>div{padding:0 20px 18px;font-size:14px}
+.ssot-details li{padding:3px 0}
+.ssot-steps{display:grid;gap:12px;margin:24px 0}
+.ssot-step{border:1px solid var(--line);border-radius:10px;background:#1c252a}
+.ssot-step summary{padding:18px 20px;cursor:pointer;display:flex;gap:16px;align-items:center;list-style:none}
+.ssot-step summary::-webkit-details-marker{display:none}
+.ssot-step summary:after{content:'＋';margin-left:auto;color:#adc6bc;font-size:22px}
+.ssot-step[open] summary:after{content:'−'}
+.ssot-step-num{flex-shrink:0;width:35px;height:35px;display:grid;place-items:center;border:1px solid #5d786b;border-radius:50%;color:#bce8d0;font-size:16px}
+.ssot-step summary small{display:block;font-size:12px;font-weight:400;color:#aebdbd;margin-top:4px}
+.ssot-step>div{padding:0 22px 15px 72px;font-size:14px}
+.ssot-archive-intro{padding:38px 0 8px}
+.ssot-archive-intro p{font-size:14px;color:#b1bcbd}
+.ssot-archive{padding-bottom:24px}
+.ssot-archive>summary{border:1px solid #4c5660;border-radius:8px;background:#222a32;padding:18px;cursor:pointer;color:#cad7df}
+.ssot-archive[open]>summary{border-radius:8px 8px 0 0}
+.ssot-archive-note{padding:18px 22px;background:#342c22;border:1px solid #6a553c;font-size:14px;color:#ebd2ad}
+.ssot-archive>.page{max-width:none;padding:24px 20px 50px;border:1px solid #3c454d;margin:0}
+.ssot-footer{padding-top:22px;padding-bottom:50px;font-size:12px;color:#9caeaf;border-top:1px solid #343d43}
+@media(max-width:740px){.ssot-next,.ssot-archive,.ssot-footer{padding-left:18px;padding-right:18px}.ssot-next{padding-top:28px}.ssot-next h2{font-size:22px}.ssot-metrics{grid-template-columns:1fr}.ssot-two-col{grid-template-columns:1fr}.ssot-metrics strong{margin-top:5px}.ssot-section{padding:28px 0}.ssot-mode{padding:19px}.ssot-step summary{padding:16px 14px;gap:12px}.ssot-step>div{padding:0 18px 14px}.ssot-nav{top:0}.ssot-archive>.page{padding-left:10px;padding-right:10px;overflow-x:auto}.ssot-hero h1{font-size:30px}}
+@media print{.ssot-next,.ssot-archive,.ssot-footer{max-width:none;padding:10px}.ssot-nav,.ssot-switch{display:none}.ssot-mode[hidden]{display:block}.ssot-section{break-inside:avoid}.ssot-diagram svg{min-width:0}.ssot-archive:not([open]){display:none}}
+
+</style>
 </head>
-<body>
+<body data-shareone-layout="document">
+<main id="next-stage" class="ssot-next">
+  <header class="ssot-hero" data-node-id="plan/overview">
+    <div class="ssot-eyebrow">项目主 SSOT · 下一阶段工作计划 · 2026 年 10 月 29 日</div>
+    <h1>物理试题得分率预测<br><span>从单题精度问题出发，重新验证模型</span></h1>
+    <p class="ssot-lead">让模型读取完整题目，预测特定学生群体在每个小问上的平均得分率；用真实成绩决定哪条路线值得继续。</p>
+    <div class="ssot-badges"><span>计划 v3.0</span><span>旧模型保留作对照</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
+  </header>
+
+  <nav class="ssot-nav" aria-label="本页目录">
+    <a href="#why-change">为什么调整</a><a href="#new-workflow">新工作流程</a><a href="#jev-baseline">Jev 怎样测</a><a href="#candidate-models">候选模型</a><a href="#evaluation-plan">怎样判定有效</a><a href="#work-plan">下一步工作</a><a href="#legacy-archive">历史记录</a>
+  </nav>
+
+  <section id="why-change" class="ssot-section" data-node-id="plan/reason">
+    <div class="ssot-section-label">01 / 调整依据</div><h2>原模型的单题精度，尚未达到命题辅助要求</h2>
+    <p>杨老师的实际使用需求是辅助高三命题，判断每个小问学生能拿到多少分。旧模型存在明显的单题高估与低估，整卷合计接近不能替代单题准确。</p>
+    <div class="ssot-metrics">
+      <article><span>2026 年调整版 · 按实际分值加权</span><strong>18.54<small> 个百分点</small></strong><p>逐设问平均绝对误差</p></article>
+      <article><span>2026 年调整版 · 解答题已观测部分</span><strong>26.31<small> 个百分点</small></strong><p>逐设问加权平均绝对误差</p></article>
+      <article class="ssot-scope"><span>同口径核验范围</span><strong>31<small> 个设问 / 95 分</small></strong><p>西城学生；两项设问不在所提供统计中</p></article>
+    </div>
+    <div class="ssot-callout"><b>当前决策：</b>旧模型暂不作为新试卷单题预测的可靠依据。保留其冻结预测、量表和代码，启动新的语义决策模型评测。早期交叉验证结果与 20 题评分一致性研究，均作为历史探索结果阅读。</div>
+    <p class="ssot-note">以上为 2026 年 10 月 12 日核验的汇总结果，不包含原始成绩。详见<a href="#validation-2026">历史附录 G.10</a>。标注偏差、模型映射、备考阶段与阅卷要求可能共同影响误差，目前不能给各来源分配确定比例。</p>
+  </section>
+
+  <section id="new-workflow" class="ssot-section" data-node-id="plan/workflow">
+    <div class="ssot-section-label">02 / 已确定的主线</div><h2>先忠实数字化，再让决策模型直接学习</h2>
+    <p>输入以一个小问为预测单位，保留完整大题背景、原图、参考答案与评分要求。VLM（能读图文的大模型）先承担文档还原职责。</p>
+    <div class="ssot-diagram" data-node-id="plan/pipeline">
+      <pre class="mermaid">
+---
+config:
+  layout: elk
+---
+flowchart LR
+  source["试卷、答案与评分标准"] --> digitize["VLM 忠实数字化"]
+  digitize --> record["JSON、原图与小问上下文"]
+  record --> decision["决策模型直接预测"]
+  decision --> prediction["每小问预期得分率"]
+  prediction --> check["本地对照真实成绩"]
+      </pre>
+      <p class="ssot-note ssot-diagram-fallback">流程：试卷资料 → 忠实数字化 → 完整题目记录 → 决策模型 → 单题预期得分率 → 本地实测核验。</p>
+    </div>
+    <div class="ssot-two-col">
+      <article class="ssot-card" data-node-id="plan/input"><h3>保留题目原有的信息</h3><ul><li>题干、公式、选项、分值与小问关系。</li><li>原图裁剪、页码和位置；图中的方向与连接关系需要核对。</li><li>原有答案和评分标准；没有的资料明确记为缺失。</li><li>目标学生群体与考试阶段：西城高考与高三期末分别说明。</li></ul></article>
+      <article class="ssot-card" data-node-id="plan/representation"><h3>由模型学习有效表征</h3><p>第一版不要求教师重新填旧量表，也不预先限定那 15 个特征。模型从完整题目内容与历史成绩之间学习联系。</p><p>额外让大模型分析难点、解题结构或失分原因，作为独立对照实验；先检验它是否带来实际改善。</p></article>
+    </div>
+    <p class="ssot-note">当前 Jev 只接收文本。原图保留在题目档案中，图示内容由 VLM 忠实转成结构化文字并核对后，再与 JSON 一起输入 Jev。第一轮各模型使用相同数字化记录；直接读图的收益另作对照。</p>
+    <p class="ssot-note">预期得分率 = 该学生群体的平均得分 ÷ 该小问满分。模型自身的解题成功率、判断置信度、学生预期得分率，是三个不同的量。</p>
+  </section>
+
+  <section id="jev-baseline" class="ssot-section" data-node-id="plan/jev">
+    <div class="ssot-section-label">03 / 先回答“Jev 要不要训练”</div><h2>Jev 已经训练过；我们先测它能否迁移到这项任务</h2>
+    <p>目前 Jev 官方不提供按客户数据微调或 LoRA。sudorouter 的现有接入用于推理，不提供训练 Jev 权重的能力。可以直接测试，也可以把其输出放到本地，用历史成绩训练一个校准层。</p>
+    <div class="ssot-switch" role="tablist" aria-label="三种模型使用方式">
+      <button type="button" id="tab-direct" role="tab" aria-selected="true" aria-controls="mode-direct" data-mode="direct">① 直接评测</button>
+      <button type="button" id="tab-calibrate" role="tab" aria-selected="false" aria-controls="mode-calibrate" data-mode="calibrate" tabindex="-1">② 本地校准</button>
+      <button type="button" id="tab-train" role="tab" aria-selected="false" aria-controls="mode-train" data-mode="train" tabindex="-1">③ 开放模型训练</button>
+    </div>
+    <article id="mode-direct" class="ssot-mode" role="tabpanel" aria-labelledby="tab-direct" data-node-id="plan/jev/direct">
+      <h3>完整题目 + 明确的任务说明 → Jev → 保存预测 → 本地核验</h3><p>保持 Jev 权重不变。先用同一份试题和统一说明，检验通用决策模型在本项目上的起点。测试前不需要用我们的数据训练它。</p><p><b>回答的问题：</b>现成 Jev 的单题预测，能否改善旧模型表现？</p>
+    </article>
+    <article id="mode-calibrate" class="ssot-mode" role="tabpanel" aria-labelledby="tab-calibrate" data-node-id="plan/jev/calibrate" hidden>
+      <h3>固定 Jev 输出 + 历史训练年份成绩 → 本地校准 → 留出年份核验</h3><p>Jev 权重仍然不变。历史成绩只在本地用于学习预测与实测之间的对应关系；每个候选模型都获得相同的本地校准机会。</p><p><b>回答的问题：</b>加入目标学生群体的成绩信息后，预测还能改善多少？这属于训练本地校准层。</p>
+    </article>
+    <article id="mode-train" class="ssot-mode" role="tabpanel" aria-labelledby="tab-train" data-node-id="plan/jev/train" hidden>
+      <h3>完整题目 + 历史训练年份成绩 → 开放模型的决策输出层与适配参数</h3><p>对 Clef、H2O 或 Qwen 候选做领域适配。先建立监督训练结果，再在相同数据划分下研究 RLCD 式校准训练是否有额外收益。</p><p><b>回答的问题：</b>能否得到更适合本地数据、可自行训练和部署的预测模型？</p>
+    </article>
+    <div class="ssot-status-line"><span class="ssot-dot"></span><b>已完成：</b>sudorouter 原生决策接口连通，实际返回 Jev 1.14；合成题协议检查通过。<span class="ssot-muted">完整试卷评测与候选模型优劣比较尚未完成。</span></div>
+    <p class="ssot-note">Jev 是参考基线。最终准确性以真实学生成绩检验；与 Jev 一致本身不能证明预测正确。依据：<a href="https://docs.typesafe.ai/models#customizing-jev" target="_blank" rel="noopener">Jev 官方定制说明</a>。</p>
+  </section>
+
+  <section id="candidate-models" class="ssot-section" data-node-id="plan/models">
+    <div class="ssot-section-label">04 / 候选方案</div><h2>同题比较，分清通用能力与领域适配的收益</h2>
+    <div class="ssot-table-wrap"><table class="ssot-table"><thead><tr><th>候选</th><th>这轮角色</th><th>训练与复现口径</th><th>当前状态</th></tr></thead><tbody>
+      <tr data-node-id="model/jev"><td><b>Jev 1.14</b></td><td>商业决策模型基线</td><td>云端权重固定；允许本地输出校准</td><td><span class="ssot-pill ready">接口已验证</span><br>完整精度待评测</td></tr>
+      <tr data-node-id="model/clef"><td><b>Clef-Flash 9B</b></td><td>优先研究的开放候选</td><td>Qwen3.5-9B 底座；官方披露监督损失、Brier 校准损失及 RLCD 阶段</td><td><span class="ssot-pill">待运行</span></td></tr>
+      <tr data-node-id="model/h2o"><td><b>H2O-Lightning-4B</b></td><td>较小开放模型对照</td><td>Qwen3.5-4B 底座；其 RLCD／RLCR 训练来源尚未确认</td><td><span class="ssot-pill">待运行</span></td></tr>
+      <tr data-node-id="model/qwen"><td><b>自训 Qwen3.5-9B</b></td><td>自行掌握决策训练路线</td><td>决策输出层与参数高效适配；监督训练及 RLCD 式实验分别报告</td><td><span class="ssot-pill">待训练</span></td></tr>
+      <tr data-node-id="model/legacy"><td><b>旧量表模型</b></td><td>冻结的历史对照</td><td>套索回归 + 梯度提升树；保留已有预测，不按测试成绩反推</td><td><span class="ssot-pill historical">历史结果</span></td></tr>
+    </tbody></table></div>
+    <p>先测现成模型；再对较好的开放模型做成绩适配，同时保留自训 Qwen 的技术对照。模型名称、大小与通用榜单不能替代这次的单题精度检验。</p>
+    <details class="ssot-details" data-node-id="plan/technical-provenance"><summary>技术与复现口径：RLCD、RLCR 与 Decision-1 的区别</summary><div>
+      <p><b>RLCD</b> 是 Jev 官方使用的“面向校准决策的强化学习”名称。我们尽量对齐单次决策、概率输出和校准目标；尚未获得 Jev／Decision-1 的完整训练配方，自己的实现应标作 RLCD 式实验。</p>
+      <p><b>RLCR</b> 是另一项公开研究，原实现为 Qwen2.5-7B、TRL／Open-R1、GRPO 与校准奖励，会生成推理、答案和置信度。这不是已确认的 Decision-1 流程，也不是 Clef 的公开训练流程。</p>
+      <p>微软公开确认 Decision-1 基于 Qwen3.5-9B 做后训练。采用同一底座不能确定其训练框架、决策输出层或奖励函数。我们以可核对的公开资料与实际实验记录为准。</p>
+      <p>监督训练适用于决策模型；单独完成监督训练或温度标定时，记录为相应的校准模型，不将其标成已经复现 RLCD。若只有平均得分率，先学习均值；完整得分分布需要相应实测数据。</p>
+      <ul><li><a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener">Jev 官方训练目标</a></li><li><a href="https://commandline.microsoft.com/microsoft-decision-1-model-foundry/" target="_blank" rel="noopener">微软 Decision-1 发布说明</a></li><li><a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener">Cloudflare 的 Clef 后训练说明</a></li><li><a href="https://huggingface.co/h2oai/h2o-lightning-4b" target="_blank" rel="noopener">H2O 模型卡</a></li><li><a href="https://github.com/damanimehul/RLCR" target="_blank" rel="noopener">RLCR 原论文训练代码</a></li></ul>
+    </div></details>
+  </section>
+
+  <section id="evaluation-plan" class="ssot-section" data-node-id="plan/evaluation">
+    <div class="ssot-section-label">05 / 怎样判断真的有进步</div><h2>以逐题误差为主，保留没有参与调试的试卷</h2>
+    <div class="ssot-two-col">
+      <article class="ssot-card" data-node-id="plan/evaluation/split"><h3>同一套数据划分</h3><ol><li>优先核对 2020—2026 年西城学生的高考题与得分统计。</li><li>按整年／整卷留出，同一大题的小问放在同一组。</li><li>说明文字、校准参数与训练设置只用训练／开发年份调整。</li><li>最终保留未参与调试的完整试卷；新考试先封存预测，再看成绩。</li></ol></article>
+      <article class="ssot-card" data-node-id="plan/evaluation/metrics"><h3>同一套结果报告</h3><ul><li>每个小问等权的平均绝对误差。</li><li>按真实分值加权的平均绝对误差。</li><li>误差在 ±5／±10 个百分点内的比例。</li><li>严重错判与最差题目，选择题／解答题分开看。</li><li>整卷合计、难度排序和人工复核覆盖率作为补充。</li></ul></article>
+    </div>
+    <div class="ssot-callout"><b>正式可用标准仍需结合命题用途确认。</b>±5／±10 个百分点先作为报告指标，不表示已经达到，也不是每道题的保证误差。置信度与预测区间需要用留出数据单独核验。</div>
+    <p class="ssot-note">2026 年已有成绩已用于误差讨论，因此本轮只能作为回顾性筛查。高考数据能减少一部分来源差异，但高三期末的备考阶段不同，仍需单独验证。学生人数多能让平均成绩更稳定，却不会增加独立题目的数量。</p>
+  </section>
+
+  <section id="work-plan" class="ssot-section" data-node-id="plan/tasks">
+    <div class="ssot-section-label">06 / 下一阶段工作</div><h2>先建立可检验的起点，再投入模型训练</h2>
+    <div class="ssot-steps">
+      <details class="ssot-step" open data-node-id="task/data"><summary><span class="ssot-step-num">1</span><span><b>整理资料与忠实数字化</b><small>状态：待逐年核对、补齐</small></span></summary><div><p>复用现有资料，接收补充高考统计；对齐年份、题号、小问与实际分值。保存原图，核对公式与图示关系，记录缺失资料。</p><p><b>交付：</b>可检查的逐小问题目记录、资料清单、固定的训练／开发／测试划分。</p></div></details>
+      <details class="ssot-step" data-node-id="task/baselines"><summary><span class="ssot-step-num">2</span><span><b>完成 Jev 与开放候选的同题评测</b><small>状态：Jev 通路已验证；完整比较待做</small></span></summary><div><p>冻结输入与任务说明，保存 Jev、Clef-Flash、H2O 的实际版本及原始输出。分别报告直接评测与本地校准结果，对照旧模型。</p><p><b>交付：</b>逐题内部对照、公开汇总误差、严重错判复核清单；此阶段不预判谁会胜出。</p></div></details>
+      <details class="ssot-step" data-node-id="task/adaptation"><summary><span class="ssot-step-num">3</span><span><b>适配现成模型，研究自训 Qwen 与 RLCD</b><small>状态：待训练</small></span></summary><div><p>对较好的开放模型进行参数高效适配。保留自训 Qwen3.5-9B 的对照，分别记录监督校准与 RLCD 式训练的增益、资源消耗和失败情况。</p><p><b>交付：</b>可复现的训练配置、检查点与同口径留出评测；校准与训练不接触最终测试成绩。</p></div></details>
+      <details class="ssot-step" data-node-id="task/prospective"><summary><span class="ssot-step-num">4</span><span><b>用独立试卷确认是否能够辅助命题</b><small>状态：待验证</small></span></summary><div><p>在新试卷成绩出现前保存预测。检验单题误差、明显错判与复核提示，并由教师判断能否帮助选题、改题和调整试卷结构。</p><p><b>交付：</b>达到／未达到使用要求的明确结论，以及下一次迭代应解决的问题。</p></div></details>
+    </div>
+    <details class="ssot-details" data-node-id="plan/compute"><summary>算力安排与当前限制</summary><div><p>拟先使用一台 DGX Spark 做推理和决策输出层／LoRA 适配。公司另外两台优先分担独立实验；分布式训练以实际高速互联条件为前提。</p><p>按 128GB 版本的能力判断，可作为 4B／9B 参数高效微调的起点。当前尚未连通本地 Spark 的 SSH，实际内存、负载、ARM／GB10 软件兼容与训练峰值均待核实，不据此承诺完整强化学习训练的规模或速度。</p></div></details>
+  </section>
+
+  <section id="teacher-collaboration" class="ssot-section" data-node-id="plan/collaboration"><div class="ssot-section-label">07 / 协作方式</div><h2>教师把关题意与使用要求，智能体负责整理与实验</h2><p>当前无需重新填写旧量表。优先按已有格式交接得分统计及对应试卷；现有答案和评分要求一并复用。分步骤得分或完整得分分布若方便取得，可以支持后续分析，不作为第一轮开工前置条件。</p><p>原始成绩通过既定私密渠道交接并保留在本地；本页和评论讨论方案、问题与汇总结果。新预测是否可用于命题，由教师结合逐题表现确认。</p><div class="ssot-callout">本页是当前项目主计划。论文页面仍为历史稿，尚未随本轮计划重写。可以在本页选中文字评论，继续迭代目标、数据口径与验收标准。</div></section>
+
+  <div class="ssot-archive-intro"><h2>历史量表、工具与完整核验记录</h2><p>以下保存至 2026 年 10 月 12 日的旧页面正文。展开后可追溯定义、实验、预测和 G.10 实测核验；其中“当前”“已达实用”等措辞反映当时判断，以本页上方的新计划为准。</p></div>
+</main>
+
+<details id="legacy-archive" class="ssot-archive" data-node-id="plan/history">
+<summary>展开历史页面：旧量表、交互工具、预测记录与 2026 年实测核验</summary>
+<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 10 月 29 日的新计划为准。旧工具仅供复现与比较。</div>
+<!-- BEGIN PRESERVED LEGACY BODY 99a59e861ba3afab8cb35b7558c3a585380568f1 -->
+
 <div class="page">
 
 <header class="doc">
@@ -1959,5 +2166,86 @@ Object.keys(CHART_DATA).forEach(renderChart);
 </footer>
 
 </div>
+
+<!-- END PRESERVED LEGACY BODY -->
+</details>
+<footer class="ssot-footer">项目主 SSOT · 计划 v3.0 · 更新于 2026-10-29。新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
+<script>
+(() => {
+  const tabs = Array.from(document.querySelectorAll('.ssot-switch [role="tab"]'));
+  function setMode(mode, focus = false) {
+    for (const tab of tabs) {
+      const selected = tab.dataset.mode === mode;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+      if (selected && focus) tab.focus();
+    }
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => setMode(tab.dataset.mode));
+    tab.addEventListener('keydown', event => {
+      let target;
+      if (event.key === 'ArrowRight') target = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') target = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') target = 0;
+      if (event.key === 'End') target = tabs.length - 1;
+      if (target !== undefined) { event.preventDefault(); setMode(tabs[target].dataset.mode, true); }
+    });
+  });
+  const archive = document.getElementById('legacy-archive');
+  function revealHashTarget(hash) {
+    const target = document.getElementById(decodeURIComponent((hash || '').replace(/^#/, '')));
+    if (!target) return;
+    let parent = target.parentElement;
+    while (parent) {
+      if (parent.tagName === 'DETAILS') parent.open = true;
+      parent = parent.parentElement;
+    }
+    if (target.closest('.ssot-mode')) {
+      setMode(target.closest('.ssot-mode').id.replace(/^mode-/, ''));
+    }
+  }
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[href^="#"]');
+    if (link) revealHashTarget(link.getAttribute('href'));
+  });
+  window.addEventListener('hashchange', () => revealHashTarget(location.hash));
+  revealHashTarget(location.hash);
+  archive.addEventListener('toggle', () => {
+    if (!archive.open) return;
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('resize'));
+      if (window.Chart && window.Chart.instances) {
+        Object.values(window.Chart.instances).forEach(chart => chart.resize());
+      }
+    });
+  });
+})();
+
+</script>
+<script type="module">
+try {
+  const [{ default: mermaid }, { default: elkLayouts }] = await Promise.all([
+    import('https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs'),
+    import('https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs')
+  ]);
+  mermaid.registerLayoutLoaders(elkLayouts);
+  mermaid.initialize({startOnLoad:false, securityLevel:'strict', theme:'base', themeVariables:{
+    primaryColor:'#253d38',primaryTextColor:'#e0f0e7',primaryBorderColor:'#6c9b86',
+    lineColor:'#a9c2b9',secondaryColor:'#243640',tertiaryColor:'#1b262c',
+    fontFamily:'Microsoft YaHei, PingFang SC, sans-serif',fontSize:'15px'
+  }});
+  await document.fonts.ready;
+  await mermaid.run({nodes:Array.from(document.querySelectorAll('.ssot-diagram .mermaid'))});
+  document.querySelectorAll('.ssot-diagram .node').forEach(node => {
+    const match = node.id.match(/^flowchart-([^-]+)-/);
+    if (match) node.dataset.nodeId = 'plan-diagram/' + match[1];
+  });
+} catch (error) {
+  document.querySelectorAll('.ssot-diagram .mermaid').forEach(node => {node.style.display='none';});
+  console.warn('Plan diagram unavailable; readable text flow remains available.');
+}
+</script>
 </body>
 </html>
