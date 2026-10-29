@@ -2207,7 +2207,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
     }
     return target;
   }
-  document.addEventListener('click', event => {
+  window.addEventListener('click', event => {
     const link = event.target.closest('a[href^="#"]');
     if (!link) return;
     const target = revealHashTarget(link.getAttribute('href'));
@@ -2217,7 +2217,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
     event.preventDefault();
     target.scrollIntoView({block:'start'});
     if (window === window.top) history.replaceState(history.state, '', link.getAttribute('href'));
-  });
+  }, true);
   window.addEventListener('hashchange', () => revealHashTarget(location.hash));
   revealHashTarget(location.hash);
   archive.addEventListener('toggle', () => {
