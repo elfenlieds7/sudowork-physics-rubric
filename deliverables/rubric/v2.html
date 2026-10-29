@@ -2205,10 +2205,18 @@ Object.keys(CHART_DATA).forEach(renderChart);
     if (target.closest('.ssot-mode')) {
       setMode(target.closest('.ssot-mode').id.replace(/^mode-/, ''));
     }
+    return target;
   }
   document.addEventListener('click', event => {
     const link = event.target.closest('a[href^="#"]');
-    if (link) revealHashTarget(link.getAttribute('href'));
+    if (!link) return;
+    const target = revealHashTarget(link.getAttribute('href'));
+    if (!target) return;
+    // ShareOne's embedded document base may target the outer window. Keep
+    // same-document navigation inside this document so comments stay available.
+    event.preventDefault();
+    target.scrollIntoView({block:'start'});
+    if (window === window.top) history.replaceState(history.state, '', link.getAttribute('href'));
   });
   window.addEventListener('hashchange', () => revealHashTarget(location.hash));
   revealHashTarget(location.hash);
