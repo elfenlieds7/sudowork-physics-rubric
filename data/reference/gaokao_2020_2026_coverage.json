@@ -1,0 +1,61 @@
+{
+  "received_date": "2026-11-02",
+  "population": "西城",
+  "exam": "北京高考物理",
+  "observed_rows": 219,
+  "year_count": 7,
+  "years": [
+    {
+      "year": 2020,
+      "observed_rows": 30,
+      "covered_points": 93.0,
+      "full_paper_points": 100,
+      "unobserved_points": 7.0
+    },
+    {
+      "year": 2021,
+      "observed_rows": 31,
+      "covered_points": 92.0,
+      "full_paper_points": 100,
+      "unobserved_points": 8.0
+    },
+    {
+      "year": 2022,
+      "observed_rows": 30,
+      "covered_points": 94.0,
+      "full_paper_points": 100,
+      "unobserved_points": 6.0
+    },
+    {
+      "year": 2023,
+      "observed_rows": 33,
+      "covered_points": 94.0,
+      "full_paper_points": 100,
+      "unobserved_points": 6.0
+    },
+    {
+      "year": 2024,
+      "observed_rows": 31,
+      "covered_points": 94.0,
+      "full_paper_points": 100,
+      "unobserved_points": 6.0
+    },
+    {
+      "year": 2025,
+      "observed_rows": 32,
+      "covered_points": 91.0,
+      "full_paper_points": 100,
+      "unobserved_points": 9.0
+    },
+    {
+      "year": 2026,
+      "observed_rows": 32,
+      "covered_points": 95.0,
+      "full_paper_points": 100,
+      "unobserved_points": 5.0
+    }
+  ],
+  "status": "表格结构与分值核验完成；题目、参考答案及小问映射待逐项核对；尚未训练。",
+  "scope": "仅报告各年已提供的统计范围；未列出的得分率保持缺失，不填零，不推断完整试卷均分。",
+  "validation": "七年均属历史数据；2026年已用于误差分析，最终有效性仍需独立或前瞻试卷确认。"
+}

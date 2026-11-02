@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>物理试题得分率预测 · 下一阶段工作计划 v3.0</title>
+<title>物理试题得分率预测 · 训练方案与七年数据进展 v3.1</title>
 <script>
   MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
 </script>
@@ -166,30 +166,33 @@
 @media print{.ssot-next,.ssot-archive,.ssot-footer{max-width:none;padding:10px}.ssot-nav,.ssot-switch{display:none}.ssot-mode[hidden]{display:block}.ssot-section{break-inside:avoid}.ssot-diagram svg{min-width:0}.ssot-archive:not([open]){display:none}}
 
 </style>
+<style id="training-intake-v31-style">
+.ssot-training-picker{background:#1c282c;border:1px solid #47645c;border-radius:10px;padding:22px;margin:22px 0}.ssot-training-picker label{display:block;font-size:14px;color:#d6e5df}.ssot-training-picker select{display:block;width:100%;font:inherit;color:#e8f0eb;background:#15211e;border:1px solid #557367;border-radius:6px;padding:11px 12px;margin-top:8px}.ssot-training-picker select:focus-visible{outline:2px solid #9ae0c4;outline-offset:2px}.ssot-training-picker .ssot-callout{margin-bottom:0}.ssot-training-picker .ssot-callout p{font-size:14px;margin-bottom:0}
+</style>
 </head>
 <body data-shareone-layout="document">
 <main id="next-stage" class="ssot-next">
   <header class="ssot-hero" data-node-id="plan/overview">
-    <div class="ssot-eyebrow">项目主 SSOT · 下一阶段工作计划 · 2026 年 10 月 29 日</div>
+    <div class="ssot-eyebrow">项目主文档 · 训练方案与资料进展 · 2026 年 11 月 2 日</div>
     <h1>物理试题得分率预测<br><span>从单题精度问题出发，重新验证模型</span></h1>
     <p class="ssot-lead">让模型读取完整题目，预测特定学生群体在每个小问上的平均得分率；用真实成绩决定哪条路线值得继续。</p>
-    <div class="ssot-badges"><span>计划 v3.0</span><span>旧模型保留作对照</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
+    <div class="ssot-badges"><span>计划 v3.1</span><span>七年统计已接收核验</span><span>首轮训练：决策层＋LoRA</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
   </header>
 
   <nav class="ssot-nav" aria-label="本页目录">
-    <a href="#why-change">为什么调整</a><a href="#new-workflow">新工作流程</a><a href="#jev-baseline">Jev 怎样测</a><a href="#candidate-models">候选模型</a><a href="#evaluation-plan">怎样判定有效</a><a href="#work-plan">下一步工作</a><a href="#legacy-archive">历史记录</a>
+    <a href="#why-change">为什么调整</a><a href="#new-workflow">新工作流程</a><a href="#jev-baseline">Jev 怎样测</a><a href="#candidate-models">候选模型</a><a href="#training-basics">训练方案与基础</a><a href="#evaluation-plan">怎样判定有效</a><a href="#data-intake">七年资料进展</a><a href="#work-plan">下一步工作</a><a href="#legacy-archive">历史记录</a>
   </nav>
 
   <section id="why-change" class="ssot-section" data-node-id="plan/reason">
     <div class="ssot-section-label">01 / 调整依据</div><h2>原模型的单题精度，尚未达到命题辅助要求</h2>
     <p>杨老师的实际使用需求是辅助高三命题，判断每个小问学生能拿到多少分。旧模型存在明显的单题高估与低估，整卷合计接近不能替代单题准确。</p>
     <div class="ssot-metrics">
-      <article><span>2026 年调整版 · 按实际分值加权</span><strong>18.54<small> 个百分点</small></strong><p>逐设问平均绝对误差</p></article>
+      <article><span>2026 年调整版 · 按实际分值加权</span><strong>18.54<small> 个百分点</small></strong><p>历史核验 · 逐设问加权平均绝对误差</p></article>
       <article><span>2026 年调整版 · 解答题已观测部分</span><strong>26.31<small> 个百分点</small></strong><p>逐设问加权平均绝对误差</p></article>
-      <article class="ssot-scope"><span>同口径核验范围</span><strong>31<small> 个设问 / 95 分</small></strong><p>西城学生；两项设问不在所提供统计中</p></article>
+      <article class="ssot-scope"><span>2026年10月12日历史核验范围</span><strong>31<small> 个设问 / 95 分</small></strong><p>西城学生；两项设问不在所提供统计中</p></article>
     </div>
     <div class="ssot-callout"><b>当前决策：</b>旧模型暂不作为新试卷单题预测的可靠依据。保留其冻结预测、量表和代码，启动新的语义决策模型评测。早期交叉验证结果与 20 题评分一致性研究，均作为历史探索结果阅读。</div>
-    <p class="ssot-note">以上为 2026 年 10 月 12 日核验的汇总结果，不包含原始成绩。详见<a href="#validation-2026">历史附录 G.10</a>。标注偏差、模型映射、备考阶段与阅卷要求可能共同影响误差，目前不能给各来源分配确定比例。</p>
+    <p class="ssot-note">以上保留 2026 年 10 月 12 日的历史核验口径；11 月收到的新表将部分小问进一步细分，尚未用新粒度重算这些误差。这里不包含原始成绩。详见<a href="#validation-2026">历史附录 G.10</a>。标注偏差、模型映射、备考阶段与阅卷要求可能共同影响误差，目前不能给各来源分配确定比例。</p>
   </section>
 
   <section id="new-workflow" class="ssot-section" data-node-id="plan/workflow">
@@ -233,7 +236,7 @@ flowchart LR
       <h3>固定 Jev 输出 + 历史训练年份成绩 → 本地校准 → 留出年份核验</h3><p>Jev 权重仍然不变。历史成绩只在本地用于学习预测与实测之间的对应关系；每个候选模型都获得相同的本地校准机会。</p><p><b>回答的问题：</b>加入目标学生群体的成绩信息后，预测还能改善多少？这属于训练本地校准层。</p>
     </article>
     <article id="mode-train" class="ssot-mode" role="tabpanel" aria-labelledby="tab-train" data-node-id="plan/jev/train" hidden>
-      <h3>完整题目 + 历史训练年份成绩 → 开放模型的决策输出层与适配参数</h3><p>对 Clef、H2O 或 Qwen 候选做领域适配。先建立监督训练结果，再在相同数据划分下研究 RLCD 式校准训练是否有额外收益。</p><p><b>回答的问题：</b>能否得到更适合本地数据、可自行训练和部署的预测模型？</p>
+      <h3>完整题目 + 历史训练年份成绩 → 决策输出层＋LoRA 参数高效微调</h3><p>先对开放候选建立监督适配结果：保持基础权重固定，训练决策输出层与少量适配参数。后续在相同数据划分下，单独检验 RLCD 式校准训练的增益。全参微调根据验证结果与数据覆盖决定。</p><p><b>回答的问题：</b>能否得到更适合本地数据、可自行训练和部署的预测模型？</p>
     </article>
     <div class="ssot-status-line"><span class="ssot-dot"></span><b>已完成：</b>sudorouter 原生决策接口连通，实际返回 Jev 1.14；合成题协议检查通过。<span class="ssot-muted">完整试卷评测与候选模型优劣比较尚未完成。</span></div>
     <p class="ssot-note">Jev 是参考基线。最终准确性以真实学生成绩检验；与 Jev 一致本身不能证明预测正确。依据：<a href="https://docs.typesafe.ai/models#customizing-jev" target="_blank" rel="noopener">Jev 官方定制说明</a>。</p>
@@ -258,35 +261,85 @@ flowchart LR
     </div></details>
   </section>
 
-  <section id="evaluation-plan" class="ssot-section" data-node-id="plan/evaluation">
-    <div class="ssot-section-label">05 / 怎样判断真的有进步</div><h2>以逐题误差为主，保留没有参与调试的试卷</h2>
+
+  <section id="training-basics" class="ssot-section" data-node-id="plan/training-basics">
+    <div class="ssot-section-label">05 / 已明确的训练方案与基础知识</div>
+    <h2>先决定教什么，再决定改动模型的多少部分</h2>
+    <p><b>“全参／LoRA”回答更新哪些参数；“监督训练／RLCD”回答依据什么反馈来学习。</b>这两个选择可以组合。参数可以理解为模型内部可调整的数值。</p>
     <div class="ssot-two-col">
-      <article class="ssot-card" data-node-id="plan/evaluation/split"><h3>同一套数据划分</h3><ol><li>优先核对 2020—2026 年西城学生的高考题与得分统计。</li><li>按整年／整卷留出，同一大题的小问放在同一组。</li><li>说明文字、校准参数与训练设置只用训练／开发年份调整。</li><li>最终保留未参与调试的完整试卷；新考试先封存预测，再看成绩。</li></ol></article>
+      <article class="ssot-card"><h3>更新范围：全参与 LoRA</h3><p><b>全参微调：</b>允许所选模型的全部权重参与更新，自由度大，训练状态和算力开销也更大；效果需要验证。</p><p><b>LoRA：</b>保留基础权重，加入少量可训练的低秩适配参数，学习本任务需要的变化。基础知识仍由原模型承载。</p><p><b>决策输出层：</b>把模型理解到的内容转成得分率预测的专门模块，也可以单独训练。</p></article>
+      <article class="ssot-card"><h3>学习方法：监督训练与 RLCD</h3><p><b>监督训练：</b>给模型看题目和历史学生得分率，用预测与实测的差距指导参数更新。</p><p><b>RLCD：</b>“面向校准决策的强化学习”。按定义好的奖励与约束，优化结构化决策及概率的可靠程度。</p><p>监督学习本身也能改善校准。采用一个校准损失，并不自动构成RLCD；强化学习实验需要说明奖励、更新方法和独立验证结果。</p></article>
+    </div>
+    <div class="ssot-training-picker" data-node-id="plan/training-combinations">
+      <h3>两个选择，组合着看</h3><p class="ssot-note">原理示意；切换选项不会启动训练，也不代表算力已验证。</p>
+      <div class="ssot-two-col">
+        <label>改动哪些参数？<select id="training-scope"><option value="head">只训练决策输出层</option><option value="lora" selected>决策输出层＋LoRA</option><option value="full">全参微调</option></select></label>
+        <label>用什么方法学习？<select id="training-method"><option value="supervised" selected>监督训练</option><option value="rlcd">RLCD式校准强化学习</option></select></label>
+      </div>
+      <div class="ssot-callout" aria-live="polite"><b id="training-combination-title">决策输出层＋LoRA × 监督训练</b><p id="training-combination-detail">保持基础权重固定，训练决策输出层与适配参数；依据历史题目与学生实测得分率学习。这是首轮领域训练主线。</p></div>
+    </div>
+    <div class="ssot-table-wrap"><table class="ssot-table"><thead><tr><th>实验</th><th>训练范围</th><th>当前安排</th></tr></thead><tbody>
+      <tr><td>现成模型直接预测</td><td>不更新模型</td><td>先建立同题比较起点</td></tr>
+      <tr><td>本地输出校准</td><td>只训练外部小型校准器</td><td>检查学生群体带来的整体偏差</td></tr>
+      <tr><td>仅训练决策输出层</td><td>固定底座，只训练输出模块</td><td>首轮适配的较小对照</td></tr>
+      <tr><td><b>决策层＋LoRA监督适配</b></td><td><b>基础权重固定，训练输出层与适配参数</b></td><td><b>首轮领域训练主线</b></td></tr>
+      <tr><td>RLCD式实验</td><td>可沿用LoRA等更新范围</td><td>监督结果建立后，独立检验增益</td></tr>
+      <tr><td>部分解冻／全参微调</td><td>扩大可更新的基础权重范围</td><td>根据验证收益、数据覆盖和实机资源决定</td></tr>
+    </tbody></table></div>
+    <p><b>扩大训练范围的依据：</b>如果训练题改善、留出试卷变差，先查过拟合和数据覆盖；如果两边都有改善但仍存在稳定误差，先查题目还原、评分口径和标注，再比较更大适配范围。全参是否值得做，以多份留出试卷的稳定增益为准。</p>
+    <div class="ssot-callout"><b>本项目尤其要分清：</b>预测得分率60%，表示该学生群体平均得到满分的60%；它不等于“模型有60%的把握”，也不一定等于“60%的学生满分作答”。当前只有平均得分率，首轮先学习均值；不据此编造学生的完整得分分布。</div>
+    <p class="ssot-note">基础资料：<a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora" target="_blank" rel="noopener">LoRA官方技术说明</a> · <a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener">Jev的RLCD目标</a> · <a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener">Clef决策层与适配训练说明</a>。本节记录当前实验安排；具体适配层、秩、学习率及奖励参数随实测另记，尚未训练。</p>
+  </section>
+
+  <section id="evaluation-plan" class="ssot-section" data-node-id="plan/evaluation">
+    <div class="ssot-section-label">06 / 怎样判断真的有进步</div><h2>以逐题误差为主，保留没有参与调试的试卷</h2>
+    <div class="ssot-two-col">
+      <article class="ssot-card" data-node-id="plan/evaluation/split"><h3>同一套数据划分</h3><ol><li>已接收并结构核验 2020—2026 年西城高考统计；接着逐题对齐试卷、小问与实际分值。</li><li>按整年／整卷留出，同一大题的小问放在同一组。</li><li>说明文字、校准参数与训练设置只用训练／开发年份调整。</li><li>最终保留未参与调试的完整试卷；新考试先封存预测，再看成绩。</li></ol></article>
       <article class="ssot-card" data-node-id="plan/evaluation/metrics"><h3>同一套结果报告</h3><ul><li>每个小问等权的平均绝对误差。</li><li>按真实分值加权的平均绝对误差。</li><li>误差在 ±5／±10 个百分点内的比例。</li><li>严重错判与最差题目，选择题／解答题分开看。</li><li>整卷合计、难度排序和人工复核覆盖率作为补充。</li></ul></article>
     </div>
     <div class="ssot-callout"><b>正式可用标准仍需结合命题用途确认。</b>±5／±10 个百分点先作为报告指标，不表示已经达到，也不是每道题的保证误差。置信度与预测区间需要用留出数据单独核验。</div>
-    <p class="ssot-note">2026 年已有成绩已用于误差讨论，因此本轮只能作为回顾性筛查。高考数据能减少一部分来源差异，但高三期末的备考阶段不同，仍需单独验证。学生人数多能让平均成绩更稳定，却不会增加独立题目的数量。</p>
+    <p class="ssot-note">七年均属于历史数据。2026 年已有成绩已用于误差讨论，本轮仍属于回顾性筛查；它不能重新成为从未看过的最终测试集。高考数据能减少一部分来源差异，但高三期末的备考阶段不同，仍需单独验证。学生人数多能让平均成绩更稳定，却不会增加独立题目的数量。</p>
+  </section>
+
+
+  <section id="data-intake" class="ssot-section" data-node-id="plan/data-intake">
+    <div class="ssot-section-label">07 / 2026年11月2日资料进展</div>
+    <h2>已接收西城七年高考统计，逐条保留实际分值</h2>
+    <p>新表包含2020—2026年七个工作表，共<b>219条观测记录</b>，提供题号、分值与西城学生得分率。已完成结构核验、题号规范化、重复与父子小问重复计数检查；各年分值之和与表内声明的统计总分一致。</p>
+    <div class="ssot-table-wrap"><table class="ssot-table"><thead><tr><th>年份</th><th>观测记录数</th><th>表内统计覆盖</th><th>当前进度</th></tr></thead><tbody><tr><td>2020</td><td>30</td><td>93分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2021</td><td>31</td><td>92分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2022</td><td>30</td><td>94分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2023</td><td>33</td><td>94分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2024</td><td>31</td><td>94分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2025</td><td>32</td><td>91分</td><td>结构、范围与分值已核验</td></tr>
+<tr><td>2026</td><td>32</td><td>95分</td><td>结构、范围与分值已核验</td></tr></tbody></table></div>
+    <p class="ssot-note">这里只发布覆盖范围，不包含任何逐题实测成绩。各年完整试卷均为100分；表内覆盖低于100分表示当前提供的统计范围，不据此断言试题取消或漏报。未列出的得分率保持缺失，不填零，不反推；已提供记录足以开始工作。</p>
+    <div class="ssot-two-col">
+      <article class="ssot-card"><h3>试卷与答案资料</h3><ul><li>2020—2022年：新收到试卷与参考答案，共6份PDF，40页。</li><li>2023—2026年：仓库已有试卷，暂时无需重发。</li><li>2026年：已有参考答案。</li><li>2023—2025年：当前仓库尚未找到正式参考答案与评分标准，继续核对和补齐。</li></ul></article>
+      <article class="ssot-card"><h3>接下来核对什么</h3><ul><li>逐题对齐新题号与原试卷，统一小问粒度。</li><li>2026年新表为32条；历史核验为31个设问，进一步拆分的小问需先对齐再比较。</li><li>复用旧数据前，核对题号、分值、粒度和来源，避免直接叠加成重复样本。</li><li>原始表格、实际成绩与连接表留在本地私密目录。</li></ul></article>
+    </div>
+    <div class="ssot-callout"><b>本轮已完成数据接收与结构核验，尚未完成题目数字化、同题模型比较或训练。</b>七年数据改善了年份覆盖，但仍只有七套试卷；同一大题的小问相关，学生人数也不能替代独立试题数量。</div>
   </section>
 
   <section id="work-plan" class="ssot-section" data-node-id="plan/tasks">
-    <div class="ssot-section-label">06 / 下一阶段工作</div><h2>先建立可检验的起点，再投入模型训练</h2>
+    <div class="ssot-section-label">08 / 下一阶段工作</div><h2>先建立可检验的起点，再投入模型训练</h2>
     <div class="ssot-steps">
-      <details class="ssot-step" open data-node-id="task/data"><summary><span class="ssot-step-num">1</span><span><b>整理资料与忠实数字化</b><small>状态：待逐年核对、补齐</small></span></summary><div><p>复用现有资料，接收补充高考统计；对齐年份、题号、小问与实际分值。保存原图，核对公式与图示关系，记录缺失资料。</p><p><b>交付：</b>可检查的逐小问题目记录、资料清单、固定的训练／开发／测试划分。</p></div></details>
+      <details class="ssot-step" open data-node-id="task/data"><summary><span class="ssot-step-num">1</span><span><b>整理资料与忠实数字化</b><small>状态：七年表格已核验；题目数字化与映射待做</small></span></summary><div><p>七年表格已解析为219条本地记录，各年分值汇总一致。新收2020—2022年试卷与参考答案，复用已有2023—2026年试卷；继续对齐小问、公式、原图与评分要求，保存来源和缺失说明。</p><p><b>交付：</b>可检查的逐小问题目记录、资料清单、固定的训练／开发／测试划分。</p></div></details>
       <details class="ssot-step" data-node-id="task/baselines"><summary><span class="ssot-step-num">2</span><span><b>完成 Jev 与开放候选的同题评测</b><small>状态：Jev 通路已验证；完整比较待做</small></span></summary><div><p>冻结输入与任务说明，保存 Jev、Clef-Flash、H2O 的实际版本及原始输出。分别报告直接评测与本地校准结果，对照旧模型。</p><p><b>交付：</b>逐题内部对照、公开汇总误差、严重错判复核清单；此阶段不预判谁会胜出。</p></div></details>
-      <details class="ssot-step" data-node-id="task/adaptation"><summary><span class="ssot-step-num">3</span><span><b>适配现成模型，研究自训 Qwen 与 RLCD</b><small>状态：待训练</small></span></summary><div><p>对较好的开放模型进行参数高效适配。保留自训 Qwen3.5-9B 的对照，分别记录监督校准与 RLCD 式训练的增益、资源消耗和失败情况。</p><p><b>交付：</b>可复现的训练配置、检查点与同口径留出评测；校准与训练不接触最终测试成绩。</p></div></details>
+      <details class="ssot-step" data-node-id="task/adaptation"><summary><span class="ssot-step-num">3</span><span><b>适配现成模型，研究自训 Qwen 与 RLCD</b><small>状态：待训练</small></span></summary><div><p>以决策输出层＋LoRA作为首轮领域训练方案，保留仅训练输出层的较小对照及自训Qwen3.5-9B对照。先比较监督适配，再独立研究RLCD式训练。扩大解冻范围或全参微调须有留出试卷收益支持，并记录资源消耗和失败情况。</p><p><b>交付：</b>可复现的训练配置、检查点与同口径留出评测；校准与训练不接触最终测试成绩。</p></div></details>
       <details class="ssot-step" data-node-id="task/prospective"><summary><span class="ssot-step-num">4</span><span><b>用独立试卷确认是否能够辅助命题</b><small>状态：待验证</small></span></summary><div><p>在新试卷成绩出现前保存预测。检验单题误差、明显错判与复核提示，并由教师判断能否帮助选题、改题和调整试卷结构。</p><p><b>交付：</b>达到／未达到使用要求的明确结论，以及下一次迭代应解决的问题。</p></div></details>
     </div>
     <details class="ssot-details" data-node-id="plan/compute"><summary>算力安排与当前限制</summary><div><p>拟先使用一台 DGX Spark 做推理和决策输出层／LoRA 适配。公司另外两台优先分担独立实验；分布式训练以实际高速互联条件为前提。</p><p>按 128GB 版本的能力判断，可作为 4B／9B 参数高效微调的起点。当前尚未连通本地 Spark 的 SSH，实际内存、负载、ARM／GB10 软件兼容与训练峰值均待核实，不据此承诺完整强化学习训练的规模或速度。</p></div></details>
   </section>
 
-  <section id="teacher-collaboration" class="ssot-section" data-node-id="plan/collaboration"><div class="ssot-section-label">07 / 协作方式</div><h2>教师把关题意与使用要求，智能体负责整理与实验</h2><p>当前无需重新填写旧量表。优先按已有格式交接得分统计及对应试卷；现有答案和评分要求一并复用。分步骤得分或完整得分分布若方便取得，可以支持后续分析，不作为第一轮开工前置条件。</p><p>原始成绩通过既定私密渠道交接并保留在本地；本页和评论讨论方案、问题与汇总结果。新预测是否可用于命题，由教师结合逐题表现确认。</p><div class="ssot-callout">本页是当前项目主计划。论文页面仍为历史稿，尚未随本轮计划重写。可以在本页选中文字评论，继续迭代目标、数据口径与验收标准。</div></section>
+  <section id="teacher-collaboration" class="ssot-section" data-node-id="plan/collaboration"><div class="ssot-section-label">09 / 协作方式</div><h2>教师把关题意与使用要求，智能体负责整理与实验</h2><p>七年Excel与2020—2022年资料已收到，当前无需重新填写旧量表，也无需重复发送2023—2026年试题。现有答案和评分要求继续复用；当前仓库尚未找到2023—2025年正式参考答案及评分标准，如方便可补充。分步骤得分或完整得分分布若方便取得，可以支持后续分析，不作为第一轮开工前置条件。</p><p>原始成绩通过既定私密渠道交接并保留在本地；本页和评论讨论方案、问题与汇总结果。新预测是否可用于命题，由教师结合逐题表现确认。</p><div class="ssot-callout">本页是当前项目主计划。论文页面仍为历史稿，尚未随本轮计划重写。可以在本页选中文字评论，继续迭代目标、数据口径与验收标准。</div></section>
 
   <div class="ssot-archive-intro"><h2>历史量表、工具与完整核验记录</h2><p>以下保存至 2026 年 10 月 12 日的旧页面正文。展开后可追溯定义、实验、预测和 G.10 实测核验；其中“当前”“已达实用”等措辞反映当时判断，以本页上方的新计划为准。</p></div>
 </main>
 
 <details id="legacy-archive" class="ssot-archive" data-node-id="plan/history">
 <summary>展开历史页面：旧量表、交互工具、预测记录与 2026 年实测核验</summary>
-<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 10 月 29 日的新计划为准。旧工具仅供复现与比较。</div>
+<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 11 月 2 日的计划 v3.1 为准。旧工具仅供复现与比较。</div>
 <!-- BEGIN PRESERVED LEGACY BODY 99a59e861ba3afab8cb35b7558c3a585380568f1 -->
 
 <div class="page">
@@ -2169,7 +2222,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <!-- END PRESERVED LEGACY BODY -->
 </details>
-<footer class="ssot-footer">项目主 SSOT · 计划 v3.0 · 更新于 2026-10-29。新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
+<footer class="ssot-footer">项目主文档 · 计划 v3.1 · 更新于 2026-11-02。七年表格已接收核验，首轮训练采用决策层＋LoRA；新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
 <script>
 (() => {
   const tabs = Array.from(document.querySelectorAll('.ssot-switch [role="tab"]'));
@@ -2255,5 +2308,22 @@ try {
   console.warn('Plan diagram unavailable; readable text flow remains available.');
 }
 </script>
+<script id="training-basics-interaction">
+(() => {
+  const scope = document.getElementById('training-scope');
+  const method = document.getElementById('training-method');
+  const title = document.getElementById('training-combination-title');
+  const detail = document.getElementById('training-combination-detail');
+  const names = {head:'只训练决策输出层',lora:'决策输出层＋LoRA',full:'全参微调'};
+  const descriptions = {head:'固定基础权重，只更新把题目表征转为预测的输出模块。',lora:'保持基础权重固定，训练决策输出层与少量适配参数。',full:'允许所选模型的全部权重更新；需要另行验证数据覆盖、训练资源与泛化收益。'};
+  function render() {
+    const isRL = method.value === 'rlcd';
+    title.textContent = names[scope.value] + ' × ' + (isRL ? 'RLCD式校准强化学习' : '监督训练');
+    detail.textContent = descriptions[scope.value] + (isRL ? '再按明确定义的奖励与约束优化决策和概率；这是待研究的实验，不能只改损失函数名称就宣称完成RLCD。' : '依据历史题目与学生实测得分率进行学习。') + (scope.value === 'lora' && !isRL ? '这是首轮领域训练主线。' : '此组合仅说明两个维度可以搭配，尚未执行。');
+  }
+  scope.addEventListener('change',render);method.addEventListener('change',render);render();
+})();
+</script>
+
 </body>
 </html>
