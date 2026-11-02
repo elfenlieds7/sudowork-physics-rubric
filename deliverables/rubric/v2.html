@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>物理试题得分率预测 · 训练方案与七年数据进展 v3.1</title>
+<title>物理试题得分率预测 · 决策模型复现与训练方案 v3.2</title>
 <script>
   MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
 </script>
@@ -176,7 +176,7 @@
     <div class="ssot-eyebrow">项目主文档 · 训练方案与资料进展 · 2026 年 11 月 2 日</div>
     <h1>物理试题得分率预测<br><span>从单题精度问题出发，重新验证模型</span></h1>
     <p class="ssot-lead">让模型读取完整题目，预测特定学生群体在每个小问上的平均得分率；用真实成绩决定哪条路线值得继续。</p>
-    <div class="ssot-badges"><span>计划 v3.1</span><span>七年统计已接收核验</span><span>首轮训练：决策层＋LoRA</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
+    <div class="ssot-badges"><span>计划 v3.2</span><span>复现 Decision-1 公开路线</span><span>七年统计已接收核验</span><span>首轮训练：决策层＋LoRA</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
   </header>
 
   <nav class="ssot-nav" aria-label="本页目录">
@@ -243,15 +243,15 @@ flowchart LR
   </section>
 
   <section id="candidate-models" class="ssot-section" data-node-id="plan/models">
-    <div class="ssot-section-label">04 / 候选方案</div><h2>同题比较，分清通用能力与领域适配的收益</h2>
+    <div class="ssot-section-label">04 / 复现目标与模型对照</div><h2>围绕 Decision-1 的公开路线，研究自己的决策模型</h2><div class="ssot-callout" data-node-id="plan/reproduction-goal"><b>研究目标：</b>以微软公开的Qwen3.5-9B、单次前向决策与候选概率输出为参照，建立可自行训练、验证和部署的同类决策模型，并做物理得分率适配。Jev、Clef和H2O提供性能对照与结构参考；RLCD式训练列为明确研究阶段。</div><p class="ssot-note">微软公开说明确认了底座与输出行为，尚未给出完整训练配方。采用RLCD是我们的研究安排，不能据此宣称微软已公开同一算法、奖励或训练框架。通用决策能力与物理领域适配分别验证；七年219条统计用于领域研究，通用训练数据配方仍需另行落实。</p>
     <div class="ssot-table-wrap"><table class="ssot-table"><thead><tr><th>候选</th><th>这轮角色</th><th>训练与复现口径</th><th>当前状态</th></tr></thead><tbody>
       <tr data-node-id="model/jev"><td><b>Jev 1.14</b></td><td>商业决策模型基线</td><td>云端权重固定；允许本地输出校准</td><td><span class="ssot-pill ready">接口已验证</span><br>完整精度待评测</td></tr>
-      <tr data-node-id="model/clef"><td><b>Clef-Flash 9B</b></td><td>优先研究的开放候选</td><td>Qwen3.5-9B 底座；官方披露监督损失、Brier 校准损失及 RLCD 阶段</td><td><span class="ssot-pill">待运行</span></td></tr>
+      <tr data-node-id="model/clef"><td><b>Clef-Flash 9B</b></td><td>开放结构参考与性能对照</td><td>Qwen3.5-9B 底座；官方披露监督损失、Brier 校准损失及 RLCD 阶段</td><td><span class="ssot-pill">待运行</span></td></tr>
       <tr data-node-id="model/h2o"><td><b>H2O-Lightning-4B</b></td><td>较小开放模型对照</td><td>Qwen3.5-4B 底座；其 RLCD／RLCR 训练来源尚未确认</td><td><span class="ssot-pill">待运行</span></td></tr>
-      <tr data-node-id="model/qwen"><td><b>自训 Qwen3.5-9B</b></td><td>自行掌握决策训练路线</td><td>决策输出层与参数高效适配；监督训练及 RLCD 式实验分别报告</td><td><span class="ssot-pill">待训练</span></td></tr>
+      <tr data-node-id="model/qwen"><td><b>自训 Qwen3.5-9B</b></td><td>自主复现公开技术路线的主线</td><td>决策输出层与参数高效适配；监督训练及 RLCD 式实验分别报告</td><td><span class="ssot-pill">待训练</span></td></tr>
       <tr data-node-id="model/legacy"><td><b>旧量表模型</b></td><td>冻结的历史对照</td><td>套索回归 + 梯度提升树；保留已有预测，不按测试成绩反推</td><td><span class="ssot-pill historical">历史结果</span></td></tr>
     </tbody></table></div>
-    <p>先测现成模型；再对较好的开放模型做成绩适配，同时保留自训 Qwen 的技术对照。模型名称、大小与通用榜单不能替代这次的单题精度检验。</p>
+    <p>先测现成模型作为标杆，同时落实自训Qwen的决策读出与训练接口；开放模型适配结果作为对照。研究顺序为：同题评测 → LoRA监督训练起点 → 同一模型上的LoRA＋RLCD式实验 → 留出试卷比较。模型名称、大小与通用榜单不能替代本项目的单题精度检验。</p>
     <details class="ssot-details" data-node-id="plan/technical-provenance"><summary>技术与复现口径：RLCD、RLCR 与 Decision-1 的区别</summary><div>
       <p><b>RLCD</b> 是 Jev 官方使用的“面向校准决策的强化学习”名称。我们尽量对齐单次决策、概率输出和校准目标；尚未获得 Jev／Decision-1 的完整训练配方，自己的实现应标作 RLCD 式实验。</p>
       <p><b>RLCR</b> 是另一项公开研究，原实现为 Qwen2.5-7B、TRL／Open-R1、GRPO 与校准奖励，会生成推理、答案和置信度。这不是已确认的 Decision-1 流程，也不是 Clef 的公开训练流程。</p>
@@ -283,11 +283,20 @@ flowchart LR
       <tr><td>本地输出校准</td><td>只训练外部小型校准器</td><td>检查学生群体带来的整体偏差</td></tr>
       <tr><td>仅训练决策输出层</td><td>固定底座，只训练输出模块</td><td>首轮适配的较小对照</td></tr>
       <tr><td><b>决策层＋LoRA监督适配</b></td><td><b>基础权重固定，训练输出层与适配参数</b></td><td><b>首轮领域训练主线</b></td></tr>
-      <tr><td>RLCD式实验</td><td>可沿用LoRA等更新范围</td><td>监督结果建立后，独立检验增益</td></tr>
+      <tr><td>RLCD式实验</td><td>可沿用LoRA等更新范围</td><td><b>明确研究阶段：</b>从监督起点继续训练，独立检验增益</td></tr>
       <tr><td>部分解冻／全参微调</td><td>扩大可更新的基础权重范围</td><td>根据验证收益、数据覆盖和实机资源决定</td></tr>
     </tbody></table></div>
     <p><b>扩大训练范围的依据：</b>如果训练题改善、留出试卷变差，先查过拟合和数据覆盖；如果两边都有改善但仍存在稳定误差，先查题目还原、评分口径和标注，再比较更大适配范围。全参是否值得做，以多份留出试卷的稳定增益为准。</p>
     <div class="ssot-callout"><b>本项目尤其要分清：</b>预测得分率60%，表示该学生群体平均得到满分的60%；它不等于“模型有60%的把握”，也不一定等于“60%的学生满分作答”。当前只有平均得分率，首轮先学习均值；不据此编造学生的完整得分分布。</div>
+
+    <details id="reward-design" class="ssot-details" data-node-id="plan/reward-design" open><summary>RLCD的奖励函数由谁设计，难在哪里？</summary><div>
+      <p><b>奖励函数就是一套可计算的打分规则。</b>我们需要为自己的任务明确这套规则，可以采用已有评分方法；未必需要另外训练一个“打分模型”。</p>
+      <p>物理任务的基础对照可以从“预测均值越接近实测均值，奖励越高”开始。例如，候选规则为：<b>奖励＝−（预测得分率−实测得分率）²</b>。这只针对均值误差；公式和系数尚未定稿，也不等于已完成RLCD。</p>
+      <p>同一误差也能直接用于监督训练。因此强化学习阶段要说明增加了什么训练信号，并与同预算的监督继续训练比较，不能把换一个优化方法当作已证明有进步。先监督是当前实验顺序；若已有可用的决策模型起点，也可以另做直接RLCD式训练的小规模对照。</p>
+      <ul><li><b>目标：</b>奖励学生得分率预测准确；模型自己解题正确、或与Jev判断一致，不能替代学生实测。</li><li><b>信息：</b>只有平均得分率，不能由此恢复学生完整得分分布。对概率分布的校准，需要匹配的标签与独立验证。</li><li><b>泛化：</b>奖励只用训练年份数据计算；同一大题小问不跨组，最终测试成绩不参与训练。</li><li><b>稳定：</b>检查模型偏离起点、概率是否失真，以及是否只预测所有题的共同均值。共同均值应保留为基线，是否学会题间差异需要独立验证。</li></ul>
+      <p><b>实现一个基础打分公式较容易；把目标、数据、训练稳定性与新试卷泛化一起验证，技术含量较高。</b>本项目先建立简单且可核验的起点，再逐项增加有证据支持的设计。</p>
+    </div></details>
+
     <p class="ssot-note">基础资料：<a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora" target="_blank" rel="noopener">LoRA官方技术说明</a> · <a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener">Jev的RLCD目标</a> · <a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener">Clef决策层与适配训练说明</a>。本节记录当前实验安排；具体适配层、秩、学习率及奖励参数随实测另记，尚未训练。</p>
   </section>
 
@@ -326,7 +335,7 @@ flowchart LR
     <div class="ssot-steps">
       <details class="ssot-step" open data-node-id="task/data"><summary><span class="ssot-step-num">1</span><span><b>整理资料与忠实数字化</b><small>状态：七年表格已核验；题目数字化与映射待做</small></span></summary><div><p>七年表格已解析为219条本地记录，各年分值汇总一致。新收2020—2022年试卷与参考答案，复用已有2023—2026年试卷；继续对齐小问、公式、原图与评分要求，保存来源和缺失说明。</p><p><b>交付：</b>可检查的逐小问题目记录、资料清单、固定的训练／开发／测试划分。</p></div></details>
       <details class="ssot-step" data-node-id="task/baselines"><summary><span class="ssot-step-num">2</span><span><b>完成 Jev 与开放候选的同题评测</b><small>状态：Jev 通路已验证；完整比较待做</small></span></summary><div><p>冻结输入与任务说明，保存 Jev、Clef-Flash、H2O 的实际版本及原始输出。分别报告直接评测与本地校准结果，对照旧模型。</p><p><b>交付：</b>逐题内部对照、公开汇总误差、严重错判复核清单；此阶段不预判谁会胜出。</p></div></details>
-      <details class="ssot-step" data-node-id="task/adaptation"><summary><span class="ssot-step-num">3</span><span><b>适配现成模型，研究自训 Qwen 与 RLCD</b><small>状态：待训练</small></span></summary><div><p>以决策输出层＋LoRA作为首轮领域训练方案，保留仅训练输出层的较小对照及自训Qwen3.5-9B对照。先比较监督适配，再独立研究RLCD式训练。扩大解冻范围或全参微调须有留出试卷收益支持，并记录资源消耗和失败情况。</p><p><b>交付：</b>可复现的训练配置、检查点与同口径留出评测；校准与训练不接触最终测试成绩。</p></div></details>
+      <details class="ssot-step" data-node-id="task/adaptation"><summary><span class="ssot-step-num">3</span><span><b>适配现成模型，研究自训 Qwen 与 RLCD</b><small>状态：待训练</small></span></summary><div><p>以决策输出层＋LoRA作为首轮领域训练方案，保留仅训练输出层的较小对照及自训Qwen3.5-9B对照。将Qwen公开路线复现作为自主模型主线，现成模型适配作为对照；LoRA监督起点之后，明确开展同模型的RLCD式实验，并加入同预算监督继续训练对照。扩大解冻范围或全参微调须有留出试卷收益支持，并记录资源消耗和失败情况。</p><p><b>交付：</b>可复现的训练配置、检查点与同口径留出评测；校准与训练不接触最终测试成绩。</p></div></details>
       <details class="ssot-step" data-node-id="task/prospective"><summary><span class="ssot-step-num">4</span><span><b>用独立试卷确认是否能够辅助命题</b><small>状态：待验证</small></span></summary><div><p>在新试卷成绩出现前保存预测。检验单题误差、明显错判与复核提示，并由教师判断能否帮助选题、改题和调整试卷结构。</p><p><b>交付：</b>达到／未达到使用要求的明确结论，以及下一次迭代应解决的问题。</p></div></details>
     </div>
     <details class="ssot-details" data-node-id="plan/compute"><summary>算力安排与当前限制</summary><div><p>拟先使用一台 DGX Spark 做推理和决策输出层／LoRA 适配。公司另外两台优先分担独立实验；分布式训练以实际高速互联条件为前提。</p><p>按 128GB 版本的能力判断，可作为 4B／9B 参数高效微调的起点。当前尚未连通本地 Spark 的 SSH，实际内存、负载、ARM／GB10 软件兼容与训练峰值均待核实，不据此承诺完整强化学习训练的规模或速度。</p></div></details>
@@ -339,7 +348,7 @@ flowchart LR
 
 <details id="legacy-archive" class="ssot-archive" data-node-id="plan/history">
 <summary>展开历史页面：旧量表、交互工具、预测记录与 2026 年实测核验</summary>
-<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 11 月 2 日的计划 v3.1 为准。旧工具仅供复现与比较。</div>
+<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 11 月 2 日的计划 v3.2 为准。旧工具仅供复现与比较。</div>
 <!-- BEGIN PRESERVED LEGACY BODY 99a59e861ba3afab8cb35b7558c3a585380568f1 -->
 
 <div class="page">
@@ -2222,7 +2231,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <!-- END PRESERVED LEGACY BODY -->
 </details>
-<footer class="ssot-footer">项目主文档 · 计划 v3.1 · 更新于 2026-11-02。七年表格已接收核验，首轮训练采用决策层＋LoRA；新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
+<footer class="ssot-footer">项目主文档 · 计划 v3.2 · 更新于 2026-11-02。明确Decision-1公开路线复现目标及LoRA监督起点后的RLCD式实验；新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
 <script>
 (() => {
   const tabs = Array.from(document.querySelectorAll('.ssot-switch [role="tab"]'));
