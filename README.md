@@ -2,9 +2,9 @@
 
 与合作教师共同研究：根据完整试题、评分要求与目标学生群体，预测每个小问的预期得分率，辅助命题。
 
-## 当前阶段 · 2026-11-02
+## 当前阶段 · 2026-11-09
 
-**计划 v3.2：复现 Decision-1 公开的同类决策模型路线，明确 LoRA 监督起点后的 RLCD 式实验；七年统计已接收，模型精度仍待验证。**
+**计划 v3.3：保持 Decision-1 同类路线复现、LoRA 监督起点及后续 RLCD 式实验；新增独立的本地训练与 AI 协作架构引用。七年统计已接收，模型精度仍待验证。**
 
 - 2026 年逐题核验覆盖 31 个设问、95 分。调整版的分值加权平均绝对误差为 **18.54 个百分点**，解答题已观测部分为 **26.31 个百分点**。整卷误差相抵不能替代单题准确。
 - 主线：VLM 忠实数字化 → 完整题目 JSON 与图示记录 → 决策模型 → 本地实测成绩核验。不预先限定旧模型的 15 个特征。
@@ -17,12 +17,13 @@
 - 按整年／整卷划分，禁止小问跨组；2026 年已有核验属于回顾性分析。最终还需未参与调试的试卷或前瞻考试验证。
 - **已验证的是 Jev 原生接口连通与合成题协议，完整精度比较和新模型训练尚未完成。**
 
-## 两个主要页面
+## 项目页面与通用架构
 
 | ShareOne URL | 用途 | 源文件 |
 |---|---|---|
-| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT：计划 v3.2，含完整历史区 | `deliverables/rubric/v2.html` |
+| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT：计划 v3.3，含完整历史区 | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 历史论文稿 v2.4.4，本轮未重写 | `deliverables/paper/v1.html` |
+| [本地决策模型训练与 AI 协作架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) | 通用独立架构 v0.1，组件、接口和信息边界；服务待实现 | `deliverables/architecture/local-training.html` |
 
 Git 仓库管理源文件与历史；ShareOne 提供阅读和评论。主 SSOT 保持原链接，绑定 GitHub 固定提交。更新源文件并提交、推送后，需将原分享的 `remote_url` 更新到新提交；不得另建分享或默默改成跟随分支。见 [页面状态](context/shareone_state.md)。
 

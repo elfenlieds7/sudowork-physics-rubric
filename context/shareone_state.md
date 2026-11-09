@@ -1,4 +1,13 @@
-# ShareOne state · 2026-11-02
+# ShareOne state · 2026-11-09
+
+## 2026-11-09 · 通用本地训练架构与计划 v3.3 引用
+
+- 新建通用独立页面：https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou；share_id `dXaSTMXmvTwdfYcV`；显示文件名“本地决策模型训练与AI协作架构_v0.1.html”。
+- 架构源：`deliverables/architecture/local-training.html`；图源：同目录 `local-training.mmd`。固定提交 `8ed83e9487ddb0a12acfda7da4ca9d9f00c96435`，不自动跟随分支。
+- 真实数据只在本地整理、训练、计算奖励和评测；AI 使用受控 API 获取核准元数据和可追问诊断。pandas／Datasets、scikit-learn、PyTorch／PEFT、MLflow、FastAPI／Pydantic 的基础能力已核对官方资料；组合服务、决策层与 RLCD 式训练循环仍待实现和实机验证。
+- 已记录分层采样、脱敏和合成复现样本，作为实施阶段待细化方案；不以合成标签代替真实效果验证，不声称无损研发体验已证实。
+- 物理主页面保持原链接与现有设置，仅在训练方案部分添加独立架构引用并升到 v3.3。监督目标、数据统计、模型路线与完整历史区保持；没有启动新训练。
+- 主页面发布继续使用新 Git 完整提交的远程源，不改为本地上传或 main 自动跟随。
 
 ## 2026-11-02 · 计划 v3.2：恢复复现主线与奖励设计说明
 

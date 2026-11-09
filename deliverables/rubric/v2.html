@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>物理试题得分率预测 · 决策模型复现与训练方案 v3.2</title>
+<title>物理试题得分率预测 · 决策模型复现与训练方案 v3.3</title>
 <script>
   MathJax = {tex: {inlineMath: [['$','$']], displayMath: [['$$','$$']]}, svg: {fontCache:'global'}};
 </script>
@@ -173,10 +173,10 @@
 <body data-shareone-layout="document">
 <main id="next-stage" class="ssot-next">
   <header class="ssot-hero" data-node-id="plan/overview">
-    <div class="ssot-eyebrow">项目主文档 · 训练方案与资料进展 · 2026 年 11 月 2 日</div>
+    <div class="ssot-eyebrow">项目主文档 · 训练方案与资料进展 · 2026 年 11 月 9 日</div>
     <h1>物理试题得分率预测<br><span>从单题精度问题出发，重新验证模型</span></h1>
     <p class="ssot-lead">让模型读取完整题目，预测特定学生群体在每个小问上的平均得分率；用真实成绩决定哪条路线值得继续。</p>
-    <div class="ssot-badges"><span>计划 v3.2</span><span>复现 Decision-1 公开路线</span><span>七年统计已接收核验</span><span>首轮训练：决策层＋LoRA</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
+    <div class="ssot-badges"><span>计划 v3.3</span><span>复现 Decision-1 公开路线</span><span>七年统计已接收核验</span><span>首轮训练：决策层＋LoRA</span><span class="ssot-amber">新路线尚无完整精度结论</span></div>
   </header>
 
   <nav class="ssot-nav" aria-label="本页目录">
@@ -265,6 +265,8 @@ flowchart LR
   <section id="training-basics" class="ssot-section" data-node-id="plan/training-basics">
     <div class="ssot-section-label">05 / 已明确的训练方案与基础知识</div>
     <h2>先决定教什么，再决定改动模型的多少部分</h2>
+    <div class="ssot-callout" data-node-id="plan/local-training-architecture"><b>通用架构已独立整理：</b><a href="https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou" target="_blank" rel="noopener">本地决策模型训练与 AI 协作架构（含架构图）</a>。真实数据供本地整理、训练、奖励计算与评测；研发 AI 通过接口获取字段说明、版本、配方和结构化诊断。文档列出可复用组件及待补模块，训练服务尚未部署验通。<p>本项目继续采用整年／整卷划分，并以真实学生平均得分率为监督目标。采样、脱敏或合成样本用于后续研发调试，不能代替真实成绩验证；具体标签、奖励和评测口径以本页为准。</p></div>
+
     <p><b>“全参／LoRA”回答更新哪些参数；“监督训练／RLCD”回答依据什么反馈来学习。</b>这两个选择可以组合。参数可以理解为模型内部可调整的数值。</p>
     <div class="ssot-two-col">
       <article class="ssot-card"><h3>更新范围：全参与 LoRA</h3><p><b>全参微调：</b>允许所选模型的全部权重参与更新，自由度大，训练状态和算力开销也更大；效果需要验证。</p><p><b>LoRA：</b>保留基础权重，加入少量可训练的低秩适配参数，学习本任务需要的变化。基础知识仍由原模型承载。</p><p><b>决策输出层：</b>把模型理解到的内容转成得分率预测的专门模块，也可以单独训练。</p></article>
@@ -348,7 +350,7 @@ flowchart LR
 
 <details id="legacy-archive" class="ssot-archive" data-node-id="plan/history">
 <summary>展开历史页面：旧量表、交互工具、预测记录与 2026 年实测核验</summary>
-<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 11 月 2 日的计划 v3.2 为准。旧工具仅供复现与比较。</div>
+<div class="ssot-archive-note">历史存档 · 下方正文保留旧版当时的措辞与工具。当前使用判断以 2026 年 11 月 9 日的计划 v3.3 为准。旧工具仅供复现与比较。</div>
 <!-- BEGIN PRESERVED LEGACY BODY 99a59e861ba3afab8cb35b7558c3a585380568f1 -->
 
 <div class="page">
@@ -2231,7 +2233,7 @@ Object.keys(CHART_DATA).forEach(renderChart);
 
 <!-- END PRESERVED LEGACY BODY -->
 </details>
-<footer class="ssot-footer">项目主文档 · 计划 v3.2 · 更新于 2026-11-02。明确Decision-1公开路线复现目标及LoRA监督起点后的RLCD式实验；新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
+<footer class="ssot-footer">项目主文档 · 计划 v3.3 · 更新于 2026-11-09。新增独立的本地训练与 AI 协作架构引用；保持 Decision-1 公开路线复现、LoRA 监督起点与后续 RLCD 式实验。新路线尚未完成精度评测。<br>源码与历史由 Git 管理；本页保留原链接用于审阅与评论。</footer>
 <script>
 (() => {
   const tabs = Array.from(document.querySelectorAll('.ssot-switch [role="tab"]'));

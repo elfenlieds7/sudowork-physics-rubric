@@ -1,6 +1,6 @@
 # 项目文件结构 · SSOT
 
-**最后更新**: 2026-11-02 · **当前主计划**: v3.2（Decision-1公开路线复现、LoRA监督起点及RLCD式实验）
+**最后更新**: 2026-11-09 · **当前主计划**: v3.3（Decision-1公开路线复现、LoRA监督起点及RLCD式实验）
 
 下列 v2.4 量表、标签和训练脚本保留为历史基线；当前工作以主 SSOT 上方的新计划为准。新路线尚未完成精度评测。
 
@@ -22,8 +22,9 @@ sudowork-physics-rubric/
 ├── .gitignore                   # 保密文件排除规则
 │
 ├── deliverables/                # 交付产物 · 面向读者
+│   ├── architecture/            # 通用本地训练架构（独立页面与 Mermaid 源）
 │   ├── paper/                   # 📄 论文 (v2.4.4)
-│   ├── rubric/                  # 📊 主 SSOT（计划 v3.0 + 完整旧版历史区）
+│   ├── rubric/                  # 📊 主 SSOT（计划 v3.3 + 完整旧版历史区）
 │   └── archive/                 # 历史快照 (spec / calibration 已并入主 SSOT)
 │
 ├── data/                        # 数据
@@ -52,7 +53,8 @@ sudowork-physics-rubric/
 | 目录 / 文件 | 用途 | Shareone URL |
 |-------------|------|--------------|
 | `paper/v1.html` | **论文 v2.4.4** · 独立发表版 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) |
-| `rubric/v2.html` | **主 SSOT（计划 v3.0）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
+| `rubric/v2.html` | **主 SSOT（计划 v3.3）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
+| `architecture/local-training.html` | 通用本地训练与 AI 协作架构 v0.1（非物理专用） | [独立架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) |
 | `archive/spec_2026-08-08_snapshot/` | 原独立 spec 页 (内容已并入主 SSOT 附录 E) | 已 dead |
 | `archive/calibration_2026-08-09_snapshot/` | 原独立 kappa study 页 (已并入主 SSOT 附录 F) | 已 dead |
 | `archive/bungee_solution/` | 早期探索 · 不再维护 | 无 |
@@ -160,7 +162,7 @@ sudowork-physics-rubric/
 
 | URL | 用途 | 对应本地 |
 |-----|------|----------|
-| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT（计划 v3.0 + 历史区） | `deliverables/rubric/v2.html` |
+| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT（计划 v3.3 + 历史区） | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 论文 (v2.4.4) | `deliverables/paper/v1.html` |
 
 **已废弃 URL** (tombstoned · HTTP 410):
