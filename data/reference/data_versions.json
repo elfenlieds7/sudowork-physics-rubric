@@ -1,6 +1,6 @@
 {
   "catalog_version": 1,
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "contains_observed_score_values": false,
   "datasets": [
     {
@@ -30,7 +30,21 @@
   "availability": {
     "github": "code, plans, coverage and this catalog; no private payload",
     "mac": "new seven-year intake and selected legacy datasets confirmed",
-    "windows": "private bundle receipt and checksums not yet confirmed",
+    "windows": "2026-11-10: received code aee1400; package and 32 payload files verified and restored; seven-year workbook reparsed and 219 rows matched; previous private files preserved",
     "training_machine": "UNKNOWN; no completed SSH inventory and no transfer by this workline"
+  },
+  "windows_receipt": {
+    "date": "2026-11-10",
+    "code_commit_received": "aee14007e826ab4cd855af339802ef9cba21a83a",
+    "private_payload_files_verified": 32,
+    "observed_rows_revalidated": 219,
+    "existing_private_files_preserved": 17,
+    "unit_tests_passed": 13,
+    "public_data_guard": "passed",
+    "legacy_2026_workbook_present": true,
+    "legacy_cohort_calibration_present": true,
+    "detailed_manifest": "data/private/handoff_receipts/windows_20261110.json; Git ignored",
+    "new_model_training_started": false,
+    "training_machine_files": "UNKNOWN"
   }
 }
