@@ -1,0 +1,32 @@
+flowchart TB
+    AI["研发 AI／研究人员"]
+    subgraph LAN["本地可信环境 · DGX Spark 等算力"]
+      API["受控 API
+身份与参数校验"]
+      JOB["作业管理
+固定版本配方 · 资源预算"]
+      DATA[("真实数据
+本地版本与划分")]
+      PREP["整理与特征处理"]
+      TRAIN["模型训练与本地奖励"]
+      EVAL["评测与诊断"]
+      STORE[("本地实验记录
+模型与检查点")]
+      OUT["结果出口
+核准字段 · 结构化证据"]
+      API --> JOB
+      DATA --> PREP --> TRAIN --> EVAL
+      JOB --> PREP
+      JOB --> TRAIN
+      JOB --> EVAL
+      TRAIN --> STORE
+      EVAL --> STORE
+      STORE --> OUT
+      API --> OUT
+    end
+    AI -->|"配方、版本和预算"| API
+    OUT -->|"元数据、指标和诊断"| AI
+    classDef compute fill:#e6f0eb,stroke:#33715a,color:#183c2c
+    classDef private fill:#f7eddb,stroke:#ac8745,color:#654a1c
+    class API,JOB,PREP,TRAIN,EVAL,OUT compute
+    class DATA,STORE private
