@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY_NOT_A_RUNNABLE_TRAINING_RECIPE",
+  "training_entrypoint": null,
+  "objective": "Reproduce the public same-class Decision-1 route, then adapt to mean score-rate prediction",
+  "architecture": "single_forward_candidate_decision_probabilities; exact readout remains to implement",
+  "dataset_config": "configs/data-intake.v1.json",
+  "target": "observed group mean score-rate; not an individual success probability or a full score distribution",
+  "split": {
+    "unit": "whole_year_and_paper",
+    "keep_subquestions_and_variants_together": true,
+    "development_years": [2020, 2021, 2022, 2023, 2024, 2025],
+    "proposed_validation": "leave_one_year_out; fit preprocessing/calibration and choose hyperparameters inside training folds",
+    "retrospective_comparison_years": [2026],
+    "independent_final_test": "new untouched paper or prospective exam; not yet supplied"
+  },
+  "model": {
+    "proposed_base": "Qwen/Qwen3.5-9B",
+    "revision": null,
+    "tokenizer_revision": null,
+    "reference_candidates": ["Jev commercial inference baseline", "Clef-Flash 9B", "H2O-Lightning-4B"],
+    "references_are_exact_reproduction": false
+  },
+  "phases": [
+    {"id": "direct_baseline", "updates": "none", "status": "not_evaluated_on_full_papers"},
+    {"id": "head_supervised", "updates": "decision_output_layer", "status": "not_implemented"},
+    {"id": "lora_supervised", "updates": "decision_output_layer_and_LoRA", "role": "first_domain_training_mainline", "status": "not_implemented"},
+    {"id": "rlcd_style", "start": "same_supervised_checkpoint", "control": "same_budget_continued_supervised_training", "status": "reward_and_update_loop_to_define"},
+    {"id": "wider_or_full_finetune", "condition": "stable heldout gains, data coverage and measured device capacity", "status": "conditional"}
+  ],
+  "reward": {
+    "mean_prediction_baseline_candidate": "negative_squared_error",
+    "formula_finalized": false,
+    "probability_calibration_claim_from_mean_only": false,
+    "reference_penalty_and_rl_update": null
+  },
+  "unresolved_hyperparameters": {
+    "learning_rate": null, "batch_size": null, "sequence_length": null,
+    "lora_rank": null, "lora_alpha": null, "epochs": null,
+    "training_seed": null, "precision": null
+  },
+  "hardware": {"target": "local GPU such as DGX Spark", "verified_training_environment": false},
+  "outputs": {"raw_predictions_and_labels": "private", "checkpoints": "private", "approved_aggregate_metrics_and_versions": "publishable"}
+}

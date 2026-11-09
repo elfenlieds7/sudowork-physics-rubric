@@ -13,8 +13,9 @@ from pathlib import Path
 from statistics import mean
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-CSV_PATH = REPO_ROOT / "data" / "labeled" / "combined_scored_v3.csv"
-OUT_HTML_FRAGMENT = REPO_ROOT / "analysis" / "difficulty_curves_fragment.html"
+CSV_PATH = REPO_ROOT / "data" / "labeled" / "archive" / "combined_scored_v3.csv"
+OUT_HTML_FRAGMENT = REPO_ROOT / "data" / "private" / "legacy_chart_exports" / "difficulty_curves_fragment.html"
+OUT_HTML_FRAGMENT.parent.mkdir(parents=True, exist_ok=True)
 
 BASE = ["concept", "reasoning", "novelty", "visual", "modeling",
         "position", "is_open", "topic_mech", "topic_em",

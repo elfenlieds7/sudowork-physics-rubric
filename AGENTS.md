@@ -1,5 +1,9 @@
 # AGENTS.md · onboarding for AI agents
 
+## Current handoff · 2026-11-09
+
+Read `docs/windows-handoff-20261109.md` before continuing training work. New model training has not started; `configs/decision-model-research.v1.json` is a design record with unresolved fields, not an executable recipe. Private data travels through the user's Dropbox handoff, with a manifest and SHA-256 verification. Actual-outcome files formerly tracked under legacy paths are now ignored; retain local copies and restore privately. Never recover them by copying old Git blobs into a new public commit. Run `python scripts/check_public_data.py` before publication. The current data-boundary instructions supersede historical statements that all files under `data/labeled/` are public.
+
 If you're a new AI joining this project, this file gets you productive fast. Read `README.md` first for high-level context, then this for how-to.
 
 ## The 3 people

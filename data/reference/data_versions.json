@@ -1,0 +1,36 @@
+{
+  "catalog_version": 1,
+  "updated": "2026-11-09",
+  "contains_observed_score_values": false,
+  "datasets": [
+    {
+      "id": "gaokao-xicheng-2020-2026-received-20261102-v1",
+      "years": [2020, 2021, 2022, 2023, 2024, 2025, 2026],
+      "observed_rows": 219,
+      "coverage": "data/reference/gaokao_2020_2026_coverage.json",
+      "intake_config": "configs/data-intake.v1.json",
+      "alignment": "question and answer digitization and per-subquestion join pending",
+      "source_and_normalized_records": "private Dropbox handoff; exact file checksums in private manifest"
+    },
+    {
+      "id": "legacy-rubric-v2.4-223",
+      "observed_rows": 223,
+      "paper_count": 7,
+      "scope": "historical mixture of gaokao and mock exams; do not merge blindly with the new seven-year data",
+      "storage": "legacy paths remain on disk but actual-outcome files are no longer tracked; restore privately before reproduction"
+    },
+    {
+      "id": "retrospective-2026-31-leaves",
+      "observed_rows": 31,
+      "covered_points": 95,
+      "status": "historical audit; original single-year workbook and cohort calibration are not present in this Mac checkout",
+      "compatibility": "new seven-year workbook has 32 observations in 2026; map changed subquestion granularity before comparison"
+    }
+  ],
+  "availability": {
+    "github": "code, plans, coverage and this catalog; no private payload",
+    "mac": "new seven-year intake and selected legacy datasets confirmed",
+    "windows": "private bundle receipt and checksums not yet confirmed",
+    "training_machine": "UNKNOWN; no completed SSH inventory and no transfer by this workline"
+  }
+}

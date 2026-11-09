@@ -2,9 +2,13 @@
 
 与合作教师共同研究：根据完整试题、评分要求与目标学生群体，预测每个小问的预期得分率，辅助命题。
 
+## Windows 接续入口
+
+先读 [2026-11-09 交接说明](docs/windows-handoff-20261109.md)：已完成内容、下一步、运行命令、依赖和数据位置。私密数据由 Dropbox 交接，使用 `scripts/verify_private_handoff.py` 核对并恢复；新模型训练尚未开始。
+
 ## 当前阶段 · 2026-11-09
 
-**计划 v3.3：保持 Decision-1 同类路线复现、LoRA 监督起点及后续 RLCD 式实验；新增独立的本地训练与 AI 协作架构引用。七年统计已接收，模型精度仍待验证。**
+**计划 v3.4：Windows 接续资料、代码与依赖已整理；保持 Decision-1 同类路线复现、LoRA 监督起点及后续 RLCD 式实验。七年统计已接收，新模型尚未训练；逐题实测数据改由私密包交接。**
 
 - 2026 年逐题核验覆盖 31 个设问、95 分。调整版的分值加权平均绝对误差为 **18.54 个百分点**，解答题已观测部分为 **26.31 个百分点**。整卷误差相抵不能替代单题准确。
 - 主线：VLM 忠实数字化 → 完整题目 JSON 与图示记录 → 决策模型 → 本地实测成绩核验。不预先限定旧模型的 15 个特征。
@@ -21,7 +25,7 @@
 
 | ShareOne URL | 用途 | 源文件 |
 |---|---|---|
-| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT：计划 v3.3，含完整历史区 | `deliverables/rubric/v2.html` |
+| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT：计划 v3.4，含完整历史区 | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 历史论文稿 v2.4.4，本轮未重写 | `deliverables/paper/v1.html` |
 | [本地决策模型训练与 AI 协作架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) | 通用独立架构 v0.1，组件、接口和信息边界；服务待实现 | `deliverables/architecture/local-training.html` |
 
@@ -29,7 +33,7 @@ Git 仓库管理源文件与历史；ShareOne 提供阅读和评论。主 SSOT �
 
 ## 数据与保密
 
-仓库为公开仓库。原始成绩与题目—成绩连接表保留在 gitignored 的 `data/private/`，不提交、不嵌入公开页面、不发给云端模型。发送公开试卷前检查是否附有手写成绩等内部标注。
+仓库为公开仓库。原始成绩与题目—成绩连接表保留在 gitignored 的 `data/private/`，以及本次已取消 Git 跟踪的旧数据路径，不提交、不嵌入公开页面、不发给云端模型。发送公开试卷前检查是否附有手写成绩等内部标注。
 
 旧训练集为 7 套试卷、223 个设问，混合高考与模拟卷；与新收到的七年219条高考统计分别管理，不能直接相加。新表各年覆盖91—95分，未列得分率保持缺失；不填零，不推断完整100分均分。2026年新表32条与历史31个设问的粒度不同，先映射再比较。高考与高三期末的备考阶段不同，分别验证。
 
@@ -55,3 +59,7 @@ python -m unittest discover -s analysis -p test_intake_gaokao_workbook.py
 旧量表的评分一致性、早期交叉验证与论文结果属于历史探索，不再作为当前单题预测已可用的依据。
 
 联系 Ethan（宋一民），GitHub：`elfenlieds7`。学术使用与定制数据分享需联系协商。
+
+### 公开文件检查
+
+提交前运行 `python scripts/check_public_data.py`；检查暂存内容使用 `--staged`。旧页面曾内嵌的逐题实测值和旧训练成绩文件已从当前公开树移出，原件在私密包；旧 Git 历史未改写。

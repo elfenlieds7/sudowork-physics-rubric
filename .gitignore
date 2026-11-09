@@ -48,3 +48,24 @@ data/private/
 
 # Mock/test data for validator tool
 deliverables/tools/mock_actuals.csv
+
+/analysis/labeling_traps_subset.json
+/data/labeled/5year_comparison.csv
+/data/labeled/archive/calibration_20_items.csv
+/data/labeled/archive/combined_scored_v3.csv
+/data/labeled/archive/rubric_v1_result.json
+/data/labeled/archive/rubric_v2_result.json
+/data/labeled/archive/v2_1_labels.csv
+/data/labeled/archive/v2_2_calibration_20_items.csv
+/data/labeled/archive/v2_2_labels.csv
+/data/labeled/archive/v2_calibration_20_items.csv
+/data/labeled/archive/xicheng_2026_scored.csv
+/data/labeled/archive/xicheng_2026_scored.json
+/data/labeled/archive/xicheng_2026_scored_v2.csv
+/data/labeled/v2_3_calibration_20_items.csv
+/data/labeled/v2_3_labels.csv
+/data/labeled/v2_4_labels.csv
+
+# Legacy exports containing observed outcomes stay private.
+/deliverables/rubric/chart_data.js
+/analysis/difficulty_curves_fragment.html

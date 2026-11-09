@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>本地决策模型训练与 AI 协作架构 · v0.1</title>
+<style>
+:root{--paper:#f5f4ef;--ink:#21372f;--muted:#607067;--line:#d9dfd6;--green:#28654d;--pale:#eaf1ea;--gold:#806427}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 "PingFang SC","Microsoft YaHei",system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:44px 32px 56px}header{border-bottom:1px solid var(--line);padding-bottom:26px}.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--green)}h1{font-size:35px;line-height:1.35;font-weight:650;margin:12px 0 14px}h2{font-size:24px;line-height:1.4;margin:0 0 18px;font-weight:620}h3{font-size:17px;margin:0 0 6px}p{margin:9px 0}.lead{font-size:18px;max-width:900px}.muted,small{color:var(--muted)}.badge{display:inline-block;font-size:12px;padding:3px 10px;border:1px solid var(--line);border-radius:4px;margin:8px 6px 0 0}section{padding:30px 0;border-bottom:1px solid var(--line)}a{color:var(--green);text-underline-offset:4px}nav{display:flex;gap:20px;overflow:auto;padding-top:20px}nav a{font-size:14px;white-space:nowrap}.diagram{background:#fff;border:1px solid var(--line);padding:22px;overflow:auto;border-radius:8px}.diagram svg{width:100%;height:auto;max-height:700px;min-width:670px;display:block;margin:auto}.note{border-left:3px solid var(--green);padding:11px 17px;background:var(--pale);margin:17px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{padding:18px 20px;background:#fff;border:1px solid var(--line);border-radius:6px}.card p{font-size:14px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:12px 10px}th{font-weight:650;background:#e9eee6}td:first-child{min-width:140px;font-weight:550}td:last-child{min-width:160px}code{font:12px/1.7 ui-monospace,SFMono-Regular,monospace;overflow-wrap:anywhere}.state{font-size:12px;color:var(--gold)}ol{padding-left:22px}li{margin:8px 0}.source{font-size:12px;color:var(--muted)}footer{font-size:12px;color:var(--muted);padding-top:22px}
+@media(max-width:700px){main{padding:26px 18px}h1{font-size:27px}h2{font-size:22px}.lead{font-size:16px}.grid{grid-template-columns:1fr}.diagram{padding:10px}.diagram svg{max-height:none}table{min-width:710px}nav{gap:16px}section{padding:25px 0}}
+@media print{body{background:white}main{max-width:none;padding:12px}nav{display:none}.diagram svg{min-width:0;max-height:550px}.card,.diagram{break-inside:avoid}a{color:inherit}table{font-size:11px}th,td{padding:8px}section{padding:20px 0}}
+</style></head><body><main id="local-training-architecture">
+<header data-node-id="architecture/overview"><div class="eyebrow">通用架构 · 研究与实施基线</div>
+<h1>本地决策模型训练<br>数据留在内网，AI 通过接口协作</h1>
+<p class="lead">真实数据供本地整理、训练、奖励计算和评测；研发 AI 获取字段说明、训练配方及足够细的诊断证据，持续提出并比较实验。</p>
+<span class="badge">v0.1 · 2026-11-09</span><span class="badge">适用于多个领域</span><span class="badge">组件能力已查证，服务待实现</span>
+<nav aria-label="目录"><a href="#architecture">架构图</a><a href="#components">复用与补全</a><a href="#interfaces">接口范围</a><a href="#data-boundary">信息边界</a><a href="#next">实施顺序</a></nav></header>
+
+<section id="architecture" data-node-id="architecture/diagram"><h2>一个入口，一条本地训练链</h2>
+<div class="diagram" role="img" aria-label="研发 AI 通过受控 API 提交实验，本地数据在整理、训练、评测链中流转，核准后的元数据和诊断返回 AI。">__DIAGRAM__</div>
+<p class="source">箭头表示调用与结果流转。整理、训练及评测均可按需独立运行；图中的顺序表示一次完整实验。</p>
+<div class="note"><b>训练仍使用完整真实数据。</b>远程协作者通过数据版本、配方和指标操作实验，不直接读取数据目录。训练中的每批奖励在本地计算，避免往返远程接口。</div>
+<p>研发代码先用公开或合成样本调试，经本地确认并固定版本后进入训练配方。AI 使用的账号只调用核准接口；训练服务使用独立身份访问数据。服务代码与结果出口规则由本地受控流程更新。</p></section>
+
+<section id="components" data-node-id="architecture/components"><h2>哪些可复用，哪些要补齐</h2>
+<p class="muted">“可复用”表示官方文档已确认所需基础能力；下面的组合尚未在我们的 Spark 上验通。</p>
+<div class="table-wrap"><table><thead><tr><th>模块</th><th>已明确可复用</th><th>我们需要补齐或验证</th></tr></thead><tbody>
+<tr><td>数据整理与特征</td><td><a href="https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html">pandas</a> 读取表格；<a href="https://huggingface.co/docs/datasets/en/process">Datasets</a> 做批量转换、过滤与训练数据组织。</td><td>字段语义、单位、缺失处理和领域特征规则；本地数据版本清单及转换记录。<br><span class="state">基础库明确 · 领域适配待做</span></td></tr>
+<tr><td>划分与评测</td><td><a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html">scikit-learn</a> 支持按组互斥划分；指标工具可复用。</td><td>确定分组／时间规则、封存测试集、同预算对照；按任务确定误差、概率校准和稳健性指标。</td></tr>
+<tr><td>训练与参数更新</td><td><a href="https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html">PyTorch</a> 提供训练基础；<a href="https://huggingface.co/docs/peft/main/en/conceptual_guides/lora">PEFT</a> 提供 LoRA 适配。</td><td>决策层、候选选项读出、模型适配；在目标设备做前向、反向、检查点恢复及内存验证。<br><span class="state">不预设全参微调优于 LoRA</span></td></tr>
+<tr><td>奖励与决策训练</td><td>可复用张量运算、优化器和指标函数。<a href="https://blog.cloudflare.com/clef-decision-models/">Clef 公开说明</a>可作同类路线参考。</td><td>领域奖励、约束和奖励诊断；RLCD 式目标与训练循环需单独适配验证。<b>尚未确认可直接复用的完整 Decision-1 复现训练配方。</b></td></tr>
+<tr><td>实验记录</td><td><a href="https://mlflow.org/docs/latest/ml/tracking/">MLflow Tracking</a> 记录参数、代码版本、指标和产物，部署在本地。</td><td>绑定数据／划分／奖励版本和环境版本；只向外导出核准字段，模型与检查点留在本地。</td></tr>
+<tr><td>API 与作业管理</td><td><a href="https://fastapi.tiangolo.com/tutorial/response-model/">FastAPI</a> 提供接口；<a href="https://pydantic.dev/docs/validation/latest/concepts/models/">Pydantic</a> 校验请求和响应结构。</td><td>配方注册、持久化作业状态、预算限制、停止与恢复、结果出口。单机先使用独立训练进程；GPU 长任务不放在请求进程内。<br><span class="state">服务整合待实现</span></td></tr>
+</tbody></table></div>
+<p class="source">训练进程与 API 分离的依据：<a href="https://fastapi.tiangolo.com/tutorial/background-tasks/#caveat">FastAPI 对重计算后台任务的说明</a>。具体依赖版本在设备验证后锁定。</p>
+<div class="note"><b>决策模型主线保持一致：</b>复现 <a href="https://commandline.microsoft.com/microsoft-decision-1-model-foundry/">Decision-1 公开的同类路线</a>：单次前向输出候选决策的概率。先建立决策层＋LoRA 的监督起点，再做 RLCD 式优化与同预算比较。Jev 保留为可用性／效果参照，训练使用可获得的开源模型。</div></section>
+
+<section id="interfaces" data-node-id="architecture/interfaces"><h2>首期接口：能追问、能复现、能比较</h2>
+<p class="muted">下列是拟定的接口职责，尚未部署。以版本 ID 和注册好的规则调用，不提供任意 SQL、文件读取或 shell 执行。</p>
+<div class="table-wrap"><table><thead><tr><th>能力</th><th>主要输入</th><th>返回给研发 AI 的证据</th></tr></thead><tbody>
+<tr><td><code>describe_dataset</code></td><td>数据集 ID、版本</td><td>字段、含义、单位、类型；可用版本、划分和允许查询的分组。</td></tr>
+<tr><td><code>prepare_dataset</code></td><td>数据版本、转换规则版本</td><td>新版本 ID、记录数、缺失／异常统计、处理规则和验证结论。</td></tr>
+<tr><td><code>create_split</code></td><td>数据版本、划分规则、种子</td><td>划分 ID、各组规模、组间重叠与时间泄漏检查。</td></tr>
+<tr><td><code>run_experiment</code></td><td>数据／划分／模型／配方／奖励版本、预算</td><td>作业 ID、实际配置、环境与代码版本；后续可停止或按检查点恢复。</td></tr>
+<tr><td><code>get_diagnostics</code></td><td>作业 ID、核准的诊断视图</td><td>训练曲线、分组误差与样本数、校准统计、奖励分项及异常比例、吞吐与内存、处理后的错误类型。</td></tr>
+<tr><td><code>compare_runs</code></td><td>作业 ID 列表、比较规则</td><td>版本与预算是否可比、指标差异及可计算的不确定性；不足以判断时明确标注。</td></tr>
+</tbody></table></div>
+<p>每份报告带上数据／代码／配方／奖励版本、样本数和统计口径。需要更细诊断时，可以继续请求已核准的分组、误差分布或奖励分项；避免只返回“完成＋一个平均误差”。</p></section>
+
+<section id="data-boundary" data-node-id="architecture/data-boundary"><h2>信息边界与调试方法</h2>
+<div class="grid"><article class="card"><h3>可以开放给研发 AI</h3><p>经确认不含敏感值的字段含义与单位、版本、划分、配方、接口契约，以及训练曲线、分组指标、奖励诊断和资源状态。按当前约定，这些信息可以直接用于协作。</p></article>
+<article class="card"><h3>由本地服务保留</h3><p>原始记录、身份映射、逐条敏感标签、含原文的日志、模型权重及检查点。诊断输出检查实际内容；小分组或连续细分查询可能还原记录时，先合并或限制返回。</p></article></div>
+<p><b>已记录、到实施时再细化：</b>分层抽样覆盖正常与边界情况；脱敏样本保留调试所需结构；合成数据用于接口测试和错误复现。公开样本可以直接使用。合成数据是否适合训练另做真实验证，不能仅因“合成”就认定无隐私风险或可替代真实标签。</p>
+<p><b>效果目标：</b>API 封装可以保持本地数据与训练算法完整；研发诊断是否同样高效，要用真实实验确认。若遇到摘要无法解释的问题，先增加结构化诊断，再按需制作核准的脱敏或合成复现样本。测试集保持封存，不作为反复调试的样本来源。</p></section>
+
+<section id="next" data-node-id="architecture/next"><h2>按最小闭环实施</h2>
+<ol><li><b>设备与数据契约。</b>核对 Spark 的登录、驱动、框架和可用内存；登记字段、版本及可导出结果。<a href="https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/pytorch-fine-tune">NVIDIA 官方 PyTorch 微调示例</a>可作为环境起点，目标模型仍需实测。</li>
+<li><b>跑通一次监督实验。</b>注册配方 → 本地整理与划分 → 决策层＋LoRA 训练 → 评测 → 返回诊断。验证停止、恢复和版本对应。</li>
+<li><b>补奖励与迭代。</b>先检查奖励在典型／边界情况的行为，再加入 RLCD 式实验，与监督基线按同预算比较；由结果决定是否扩大可训练参数范围。</li></ol>
+<p class="muted">本页确认架构与组件选型依据；不代表训练服务已经可用，也不承诺未经评测的精度或吞吐。</p></section>
+<footer>独立通用架构 · v0.1 · 资料查证于 2026-11-09。领域项目引用本页，另行维护各自的数据口径、标签、奖励与验收标准。</footer>
+</main><script>
+window.addEventListener('click',function(e){const a=e.target.closest('a[href^="#"]');if(!a)return;const t=document.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();e.stopImmediatePropagation();t.scrollIntoView({behavior:'smooth',block:'start'});}},true);
+</script></body></html>

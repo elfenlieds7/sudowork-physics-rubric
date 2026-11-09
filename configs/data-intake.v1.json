@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "dataset_version": "gaokao-xicheng-2020-2026-received-20261102-v1",
+  "status": "intake_validated_question_alignment_pending",
+  "source": {
+    "private_relative_path": "data/private/gaokao_2020_2026_20261102/20-26年西城.xlsx",
+    "sha256_location": "private bundle manifest.json; not duplicated into the public data catalog"
+  },
+  "expected_years": [2020, 2021, 2022, 2023, 2024, 2025, 2026],
+  "expected_observed_rows": 219,
+  "private_output_directory": "data/private/gaokao_2020_2026_20261102",
+  "public_coverage_summary": "data/reference/gaokao_2020_2026_coverage.json",
+  "policy": {
+    "missing_rates": "retain_missing_do_not_zero_fill",
+    "units": "score_rate_fraction_0_to_1; points_in_exam_score_units",
+    "parent_child_overlap": "reject",
+    "normalized_question_id_collisions": "reject",
+    "full_paper_mean_from_partial_coverage": "do_not_infer"
+  }
+}

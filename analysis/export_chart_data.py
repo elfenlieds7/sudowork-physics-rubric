@@ -11,7 +11,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, str(Path(__file__).parent))
 from pre_label_traps import TRAP_LABELS as TL
 
-CSV_PATH = Path(__file__).resolve().parent.parent / "data" / "labeled" / "combined_scored_v3.csv"
+CSV_PATH = Path(__file__).resolve().parent.parent / "data" / "labeled" / "archive" / "combined_scored_v3.csv"
 BASE = ['concept','reasoning','novelty','visual','modeling','position','is_open',
         'topic_mech','topic_em','textbook_scene_degree','textbook_pattern_degree']
 FEATS = BASE + ['transfer_cost','is_last_quarter','earlier_load',
@@ -78,7 +78,8 @@ def main():
 
     # Emit JS-friendly structure
     js = "const CHART_DATA = " + json.dumps(by_paper, ensure_ascii=False, indent=2) + ";"
-    out = Path(__file__).resolve().parent.parent / "deliverables" / "rubric" / "chart_data.js"
+    out = Path(__file__).resolve().parent.parent / "data" / "private" / "legacy_chart_exports" / "chart_data.js"
+    out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, 'w', encoding='utf-8') as f:
         f.write(js)
     print(f"wrote {out}  ({len(rows)} items across {len(by_paper)} papers)")

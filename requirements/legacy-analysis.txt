@@ -1,0 +1,6 @@
+# Mac versions observed on 2026-11-09. Legacy model reproduction only.
+-r intake.txt
+numpy==2.3.5
+scipy==1.17.1
+pandas==2.3.3
+scikit-learn==1.8.0

@@ -1,6 +1,6 @@
 # 项目文件结构 · SSOT
 
-**最后更新**: 2026-11-09 · **当前主计划**: v3.3（Decision-1公开路线复现、LoRA监督起点及RLCD式实验）
+**最后更新**: 2026-11-09 · **当前主计划**: v3.4（Decision-1公开路线复现、LoRA监督起点及RLCD式实验）
 
 下列 v2.4 量表、标签和训练脚本保留为历史基线；当前工作以主 SSOT 上方的新计划为准。新路线尚未完成精度评测。
 
@@ -24,8 +24,13 @@ sudowork-physics-rubric/
 ├── deliverables/                # 交付产物 · 面向读者
 │   ├── architecture/            # 通用本地训练架构（独立页面与 Mermaid 源）
 │   ├── paper/                   # 📄 论文 (v2.4.4)
-│   ├── rubric/                  # 📊 主 SSOT（计划 v3.3 + 完整旧版历史区）
+│   ├── rubric/                  # 📊 主 SSOT（计划 v3.4 + 完整旧版历史区）
 │   └── archive/                 # 历史快照 (spec / calibration 已并入主 SSOT)
+│
+├── docs/                        # Windows 交接与操作说明
+├── configs/                     # 数据接收与待实现研究配置
+├── requirements/                # 已核验的数据接收／历史分析／发布依赖
+├── scripts/                     # 私密包验证、公开数据检查、架构渲染
 │
 ├── data/                        # 数据
 │   ├── labeled/                 # ✅ 当前 canonical · v2.3/v2.4 labels + teacher gold
@@ -53,7 +58,7 @@ sudowork-physics-rubric/
 | 目录 / 文件 | 用途 | Shareone URL |
 |-------------|------|--------------|
 | `paper/v1.html` | **论文 v2.4.4** · 独立发表版 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) |
-| `rubric/v2.html` | **主 SSOT（计划 v3.3）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
+| `rubric/v2.html` | **主 SSOT（计划 v3.4）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
 | `architecture/local-training.html` | 通用本地训练与 AI 协作架构 v0.1（非物理专用） | [独立架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) |
 | `archive/spec_2026-08-08_snapshot/` | 原独立 spec 页 (内容已并入主 SSOT 附录 E) | 已 dead |
 | `archive/calibration_2026-08-09_snapshot/` | 原独立 kappa study 页 (已并入主 SSOT 附录 F) | 已 dead |
@@ -63,7 +68,9 @@ sudowork-physics-rubric/
 
 ## 三 · 数据 (`data/`)
 
-### 3.1 · `data/labeled/` · 打分标签
+### 3.1 · `data/labeled/` · 历史打分标签与私密恢复路径
+
+2026-11-09 起：下表中含实测成绩的 CSV 与逐题对照 JSON 已取消 Git 跟踪并纳入私密交接。表格保留的是历史路径，不表示当前仍在公开仓库；恢复前先读 `docs/windows-handoff-20261109.md`。
 
 **当前 canonical** (v2.3 用于 kappa 引用 · v2.4 用于最新训练):
 
@@ -162,7 +169,7 @@ sudowork-physics-rubric/
 
 | URL | 用途 | 对应本地 |
 |-----|------|----------|
-| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT（计划 v3.3 + 历史区） | `deliverables/rubric/v2.html` |
+| [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT（计划 v3.4 + 历史区） | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 论文 (v2.4.4) | `deliverables/paper/v1.html` |
 
 **已废弃 URL** (tombstoned · HTTP 410):
