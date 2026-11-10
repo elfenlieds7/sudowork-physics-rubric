@@ -22,7 +22,7 @@ sudowork-physics-rubric/
 ├── .gitignore                   # 保密文件排除规则
 │
 ├── deliverables/                # 交付产物 · 面向读者
-│   ├── architecture/            # 通用本地训练架构（独立页面与 Mermaid 源）
+│   ├── architecture/            # 通用本地训练架构（JSON 内容源生成 HTML／Mermaid）
 │   ├── paper/                   # 📄 论文 (v2.4.4)
 │   ├── rubric/                  # 📊 主 SSOT（计划 v3.4 + 完整旧版历史区）
 │   └── archive/                 # 历史快照 (spec / calibration 已并入主 SSOT)
@@ -59,7 +59,7 @@ sudowork-physics-rubric/
 |-------------|------|--------------|
 | `paper/v1.html` | **论文 v2.4.4** · 独立发表版 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) |
 | `rubric/v2.html` | **主 SSOT（计划 v3.4）** · 当前计划与完整旧版历史区 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) |
-| `architecture/local-training.html` | 通用本地训练与 AI 协作架构 v0.1（非物理专用） | [独立架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) |
+| `architecture/local-training.html` | 通用本地训练与 AI 协作架构 v0.2（模块点选与同源接口引用） | [独立架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) |
 | `archive/spec_2026-08-08_snapshot/` | 原独立 spec 页 (内容已并入主 SSOT 附录 E) | 已 dead |
 | `archive/calibration_2026-08-09_snapshot/` | 原独立 kappa study 页 (已并入主 SSOT 附录 F) | 已 dead |
 | `archive/bungee_solution/` | 早期探索 · 不再维护 | 无 |

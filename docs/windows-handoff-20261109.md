@@ -9,7 +9,7 @@
 | 内容 | 入口 | 实际状态 |
 |---|---|---|
 | 本项目当前研究计划 | [ShareOne 主页面](https://s.shareone.vip/s/difficulty-rubric-v2-yang)、`deliverables/rubric/v2.html` | v3.4；Decision-1 同类路线、LoRA 监督起点及后续 RLCD 式实验 |
-| 通用本地训练架构 | [独立架构页](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou)、`deliverables/architecture/` | v0.1；组件、API、数据边界已明确，组合服务未实现 |
+| 通用本地训练架构 | [独立架构页](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou)、`deliverables/architecture/` | v0.2；图中模块对应组件、API 和待补要求，组合服务未实现 |
 | 新七年工作簿接收 | `analysis/intake_gaokao_workbook.py` | 已验证；219 条观测，包含每题实际分值 |
 | 数据配置与版本 | `configs/data-intake.v1.json`、`data/reference/data_versions.json` | 公开文件只描述版本、结构、覆盖范围与状态 |
 | 研究实验配置 | `configs/decision-model-research.v1.json` | **设计记录，不是可启动训练的配方**；未定项保留 null |
@@ -97,7 +97,7 @@ python -m venv .venv
 
 旧模型复现可安装 `requirements/legacy-analysis.txt` 后运行 `analysis/train_v2_4.py`。依赖版本来自 Mac 现状，仅作历史环境记录；本次不重新训练旧模型。旧审计还缺上述单年工作簿与群体校准表，直接运行 `audit_2026_actuals.py` 不会成功。
 
-页面 HTML 可直接浏览。通用架构生成器已移入 `scripts/build_local_training_page.py`，模板和图源在 `deliverables/architecture/`。仅修改页面时才需 `requirements/publishing.txt` 与 Chromium；Mermaid JS 支持文件在私密包的 `data/private/handoff_20261109/support/`，也可自行取得同版本资源。示例：
+页面 HTML 可直接浏览。通用架构生成器在 `scripts/build_local_training_page.py`。唯一内容源为 `deliverables/architecture/local-training.data.json`，模块、组件、API 契约及引用统一维护；模板只管样式与交互，HTML 和 Mermaid 图源由生成器产生，勿分别手改。维护说明见同目录 `README.md`。仅修改页面时才需 `requirements/publishing.txt` 与 Chromium；Mermaid JS 支持文件在私密包的 `data/private/handoff_20261109/support/`，也可自行取得同版本资源。示例：
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements/publishing.txt

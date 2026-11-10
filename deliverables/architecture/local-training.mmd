@@ -1,32 +1,54 @@
+%% Generated from local-training.data.json; edit the JSON source.
 flowchart TB
-    AI["研发 AI／研究人员"]
+    actor["研发 AI／研究人员"]
     subgraph LAN["本地可信环境 · DGX Spark 等算力"]
-      API["受控 API
-身份与参数校验"]
-      JOB["作业管理
-固定版本配方 · 资源预算"]
-      DATA[("真实数据
-本地版本与划分")]
-      PREP["整理与特征处理"]
-      TRAIN["模型训练与本地奖励"]
-      EVAL["评测与诊断"]
-      STORE[("本地实验记录
-模型与检查点")]
-      OUT["结果出口
-核准字段 · 结构化证据"]
-      API --> JOB
-      DATA --> PREP --> TRAIN --> EVAL
-      JOB --> PREP
-      JOB --> TRAIN
-      JOB --> EVAL
-      TRAIN --> STORE
-      EVAL --> STORE
-      STORE --> OUT
-      API --> OUT
+      control["M1 · 受控入口与作业管理
+FastAPI · Pydantic
+run_experiment
+待集成"]
+      data["M2 · 真实数据与版本
+describe_dataset
+接口待做"]
+      prepare["M3 · 整理与特征处理
+pandas · Datasets
+prepare_dataset
+待领域适配"]
+      split["M4 · 数据划分
+scikit-learn
+create_split
+规则待落实"]
+      train["M5 · 模型训练
+PyTorch · PEFT
+单次前向 · 决策层＋LoRA
+待适配与实测"]
+      reward["M6 · 本地奖励与决策优化
+PyTorch
+领域奖励 · RLCD 式目标
+待定义与验证"]
+      evaluate["M7 · 评测与诊断
+scikit-learn
+get_diagnostics
+口径待固定"]
+      record["M8 · 实验记录与本地产物
+MLflow
+compare_runs
+待集成"]
+      output["M9 · 结果出口与信息边界
+核准字段 · 结构化证据
+规则与实现待补"]
     end
-    AI -->|"配方、版本和预算"| API
-    OUT -->|"元数据、指标和诊断"| AI
+    actor -->|"配方 · 版本 · 预算"| control
+    control -->|"注册配方执行"| prepare
+    data -->|"本地真实数据"| prepare
+    prepare --> split
+    split --> train
+    train <-->|"本地奖励与约束"| reward
+    train --> evaluate
+    train -->|"检查点"| record
+    evaluate -->|"指标与证据"| record
+    record --> output
+    output -->|"核准元数据与诊断"| actor
     classDef compute fill:#e6f0eb,stroke:#33715a,color:#183c2c
     classDef private fill:#f7eddb,stroke:#ac8745,color:#654a1c
-    class API,JOB,PREP,TRAIN,EVAL,OUT compute
-    class DATA,STORE private
+    class control,prepare,split,train,reward,evaluate,output compute
+    class data,record private

@@ -27,7 +27,7 @@
 |---|---|---|
 | [difficulty-rubric-v2-yang](https://s.shareone.vip/s/difficulty-rubric-v2-yang) | 主 SSOT：计划 v3.4，含完整历史区 | `deliverables/rubric/v2.html` |
 | [sodu-physics-rubric-paper-v1](https://s.shareone.vip/s/sodu-physics-rubric-paper-v1) | 历史论文稿 v2.4.4，本轮未重写 | `deliverables/paper/v1.html` |
-| [本地决策模型训练与 AI 协作架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) | 通用独立架构 v0.1，组件、接口和信息边界；服务待实现 | `deliverables/architecture/local-training.html` |
+| [本地决策模型训练与 AI 协作架构](https://s.shareone.vip/s/ben-di-jue-ce-mo-xing-xun-lian-yu-ai-xie-zuo-jia-gou) | 通用独立架构 v0.2：组件、接口与要求在图中对应；同一 JSON 源生成 | `deliverables/architecture/local-training.html` |
 
 Git 仓库管理源文件与历史；ShareOne 提供阅读和评论。主 SSOT 保持原链接，绑定 GitHub 固定提交。更新源文件并提交、推送后，需将原分享的 `remote_url` 更新到新提交；不得另建分享或默默改成跟随分支。见 [页面状态](context/shareone_state.md)。
 

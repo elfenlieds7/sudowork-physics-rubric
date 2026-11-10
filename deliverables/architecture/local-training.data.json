@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "document": {
+    "version": "0.2",
+    "updated": "2026-11-10",
+    "evidence_reviewed": "2026-11-09",
+    "title": "本地决策模型训练与 AI 协作架构",
+    "lead": "真实数据供本地整理、训练、奖励计算和评测；研发 AI 通过受控接口提出实验、获取诊断并比较结果。",
+    "status": "库的基础能力已核对；组合服务与目标设备仍待验证。",
+    "initial_module": "prepare"
+  },
+  "references": {
+    "pandas": {
+      "title": "pandas · 读取 Excel",
+      "label": "pandas",
+      "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html"
+    },
+    "datasets": {
+      "title": "Hugging Face Datasets · 数据处理",
+      "label": "Datasets",
+      "url": "https://huggingface.co/docs/datasets/en/process"
+    },
+    "sklearn": {
+      "title": "scikit-learn · GroupKFold",
+      "label": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html"
+    },
+    "torch": {
+      "title": "PyTorch · 参数优化",
+      "label": "PyTorch",
+      "url": "https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html"
+    },
+    "peft": {
+      "title": "PEFT · LoRA",
+      "label": "PEFT",
+      "url": "https://huggingface.co/docs/peft/main/en/conceptual_guides/lora"
+    },
+    "mlflow": {
+      "title": "MLflow · 实验记录",
+      "label": "MLflow",
+      "url": "https://mlflow.org/docs/latest/ml/tracking/"
+    },
+    "fastapi": {
+      "title": "FastAPI · 响应模型",
+      "label": "FastAPI",
+      "url": "https://fastapi.tiangolo.com/tutorial/response-model/"
+    },
+    "pydantic": {
+      "title": "Pydantic · 模型与校验",
+      "label": "Pydantic",
+      "url": "https://pydantic.dev/docs/validation/latest/concepts/models/"
+    },
+    "background": {
+      "title": "FastAPI · 重计算后台任务的说明",
+      "label": "训练进程与 API 分离",
+      "url": "https://fastapi.tiangolo.com/tutorial/background-tasks/#caveat"
+    },
+    "decision": {
+      "title": "微软 · Decision-1 公开技术说明",
+      "label": "Decision-1",
+      "url": "https://commandline.microsoft.com/microsoft-decision-1-model-foundry/"
+    },
+    "clef": {
+      "title": "Cloudflare · Clef 与 RLCD 说明",
+      "label": "Clef",
+      "url": "https://blog.cloudflare.com/clef-decision-models/"
+    },
+    "nvidia": {
+      "title": "NVIDIA · Spark 的 PyTorch 微调示例",
+      "label": "Spark 环境起点",
+      "url": "https://github.com/NVIDIA/dgx-spark-playbooks/tree/main/nvidia/pytorch-fine-tune"
+    },
+    "sklearn_metrics": {
+      "title": "scikit-learn · 预测误差与评测指标",
+      "label": "scikit-learn",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html"
+    }
+  },
+  "modules": [
+    {
+      "id": "control",
+      "code": "M1",
+      "title": "受控入口与作业管理",
+      "short_title": "入口与作业",
+      "diagram_note": "配方 · 版本 · 预算",
+      "status": "服务整合待实现",
+      "short_status": "待集成",
+      "kind": "compute",
+      "purpose": "研发 AI 的调用入口。根据注册好的版本与配方安排本地作业，提供持久化状态、停止和恢复能力。",
+      "reuse": [
+        {
+          "ref": "fastapi",
+          "text": "构建接口与响应模型。"
+        },
+        {
+          "ref": "pydantic",
+          "text": "校验请求、响应的类型与结构。"
+        }
+      ],
+      "requirements": [
+        "实现身份与参数校验、配方注册、持久化作业状态及资源预算限制。",
+        "GPU 长任务由独立训练进程执行，不放在请求进程内。",
+        "研发代码先用公开或合成样本调试，经本地确认并固定版本后进入训练配方。",
+        "AI 账号只调用核准接口；训练服务以独立身份读取本地数据。服务代码与结果出口规则通过本地受控流程更新。"
+      ],
+      "notes": [
+        "接口以数据／模型／配方版本及注册规则调用，不提供任意 SQL、文件读取或 shell 执行。",
+        "API 包装本身不能替代文件权限和独立服务身份。"
+      ],
+      "sources": [
+        "background"
+      ]
+    },
+    {
+      "id": "data",
+      "code": "M2",
+      "title": "真实数据与版本",
+      "short_title": "本地数据",
+      "diagram_note": "本地样本 · 元数据目录",
+      "status": "本地存储原则明确；元数据接口待实现",
+      "short_status": "接口待做",
+      "kind": "private",
+      "purpose": "保留完整真实数据、来源与版本，供本地训练及评测使用；对研发 AI 开放经过确认的元数据。",
+      "reuse": [],
+      "requirements": [
+        "建立字段语义、单位、类型、数据版本、可用划分与训练配方的目录。",
+        "原始记录、身份映射和逐条敏感标签留在本地，不通过元数据接口返回。",
+        "原始数据与规范化数据之间保留来源和转换记录。"
+      ],
+      "notes": [
+        "已记录、实施时再细化：分层抽样覆盖正常与边界情况；脱敏样本保留调试所需结构；合成数据用于接口测试和错误复现。公开样本可以直接使用。",
+        "合成数据用于训练的价值需要真实评测；不能仅因数据是合成的，就认定没有隐私风险或可以替代真实标签。"
+      ],
+      "sources": []
+    },
+    {
+      "id": "prepare",
+      "code": "M3",
+      "title": "整理与特征处理",
+      "short_title": "整理与特征",
+      "diagram_note": "读取 · 转换 · 核验",
+      "status": "基础库已明确；领域适配待做",
+      "short_status": "待领域适配",
+      "kind": "compute",
+      "purpose": "把本地来源文件整理成可追溯、可验证的训练输入，保留缺失与异常的处理依据。",
+      "reuse": [
+        {
+          "ref": "pandas",
+          "text": "读取表格文件。"
+        },
+        {
+          "ref": "datasets",
+          "text": "进行批量转换、过滤及训练数据组织。"
+        }
+      ],
+      "requirements": [
+        "根据领域确定缺失处理、字段变换与特征规则。",
+        "登记输入版本、转换规则版本、输出版本以及验证结果。",
+        "不得把没有提供的真实标签补成零；具体缺失与覆盖口径由领域项目定义。"
+      ],
+      "notes": [],
+      "sources": []
+    },
+    {
+      "id": "split",
+      "code": "M4",
+      "title": "数据划分",
+      "short_title": "划分",
+      "diagram_note": "按组／时间 · 测试集封存",
+      "status": "划分工具可复用；分组与时间规则待落实",
+      "short_status": "规则待落实",
+      "kind": "compute",
+      "purpose": "固定训练、验证与测试边界，避免相关样本跨组及通过调试反复使用测试标签。",
+      "reuse": [
+        {
+          "ref": "sklearn",
+          "text": "GroupKFold 支持按组互斥划分。"
+        }
+      ],
+      "requirements": [
+        "定义领域分组与时间规则，并检查组间重叠和时间泄漏。",
+        "保存划分 ID、规则版本和随机种子；预处理与校准只使用训练部分拟合。",
+        "封存最终测试集，不把它当作反复采样和调试的来源。"
+      ],
+      "notes": [],
+      "sources": []
+    },
+    {
+      "id": "train",
+      "code": "M5",
+      "title": "模型训练",
+      "short_title": "训练",
+      "diagram_note": "单次前向 · 决策层＋LoRA",
+      "status": "训练基础可复用；模型适配和设备待实测",
+      "short_status": "待适配与实测",
+      "kind": "compute",
+      "purpose": "按 Decision-1 公开的同类路线，训练单次前向输出候选决策概率的模型，并建立可核对的监督起点。",
+      "reuse": [
+        {
+          "ref": "torch",
+          "text": "提供张量运算、参数优化及训练基础。"
+        },
+        {
+          "ref": "peft",
+          "text": "提供 LoRA 参数适配。"
+        }
+      ],
+      "requirements": [
+        "实现决策输出层、候选选项读出和底座适配。",
+        "先建立决策层＋LoRA 的监督起点，并保留较小训练范围的对照；是否扩大到全参，由留出结果与资源决定。",
+        "在目标设备验证前向、反向、内存占用、停止与检查点恢复；具体依赖版本在验证后锁定。",
+        "Jev 保留为可用性／效果参照；训练使用可获得的开源模型。"
+      ],
+      "notes": [
+        "本地训练使用完整真实数据；研发 AI 不必读取原始记录。",
+        "不预设全参微调优于 LoRA，不承诺未经评测的吞吐或精度。"
+      ],
+      "sources": [
+        "decision",
+        "nvidia"
+      ]
+    },
+    {
+      "id": "reward",
+      "code": "M6",
+      "title": "本地奖励与决策优化",
+      "short_title": "奖励与优化",
+      "diagram_note": "领域奖励 · RLCD 式目标",
+      "status": "需自定义领域奖励及训练循环并验证",
+      "short_status": "待定义与验证",
+      "kind": "compute",
+      "purpose": "把领域目标、奖励分项与约束接入本地训练循环，独立判断 RLCD 式优化是否产生稳定增益。",
+      "reuse": [
+        {
+          "ref": "torch",
+          "text": "复用张量运算和优化器等基础能力；这些基础工具不等于完整 RLCD 训练配方。"
+        }
+      ],
+      "requirements": [
+        "定义领域奖励、约束和诊断，先核对典型与边界情况。",
+        "实现并验证 RLCD 式目标与更新循环；尚未确认能直接复用的完整 Decision-1 复现训练配方。",
+        "从监督起点继续实验，与同预算继续监督训练比较；分开记录监督与 RLCD 式结果。",
+        "每批奖励在本地计算，避免训练过程往返远程接口。"
+      ],
+      "notes": [
+        "Clef 的公开说明可作同类路线参考，不代表厂商完整配方已公开或我们已精确复现。"
+      ],
+      "sources": [
+        "clef"
+      ]
+    },
+    {
+      "id": "evaluate",
+      "code": "M7",
+      "title": "评测与诊断",
+      "short_title": "评测与诊断",
+      "diagram_note": "误差 · 校准 · 奖励分项",
+      "status": "指标工具可复用；领域评测口径待固定",
+      "short_status": "口径待固定",
+      "kind": "compute",
+      "purpose": "产生能继续追问的诊断证据，区分数据问题、训练问题、泛化问题与资源问题。",
+      "reuse": [
+        {
+          "ref": "sklearn_metrics",
+          "text": "复用预测误差等指标工具；按任务确定概率校准与稳健性的评测口径。"
+        }
+      ],
+      "requirements": [
+        "诊断包含训练曲线、分组误差及样本数、校准统计、奖励分项与异常比例、吞吐和内存。",
+        "错误报告处理夹带的原文；需要更细诊断时使用已核准的分组或分布视图。",
+        "同预算比较并标注可计算的不确定性；证据不足时明确说明。"
+      ],
+      "notes": [
+        "不把诊断缩减成“完成＋一个平均误差”。若汇总仍无法解释问题，先补结构化诊断，再按需制作核准的脱敏或合成复现样本。"
+      ],
+      "sources": []
+    },
+    {
+      "id": "record",
+      "code": "M8",
+      "title": "实验记录与本地产物",
+      "short_title": "记录与产物",
+      "diagram_note": "指标 · 版本 · 检查点",
+      "status": "记录组件明确；项目整合与出口待做",
+      "short_status": "待集成",
+      "kind": "private",
+      "purpose": "保留实验参数、环境和产物，使结果可复现、不同实验可比较。",
+      "reuse": [
+        {
+          "ref": "mlflow",
+          "text": "在本地记录参数、代码版本、指标和输出产物。"
+        }
+      ],
+      "requirements": [
+        "绑定数据、划分、代码、模型、配方、奖励与环境版本。",
+        "模型权重、检查点和含原文的日志保留本地。",
+        "向外仅导出核准字段；实验记录服务本身不替代结果出口规则。"
+      ],
+      "notes": [],
+      "sources": []
+    },
+    {
+      "id": "output",
+      "code": "M9",
+      "title": "结果出口与信息边界",
+      "short_title": "结果出口",
+      "diagram_note": "核准字段 · 结构化证据",
+      "status": "开放范围已约定；出口规则与实现待补",
+      "short_status": "规则与实现待补",
+      "kind": "compute",
+      "purpose": "向研发 AI 返回足够细、可追问的证据，同时检查实际返回内容。",
+      "reuse": [],
+      "requirements": [
+        "可以开放：经确认不含敏感值的字段含义与单位、版本、划分、配方、接口契约，以及训练曲线、分组指标、奖励诊断和资源状态。",
+        "本地保留：原始记录、身份映射、逐条敏感标签、含原文的日志、模型权重与检查点。",
+        "小分组或连续细分查询可能还原记录时，先合并或限制返回。",
+        "每份报告带上数据／代码／配方／奖励版本、样本数与统计口径。"
+      ],
+      "notes": [
+        "API 封装可以保持本地数据与训练算法完整；研发诊断是否同样高效，仍需用实际实验确认。"
+      ],
+      "sources": []
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "describe_dataset",
+      "owner": "data",
+      "related": [
+        "control"
+      ],
+      "input": "数据集 ID、版本",
+      "output": "字段、含义、单位、类型；可用版本、划分和允许查询的分组。"
+    },
+    {
+      "id": "prepare_dataset",
+      "owner": "prepare",
+      "related": [
+        "control"
+      ],
+      "input": "数据版本、转换规则版本",
+      "output": "新版本 ID、记录数、缺失／异常统计、处理规则和验证结论。"
+    },
+    {
+      "id": "create_split",
+      "owner": "split",
+      "related": [
+        "control"
+      ],
+      "input": "数据版本、划分规则、种子",
+      "output": "划分 ID、各组规模、组间重叠与时间泄漏检查。"
+    },
+    {
+      "id": "run_experiment",
+      "owner": "control",
+      "related": [
+        "train",
+        "reward"
+      ],
+      "input": "数据／划分／模型／配方／奖励版本、预算",
+      "output": "作业 ID、实际配置、环境与代码版本；后续可停止或按检查点恢复。"
+    },
+    {
+      "id": "get_diagnostics",
+      "owner": "evaluate",
+      "related": [
+        "control",
+        "output"
+      ],
+      "input": "作业 ID、核准的诊断视图",
+      "output": "训练曲线、分组误差与样本数、校准统计、奖励分项及异常比例、吞吐与内存、处理后的错误类型。"
+    },
+    {
+      "id": "compare_runs",
+      "owner": "record",
+      "related": [
+        "control",
+        "evaluate",
+        "output"
+      ],
+      "input": "作业 ID 列表、比较规则",
+      "output": "版本与预算是否可比、指标差异及可计算的不确定性；不足以判断时明确标注。"
+    }
+  ],
+  "edges": [
+    {
+      "from": "actor",
+      "to": "control",
+      "label": "配方 · 版本 · 预算"
+    },
+    {
+      "from": "control",
+      "to": "prepare",
+      "label": "注册配方执行"
+    },
+    {
+      "from": "data",
+      "to": "prepare",
+      "label": "本地真实数据"
+    },
+    {
+      "from": "prepare",
+      "to": "split"
+    },
+    {
+      "from": "split",
+      "to": "train"
+    },
+    {
+      "from": "train",
+      "to": "reward",
+      "label": "本地奖励与约束",
+      "bidirectional": true
+    },
+    {
+      "from": "train",
+      "to": "evaluate"
+    },
+    {
+      "from": "train",
+      "to": "record",
+      "label": "检查点"
+    },
+    {
+      "from": "evaluate",
+      "to": "record",
+      "label": "指标与证据"
+    },
+    {
+      "from": "record",
+      "to": "output"
+    },
+    {
+      "from": "output",
+      "to": "actor",
+      "label": "核准元数据与诊断"
+    }
+  ],
+  "phases": [
+    {
+      "title": "设备与数据契约",
+      "text": "核对登录、驱动、框架和内存；登记字段、版本及可导出结果。",
+      "modules": [
+        "control",
+        "data",
+        "train"
+      ]
+    },
+    {
+      "title": "跑通监督闭环",
+      "text": "本地整理、划分、决策层＋LoRA 训练、评测和记录；验证停止与恢复。",
+      "modules": [
+        "prepare",
+        "split",
+        "train",
+        "evaluate",
+        "record"
+      ]
+    },
+    {
+      "title": "验证奖励增益",
+      "text": "核对奖励行为，再做 RLCD 式实验及同预算对照；按结果决定是否扩大更新范围。",
+      "modules": [
+        "reward",
+        "evaluate"
+      ]
+    }
+  ]
+}
